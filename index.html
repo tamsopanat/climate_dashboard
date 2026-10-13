@@ -93,43 +93,114 @@
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(100, 116, 139, 0.8);
         }
-    </style>
+    
+        /* Sidebar Collapse Transitions & Mini Dock Styling */
+        #dashboard-sidebar {
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+        }
+
+        #dashboard-sidebar.sidebar-collapsed {
+            width: 5rem !important; /* 80px */
+            min-width: 5rem !important;
+        }
+
+        #dashboard-sidebar.sidebar-collapsed .sidebar-text {
+            display: none !important;
+        }
+
+        #dashboard-sidebar.sidebar-collapsed .sidebar-header-box {
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+            flex-direction: column !important;
+            gap: 0.75rem !important;
+            align-items: center !important;
+        }
+
+        #dashboard-sidebar.sidebar-collapsed .sidebar-toggle-btn {
+            margin-left: 0 !important;
+        }
+
+        #dashboard-sidebar.sidebar-collapsed .sidebar-divider-box {
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+            justify-content: center !important;
+        }
+
+        #dashboard-sidebar.sidebar-collapsed .sidebar-tabs-container {
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+        }
+
+        #dashboard-sidebar.sidebar-collapsed .sidebar-tab-btn {
+            justify-content: center !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            width: 3.25rem !important;
+            height: 3.25rem !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            border-radius: 1rem !important;
+        }
+
+        #dashboard-sidebar.sidebar-collapsed .sidebar-footer-box {
+            justify-content: center !important;
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+        }
+</style>
 </head>
 
 <body class="bg-gray-100 text-gray-800 font-sans antialiased min-h-screen flex flex-col md:flex-row selection:bg-blue-100 selection:text-blue-900">
 
         <!-- ========================================================================= -->
-    <!-- LEFT SIDEBAR NAVIGATION (Matches Reference Template)                     -->
+    <!-- LEFT SIDEBAR NAVIGATION (Matches Reference Template - Collapsible)        -->
     <!-- ========================================================================= -->
-    <aside class="hidden md:flex flex-col w-72 lg:w-80 bg-[#f4f5fb] text-gray-900 min-h-screen sticky top-0 border-r border-gray-200/90 shadow-2xs z-40 shrink-0 select-none">
+    <aside id="dashboard-sidebar" class="hidden md:flex flex-col w-72 lg:w-80 bg-[#f4f5fb] text-gray-900 min-h-screen sticky top-0 border-r border-gray-200/90 shadow-2xs z-40 shrink-0 select-none">
         
-        <!-- Branding Header -->
-        <div class="px-6 pt-7 pb-4">
-            <div class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-white rounded-xl shadow-xs border border-gray-200/60 p-1 flex items-center justify-center shrink-0">
+        <!-- Branding Header with Sidebar Collapse Toggle Button -->
+        <div class="px-5 pt-6 pb-4 flex items-center justify-between gap-2.5 sidebar-header-box transition-all">
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="w-11 h-11 bg-white rounded-xl shadow-xs border border-gray-200/70 p-1 flex items-center justify-center shrink-0">
                     <img src="lhs_logo.png" alt="Learning Health System Thailand" class="w-full h-full object-contain rounded-lg">
                 </div>
-                <div>
-                    <h1 class="text-sm lg:text-[15px] font-black text-gray-900 leading-tight uppercase tracking-tight font-sans">
+                <div class="sidebar-text truncate">
+                    <h1 class="text-sm font-black text-gray-900 leading-tight uppercase tracking-tight font-sans">
                         LEARNING HEALTH<br>SYSTEM THAILAND
                     </h1>
                 </div>
             </div>
+            
+            <!-- Sidebar Width Collapse Toggle -->
+            <button type="button" id="btn-toggle-sidebar" onclick="toggleSidebar()"
+                class="sidebar-toggle-btn p-2 rounded-xl text-gray-400 hover:text-gray-900 hover:bg-gray-200/70 transition shrink-0 cursor-pointer"
+                title="ยุบ/ขยายแถบเมนู (Toggle Sidebar)">
+                <svg id="sidebar-toggle-icon" class="w-5 h-5 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
         </div>
 
-        <!-- Section Divider: —— CLIMATE ————————————————————— -->
-        <div class="px-6 my-4 flex items-center">
-            <div class="w-4 border-t border-gray-300"></div>
-            <span class="px-2.5 text-xs font-bold uppercase tracking-wider text-gray-400 font-sans">CLIMATE</span>
-            <div class="flex-grow border-t border-gray-300"></div>
+        <!-- Section Divider: —— CLIMATE ————————————————————— (Collapsible Accordion) -->
+        <div class="px-5 my-3 flex items-center justify-between sidebar-divider-box">
+            <button type="button" onclick="toggleClimateSection()" id="btn-toggle-climate"
+                class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-400 font-sans hover:text-gray-700 transition cursor-pointer w-full"
+                title="ยุบ/ขยายกลุ่มแท็บ CLIMATE">
+                <div class="w-3 border-t border-gray-300 shrink-0"></div>
+                <span class="sidebar-text text-[11px] font-black tracking-widest text-gray-400">CLIMATE</span>
+                <div class="flex-grow border-t border-gray-300"></div>
+                <svg id="climate-chevron" class="w-3.5 h-3.5 sidebar-text transition-transform duration-200 shrink-0 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
         </div>
 
-        <!-- Navigation Tabs Section -->
-        <div class="flex-1 px-4 space-y-2 overflow-y-auto">
+        <!-- Navigation Tabs Section (Collapsible Container) -->
+        <div class="flex-1 px-4 space-y-2 overflow-y-auto sidebar-tabs-container transition-all duration-300" id="climate-tabs-container">
             <nav class="space-y-2.5">
                 <!-- Tab 1: คุณภาพอากาศรายพื้นที่ -->
                 <button type="button" id="nav-tab-env" onclick="switchDashboardTab('env')"
-                    class="w-full text-left px-4 py-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3.5 group cursor-pointer font-bold text-gray-900 hover:bg-gray-200/50">
+                    title="คุณภาพอากาศรายพื้นที่"
+                    class="sidebar-tab-btn w-full text-left px-4 py-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3.5 group cursor-pointer font-bold text-gray-900 hover:bg-gray-200/50">
                     <span id="nav-tab-env-icon" class="shrink-0 flex items-center justify-center">
                         <!-- Air/Haze SVG Icon matching screenshot -->
                         <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
@@ -143,14 +214,15 @@
                             <path d="M5 21h14" />
                         </svg>
                     </span>
-                    <span id="nav-tab-env-text" class="text-sm lg:text-[15px] tracking-tight truncate flex-1 leading-snug">
+                    <span id="nav-tab-env-text" class="sidebar-text text-sm lg:text-[15px] tracking-tight truncate flex-1 leading-snug">
                         คุณภาพอากาศรายพื้นที่
                     </span>
                 </button>
 
                 <!-- Tab 2: ผู้ป่วยกลุ่มเสี่ยง PM2.5/ความร้อน -->
                 <button type="button" id="nav-tab-risk" onclick="switchDashboardTab('risk')"
-                    class="w-full text-left px-4 py-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3.5 group cursor-pointer font-bold text-gray-900 hover:bg-gray-200/50">
+                    title="ผู้ป่วยกลุ่มเสี่ยง PM2.5/ความร้อน"
+                    class="sidebar-tab-btn w-full text-left px-4 py-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3.5 group cursor-pointer font-bold text-gray-900 hover:bg-gray-200/50">
                     <span id="nav-tab-risk-icon" class="shrink-0 flex items-center justify-center">
                         <!-- Thermometer + Alert Mark SVG Icon matching screenshot -->
                         <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
@@ -158,7 +230,7 @@
                             <path d="M16 6h1.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-.75.75H16a.75.75 0 0 1-.75-.75v-5.5A.75.75 0 0 1 16 6zM16.75 16a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z" />
                         </svg>
                     </span>
-                    <span id="nav-tab-risk-text" class="text-sm lg:text-[15px] tracking-tight truncate flex-1 leading-snug">
+                    <span id="nav-tab-risk-text" class="sidebar-text text-sm lg:text-[15px] tracking-tight truncate flex-1 leading-snug">
                         ผู้ป่วยกลุ่มเสี่ยง PM2.5/ความร้อน
                     </span>
                 </button>
@@ -166,14 +238,12 @@
         </div>
 
         <!-- Sidebar Bottom / Footer -->
-        <div class="p-4 border-t border-gray-200/70 bg-[#f4f5fb]/80">
-            <div class="flex items-center justify-between text-xs text-gray-500 font-medium">
-                <div class="flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>Live Surveillance</span>
-                </div>
-                <span class="text-[11px] text-gray-400 font-mono">v2.4 Unified</span>
+        <div class="p-3.5 border-t border-gray-200/70 bg-[#f4f5fb]/80 sidebar-footer-box flex items-center justify-between text-xs text-gray-500 font-medium">
+            <div class="flex items-center gap-1.5 truncate">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+                <span class="sidebar-text">Live Surveillance</span>
             </div>
+            <span class="sidebar-text text-[11px] text-gray-400 font-mono">v2.4 Unified</span>
         </div>
     </aside>
 
@@ -1587,7 +1657,56 @@
     <!-- JAVASCRIPT: UNIFIED TAB COORDINATOR, SCRIPT ENGINES                       -->
     <!-- ========================================================================= -->
     <script>
-        // =========================================================================
+                // --- Sidebar & Tab Collapse Controllers ---
+        function toggleSidebar() {
+            const sidebar = document.getElementById('dashboard-sidebar');
+            if (!sidebar) return;
+
+            sidebar.classList.toggle('sidebar-collapsed');
+            const isCollapsed = sidebar.classList.contains('sidebar-collapsed');
+            try {
+                localStorage.setItem('sidebar_collapsed', isCollapsed ? 'true' : 'false');
+            } catch (e) {}
+
+            const icon = document.getElementById('sidebar-toggle-icon');
+            const btn = document.getElementById('btn-toggle-sidebar');
+            if (icon) {
+                if (isCollapsed) {
+                    icon.innerHTML = '<polyline points="9 18 15 12 9 6"></polyline>';
+                    if (btn) btn.setAttribute('title', 'ขยายแถบเมนู (Expand Sidebar)');
+                } else {
+                    icon.innerHTML = '<polyline points="15 18 9 12 15 6"></polyline>';
+                    if (btn) btn.setAttribute('title', 'ยุบแถบเมนู (Collapse Sidebar)');
+                }
+            }
+
+            // Invalidate Leaflet and Chart.js sizes
+            setTimeout(() => {
+                if (typeof leafletMap !== 'undefined' && leafletMap) {
+                    leafletMap.invalidateSize();
+                }
+                if (typeof envChart !== 'undefined' && envChart) {
+                    envChart.resize();
+                }
+            }, 320);
+        }
+
+        function toggleClimateSection() {
+            const container = document.getElementById('climate-tabs-container');
+            const chevron = document.getElementById('climate-chevron');
+            if (!container) return;
+
+            const isHidden = container.classList.contains('hidden');
+            if (isHidden) {
+                container.classList.remove('hidden');
+                if (chevron) chevron.style.transform = 'rotate(0deg)';
+            } else {
+                container.classList.add('hidden');
+                if (chevron) chevron.style.transform = 'rotate(-90deg)';
+            }
+        }
+
+// =========================================================================
         // 0. UNIFIED DASHBOARD TAB COORDINATOR & RESIZE ADAPTER
         // =========================================================================
         function switchDashboardTab(tabId) {
@@ -4712,7 +4831,19 @@
             }
 
             // 3. Tab routing based on URL Hash or parameters
-            const urlParams = new URLSearchParams(window.location.search);
+                        // Restore sidebar collapsed preference
+            try {
+                if (localStorage.getItem('sidebar_collapsed') === 'true') {
+                    const sb = document.getElementById('dashboard-sidebar');
+                    const icon = document.getElementById('sidebar-toggle-icon');
+                    const btn = document.getElementById('btn-toggle-sidebar');
+                    if (sb) sb.classList.add('sidebar-collapsed');
+                    if (icon) icon.innerHTML = '<polyline points="9 18 15 12 9 6"></polyline>';
+                    if (btn) btn.setAttribute('title', 'ขยายแถบเมนู (Expand Sidebar)');
+                }
+            } catch (e) {}
+
+const urlParams = new URLSearchParams(window.location.search);
             const hash = window.location.hash.toLowerCase();
             if (hash === '#risk' || hash === '#patient' || urlParams.get('tab') === 'risk' || urlParams.get('test')) {
                 switchDashboardTab('risk');
