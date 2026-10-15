@@ -607,47 +607,27 @@
             <div class="max-w-7xl mx-auto space-y-8">
                 <!-- Header: Healthcare Provider View with Hospital Role Switcher -->
     <header class="bg-white/95 backdrop-blur-md rounded-2xl shadow-md border border-gray-200/90 px-6 py-3.5 flex flex-wrap items-center justify-end gap-3 sticky top-[116px] md:top-4 z-40 transition-all">
-        <!-- Role Switcher & Active Hospital Dropdown Controls (Hospital Role Only) -->
+        <!-- Role Switcher & Active Hospital Dropdown Controls -->
         <div class="flex flex-wrap items-center justify-end gap-3 w-full">
-            <!-- Role Pill (Hospital Only) -->
-            <div
-                class="inline-flex items-center gap-1 bg-emerald-50 border border-emerald-200/80 p-1 rounded-xl text-xs font-semibold text-emerald-800 shadow-2xs">
-                <button type="button"
-                    class="px-3 py-1.5 rounded-lg flex items-center gap-1.5 bg-white text-emerald-800 shadow-xs font-bold cursor-default"
-                    title="ดูข้อมูลในฐานะสถานพยาบาล / รพ.สต.">
-                    <span>🏥</span> Hospital
+            <!-- Role Pill -->
+            <div id="role-pill-container"
+                class="inline-flex items-center gap-1 bg-indigo-50 border border-indigo-200/80 p-1 rounded-xl text-xs font-semibold text-indigo-800 shadow-2xs">
+                <button type="button" id="role-pill-btn"
+                    class="px-3 py-1.5 rounded-lg flex items-center gap-1.5 bg-white text-indigo-900 shadow-xs font-bold cursor-default"
+                    title="สลับบทบาท อบจ. หรือ รพ.สต.">
+                    <span id="role-pill-icon">🏛️</span> <span id="role-pill-text">อบจ. (Provincial PAO)</span>
                 </button>
-            </div>
-
-            <!-- Active Hospital Current Environment Pill -->
-            <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 shadow-2xs">
-                <div class="flex items-center gap-1 text-xs font-bold text-sky-900">
-                    <span class="text-sm">🌫️</span>
-                    <span class="text-gray-500 font-semibold text-[11px]">PM2.5:</span>
-                    <strong id="hosp-env-pm25-val" class="font-mono font-black text-sky-700">--</strong>
-                    <span class="text-[10px] text-gray-400 font-normal">µg/m³</span>
-                    <span id="hosp-env-pm25-badge" class="text-[10px] font-black px-1.5 py-0.2 rounded text-white bg-gray-400">--</span>
-                </div>
-                <span class="text-gray-300">|</span>
-                <div class="flex items-center gap-1 text-xs font-bold text-amber-950">
-                    <span class="text-sm">🌡️</span>
-                    <span class="text-gray-500 font-semibold text-[11px]">ความร้อน:</span>
-                    <strong id="hosp-env-temp-val" class="font-mono font-black text-amber-700">--</strong>
-                    <span class="text-[10px] text-gray-400 font-normal">°C</span>
-                    <span id="hosp-env-temp-badge" class="text-[10px] font-black px-1.5 py-0.2 rounded text-white bg-gray-400">--</span>
-                </div>
             </div>
 
             <!-- Active Hospital / User Dropdown -->
             <div
                 class="flex items-center gap-2.5 bg-gray-50 border border-gray-200 rounded-xl px-3 py-1.5 shadow-2xs min-w-[280px] sm:min-w-[340px]">
-                <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm transition"
+                <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm transition"
                     id="hospital-user-avatar">
-                    🏥
+                    🏛️
                 </div>
                 <div class="flex flex-col truncate w-full">
-                    <span class="text-[9px] uppercase font-extrabold text-gray-400 tracking-wider">Select Active
-                        Hospital / รพ.สต.</span>
+                    <span class="text-[9px] uppercase font-extrabold text-gray-400 tracking-wider">Select Role / Hospital / อบจ.</span>
                     <select id="hospital-user-select" onchange="onHospitalChanged(this.value)"
                         class="bg-transparent text-sm font-bold text-gray-900 outline-none cursor-pointer truncate w-full">
                         <!-- Populated dynamically via JS -->
@@ -695,78 +675,30 @@
                 </div>
             </div>
 
-            <!-- DUAL RISK BOX (Patient at risk in both Air & Heat hazards) -->
-            <div onclick="toggleRiskFilter('dual')" id="card-risk-dual"
-                class="relative overflow-hidden rounded-2xl border-2 border-purple-400 bg-gradient-to-r from-red-600 via-rose-600 to-purple-800 text-white p-5 shadow-sm hover:shadow-lg transition-all duration-200 cursor-pointer group mb-6"
-                title="คลิกเพื่อกรองรายชื่อผู้ป่วยกลุ่มเสี่ยงซ้ำซ้อน 2 ด้าน">
-                <div
-                    class="absolute -right-10 -bottom-10 w-44 h-44 bg-white/10 rounded-full blur-2xl pointer-events-none">
-                </div>
-                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 relative z-10">
-                    <div class="space-y-1.5 max-w-3xl">
-                        <div class="flex flex-wrap items-center gap-2">
-                            <span
-                                class="bg-white/20 backdrop-blur-xs text-white text-xs font-black px-3 py-0.5 rounded-full uppercase tracking-wider border border-white/30 flex items-center gap-1.5 shadow-2xs">
-                                <span class="w-2 h-2 rounded-full bg-amber-300 animate-ping"></span>
-                                กลุ่มเสี่ยง 2 ด้าน
-                            </span>
-                            <span id="badge-dual-selected"
-                                class="hidden bg-white text-purple-900 text-xs font-black px-2.5 py-0.5 rounded-full shadow-2xs">
-                                ✓ เลือกแล้ว
-                            </span>
-                        </div>
-                        <h3 class="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
-                            ผู้ป่วยที่มีความเสี่ยงทั้งด้านคุณภาพอากาศและดัชนีความร้อนพร้อมกัน
-                        </h3>
-                        <p class="text-xs sm:text-sm text-white/90 leading-relaxed font-normal">
-                            เกณฑ์ประเมิน: ผู้ป่วยที่สัมผัสฝุ่น PM2.5 ในระดับเสี่ยง (<strong>สีส้ม/สีแดง &gt; 37.5
-                                µg/m³</strong>) <strong>ร่วมกับ</strong> ดัชนีความร้อนในเกณฑ์เฝ้าระวังอันตราย
-                            (<strong>เตือนภัย / อันตราย / อันตรายมาก ≥ 33.0 °C</strong>)
-                            ซึ่งเพิ่มความเสี่ยงต่อระบบทางเดินหายใจและระบบหัวใจหลอดเลือดพร้อมกัน
-                        </p>
-                    </div>
-                    <div
-                        class="shrink-0 flex items-center gap-4 bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/25 self-start lg:self-auto min-w-[240px] justify-between">
-                        <div class="text-left">
-                            <div class="text-[11px] uppercase tracking-wider text-white/80 font-bold">จำนวนผู้ป่วยเสี่ยง
-                                2 ด้าน</div>
-                            <div class="text-3xl sm:text-4xl font-black text-white leading-tight">
-                                <span id="count-dual-risk">0</span> <span class="text-sm font-semibold">ราย</span>
-                            </div>
-                            <div class="text-[11px] text-amber-200 mt-1 font-semibold flex items-center gap-1">
-                                <span>🚨</span> วิกฤตสูงสุด (แดง + ≥42°C): <strong id="count-dual-critical"
-                                    class="underline">0</strong> ราย
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <span id="action-dual-text"
-                                class="inline-flex items-center gap-1 text-xs font-bold bg-white text-purple-900 group-hover:bg-amber-300 group-hover:text-yellow-950 px-3 py-2 rounded-xl transition shadow-sm whitespace-nowrap">
-                                ดูกลุ่มนี้ →
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- AIR RISK: 5 LEVELS -->
-            <div class="mb-6">
-                <div class="flex items-center justify-between mb-3">
-                    <div class="flex items-center gap-2">
+            <!-- HAZARDS COMPARISON CONTAINER (Air Risk & Temperature Risk side-by-side in Hospital view) -->
+            <div id="hazards-comparison-container" class="space-y-6 mb-6">
+                <!-- AIR RISK: 5 LEVELS -->
+                <div id="section-air-risk" class="flex flex-col">
+                    <div class="flex items-center gap-2 mb-3">
                         <span
-                            class="w-7 h-7 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-sm">🌫️</span>
+                            class="w-7 h-7 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-sm shrink-0">🌫️</span>
                         <div>
-                            <h3 class="text-base font-black text-gray-900 tracking-tight flex items-center gap-2">
-                                เกณฑ์ความเสี่ยงคุณภาพอากาศ
-                            </h3>
-                            <p class="text-xs text-gray-500">มาตรฐานดัชนีคุณภาพอากาศประเทศไทย (ค่าฝุ่น PM2.5 µg/m³)</p>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h3 class="text-base font-black text-gray-900 tracking-tight">
+                                    เกณฑ์ความเสี่ยงคุณภาพอากาศ
+                                </h3>
+                                <span id="air-view-badge" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
+                                    🏛️ ภาพรวม อบจ. (ทุกระดับ)
+                                </span>
+                            </div>
+                            <p id="air-view-desc" class="text-xs text-gray-500">มาตรฐานดัชนีคุณภาพอากาศประเทศไทย (ค่าฝุ่น PM2.5 µg/m³)</p>
                         </div>
                     </div>
-                </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
-                    <!-- Air 1: ฟ้า (ดีมาก) -->
-                    <div onclick="toggleRiskFilter('air', 1)" id="card-air-1"
-                        class="rounded-2xl overflow-hidden border border-sky-300 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs"
+                    <div id="grid-air-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 grow">
+                        <!-- Air 1: ฟ้า (ดีมาก) -->
+                        <div onclick="toggleRiskFilter('air', 1)" id="card-air-1"
+                            class="rounded-2xl overflow-hidden border border-sky-300 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs h-full"
                         title="คลิกเพื่อกรองผู้ป่วยระดับสีฟ้า">
                         <div class="p-3.5 bg-gradient-to-br from-sky-50 to-sky-100/60 border-b border-sky-200">
                             <div class="flex items-center justify-between gap-1 mb-1.5">
@@ -826,7 +758,7 @@
 
                     <!-- Air 2: เขียว (ดี) -->
                     <div onclick="toggleRiskFilter('air', 2)" id="card-air-2"
-                        class="rounded-2xl overflow-hidden border border-lime-300 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs"
+                        class="rounded-2xl overflow-hidden border border-lime-300 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs h-full"
                         title="คลิกเพื่อกรองผู้ป่วยระดับสีเขียว">
                         <div class="p-3.5 bg-gradient-to-br from-lime-50 to-lime-100/60 border-b border-lime-200">
                             <div class="flex items-center justify-between gap-1 mb-1.5">
@@ -886,7 +818,7 @@
 
                     <!-- Air 3: เหลือง (ปานกลาง) -->
                     <div onclick="toggleRiskFilter('air', 3)" id="card-air-3"
-                        class="rounded-2xl overflow-hidden border border-amber-300 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs"
+                        class="rounded-2xl overflow-hidden border border-amber-300 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs h-full"
                         title="คลิกเพื่อกรองผู้ป่วยระดับสีเหลือง">
                         <div class="p-3.5 bg-gradient-to-br from-amber-50 to-amber-100/60 border-b border-amber-200">
                             <div class="flex items-center justify-between gap-1 mb-1.5">
@@ -946,7 +878,7 @@
 
                     <!-- Air 4: ส้ม (เริ่มมีผลกระทบ) -->
                     <div onclick="toggleRiskFilter('air', 4)" id="card-air-4"
-                        class="rounded-2xl overflow-hidden border border-orange-400 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs"
+                        class="rounded-2xl overflow-hidden border border-orange-400 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs h-full"
                         title="คลิกเพื่อกรองผู้ป่วยระดับสีส้ม">
                         <div class="p-3.5 bg-gradient-to-br from-orange-50 to-orange-100/60 border-b border-orange-300">
                             <div class="flex items-center justify-between gap-1 mb-1.5">
@@ -1006,7 +938,7 @@
 
                     <!-- Air 5: แดง (มีผลกระทบต่อสุขภาพ) -->
                     <div onclick="toggleRiskFilter('air', 5)" id="card-air-5"
-                        class="rounded-2xl overflow-hidden border border-red-500 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs"
+                        class="rounded-2xl overflow-hidden border border-red-500 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs h-full"
                         title="คลิกเพื่อกรองผู้ป่วยระดับสีแดง">
                         <div class="p-3.5 bg-gradient-to-br from-red-50 to-red-100/60 border-b border-red-300">
                             <div class="flex items-center justify-between gap-1 mb-1.5">
@@ -1067,24 +999,27 @@
             </div>
 
             <!-- TEMPERATURE RISK: 4 LEVELS (ตามภาพดัชนีความร้อน กรมอนามัย) -->
-            <div>
-                <div class="flex items-center justify-between mb-3">
-                    <div class="flex items-center gap-2">
-                        <span
-                            class="w-7 h-7 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-sm">🌡️</span>
-                        <div>
-                            <h3 class="text-base font-black text-gray-900 tracking-tight flex items-center gap-2">
+            <div id="section-temp-risk" class="flex flex-col">
+                <div class="flex items-center gap-2 mb-3">
+                    <span
+                        class="w-7 h-7 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-sm shrink-0">🌡️</span>
+                    <div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <h3 class="text-base font-black text-gray-900 tracking-tight">
                                 เกณฑ์ความเสี่ยงดัชนีความร้อน
                             </h3>
-                            <p class="text-xs text-gray-500">ตามเกณฑ์ดัชนีความร้อน (°C) กรมอนามัย กระทรวงสาธารณสุข</p>
+                            <span id="temp-view-badge" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
+                                🏛️ ภาพรวม อบจ. (ทุกระดับ)
+                            </span>
                         </div>
+                        <p id="temp-view-desc" class="text-xs text-gray-500">ตามเกณฑ์ดัชนีความร้อน (°C) กรมอนามัย กระทรวงสาธารณสุข</p>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div id="grid-temp-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 grow">
                     <!-- Temp 1: เฝ้าระวัง (27.0 - 32.9 °C) -->
                     <div onclick="toggleRiskFilter('temp', 1)" id="card-temp-1"
-                        class="rounded-2xl overflow-hidden border border-emerald-300 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs"
+                        class="rounded-2xl overflow-hidden border border-emerald-300 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs h-full"
                         title="คลิกเพื่อกรองผู้ป่วยระดับเฝ้าระวัง">
                         <div
                             class="p-4 bg-gradient-to-br from-emerald-50 to-emerald-100/70 border-b border-emerald-200">
@@ -1150,7 +1085,7 @@
 
                     <!-- Temp 2: เตือนภัย (33.0 - 41.9 °C) -->
                     <div onclick="toggleRiskFilter('temp', 2)" id="card-temp-2"
-                        class="rounded-2xl overflow-hidden border border-amber-300 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs"
+                        class="rounded-2xl overflow-hidden border border-amber-300 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs h-full"
                         title="คลิกเพื่อกรองผู้ป่วยระดับเตือนภัย">
                         <div class="p-4 bg-gradient-to-br from-amber-50 to-amber-100/70 border-b border-amber-200">
                             <div class="flex items-center justify-between gap-1 mb-2">
@@ -1215,7 +1150,7 @@
 
                     <!-- Temp 3: อันตราย (42.0 - 51.9 °C) -->
                     <div onclick="toggleRiskFilter('temp', 3)" id="card-temp-3"
-                        class="rounded-2xl overflow-hidden border border-orange-400 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs"
+                        class="rounded-2xl overflow-hidden border border-orange-400 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs h-full"
                         title="คลิกเพื่อกรองผู้ป่วยระดับอันตราย">
                         <div class="p-4 bg-gradient-to-br from-orange-50 to-orange-100/70 border-b border-orange-300">
                             <div class="flex items-center justify-between gap-1 mb-2">
@@ -1280,7 +1215,7 @@
 
                     <!-- Temp 4: อันตรายมาก (≥ 52.0 °C) -->
                     <div onclick="toggleRiskFilter('temp', 4)" id="card-temp-4"
-                        class="rounded-2xl overflow-hidden border border-red-500 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs"
+                        class="rounded-2xl overflow-hidden border border-red-500 bg-white hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-2xs h-full"
                         title="คลิกเพื่อกรองผู้ป่วยระดับอันตรายมาก">
                         <div class="p-4 bg-gradient-to-br from-red-50 to-red-100/70 border-b border-red-300">
                             <div class="flex items-center justify-between gap-1 mb-2">
@@ -1340,6 +1275,60 @@
                                     <span id="action-temp-4" class="font-bold text-red-600 group-hover:underline">เลือก →</span>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- DUAL RISK BOX (Patient at risk in both Air & Heat hazards) -->
+            <div onclick="toggleRiskFilter('dual')" id="card-risk-dual"
+                class="relative overflow-hidden rounded-2xl border-2 border-purple-400 bg-gradient-to-r from-red-600 via-rose-600 to-purple-800 text-white p-5 shadow-sm hover:shadow-lg transition-all duration-200 cursor-pointer group"
+                title="คลิกเพื่อกรองรายชื่อผู้ป่วยกลุ่มเสี่ยงซ้ำซ้อน 2 ด้าน">
+                <div
+                    class="absolute -right-10 -bottom-10 w-44 h-44 bg-white/10 rounded-full blur-2xl pointer-events-none">
+                </div>
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 relative z-10">
+                    <div class="space-y-1.5 max-w-3xl">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span
+                                class="bg-white/20 backdrop-blur-xs text-white text-xs font-black px-3 py-0.5 rounded-full uppercase tracking-wider border border-white/30 flex items-center gap-1.5 shadow-2xs">
+                                <span class="w-2 h-2 rounded-full bg-amber-300 animate-ping"></span>
+                                กลุ่มเสี่ยง 2 ด้าน
+                            </span>
+                            <span id="badge-dual-selected"
+                                class="hidden bg-white text-purple-900 text-xs font-black px-2.5 py-0.5 rounded-full shadow-2xs">
+                                ✓ เลือกแล้ว
+                            </span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
+                            ผู้ป่วยที่มีความเสี่ยงทั้งด้านคุณภาพอากาศและดัชนีความร้อนพร้อมกัน
+                        </h3>
+                        <p class="text-xs sm:text-sm text-white/90 leading-relaxed font-normal">
+                            เกณฑ์ประเมิน: ผู้ป่วยที่สัมผัสฝุ่น PM2.5 ในระดับเสี่ยง (<strong>สีส้ม/สีแดง &gt; 37.5
+                                µg/m³</strong>) <strong>ร่วมกับ</strong> ดัชนีความร้อนในเกณฑ์เฝ้าระวังอันตราย
+                            (<strong>เตือนภัย / อันตราย / อันตรายมาก ≥ 33.0 °C</strong>)
+                            ซึ่งเพิ่มความเสี่ยงต่อระบบทางเดินหายใจและระบบหัวใจหลอดเลือดพร้อมกัน
+                        </p>
+                    </div>
+                    <div
+                        class="shrink-0 flex items-center gap-4 bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/25 self-start lg:self-auto min-w-[240px] justify-between">
+                        <div class="text-left">
+                            <div class="text-[11px] uppercase tracking-wider text-white/80 font-bold">จำนวนผู้ป่วยเสี่ยง
+                                2 ด้าน</div>
+                            <div class="text-3xl sm:text-4xl font-black text-white leading-tight">
+                                <span id="count-dual-risk">0</span> <span class="text-sm font-semibold">ราย</span>
+                            </div>
+                            <div class="text-[11px] text-amber-200 mt-1 font-semibold flex items-center gap-1">
+                                <span>🚨</span> วิกฤตสูงสุด (แดง + ≥42°C): <strong id="count-dual-critical"
+                                    class="underline">0</strong> ราย
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span id="action-dual-text"
+                                class="inline-flex items-center gap-1 text-xs font-bold bg-white text-purple-900 group-hover:bg-amber-300 group-hover:text-yellow-950 px-3 py-2 rounded-xl transition shadow-sm whitespace-nowrap">
+                                ดูกลุ่มนี้ →
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -3877,6 +3866,17 @@
         // Each hospital faces ambient environmental conditions in its catchment area
         const HOSPITAL_ROLES = [
             {
+                id: 'usr_pao',
+                hospcode: 'PAO',
+                name: 'องค์การบริหารส่วนจังหวัด (อบจ.เชียงใหม่)',
+                desc: 'ภาพรวมทุกพื้นที่และทุก รพ.สต. ในจังหวัดเชียงใหม่',
+                shortName: 'อบจ.เชียงใหม่',
+                tambon: 'ภาพรวมทุกพื้นที่ในจังหวัด',
+                isPao: true,
+                pm25: null, // Covers provincial range
+                temp: null  // Covers provincial range
+            },
+            {
                 id: 'usr_maechan',
                 hospcode: '06735',
                 name: 'โรงพยาบาลส่งเสริมสุขภาพตำบลสันทราย',
@@ -3928,7 +3928,7 @@
             }
         ];
 
-        let currentHospitalCode = '06735'; // Default active hospital role: รพ.สต.สันทราย
+        let currentHospitalCode = 'PAO'; // Default active view: อบจ. (ภาพรวมทั้งจังหวัด)
 
         function populateHospitalDropdown() {
             const select = document.getElementById('hospital-user-select');
@@ -3938,7 +3938,11 @@
             HOSPITAL_ROLES.forEach(h => {
                 const opt = document.createElement('option');
                 opt.value = h.hospcode;
-                opt.textContent = `${h.name} (${h.hospcode})`;
+                if (h.isPao) {
+                    opt.textContent = `🏛️ ${h.name} (ภาพรวมทุกพื้นที่)`;
+                } else {
+                    opt.textContent = `🏥 ${h.name} (${h.hospcode})`;
+                }
                 if (h.hospcode === currentHospitalCode) opt.selected = true;
                 select.appendChild(opt);
             });
@@ -3946,29 +3950,51 @@
 
         function onHospitalChanged(code) {
             currentHospitalCode = code;
+
             const subtitle = document.getElementById('active-hospital-subtitle');
-            const h = HOSPITAL_ROLES.find(x => x.hospcode === code);
-            if (subtitle && h) subtitle.textContent = `${h.name} (${h.hospcode}) • ${h.desc}`;
+            const h = HOSPITAL_ROLES.find(x => x.hospcode === code) || HOSPITAL_ROLES[0];
+            const isPao = !!h.isPao;
 
-            // Update Header Environmental Display for Active Hospital
-            if (h) {
-                const elPm25Val = document.getElementById('hosp-env-pm25-val');
-                const elPm25Badge = document.getElementById('hosp-env-pm25-badge');
-                const elTempVal = document.getElementById('hosp-env-temp-val');
-                const elTempBadge = document.getElementById('hosp-env-temp-badge');
-
-                const air = getAirRisk(h.pm25);
-                const tempRisk = getTempRisk(h.temp);
-
-                if (elPm25Val) elPm25Val.textContent = h.pm25.toFixed(1);
-                if (elPm25Badge) {
-                    elPm25Badge.textContent = air.colorName;
-                    elPm25Badge.className = `text-[10px] font-black px-1.5 py-0.2 rounded shadow-2xs ${air.badgeClass}`;
+            if (subtitle) {
+                if (isPao) {
+                    subtitle.textContent = `${h.name} • ${h.desc}`;
+                } else {
+                    subtitle.textContent = `${h.name} (${h.hospcode}) • ${h.desc}`;
                 }
-                if (elTempVal) elTempVal.textContent = h.temp.toFixed(1);
-                if (elTempBadge) {
-                    elTempBadge.textContent = tempRisk.name;
-                    elTempBadge.className = `text-[10px] font-black px-1.5 py-0.2 rounded shadow-2xs ${tempRisk.badgeClass}`;
+            }
+
+            // Update Role Pill and Avatar
+            const roleBtn = document.getElementById('role-pill-btn');
+            const roleContainer = document.getElementById('role-pill-container');
+            const roleIcon = document.getElementById('role-pill-icon');
+            const roleText = document.getElementById('role-pill-text');
+            const userAvatar = document.getElementById('hospital-user-avatar');
+
+            if (isPao) {
+                if (roleIcon) roleIcon.textContent = '🏛️';
+                if (roleText) roleText.textContent = 'อบจ. (Provincial PAO)';
+                if (roleBtn) {
+                    roleBtn.className = "px-3 py-1.5 rounded-lg flex items-center gap-1.5 bg-white text-indigo-900 shadow-xs font-bold cursor-default";
+                }
+                if (roleContainer) {
+                    roleContainer.className = "inline-flex items-center gap-1 bg-indigo-50 border border-indigo-200/80 p-1 rounded-xl text-xs font-semibold text-indigo-800 shadow-2xs";
+                }
+                if (userAvatar) {
+                    userAvatar.textContent = '🏛️';
+                    userAvatar.className = "w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm transition";
+                }
+            } else {
+                if (roleIcon) roleIcon.textContent = '🏥';
+                if (roleText) roleText.textContent = 'Hospital (รพ.สต.)';
+                if (roleBtn) {
+                    roleBtn.className = "px-3 py-1.5 rounded-lg flex items-center gap-1.5 bg-white text-emerald-800 shadow-xs font-bold cursor-default";
+                }
+                if (roleContainer) {
+                    roleContainer.className = "inline-flex items-center gap-1 bg-emerald-50 border border-emerald-200/80 p-1 rounded-xl text-xs font-semibold text-emerald-800 shadow-2xs";
+                }
+                if (userAvatar) {
+                    userAvatar.textContent = '🏥';
+                    userAvatar.className = "w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm transition";
                 }
             }
 
@@ -4870,15 +4896,30 @@
 
             const searchInput = document.getElementById('patient-search')?.value.toLowerCase().trim() || "";
 
+            const isPaoMode = (currentHospitalCode === 'PAO');
             const activeHospital = HOSPITAL_ROLES.find(h => h.hospcode === currentHospitalCode) || HOSPITAL_ROLES[0];
-            const hospitalFilteredDb = allPatientsDb.filter(p => p.hosp === currentHospitalCode);
 
-            // Synchronize environmental PM2.5 and Temp with active hospital for all patients in that hospital
-            hospitalFilteredDb.forEach(p => {
-                p.pm25 = activeHospital.pm25;
-                p.temp = activeHospital.temp;
-                p.tambon = activeHospital.tambon;
-            });
+            let hospitalFilteredDb;
+            if (isPaoMode) {
+                hospitalFilteredDb = allPatientsDb;
+                // In PAO view, each patient inherits their home hospital's ambient PM2.5 and Temp
+                hospitalFilteredDb.forEach(p => {
+                    const h = HOSPITAL_ROLES.find(x => x.hospcode === p.hosp);
+                    if (h && h.pm25 != null) {
+                        p.pm25 = h.pm25;
+                        p.temp = h.temp;
+                        p.tambon = h.tambon;
+                    }
+                });
+            } else {
+                hospitalFilteredDb = allPatientsDb.filter(p => p.hosp === currentHospitalCode);
+                // Synchronize environmental PM2.5 and Temp with active hospital for all patients in that hospital
+                hospitalFilteredDb.forEach(p => {
+                    p.pm25 = activeHospital.pm25;
+                    p.temp = activeHospital.temp;
+                    p.tambon = activeHospital.tambon;
+                });
+            }
 
             // Compute risk and filter base criteria
             const baseFiltered = hospitalFilteredDb.filter(p => {
@@ -4912,8 +4953,54 @@
             if (elDual) elDual.innerText = countDual;
             if (elDualCrit) elDualCrit.innerText = countDualCrit;
 
+            // Update Air & Temp section headers & view mode badges
+            const airBadge = document.getElementById('air-view-badge');
+            const airDesc = document.getElementById('air-view-desc');
+            const tempBadge = document.getElementById('temp-view-badge');
+            const tempDesc = document.getElementById('temp-view-desc');
+
+            const activeAirLevel = (!isPaoMode && activeHospital.pm25 != null) ? getAirRisk(activeHospital.pm25).level : null;
+            const activeTempLevel = (!isPaoMode && activeHospital.temp != null) ? getTempRisk(activeHospital.temp).level : null;
+
+            const hazardsCont = document.getElementById('hazards-comparison-container');
+            const airGrid = document.getElementById('grid-air-cards');
+            const tempGrid = document.getElementById('grid-temp-cards');
+
+            if (isPaoMode) {
+                if (hazardsCont) hazardsCont.className = "space-y-6 mb-6";
+                if (airGrid) airGrid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 grow";
+                if (tempGrid) tempGrid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 grow";
+
+                if (airBadge) {
+                    airBadge.textContent = "🏛️ ภาพรวม อบจ. (ทุกระดับความเสี่ยงในจังหวัด)";
+                    airBadge.className = "text-[11px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-800 border border-indigo-200";
+                }
+                if (airDesc) airDesc.textContent = "แสดงภาพรวมผู้ป่วยในทุก รพ.สต. จำแนกตาม 5 ระดับคุณภาพอากาศมาตรฐาน";
+
+                if (tempBadge) {
+                    tempBadge.textContent = "🏛️ ภาพรวม อบจ. (ทุกระดับความเสี่ยงในจังหวัด)";
+                    tempBadge.className = "text-[11px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-800 border border-indigo-200";
+                }
+                if (tempDesc) tempDesc.textContent = "แสดงภาพรวมผู้ป่วยในทุก รพ.สต. จำแนกตาม 4 ระดับดัชนีความร้อน";
+            } else {
+                if (hazardsCont) hazardsCont.className = "grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 items-stretch";
+                if (airGrid) airGrid.className = "grid grid-cols-1 w-full gap-3.5 grow";
+                if (tempGrid) tempGrid.className = "grid grid-cols-1 w-full gap-4 grow";
+
+                if (airBadge) {
+                    airBadge.textContent = `🏥 ${activeHospital.shortName}`;
+                    airBadge.className = "text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200";
+                }
+                if (airDesc) airDesc.textContent = `ค่าฝุ่นในพื้นที่: ${activeHospital.pm25} µg/m³ (ความเสี่ยงระดับที่ ${activeAirLevel})`;
+
+                if (tempBadge) {
+                    tempBadge.textContent = `🏥 ${activeHospital.shortName}`;
+                    tempBadge.className = "text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200";
+                }
+                if (tempDesc) tempDesc.textContent = `ค่าความร้อนในพื้นที่: ${activeHospital.temp} °C (ความเสี่ยงระดับที่ ${activeTempLevel})`;
+            }
+
             // 2. Air Risk Boxes (5 levels): Calculate Normal and Risk patient counts
-            const activeAirLevel = getAirRisk(activeHospital.pm25).level;
             for (let lvl = 1; lvl <= 5; lvl++) {
                 const countNormal = baseFiltered.filter(p => p._risk.air.level === lvl && !isAirRiskPatient(p)).length;
                 const countRisk = baseFiltered.filter(p => p._risk.air.level === lvl && isAirRiskPatient(p)).length;
@@ -4922,6 +5009,7 @@
                 const elNormal = document.getElementById(`count-air-normal-${lvl}`);
                 const elRisk = document.getElementById(`count-air-risk-${lvl}`);
                 const elTotal = document.getElementById(`count-air-${lvl}`);
+                const elCard = document.getElementById(`card-air-${lvl}`);
                 const elCurrentBadge = document.getElementById(`badge-air-current-${lvl}`);
 
                 if (elNormal) elNormal.innerText = countNormal;
@@ -4929,16 +5017,23 @@
                 if (elTotal) elTotal.innerText = countTotal;
 
                 if (elCurrentBadge) {
-                    if (lvl === activeAirLevel) {
+                    if (!isPaoMode && lvl === activeAirLevel) {
                         elCurrentBadge.classList.remove('hidden');
                     } else {
                         elCurrentBadge.classList.add('hidden');
                     }
                 }
+
+                if (elCard) {
+                    if (isPaoMode || lvl === activeAirLevel) {
+                        elCard.classList.remove('hidden');
+                    } else {
+                        elCard.classList.add('hidden');
+                    }
+                }
             }
 
             // 3. Temperature Risk Boxes (4 levels): Calculate Normal and Risk patient counts
-            const activeTempLevel = getTempRisk(activeHospital.temp).level;
             for (let lvl = 1; lvl <= 4; lvl++) {
                 const countNormal = baseFiltered.filter(p => p._risk.temp.level === lvl && !isTempRiskPatient(p)).length;
                 const countRisk = baseFiltered.filter(p => p._risk.temp.level === lvl && isTempRiskPatient(p)).length;
@@ -4947,6 +5042,7 @@
                 const elNormal = document.getElementById(`count-temp-normal-${lvl}`);
                 const elRisk = document.getElementById(`count-temp-risk-${lvl}`);
                 const elTotal = document.getElementById(`count-temp-${lvl}`);
+                const elCard = document.getElementById(`card-temp-${lvl}`);
                 const elCurrentBadge = document.getElementById(`badge-temp-current-${lvl}`);
 
                 if (elNormal) elNormal.innerText = countNormal;
@@ -4954,10 +5050,18 @@
                 if (elTotal) elTotal.innerText = countTotal;
 
                 if (elCurrentBadge) {
-                    if (lvl === activeTempLevel) {
+                    if (!isPaoMode && lvl === activeTempLevel) {
                         elCurrentBadge.classList.remove('hidden');
                     } else {
                         elCurrentBadge.classList.add('hidden');
+                    }
+                }
+
+                if (elCard) {
+                    if (isPaoMode || lvl === activeTempLevel) {
+                        elCard.classList.remove('hidden');
+                    } else {
+                        elCard.classList.add('hidden');
                     }
                 }
             }
@@ -5111,7 +5215,12 @@
             }
 
             const currentHospObj = HOSPITAL_ROLES.find(h => h.hospcode === currentHospitalCode);
-            const hospLabel = currentHospObj ? `${currentHospObj.name} (${currentHospObj.hospcode})` : "";
+            let hospLabel = "";
+            if (currentHospObj) {
+                hospLabel = currentHospObj.isPao 
+                    ? `${currentHospObj.name} (ภาพรวมทุก รพ.สต.)` 
+                    : `${currentHospObj.name} (${currentHospObj.hospcode})`;
+            }
             document.getElementById('table-footer').innerText = `Showing ${currentFilteredPatients.length} of ${hospitalFilteredDb.length} patients for ${hospLabel}${filterStatusText}.`;
         }
 
