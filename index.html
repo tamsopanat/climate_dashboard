@@ -619,9 +619,28 @@
                 </button>
             </div>
 
+            <!-- Active Hospital Current Environment Pill -->
+            <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 shadow-2xs">
+                <div class="flex items-center gap-1 text-xs font-bold text-sky-900">
+                    <span class="text-sm">🌫️</span>
+                    <span class="text-gray-500 font-semibold text-[11px]">PM2.5:</span>
+                    <strong id="hosp-env-pm25-val" class="font-mono font-black text-sky-700">--</strong>
+                    <span class="text-[10px] text-gray-400 font-normal">µg/m³</span>
+                    <span id="hosp-env-pm25-badge" class="text-[10px] font-black px-1.5 py-0.2 rounded text-white bg-gray-400">--</span>
+                </div>
+                <span class="text-gray-300">|</span>
+                <div class="flex items-center gap-1 text-xs font-bold text-amber-950">
+                    <span class="text-sm">🌡️</span>
+                    <span class="text-gray-500 font-semibold text-[11px]">ความร้อน:</span>
+                    <strong id="hosp-env-temp-val" class="font-mono font-black text-amber-700">--</strong>
+                    <span class="text-[10px] text-gray-400 font-normal">°C</span>
+                    <span id="hosp-env-temp-badge" class="text-[10px] font-black px-1.5 py-0.2 rounded text-white bg-gray-400">--</span>
+                </div>
+            </div>
+
             <!-- Active Hospital / User Dropdown -->
             <div
-                class="flex items-center gap-2.5 bg-gray-50 border border-gray-200 rounded-xl px-3 py-1.5 shadow-2xs min-w-[280px] sm:min-w-[360px]">
+                class="flex items-center gap-2.5 bg-gray-50 border border-gray-200 rounded-xl px-3 py-1.5 shadow-2xs min-w-[280px] sm:min-w-[340px]">
                 <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm transition"
                     id="hospital-user-avatar">
                     🏥
@@ -768,15 +787,39 @@
                             <div class="text-xs text-gray-600 leading-relaxed font-normal">
                                 คุณภาพอากาศดีมาก ปลอดมลพิษ ผู้ป่วยและประชาชนทำกิจกรรมกลางแจ้งได้ตามปกติ
                             </div>
-                            <div class="pt-2 border-t border-gray-100 flex items-end justify-between">
-                                <div>
-                                    <span class="text-[10px] text-gray-400 uppercase font-semibold">จำนวนผู้ป่วย</span>
-                                    <div class="text-2xl font-black text-sky-600 leading-none"><span
-                                            id="count-air-1">0</span> <span
-                                            class="text-xs font-normal text-gray-500">ราย</span></div>
+                            <div class="pt-2.5 border-t border-gray-100 space-y-2">
+                                <div id="badge-air-current-1" class="hidden">
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-bold text-sky-800 bg-sky-100/90 px-2 py-0.5 rounded-full border border-sky-300 w-full justify-center">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-sky-600 animate-ping"></span>
+                                        ระดับปัจจุบัน รพ.
+                                    </span>
                                 </div>
-                                <span id="action-air-1"
-                                    class="text-[11px] font-bold text-sky-600 group-hover:underline">เลือก →</span>
+                                <div class="grid grid-cols-2 gap-1.5 bg-gray-50/90 p-1.5 rounded-xl border border-gray-200/70">
+                                    <div class="bg-white p-2 rounded-lg border border-gray-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-semibold text-gray-500 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                                            <span>ทั่วไป</span>
+                                        </div>
+                                        <div class="text-base font-black text-gray-900 mt-0.5 leading-none">
+                                            <span id="count-air-normal-1">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-2 rounded-lg border border-red-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-bold text-red-600 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                            <span>กลุ่มเสี่ยง</span>
+                                        </div>
+                                        <div class="text-base font-black text-red-600 mt-0.5 leading-none">
+                                            <span id="count-air-risk-1">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-[11px] pt-0.5">
+                                    <span class="text-gray-400 font-medium">รวม: <strong class="text-gray-800 font-bold" id="count-air-1">0</strong> ราย</span>
+                                    <span id="action-air-1" class="font-bold text-sky-600 group-hover:underline">เลือก →</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -804,15 +847,39 @@
                             <div class="text-xs text-gray-600 leading-relaxed font-normal">
                                 คุณภาพอากาศดี สามารถทำกิจกรรมกลางแจ้งและการท่องเที่ยวได้ตามปกติ
                             </div>
-                            <div class="pt-2 border-t border-gray-100 flex items-end justify-between">
-                                <div>
-                                    <span class="text-[10px] text-gray-400 uppercase font-semibold">จำนวนผู้ป่วย</span>
-                                    <div class="text-2xl font-black text-lime-700 leading-none"><span
-                                            id="count-air-2">0</span> <span
-                                            class="text-xs font-normal text-gray-500">ราย</span></div>
+                            <div class="pt-2.5 border-t border-gray-100 space-y-2">
+                                <div id="badge-air-current-2" class="hidden">
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-bold text-lime-800 bg-lime-100/90 px-2 py-0.5 rounded-full border border-lime-300 w-full justify-center">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-lime-600 animate-ping"></span>
+                                        ระดับปัจจุบัน รพ.
+                                    </span>
                                 </div>
-                                <span id="action-air-2"
-                                    class="text-[11px] font-bold text-lime-700 group-hover:underline">เลือก →</span>
+                                <div class="grid grid-cols-2 gap-1.5 bg-gray-50/90 p-1.5 rounded-xl border border-gray-200/70">
+                                    <div class="bg-white p-2 rounded-lg border border-gray-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-semibold text-gray-500 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                                            <span>ทั่วไป</span>
+                                        </div>
+                                        <div class="text-base font-black text-gray-900 mt-0.5 leading-none">
+                                            <span id="count-air-normal-2">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-2 rounded-lg border border-red-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-bold text-red-600 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                            <span>กลุ่มเสี่ยง</span>
+                                        </div>
+                                        <div class="text-base font-black text-red-600 mt-0.5 leading-none">
+                                            <span id="count-air-risk-2">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-[11px] pt-0.5">
+                                    <span class="text-gray-400 font-medium">รวม: <strong class="text-gray-800 font-bold" id="count-air-2">0</strong> ราย</span>
+                                    <span id="action-air-2" class="font-bold text-lime-700 group-hover:underline">เลือก →</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -840,15 +907,39 @@
                             <div class="text-xs text-gray-600 leading-relaxed font-normal">
                                 คุณภาพอากาศปานกลาง ประชาชนทั่วไปทำกิจกรรมได้ กลุ่มเสี่ยงควรลดกิจกรรมกลางแจ้ง
                             </div>
-                            <div class="pt-2 border-t border-gray-100 flex items-end justify-between">
-                                <div>
-                                    <span class="text-[10px] text-gray-400 uppercase font-semibold">จำนวนผู้ป่วย</span>
-                                    <div class="text-2xl font-black text-amber-600 leading-none"><span
-                                            id="count-air-3">0</span> <span
-                                            class="text-xs font-normal text-gray-500">ราย</span></div>
+                            <div class="pt-2.5 border-t border-gray-100 space-y-2">
+                                <div id="badge-air-current-3" class="hidden">
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-bold text-amber-800 bg-amber-100/90 px-2 py-0.5 rounded-full border border-amber-300 w-full justify-center">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-600 animate-ping"></span>
+                                        ระดับปัจจุบัน รพ.
+                                    </span>
                                 </div>
-                                <span id="action-air-3"
-                                    class="text-[11px] font-bold text-amber-700 group-hover:underline">เลือก →</span>
+                                <div class="grid grid-cols-2 gap-1.5 bg-gray-50/90 p-1.5 rounded-xl border border-gray-200/70">
+                                    <div class="bg-white p-2 rounded-lg border border-gray-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-semibold text-gray-500 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                                            <span>ทั่วไป</span>
+                                        </div>
+                                        <div class="text-base font-black text-gray-900 mt-0.5 leading-none">
+                                            <span id="count-air-normal-3">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-2 rounded-lg border border-red-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-bold text-red-600 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                            <span>กลุ่มเสี่ยง</span>
+                                        </div>
+                                        <div class="text-base font-black text-red-600 mt-0.5 leading-none">
+                                            <span id="count-air-risk-3">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-[11px] pt-0.5">
+                                    <span class="text-gray-400 font-medium">รวม: <strong class="text-gray-800 font-bold" id="count-air-3">0</strong> ราย</span>
+                                    <span id="action-air-3" class="font-bold text-amber-700 group-hover:underline">เลือก →</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -876,15 +967,39 @@
                             <div class="text-xs text-gray-600 leading-relaxed font-normal">
                                 เริ่มมีผลกระทบ สวมหน้ากากป้องกันฝุ่น เลี่ยงทำกิจกรรมกลางแจ้ง ผู้มีโรคปอดเฝ้าระวังอาการ
                             </div>
-                            <div class="pt-2 border-t border-gray-100 flex items-end justify-between">
-                                <div>
-                                    <span class="text-[10px] text-gray-400 uppercase font-semibold">จำนวนผู้ป่วย</span>
-                                    <div class="text-2xl font-black text-orange-600 leading-none"><span
-                                            id="count-air-4">0</span> <span
-                                            class="text-xs font-normal text-gray-500">ราย</span></div>
+                            <div class="pt-2.5 border-t border-gray-100 space-y-2">
+                                <div id="badge-air-current-4" class="hidden">
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-bold text-orange-800 bg-orange-100/90 px-2 py-0.5 rounded-full border border-orange-300 w-full justify-center">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-orange-600 animate-ping"></span>
+                                        ระดับปัจจุบัน รพ.
+                                    </span>
                                 </div>
-                                <span id="action-air-4"
-                                    class="text-[11px] font-bold text-orange-600 group-hover:underline">เลือก →</span>
+                                <div class="grid grid-cols-2 gap-1.5 bg-gray-50/90 p-1.5 rounded-xl border border-gray-200/70">
+                                    <div class="bg-white p-2 rounded-lg border border-gray-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-semibold text-gray-500 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                                            <span>ทั่วไป</span>
+                                        </div>
+                                        <div class="text-base font-black text-gray-900 mt-0.5 leading-none">
+                                            <span id="count-air-normal-4">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-2 rounded-lg border border-red-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-bold text-red-600 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                            <span>กลุ่มเสี่ยง</span>
+                                        </div>
+                                        <div class="text-base font-black text-red-600 mt-0.5 leading-none">
+                                            <span id="count-air-risk-4">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-[11px] pt-0.5">
+                                    <span class="text-gray-400 font-medium">รวม: <strong class="text-gray-800 font-bold" id="count-air-4">0</strong> ราย</span>
+                                    <span id="action-air-4" class="font-bold text-orange-600 group-hover:underline">เลือก →</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -912,15 +1027,39 @@
                             <div class="text-xs text-gray-600 leading-relaxed font-normal">
                                 มีผลกระทบต่อสุขภาพ งดกิจกรรมกลางแจ้งเด็ดขาด พักในห้องปลอดฝุ่น สวมหน้ากาก N95
                             </div>
-                            <div class="pt-2 border-t border-gray-100 flex items-end justify-between">
-                                <div>
-                                    <span class="text-[10px] text-gray-400 uppercase font-semibold">จำนวนผู้ป่วย</span>
-                                    <div class="text-2xl font-black text-red-600 leading-none"><span
-                                            id="count-air-5">0</span> <span
-                                            class="text-xs font-normal text-gray-500">ราย</span></div>
+                            <div class="pt-2.5 border-t border-gray-100 space-y-2">
+                                <div id="badge-air-current-5" class="hidden">
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-bold text-red-800 bg-red-100/90 px-2 py-0.5 rounded-full border border-red-300 w-full justify-center">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-ping"></span>
+                                        ระดับปัจจุบัน รพ.
+                                    </span>
                                 </div>
-                                <span id="action-air-5"
-                                    class="text-[11px] font-bold text-red-600 group-hover:underline">เลือก →</span>
+                                <div class="grid grid-cols-2 gap-1.5 bg-gray-50/90 p-1.5 rounded-xl border border-gray-200/70">
+                                    <div class="bg-white p-2 rounded-lg border border-gray-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-semibold text-gray-500 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                                            <span>ทั่วไป</span>
+                                        </div>
+                                        <div class="text-base font-black text-gray-900 mt-0.5 leading-none">
+                                            <span id="count-air-normal-5">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-2 rounded-lg border border-red-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-bold text-red-600 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                            <span>กลุ่มเสี่ยง</span>
+                                        </div>
+                                        <div class="text-base font-black text-red-600 mt-0.5 leading-none">
+                                            <span id="count-air-risk-5">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-[11px] pt-0.5">
+                                    <span class="text-gray-400 font-medium">รวม: <strong class="text-gray-800 font-bold" id="count-air-5">0</strong> ราย</span>
+                                    <span id="action-air-5" class="font-bold text-red-600 group-hover:underline">เลือก →</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -967,20 +1106,44 @@
                                 ผื่นจากความร้อน อาจเกิดตะคริวได้</div>
                         </div>
                         <div class="p-4 flex flex-col justify-between grow space-y-3.5">
-                            <div class="text-xs text-gray-600 leading-relaxed">
+                            <div class="text-xs text-gray-600 leading-relaxed font-normal">
                                 <div class="font-bold text-gray-700 mb-1">คำแนะนำการปฏิบัติ:</div>
                                 <div>• ประชาชนทั่วไป: ทำกิจกรรมได้ตามปกติ</div>
                                 <div>• กลุ่มเสี่ยง: ทำกิจกรรมได้ตามปกติ ดื่มน้ำสม่ำเสมอ</div>
                             </div>
-                            <div class="pt-2.5 border-t border-gray-100 flex items-end justify-between">
-                                <div>
-                                    <span class="text-[10px] text-gray-400 uppercase font-semibold">จำนวนผู้ป่วย</span>
-                                    <div class="text-2xl font-black text-emerald-700 leading-none"><span
-                                            id="count-temp-1">0</span> <span
-                                            class="text-xs font-normal text-gray-500">ราย</span></div>
+                            <div class="pt-2.5 border-t border-gray-100 space-y-2">
+                                <div id="badge-temp-current-1" class="hidden">
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-100/90 px-2 py-0.5 rounded-full border border-emerald-300 w-full justify-center">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-ping"></span>
+                                        ระดับปัจจุบัน รพ.
+                                    </span>
                                 </div>
-                                <span id="action-temp-1"
-                                    class="text-xs font-bold text-emerald-700 group-hover:underline">เลือก →</span>
+                                <div class="grid grid-cols-2 gap-1.5 bg-gray-50/90 p-1.5 rounded-xl border border-gray-200/70">
+                                    <div class="bg-white p-2 rounded-lg border border-gray-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-semibold text-gray-500 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                                            <span>ทั่วไป</span>
+                                        </div>
+                                        <div class="text-base font-black text-gray-900 mt-0.5 leading-none">
+                                            <span id="count-temp-normal-1">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-2 rounded-lg border border-red-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-bold text-red-600 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                            <span>กลุ่มเสี่ยง</span>
+                                        </div>
+                                        <div class="text-base font-black text-red-600 mt-0.5 leading-none">
+                                            <span id="count-temp-risk-1">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-[11px] pt-0.5">
+                                    <span class="text-gray-400 font-medium">รวม: <strong class="text-gray-800 font-bold" id="count-temp-1">0</strong> ราย</span>
+                                    <span id="action-temp-1" class="font-bold text-emerald-700 group-hover:underline">เลือก →</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1008,20 +1171,44 @@
                                 อาจส่งผลให้เกิดฮีทสโตรก</div>
                         </div>
                         <div class="p-4 flex flex-col justify-between grow space-y-3.5">
-                            <div class="text-xs text-gray-600 leading-relaxed">
+                            <div class="text-xs text-gray-600 leading-relaxed font-normal">
                                 <div class="font-bold text-gray-700 mb-1">คำแนะนำการปฏิบัติ:</div>
                                 <div>• ดื่มน้ำสะอาดบ่อยๆ เลี่ยงทำกิจกรรมกลางแจ้ง</div>
                                 <div>• สวมหมวก แว่นกันแดด กางร่ม ทาครีมกันแดด สังเกตอาการ</div>
                             </div>
-                            <div class="pt-2.5 border-t border-gray-100 flex items-end justify-between">
-                                <div>
-                                    <span class="text-[10px] text-gray-400 uppercase font-semibold">จำนวนผู้ป่วย</span>
-                                    <div class="text-2xl font-black text-amber-600 leading-none"><span
-                                            id="count-temp-2">0</span> <span
-                                            class="text-xs font-normal text-gray-500">ราย</span></div>
+                            <div class="pt-2.5 border-t border-gray-100 space-y-2">
+                                <div id="badge-temp-current-2" class="hidden">
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-bold text-amber-900 bg-amber-100/90 px-2 py-0.5 rounded-full border border-amber-300 w-full justify-center">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-600 animate-ping"></span>
+                                        ระดับปัจจุบัน รพ.
+                                    </span>
                                 </div>
-                                <span id="action-temp-2"
-                                    class="text-xs font-bold text-amber-700 group-hover:underline">เลือก →</span>
+                                <div class="grid grid-cols-2 gap-1.5 bg-gray-50/90 p-1.5 rounded-xl border border-gray-200/70">
+                                    <div class="bg-white p-2 rounded-lg border border-gray-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-semibold text-gray-500 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                                            <span>ทั่วไป</span>
+                                        </div>
+                                        <div class="text-base font-black text-gray-900 mt-0.5 leading-none">
+                                            <span id="count-temp-normal-2">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-2 rounded-lg border border-red-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-bold text-red-600 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                            <span>กลุ่มเสี่ยง</span>
+                                        </div>
+                                        <div class="text-base font-black text-red-600 mt-0.5 leading-none">
+                                            <span id="count-temp-risk-2">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-[11px] pt-0.5">
+                                    <span class="text-gray-400 font-medium">รวม: <strong class="text-gray-800 font-bold" id="count-temp-2">0</strong> ราย</span>
+                                    <span id="action-temp-2" class="font-bold text-amber-700 group-hover:underline">เลือก →</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1049,20 +1236,44 @@
                                 เสี่ยงโรคลมร้อนหรือฮีทสโตรกสูง</div>
                         </div>
                         <div class="p-4 flex flex-col justify-between grow space-y-3.5">
-                            <div class="text-xs text-gray-600 leading-relaxed">
+                            <div class="text-xs text-gray-600 leading-relaxed font-normal">
                                 <div class="font-bold text-gray-700 mb-1">คำแนะนำการปฏิบัติ:</div>
                                 <div>• งดทำกิจกรรมกลางแจ้งช่วง 11:00-15:00 น.</div>
                                 <div>• ห้ามทิ้งเด็กในรถ ผู้มีโรคประจำตัวเตรียมยาให้พร้อม</div>
                             </div>
-                            <div class="pt-2.5 border-t border-gray-100 flex items-end justify-between">
-                                <div>
-                                    <span class="text-[10px] text-gray-400 uppercase font-semibold">จำนวนผู้ป่วย</span>
-                                    <div class="text-2xl font-black text-orange-600 leading-none"><span
-                                            id="count-temp-3">0</span> <span
-                                            class="text-xs font-normal text-gray-500">ราย</span></div>
+                            <div class="pt-2.5 border-t border-gray-100 space-y-2">
+                                <div id="badge-temp-current-3" class="hidden">
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-bold text-orange-900 bg-orange-100/90 px-2 py-0.5 rounded-full border border-orange-300 w-full justify-center">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-orange-600 animate-ping"></span>
+                                        ระดับปัจจุบัน รพ.
+                                    </span>
                                 </div>
-                                <span id="action-temp-3"
-                                    class="text-xs font-bold text-orange-600 group-hover:underline">เลือก →</span>
+                                <div class="grid grid-cols-2 gap-1.5 bg-gray-50/90 p-1.5 rounded-xl border border-gray-200/70">
+                                    <div class="bg-white p-2 rounded-lg border border-gray-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-semibold text-gray-500 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                                            <span>ทั่วไป</span>
+                                        </div>
+                                        <div class="text-base font-black text-gray-900 mt-0.5 leading-none">
+                                            <span id="count-temp-normal-3">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-2 rounded-lg border border-red-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-bold text-red-600 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                            <span>กลุ่มเสี่ยง</span>
+                                        </div>
+                                        <div class="text-base font-black text-red-600 mt-0.5 leading-none">
+                                            <span id="count-temp-risk-3">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-[11px] pt-0.5">
+                                    <span class="text-gray-400 font-medium">รวม: <strong class="text-gray-800 font-bold" id="count-temp-3">0</strong> ราย</span>
+                                    <span id="action-temp-3" class="font-bold text-orange-700 group-hover:underline">เลือก →</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1090,20 +1301,44 @@
                                 ฮีทสโตรก (Heat stroke)</div>
                         </div>
                         <div class="p-4 flex flex-col justify-between grow space-y-3.5">
-                            <div class="text-xs text-gray-600 leading-relaxed">
+                            <div class="text-xs text-gray-600 leading-relaxed font-normal">
                                 <div class="font-bold text-gray-700 mb-1">คำแนะนำการปฏิบัติ:</div>
                                 <div>• งดกิจกรรมกลางแจ้งเด็ดขาด พักในอาคารปรับอากาศ</div>
                                 <div>• เลี่ยงดื่มชา/กาแฟ/น้ำอัดลม หากผิดปกติรีบพบแพทย์</div>
                             </div>
-                            <div class="pt-2.5 border-t border-gray-100 flex items-end justify-between">
-                                <div>
-                                    <span class="text-[10px] text-gray-400 uppercase font-semibold">จำนวนผู้ป่วย</span>
-                                    <div class="text-2xl font-black text-red-600 leading-none"><span
-                                            id="count-temp-4">0</span> <span
-                                            class="text-xs font-normal text-gray-500">ราย</span></div>
+                            <div class="pt-2.5 border-t border-gray-100 space-y-2">
+                                <div id="badge-temp-current-4" class="hidden">
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-bold text-red-900 bg-red-100/90 px-2 py-0.5 rounded-full border border-red-300 w-full justify-center">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-ping"></span>
+                                        ระดับปัจจุบัน รพ.
+                                    </span>
                                 </div>
-                                <span id="action-temp-4"
-                                    class="text-xs font-bold text-red-600 group-hover:underline">เลือก →</span>
+                                <div class="grid grid-cols-2 gap-1.5 bg-gray-50/90 p-1.5 rounded-xl border border-gray-200/70">
+                                    <div class="bg-white p-2 rounded-lg border border-gray-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-semibold text-gray-500 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                                            <span>ทั่วไป</span>
+                                        </div>
+                                        <div class="text-base font-black text-gray-900 mt-0.5 leading-none">
+                                            <span id="count-temp-normal-4">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-2 rounded-lg border border-red-200/70 flex flex-col justify-between shadow-2xs">
+                                        <div class="text-[10px] font-bold text-red-600 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                            <span>กลุ่มเสี่ยง</span>
+                                        </div>
+                                        <div class="text-base font-black text-red-600 mt-0.5 leading-none">
+                                            <span id="count-temp-risk-4">0</span>
+                                            <span class="text-[10px] font-normal text-gray-400">ราย</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-[11px] pt-0.5">
+                                    <span class="text-gray-400 font-medium">รวม: <strong class="text-gray-800 font-bold" id="count-temp-4">0</strong> ราย</span>
+                                    <span id="action-temp-4" class="font-bold text-red-600 group-hover:underline">เลือก →</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1154,6 +1389,14 @@
                             class="text-xs font-semibold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg border border-blue-200 transition">
                             เลือกทั้งหมด
                         </button>
+                        <button type="button" onclick="selectFilterPreset('air')"
+                            class="text-xs font-semibold text-sky-800 hover:text-sky-950 bg-sky-50 hover:bg-sky-100 px-3 py-1.5 rounded-lg border border-sky-300 transition flex items-center gap-1 shadow-2xs">
+                            <span>🌫️</span> เฉพาะเสี่ยงฝุ่น PM2.5 (6 เกณฑ์)
+                        </button>
+                        <button type="button" onclick="selectFilterPreset('temp')"
+                            class="text-xs font-semibold text-amber-900 hover:text-amber-950 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-lg border border-amber-300 transition flex items-center gap-1 shadow-2xs">
+                            <span>🌡️</span> เฉพาะเสี่ยงความร้อน (12 เกณฑ์)
+                        </button>
                         <button type="button" onclick="selectAllFilters(false)"
                             class="text-xs font-semibold text-gray-600 hover:text-gray-800 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg border border-gray-200 transition">
                             ล้างทั้งหมด
@@ -1161,203 +1404,233 @@
                     </div>
                 </div>
 
-                <div id="filter-container"
-                    class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50/80 p-5 rounded-xl border border-gray-200 transition-all">
-                    <!-- Column 1: Demographics & Medications -->
-                    <div class="space-y-6">
-                        <!-- Demographics -->
-                        <div>
-                            <h4
-                                class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                                <span>👤</span> ปัจจัยด้านประชากรและสรีรวิทยา
-                            </h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                                <label
-                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                    <input type="checkbox" id="chk-child-5" checked onchange="filterPatients()"
-                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                    <div class="leading-snug min-w-0">
-                                        <div class="text-xs sm:text-sm font-bold text-gray-900">เด็กเล็ก (อายุ ≤ 5 ปี)
-                                        </div>
-                                        <div class="text-[11px] text-gray-500 font-normal">ปอดกำลังพัฒนา ไวต่อมลพิษฝุ่น
-                                        </div>
-                                    </div>
-                                </label>
-                                <label
-                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                    <input type="checkbox" id="chk-newborn" checked onchange="filterPatients()"
-                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                    <div class="leading-snug min-w-0">
-                                        <div class="text-xs sm:text-sm font-bold text-gray-900">ทารก (อายุ ≤
-                                            1 ปี)</div>
-                                        <div class="text-[11px] text-gray-500 font-normal">ระบบคุมอุณหภูมิยังไม่สมบูรณ์
-                                        </div>
-                                    </div>
-                                </label>
-                                <label
-                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                    <input type="checkbox" id="chk-athlete" checked onchange="filterPatients()"
-                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                    <div class="leading-snug min-w-0">
-                                        <div class="text-xs sm:text-sm font-bold text-gray-900">
-                                            ผู้ออกกำลังหรือทำงานกลางแจ้ง</div>
-                                        <div class="text-[11px] text-gray-500 font-normal">สูดอากาศปริมาณมาก
-                                            สัมผัสฝุ่นและแดดจัด</div>
-                                    </div>
-                                </label>
-                                <label
-                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                    <input type="checkbox" id="chk-obesity" checked onchange="filterPatients()"
-                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                    <div class="leading-snug min-w-0">
-                                        <div class="text-xs sm:text-sm font-bold text-gray-900">ภาวะอ้วน</div>
-                                        <div class="text-[11px] text-gray-500 font-normal">ระบายความร้อนยาก
-                                            เสี่ยงเหนื่อยง่าย</div>
-                                    </div>
-                                </label>
-                                <label
-                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                    <input type="checkbox" id="chk-underweight" checked onchange="filterPatients()"
-                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                    <div class="leading-snug min-w-0">
-                                        <div class="text-xs sm:text-sm font-bold text-gray-900">น้ำหนักต่ำกว่าเกณฑ์
-                                        </div>
-                                        <div class="text-[11px] text-gray-500 font-normal">
-                                            เสี่ยงทุพโภชนาการและภูมิคุ้มกันต่ำ</div>
-                                    </div>
-                                </label>
-                            </div>
+                <div id="filter-container" class="space-y-4 bg-gray-50/80 p-5 rounded-xl border border-gray-200 transition-all">
+                    <!-- Hazard Criteria Legend Bar -->
+                    <div class="p-3.5 bg-white rounded-xl border border-gray-200 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <span class="font-extrabold text-gray-800 flex items-center gap-1.5">
+                                <span>📋</span> เกณฑ์จัดกลุ่มผู้ป่วย:
+                            </span>
+                            <span class="inline-flex items-center gap-1 text-[11px] font-bold text-sky-800 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-200">
+                                <span>🌫️</span> เสี่ยงฝุ่น PM2.5: เด็กเล็ก, BPD, ติดเชื้อทางเดินหายใจซ้ำ, หอบหืด, ภูมิแพ้โพรงจมูก, หัวใจพิการแต่กำเนิด
+                            </span>
+                            <span class="inline-flex items-center gap-1 text-[11px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+                                <span>🌡️</span> เสี่ยงความร้อน: ทารก, ไข้สูง, ทำงานกลางแจ้ง, ไตเรื้อรัง, ประสาท/สมอง, อ้วน, ผอม, หอบหืด, เบต้าบล็อกเกอร์, แก้แพ้, ขับปัสสาวะ, หัวใจพิการฯ
+                            </span>
                         </div>
-
-                        <!-- Medication Use -->
-                        <div>
-                            <h4
-                                class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                                <span>💊</span> ยาประจำตัวที่มีความเสี่ยงต่อสภาพอากาศ
-                            </h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                                <label
-                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                    <input type="checkbox" id="chk-beta-blocker" checked onchange="filterPatients()"
-                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                    <div class="leading-snug min-w-0">
-                                        <div class="text-xs sm:text-sm font-bold text-gray-900">ยาเบต้าบล็อกเกอร์</div>
-                                        <div class="text-[11px] text-gray-500 font-normal">ยาลดความดันหรือหัวใจ
-                                            ขัดขวางการคลายร้อน</div>
-                                    </div>
-                                </label>
-                                <label
-                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                    <input type="checkbox" id="chk-antihistamine" checked onchange="filterPatients()"
-                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                    <div class="leading-snug min-w-0">
-                                        <div class="text-xs sm:text-sm font-bold text-gray-900">ยาแก้แพ้</div>
-                                        <div class="text-[11px] text-gray-500 font-normal">ยาลดน้ำมูก
-                                            ลดการหลั่งเหงื่อสะสมความร้อน</div>
-                                    </div>
-                                </label>
-                                <label
-                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                    <input type="checkbox" id="chk-diuretic" checked onchange="filterPatients()"
-                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                    <div class="leading-snug min-w-0">
-                                        <div class="text-xs sm:text-sm font-bold text-gray-900">ยาขับปัสสาวะ</div>
-                                        <div class="text-[11px] text-gray-500 font-normal">ยาลดบวมหรือความดัน
-                                            เสี่ยงขาดน้ำเมื่อร้อนจัด</div>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
+                        <!-- Normal Patient Toggle -->
+                        <label class="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 border border-blue-200 rounded-lg cursor-pointer hover:bg-blue-100 transition shrink-0">
+                            <input type="checkbox" id="chk-normal-patient" checked onchange="filterPatients()"
+                                class="form-checkbox h-4 w-4 text-blue-600 rounded">
+                            <span class="text-xs font-bold text-blue-900">รวมผู้ป่วยทั่วไป (ไม่มีปัจจัยเปราะบาง)</span>
+                        </label>
                     </div>
 
-                    <!-- Column 2: Underlying Conditions -->
-                    <div>
-                        <h4
-                            class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                            <span>🩺</span> โรคประจำตัวและภาวะทางคลินิก
-                        </h4>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                            <label
-                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                <input type="checkbox" id="chk-bpd" checked onchange="filterPatients()"
-                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                <div class="leading-snug min-w-0">
-                                    <div class="text-xs sm:text-sm font-bold text-gray-900">โรคปอดเรื้อรังในเด็ก</div>
-                                    <div class="text-[11px] text-gray-500 font-normal">
-                                        มีประวัติโรคหลอดลมและเนื้อเยื่อปอดเปราะบาง</div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Column 1: Demographics & Medications -->
+                        <div class="space-y-6">
+                            <!-- Demographics -->
+                            <div>
+                                <h4 class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                                    <span>👤</span> ปัจจัยด้านประชากรและสรีรวิทยา
+                                </h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                    <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                        <input type="checkbox" id="chk-child-5" checked onchange="filterPatients()"
+                                            class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                        <div class="leading-snug min-w-0">
+                                            <div class="flex items-center gap-1.5 flex-wrap">
+                                                <span class="text-xs sm:text-sm font-bold text-gray-900">เด็กเล็ก (อายุ ≤ 5 ปี)</span>
+                                                <span class="text-[10px] font-bold text-sky-800 bg-sky-100 px-1.5 py-0.2 rounded">🌫️ เสี่ยงฝุ่น</span>
+                                            </div>
+                                            <div class="text-[11px] text-gray-500 font-normal">ปอดกำลังพัฒนา ไวต่อมลพิษฝุ่น</div>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                        <input type="checkbox" id="chk-newborn" checked onchange="filterPatients()"
+                                            class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                        <div class="leading-snug min-w-0">
+                                            <div class="flex items-center gap-1.5 flex-wrap">
+                                                <span class="text-xs sm:text-sm font-bold text-gray-900">ทารก (อายุ ≤ 1 ปี)</span>
+                                                <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️ เสี่ยงความร้อน</span>
+                                            </div>
+                                            <div class="text-[11px] text-gray-500 font-normal">ระบบคุมอุณหภูมิยังไม่สมบูรณ์</div>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                        <input type="checkbox" id="chk-athlete" checked onchange="filterPatients()"
+                                            class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                        <div class="leading-snug min-w-0">
+                                            <div class="flex items-center gap-1.5 flex-wrap">
+                                                <span class="text-xs sm:text-sm font-bold text-gray-900">ผู้ออกกำลังหรือทำงานกลางแจ้ง</span>
+                                                <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️ เสี่ยงความร้อน</span>
+                                            </div>
+                                            <div class="text-[11px] text-gray-500 font-normal">สูดอากาศปริมาณมาก สัมผัสฝุ่นและแดดจัด</div>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                        <input type="checkbox" id="chk-obesity" checked onchange="filterPatients()"
+                                            class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                        <div class="leading-snug min-w-0">
+                                            <div class="flex items-center gap-1.5 flex-wrap">
+                                                <span class="text-xs sm:text-sm font-bold text-gray-900">ภาวะอ้วน</span>
+                                                <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️ เสี่ยงความร้อน</span>
+                                            </div>
+                                            <div class="text-[11px] text-gray-500 font-normal">ระบายความร้อนยาก เสี่ยงเหนื่อยง่าย</div>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                        <input type="checkbox" id="chk-underweight" checked onchange="filterPatients()"
+                                            class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                        <div class="leading-snug min-w-0">
+                                            <div class="flex items-center gap-1.5 flex-wrap">
+                                                <span class="text-xs sm:text-sm font-bold text-gray-900">น้ำหนักต่ำกว่าเกณฑ์</span>
+                                                <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️ เสี่ยงความร้อน</span>
+                                            </div>
+                                            <div class="text-[11px] text-gray-500 font-normal">เสี่ยงทุพโภชนาการและภูมิคุ้มกันต่ำ</div>
+                                        </div>
+                                    </label>
                                 </div>
-                            </label>
-                            <label
-                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                <input type="checkbox" id="chk-rti" checked onchange="filterPatients()"
-                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                <div class="leading-snug min-w-0">
-                                    <div class="text-xs sm:text-sm font-bold text-gray-900">ติดเชื้อทางเดินหายใจซ้ำ
+                            </div>
+
+                            <!-- Medication Use -->
+                            <div>
+                                <h4 class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                                    <span>💊</span> ยาประจำตัวที่มีความเสี่ยงต่อสภาพอากาศ
+                                </h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                    <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                        <input type="checkbox" id="chk-beta-blocker" checked onchange="filterPatients()"
+                                            class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                        <div class="leading-snug min-w-0">
+                                            <div class="flex items-center gap-1.5 flex-wrap">
+                                                <span class="text-xs sm:text-sm font-bold text-gray-900">ยาเบต้าบล็อกเกอร์</span>
+                                                <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️ เสี่ยงความร้อน</span>
+                                            </div>
+                                            <div class="text-[11px] text-gray-500 font-normal">ยาลดความดันหรือหัวใจ ขัดขวางการคลายร้อน</div>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                        <input type="checkbox" id="chk-antihistamine" checked onchange="filterPatients()"
+                                            class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                        <div class="leading-snug min-w-0">
+                                            <div class="flex items-center gap-1.5 flex-wrap">
+                                                <span class="text-xs sm:text-sm font-bold text-gray-900">ยาแก้แพ้</span>
+                                                <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️ เสี่ยงความร้อน</span>
+                                            </div>
+                                            <div class="text-[11px] text-gray-500 font-normal">ยาลดน้ำมูก ลดการหลั่งเหงื่อสะสมความร้อน</div>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                        <input type="checkbox" id="chk-diuretic" checked onchange="filterPatients()"
+                                            class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                        <div class="leading-snug min-w-0">
+                                            <div class="flex items-center gap-1.5 flex-wrap">
+                                                <span class="text-xs sm:text-sm font-bold text-gray-900">ยาขับปัสสาวะ</span>
+                                                <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️ เสี่ยงความร้อน</span>
+                                            </div>
+                                            <div class="text-[11px] text-gray-500 font-normal">ยาลดบวมหรือความดัน เสี่ยงขาดน้ำเมื่อร้อนจัด</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Column 2: Underlying Conditions -->
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                                <span>🩺</span> โรคประจำตัวและภาวะทางคลินิก
+                            </h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                    <input type="checkbox" id="chk-bpd" checked onchange="filterPatients()"
+                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                    <div class="leading-snug min-w-0">
+                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                            <span class="text-xs sm:text-sm font-bold text-gray-900">โรคหลอดลม/เนื้อเยื่อปอดเปราะบาง (BPD)</span>
+                                            <span class="text-[10px] font-bold text-sky-800 bg-sky-100 px-1.5 py-0.2 rounded">🌫️ เสี่ยงฝุ่น</span>
+                                        </div>
+                                        <div class="text-[11px] text-gray-500 font-normal">มีประวัติโรคหลอดลมและเนื้อเยื่อปอดเปราะบาง</div>
                                     </div>
-                                    <div class="text-[11px] text-gray-500 font-normal">เป็นซ้ำตั้งแต่ 3 ครั้งขึ้นไปในรอบ
-                                        6 เดือน</div>
-                                </div>
-                            </label>
-                            <label
-                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                <input type="checkbox" id="chk-asthma" checked onchange="filterPatients()"
-                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                <div class="leading-snug min-w-0">
-                                    <div class="text-xs sm:text-sm font-bold text-gray-900">โรคหอบหืด</div>
-                                    <div class="text-[11px] text-gray-500 font-normal">หลอดลมตีบเฉียบพลัน
-                                        ไวต่อฝุ่นและอากาศเปลี่ยน</div>
-                                </div>
-                            </label>
-                            <label
-                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                <input type="checkbox" id="chk-ar" checked onchange="filterPatients()"
-                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                <div class="leading-snug min-w-0">
-                                    <div class="text-xs sm:text-sm font-bold text-gray-900">โรคภูมิแพ้โพรงจมูก</div>
-                                    <div class="text-[11px] text-gray-500 font-normal">เยื่อบุจมูกอักเสบจากภูมิแพ้ จาม
-                                        คัดจมูกง่าย</div>
-                                </div>
-                            </label>
-                            <label
-                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                <input type="checkbox" id="chk-chd" checked onchange="filterPatients()"
-                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                <div class="leading-snug min-w-0">
-                                    <div class="text-xs sm:text-sm font-bold text-gray-900">โรคหัวใจพิการแต่กำเนิด</div>
-                                    <div class="text-[11px] text-gray-500 font-normal">เสี่ยงภาวะหัวใจทำงานหนัก
-                                        เหนื่อยหอบง่าย</div>
-                                </div>
-                            </label>
-                            <label
-                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                <input type="checkbox" id="chk-fever" checked onchange="filterPatients()"
-                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                <div class="leading-snug min-w-0">
-                                    <div class="text-xs sm:text-sm font-bold text-gray-900">มีไข้สูงหรือตัวร้อน</div>
-                                    <div class="text-[11px] text-gray-500 font-normal">อุณหภูมิกายสูง
-                                        เสี่ยงภาวะเพลียแดดหรือชัก</div>
-                                </div>
-                            </label>
-                            <label
-                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                <input type="checkbox" id="chk-kidney" checked onchange="filterPatients()"
-                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                <div class="leading-snug min-w-0">
-                                    <div class="text-xs sm:text-sm font-bold text-gray-900">โรคไตเรื้อรัง</div>
-                                    <div class="text-[11px] text-gray-500 font-normal">การทำงานของไตบกพร่อง
-                                        ไวต่อภาวะขาดน้ำ</div>
-                                </div>
-                            </label>
-                            <label
-                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                <input type="checkbox" id="chk-neuro" checked onchange="filterPatients()"
-                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                <div class="leading-snug min-w-0">
-                                    <div class="text-xs sm:text-sm font-bold text-gray-900">โรคระบบประสาทและสมอง</div>
-                                    <div class="text-[11px] text-gray-500 font-normal">หลอดเลือดสมอง ลมชัก
-                                        หรือการดูแลตนเองจำกัด</div>
-                                </div>
-                            </label>
+                                </label>
+                                <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                    <input type="checkbox" id="chk-rti" checked onchange="filterPatients()"
+                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                    <div class="leading-snug min-w-0">
+                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                            <span class="text-xs sm:text-sm font-bold text-gray-900">ติดเชื้อทางเดินหายใจซ้ำ</span>
+                                            <span class="text-[10px] font-bold text-sky-800 bg-sky-100 px-1.5 py-0.2 rounded">🌫️ เสี่ยงฝุ่น</span>
+                                        </div>
+                                        <div class="text-[11px] text-gray-500 font-normal">เป็นซ้ำตั้งแต่ 3 ครั้งขึ้นไปในรอบ 6 เดือน</div>
+                                    </div>
+                                </label>
+                                <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-purple-50/50 border border-purple-200 hover:border-purple-400 hover:shadow-2xs cursor-pointer transition">
+                                    <input type="checkbox" id="chk-asthma" checked onchange="filterPatients()"
+                                        class="form-checkbox h-4 w-4 text-purple-600 rounded mt-0.5 shrink-0">
+                                    <div class="leading-snug min-w-0">
+                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                            <span class="text-xs sm:text-sm font-bold text-gray-900">โรคหอบหืด</span>
+                                            <span class="text-[10px] font-bold text-purple-800 bg-purple-100 px-1.5 py-0.2 rounded">⚡ เสี่ยงฝุ่น + ความร้อน</span>
+                                        </div>
+                                        <div class="text-[11px] text-gray-500 font-normal">หลอดลมตีบเฉียบพลัน ไวต่อฝุ่นและอากาศเปลี่ยน</div>
+                                    </div>
+                                </label>
+                                <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                    <input type="checkbox" id="chk-ar" checked onchange="filterPatients()"
+                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                    <div class="leading-snug min-w-0">
+                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                            <span class="text-xs sm:text-sm font-bold text-gray-900">โรคภูมิแพ้โพรงจมูก</span>
+                                            <span class="text-[10px] font-bold text-sky-800 bg-sky-100 px-1.5 py-0.2 rounded">🌫️ เสี่ยงฝุ่น</span>
+                                        </div>
+                                        <div class="text-[11px] text-gray-500 font-normal">เยื่อบุจมูกอักเสบจากภูมิแพ้ จาม คัดจมูกง่าย</div>
+                                    </div>
+                                </label>
+                                <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-purple-50/50 border border-purple-200 hover:border-purple-400 hover:shadow-2xs cursor-pointer transition">
+                                    <input type="checkbox" id="chk-chd" checked onchange="filterPatients()"
+                                        class="form-checkbox h-4 w-4 text-purple-600 rounded mt-0.5 shrink-0">
+                                    <div class="leading-snug min-w-0">
+                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                            <span class="text-xs sm:text-sm font-bold text-gray-900">โรคหัวใจพิการแต่กำเนิด</span>
+                                            <span class="text-[10px] font-bold text-purple-800 bg-purple-100 px-1.5 py-0.2 rounded">⚡ เสี่ยงฝุ่น + ความร้อน</span>
+                                        </div>
+                                        <div class="text-[11px] text-gray-500 font-normal">เสี่ยงภาวะหัวใจทำงานหนัก เหนื่อยหอบง่าย</div>
+                                    </div>
+                                </label>
+                                <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                    <input type="checkbox" id="chk-fever" checked onchange="filterPatients()"
+                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                    <div class="leading-snug min-w-0">
+                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                            <span class="text-xs sm:text-sm font-bold text-gray-900">มีไข้สูงหรือตัวร้อน</span>
+                                            <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️ เสี่ยงความร้อน</span>
+                                        </div>
+                                        <div class="text-[11px] text-gray-500 font-normal">อุณหภูมิกายสูง เสี่ยงภาวะเพลียแดดหรือชัก</div>
+                                    </div>
+                                </label>
+                                <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                    <input type="checkbox" id="chk-kidney" checked onchange="filterPatients()"
+                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                    <div class="leading-snug min-w-0">
+                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                            <span class="text-xs sm:text-sm font-bold text-gray-900">โรคไตเรื้อรัง</span>
+                                            <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️ เสี่ยงความร้อน</span>
+                                        </div>
+                                        <div class="text-[11px] text-gray-500 font-normal">การทำงานของไตบกพร่อง ไวต่อภาวะขาดน้ำ</div>
+                                    </div>
+                                </label>
+                                <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                    <input type="checkbox" id="chk-neuro" checked onchange="filterPatients()"
+                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                    <div class="leading-snug min-w-0">
+                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                            <span class="text-xs sm:text-sm font-bold text-gray-900">โรคระบบประสาทและสมอง</span>
+                                            <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️ เสี่ยงความร้อน</span>
+                                        </div>
+                                        <div class="text-[11px] text-gray-500 font-normal">หลอดเลือดสมอง ลมชัก หรือการดูแลตนเองจำกัด</div>
+                                    </div>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3573,7 +3846,47 @@
             };
         }
 
-        // --- 2. Hospital Roles (HOSPCODE Mapping) & Role Switching ---
+        // Criteria for Risk Patients (as explicitly defined by clinical guidance):
+        // Air Risk Conditions (6 conditions):
+        // 1. เด็กเล็ก (child_5)
+        // 2. มีประวัติโรคหลอดลมและเนื้อเยื่อปอดเปราะบาง (bpd)
+        // 3. ติดเชื้อทางเดินหายใจซ้ำ (rti)
+        // 4. โรคหอบหืด (asthma)
+        // 5. โรคภูมิแพ้โพรงจมูก (ar)
+        // 6. โรคหัวใจพิการแต่กำเนิด (chd)
+        const AIR_RISK_FACTORS = ['child_5', 'bpd', 'rti', 'asthma', 'ar', 'chd'];
+
+        // Temp Risk Conditions (12 conditions):
+        // 1. ทารก (newborn)
+        // 2. มีไข้สูงหรือตัวร้อน (fever)
+        // 3. ผู้ออกกำลังหรือทำงานกลางแจ้ง (athlete)
+        // 4. โรคไตเรื้อรัง (kidney)
+        // 5. โรคระบบประสาทและสมอง (neuro)
+        // 6. ภาวะอ้วน (obesity)
+        // 7. น้ำหนักต่ำกว่าเกณฑ์ (underweight)
+        // 8. โรคหอบหืด (asthma)
+        // 9. ยาเบต้าบล็อกเกอร์ (beta_blocker)
+        // 10. ยาแก้แพ้ (antihistamine)
+        // 11. ยาขับปัสสาวะ (diuretic)
+        // 12. โรคหัวใจพิการแต่กำเนิด (chd)
+        const TEMP_RISK_FACTORS = [
+            'newborn', 'fever', 'athlete', 'kidney', 'neuro',
+            'obesity', 'underweight', 'asthma', 'beta_blocker',
+            'antihistamine', 'diuretic', 'chd'
+        ];
+
+        function isAirRiskPatient(p) {
+            if (!p || !p.factors || p.factors.length === 0) return false;
+            return p.factors.some(f => AIR_RISK_FACTORS.includes(f));
+        }
+
+        function isTempRiskPatient(p) {
+            if (!p || !p.factors || p.factors.length === 0) return false;
+            return p.factors.some(f => TEMP_RISK_FACTORS.includes(f));
+        }
+
+        // --- 2. Hospital Roles (HOSPCODE Mapping) & Area Environmental Levels ---
+        // Each hospital faces ambient environmental conditions in its catchment area
         const HOSPITAL_ROLES = [
             {
                 id: 'usr_maechan',
@@ -3581,7 +3894,9 @@
                 name: 'โรงพยาบาลส่งเสริมสุขภาพตำบลสันทราย',
                 desc: 'อ.แม่จัน จ.เชียงราย',
                 shortName: 'รพ.สต.สันทราย',
-                tambon: 'ต.สันทราย (San Sai, Mae Chan)'
+                tambon: 'ต.สันทราย (San Sai, Mae Chan)',
+                pm25: 82.4, // Air: Level 5 - สีแดง (มีผลกระทบสุขภาพ > 75.0)
+                temp: 45.2  // Temp: Level 3 - อันตราย (42.0 - 51.9 °C)
             },
             {
                 id: 'usr_omkoi',
@@ -3589,7 +3904,9 @@
                 name: 'โรงพยาบาลส่งเสริมสุขภาพตำบลบ้านยางเปียง',
                 desc: 'อ.อมก๋อย จ.เชียงใหม่',
                 shortName: 'รพ.สต.บ้านยางเปียง',
-                tambon: 'ต.ยางเปียง (Yang Piang, Omkoi)'
+                tambon: 'ต.ยางเปียง (Yang Piang, Omkoi)',
+                pm25: 48.5, // Air: Level 4 - สีส้ม (เริ่มมีผลกระทบ 37.6 - 75.0)
+                temp: 36.8  // Temp: Level 2 - เตือนภัย (33.0 - 41.9 °C)
             },
             {
                 id: 'usr_chiangdao',
@@ -3597,7 +3914,9 @@
                 name: 'โรงพยาบาลส่งเสริมสุขภาพตำบลบ้านแม่นะ',
                 desc: 'อ.เชียงดาว จ.เชียงใหม่',
                 shortName: 'รพ.สต.บ้านแม่นะ',
-                tambon: 'ต.แม่นะ (Mae Na, Chiang Dao)'
+                tambon: 'ต.แม่นะ (Mae Na, Chiang Dao)',
+                pm25: 95.0, // Air: Level 5 - สีแดง (มีผลกระทบสุขภาพ > 75.0)
+                temp: 52.4  // Temp: Level 4 - อันตรายมาก (≥ 52.0 °C)
             },
             {
                 id: 'usr_cholae',
@@ -3605,7 +3924,9 @@
                 name: 'โรงพยาบาลส่งเสริมสุขภาพตำบลบ้านช่อแล',
                 desc: 'ต.ช่อแล อ.แม่แตง จ.เชียงใหม่',
                 shortName: 'รพ.สต.บ้านช่อแล',
-                tambon: 'ต.ช่อแล (Cho Lae, Mae Taeng)'
+                tambon: 'ต.ช่อแล (Cho Lae, Mae Taeng)',
+                pm25: 32.5, // Air: Level 3 - สีเหลือง (ปานกลาง 25.1 - 37.5)
+                temp: 31.0  // Temp: Level 1 - เฝ้าระวัง (27.0 - 32.9 °C)
             },
             {
                 id: 'usr_soppoeng',
@@ -3613,7 +3934,9 @@
                 name: 'โรงพยาบาลส่งเสริมสุขภาพตำบลบ้านปางม่วง',
                 desc: 'ต.สบเปิง อ.แม่แตง จ.เชียงใหม่',
                 shortName: 'รพ.สต.บ้านปางม่วง',
-                tambon: 'ต.สบเปิง (Sop Poeng, Mae Taeng)'
+                tambon: 'ต.สบเปิง (Sop Poeng, Mae Taeng)',
+                pm25: 20.0, // Air: Level 2 - สีเขียว (ดี 15.1 - 25.0)
+                temp: 29.5  // Temp: Level 1 - เฝ้าระวัง (27.0 - 32.9 °C)
             }
         ];
 
@@ -3638,14 +3961,38 @@
             const subtitle = document.getElementById('active-hospital-subtitle');
             const h = HOSPITAL_ROLES.find(x => x.hospcode === code);
             if (subtitle && h) subtitle.textContent = `${h.name} (${h.hospcode}) • ${h.desc}`;
+
+            // Update Header Environmental Display for Active Hospital
+            if (h) {
+                const elPm25Val = document.getElementById('hosp-env-pm25-val');
+                const elPm25Badge = document.getElementById('hosp-env-pm25-badge');
+                const elTempVal = document.getElementById('hosp-env-temp-val');
+                const elTempBadge = document.getElementById('hosp-env-temp-badge');
+
+                const air = getAirRisk(h.pm25);
+                const tempRisk = getTempRisk(h.temp);
+
+                if (elPm25Val) elPm25Val.textContent = h.pm25.toFixed(1);
+                if (elPm25Badge) {
+                    elPm25Badge.textContent = air.colorName;
+                    elPm25Badge.className = `text-[10px] font-black px-1.5 py-0.2 rounded shadow-2xs ${air.badgeClass}`;
+                }
+                if (elTempVal) elTempVal.textContent = h.temp.toFixed(1);
+                if (elTempBadge) {
+                    elTempBadge.textContent = tempRisk.name;
+                    elTempBadge.className = `text-[10px] font-black px-1.5 py-0.2 rounded shadow-2xs ${tempRisk.badgeClass}`;
+                }
+            }
+
             if (typeof selectedRiskFilters !== 'undefined') selectedRiskFilters.clear();
             updateRiskFilterVisuals();
             filterPatients();
         }
 
-        // --- 3. Patient Registry with Balanced Representation across All Risk Tiers ---
+        // --- 3. Patient Registry with Normal Patients & Specific Hazard-Risk Patients ---
+        // All patients registered to the same hospital confront the same PM2.5 and Temp of their area
         const allPatientsDb = [
-            // --- 06735: รพ.สต.สันทราย (อ.แม่จัน จ.เชียงราย) ---
+            // --- 06735: รพ.สต.สันทราย (อ.แม่จัน จ.เชียงราย) | PM2.5: 82.4 µg/m³ (แดง), Temp: 45.2 °C (อันตราย) ---
             {
                 cid: "5144140267066",
                 name: "Alexis Werner",
@@ -3653,8 +4000,8 @@
                 hosp: "06735",
                 hosp_name: "รพ.สต.สันทราย (แม่จัน)",
                 tambon: "ต.สันทราย (San Sai, Mae Chan)",
-                pm25: 82.4, // แดง
-                temp: 45.2, // อันตราย -> เสี่ยง 2 ด้าน
+                pm25: 82.4,
+                temp: 45.2,
                 conditions: "Children <= 5 yrs, BPD (Active/History)",
                 factors: ["child_5", "bpd"],
                 assessment_date: "2026-03-12"
@@ -3666,8 +4013,8 @@
                 hosp: "06735",
                 hosp_name: "รพ.สต.สันทราย (แม่จัน)",
                 tambon: "ต.สันทราย (San Sai, Mae Chan)",
-                pm25: 88.0, // แดง
-                temp: 52.8, // อันตรายมาก -> วิกฤต 2 ด้าน
+                pm25: 82.4,
+                temp: 45.2,
                 conditions: "Newborn (<= 1 yr), Children <= 5 yrs, Asthma, Fever",
                 factors: ["newborn", "child_5", "asthma", "fever"],
                 assessment_date: "2026-04-05"
@@ -3679,8 +4026,8 @@
                 hosp: "06735",
                 hosp_name: "รพ.สต.สันทราย (แม่จัน)",
                 tambon: "ต.สันทราย (San Sai, Mae Chan)",
-                pm25: 48.5, // ส้ม
-                temp: 36.5, // เตือนภัย -> เสี่ยง 2 ด้าน
+                pm25: 82.4,
+                temp: 45.2,
                 conditions: "Recurrent RTI (>=3/6mo), Beta Blocker, Neurologic Disease",
                 factors: ["rti", "beta_blocker", "neuro"],
                 assessment_date: "2026-03-30"
@@ -3692,8 +4039,8 @@
                 hosp: "06735",
                 hosp_name: "รพ.สต.สันทราย (แม่จัน)",
                 tambon: "ต.สันทราย (San Sai, Mae Chan)",
-                pm25: 32.5, // เหลือง
-                temp: 34.0, // เตือนภัย
+                pm25: 82.4,
+                temp: 45.2,
                 conditions: "Outdoor Athlete, Allergic Rhinitis",
                 factors: ["athlete", "ar"],
                 assessment_date: "2026-03-18"
@@ -3705,8 +4052,8 @@
                 hosp: "06735",
                 hosp_name: "รพ.สต.สันทราย (แม่จัน)",
                 tambon: "ต.สันทราย (San Sai, Mae Chan)",
-                pm25: 22.0, // เขียว
-                temp: 31.0, // เฝ้าระวัง
+                pm25: 82.4,
+                temp: 45.2,
                 conditions: "Children <= 5 yrs, Underweight",
                 factors: ["child_5", "underweight"],
                 assessment_date: "2026-02-14"
@@ -3718,14 +4065,66 @@
                 hosp: "06735",
                 hosp_name: "รพ.สต.สันทราย (แม่จัน)",
                 tambon: "ต.สันทราย (San Sai, Mae Chan)",
-                pm25: 14.2, // ฟ้า
-                temp: 28.5, // เฝ้าระวัง
-                conditions: "Antihistamine, Allergic Rhinitis",
-                factors: ["antihistamine", "ar"],
+                pm25: 82.4,
+                temp: 45.2,
+                conditions: "Antihistamine",
+                factors: ["antihistamine"],
                 assessment_date: "2026-03-15"
             },
+            {
+                cid: "3500201245893",
+                name: "นาง วรรณี คำมูล",
+                gender_age: "F/38",
+                hosp: "06735",
+                hosp_name: "รพ.สต.สันทราย (แม่จัน)",
+                tambon: "ต.สันทราย (San Sai, Mae Chan)",
+                pm25: 82.4,
+                temp: 45.2,
+                conditions: "ตรวจสุขภาพประจำปี (ทั่วไป)",
+                factors: [],
+                assessment_date: "2026-04-01"
+            },
+            {
+                cid: "3500201245894",
+                name: "นาย ธนากร สุขสันต์",
+                gender_age: "M/29",
+                hosp: "06735",
+                hosp_name: "รพ.สต.สันทราย (แม่จัน)",
+                tambon: "ต.สันทราย (San Sai, Mae Chan)",
+                pm25: 82.4,
+                temp: 45.2,
+                conditions: "ติดตามผลตรวจสุขภาพทั่วไป",
+                factors: [],
+                assessment_date: "2026-04-08"
+            },
+            {
+                cid: "3500201245895",
+                name: "น.ส. รัตนา พงษ์ศิริ",
+                gender_age: "F/22",
+                hosp: "06735",
+                hosp_name: "รพ.สต.สันทราย (แม่จัน)",
+                tambon: "ต.สันทราย (San Sai, Mae Chan)",
+                pm25: 82.4,
+                temp: 45.2,
+                conditions: "ตรวจร่างกายขอใบรับรองแพทย์",
+                factors: [],
+                assessment_date: "2026-04-09"
+            },
+            {
+                cid: "1501401889235",
+                name: "ด.ช. ปัณณธร ศรีจันทร์",
+                gender_age: "M/7",
+                hosp: "06735",
+                hosp_name: "รพ.สต.สันทราย (แม่จัน)",
+                tambon: "ต.สันทราย (San Sai, Mae Chan)",
+                pm25: 82.4,
+                temp: 45.2,
+                conditions: "Allergic Rhinitis",
+                factors: ["ar"],
+                assessment_date: "2026-03-22"
+            },
 
-            // --- 06007: รพ.สต.บ้านยางเปียง (อ.อมก๋อย จ.เชียงใหม่) ---
+            // --- 06007: รพ.สต.บ้านยางเปียง (อ.อมก๋อย จ.เชียงใหม่) | PM2.5: 48.5 µg/m³ (ส้ม), Temp: 36.8 °C (เตือนภัย) ---
             {
                 cid: "3501400812945",
                 name: "นาง สมพร ส.",
@@ -3733,8 +4132,8 @@
                 hosp: "06007",
                 hosp_name: "รพ.สต.บ้านยางเปียง (อมก๋อย)",
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
-                pm25: 91.0, // แดง
-                temp: 53.2, // อันตรายมาก -> วิกฤต 2 ด้าน
+                pm25: 48.5,
+                temp: 36.8,
                 conditions: "Beta Blocker, Diuretic, Congenital Heart Dis.",
                 factors: ["beta_blocker", "diuretic", "chd"],
                 assessment_date: "2026-02-20"
@@ -3746,8 +4145,8 @@
                 hosp: "06007",
                 hosp_name: "รพ.สต.บ้านยางเปียง (อมก๋อย)",
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
-                pm25: 86.4, // แดง
-                temp: 44.5, // อันตราย -> เสี่ยง 2 ด้าน
+                pm25: 48.5,
+                temp: 36.8,
                 conditions: "Newborn (<= 1 yr), Children <= 5 yrs, BPD (Active/History), Fever",
                 factors: ["newborn", "child_5", "bpd", "fever"],
                 assessment_date: "2026-04-02"
@@ -3759,8 +4158,8 @@
                 hosp: "06007",
                 hosp_name: "รพ.สต.บ้านยางเปียง (อมก๋อย)",
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
-                pm25: 68.0, // ส้ม
-                temp: 36.8, // เตือนภัย -> เสี่ยง 2 ด้าน
+                pm25: 48.5,
+                temp: 36.8,
                 conditions: "Obesity, Diuretic, Kidney Disease",
                 factors: ["obesity", "diuretic", "kidney"],
                 assessment_date: "2026-01-18"
@@ -3772,8 +4171,8 @@
                 hosp: "06007",
                 hosp_name: "รพ.สต.บ้านยางเปียง (อมก๋อย)",
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
-                pm25: 35.5, // เหลือง
-                temp: 32.0, // เฝ้าระวัง
+                pm25: 48.5,
+                temp: 36.8,
                 conditions: "Outdoor Athlete, Asthma",
                 factors: ["athlete", "asthma"],
                 assessment_date: "2026-03-25"
@@ -3785,8 +4184,8 @@
                 hosp: "06007",
                 hosp_name: "รพ.สต.บ้านยางเปียง (อมก๋อย)",
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
-                pm25: 18.0, // เขียว
-                temp: 29.0, // เฝ้าระวัง
+                pm25: 48.5,
+                temp: 36.8,
                 conditions: "Children <= 5 yrs, Underweight",
                 factors: ["child_5", "underweight"],
                 assessment_date: "2026-03-01"
@@ -3798,14 +4197,53 @@
                 hosp: "06007",
                 hosp_name: "รพ.สต.บ้านยางเปียง (อมก๋อย)",
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
-                pm25: 12.0, // ฟ้า
-                temp: 28.0, // เฝ้าระวัง
-                conditions: "Antihistamine, Allergic Rhinitis",
-                factors: ["antihistamine", "ar"],
+                pm25: 48.5,
+                temp: 36.8,
+                conditions: "Antihistamine",
+                factors: ["antihistamine"],
                 assessment_date: "2026-02-10"
             },
+            {
+                cid: "3500201245802",
+                name: "นาง ลาภินี แสนทวี",
+                gender_age: "F/33",
+                hosp: "06007",
+                hosp_name: "รพ.สต.บ้านยางเปียง (อมก๋อย)",
+                tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
+                pm25: 48.5,
+                temp: 36.8,
+                conditions: "ตรวจครรภ์ปกติและให้คำปรึกษา",
+                factors: [],
+                assessment_date: "2026-04-03"
+            },
+            {
+                cid: "3500201245803",
+                name: "นาย พงษ์ศักดิ์ บุญเรือง",
+                gender_age: "M/40",
+                hosp: "06007",
+                hosp_name: "รพ.สต.บ้านยางเปียง (อมก๋อย)",
+                tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
+                pm25: 48.5,
+                temp: 36.8,
+                conditions: "รับวัคซีนป้องกันไข้หวัดใหญ่",
+                factors: [],
+                assessment_date: "2026-04-07"
+            },
+            {
+                cid: "1501401772842",
+                name: "ด.ช. ก้องภพ ยางเปียง",
+                gender_age: "M/8",
+                hosp: "06007",
+                hosp_name: "รพ.สต.บ้านยางเปียง (อมก๋อย)",
+                tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
+                pm25: 48.5,
+                temp: 36.8,
+                conditions: "Allergic Rhinitis",
+                factors: ["ar"],
+                assessment_date: "2026-03-11"
+            },
 
-            // --- 05844: รพ.สต.บ้านแม่นะ (อ.เชียงดาว จ.เชียงใหม่) ---
+            // --- 05844: รพ.สต.บ้านแม่นะ (อ.เชียงดาว จ.เชียงใหม่) | PM2.5: 95.0 µg/m³ (แดง), Temp: 52.4 °C (อันตรายมาก) ---
             {
                 cid: "3500200874192",
                 name: "นาย ชัยวัฒน์ ม.",
@@ -3813,8 +4251,8 @@
                 hosp: "05844",
                 hosp_name: "รพ.สต.บ้านแม่นะ (เชียงดาว)",
                 tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
-                pm25: 112.5, // แดง
-                temp: 52.4, // อันตรายมาก -> วิกฤต 2 ด้าน
+                pm25: 95.0,
+                temp: 52.4,
                 conditions: "Outdoor Athlete, Asthma, Allergic Rhinitis, Fever",
                 factors: ["athlete", "asthma", "ar", "fever"],
                 assessment_date: "2026-03-25"
@@ -3826,8 +4264,8 @@
                 hosp: "05844",
                 hosp_name: "รพ.สต.บ้านแม่นะ (เชียงดาว)",
                 tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
-                pm25: 85.0, // แดง
-                temp: 46.2, // อันตราย -> เสี่ยง 2 ด้าน
+                pm25: 95.0,
+                temp: 52.4,
                 conditions: "Children <= 5 yrs, Congenital Heart Dis., BPD (Active/History)",
                 factors: ["child_5", "chd", "bpd"],
                 assessment_date: "2026-03-01"
@@ -3839,8 +4277,8 @@
                 hosp: "05844",
                 hosp_name: "รพ.สต.บ้านแม่นะ (เชียงดาว)",
                 tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
-                pm25: 56.0, // ส้ม
-                temp: 36.4, // เตือนภัย -> เสี่ยง 2 ด้าน
+                pm25: 95.0,
+                temp: 52.4,
                 conditions: "Beta Blocker, Diuretic, Neurologic Disease",
                 factors: ["beta_blocker", "diuretic", "neuro"],
                 assessment_date: "2026-04-10"
@@ -3852,8 +4290,8 @@
                 hosp: "05844",
                 hosp_name: "รพ.สต.บ้านแม่นะ (เชียงดาว)",
                 tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
-                pm25: 32.8, // เหลือง
-                temp: 33.5, // เตือนภัย
+                pm25: 95.0,
+                temp: 52.4,
                 conditions: "Asthma, Allergic Rhinitis, Antihistamine",
                 factors: ["asthma", "ar", "antihistamine"],
                 assessment_date: "2026-02-28"
@@ -3865,8 +4303,8 @@
                 hosp: "05844",
                 hosp_name: "รพ.สต.บ้านแม่นะ (เชียงดาว)",
                 tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
-                pm25: 12.0, // ฟ้า
-                temp: 27.5, // เฝ้าระวัง
+                pm25: 95.0,
+                temp: 52.4,
                 conditions: "Allergic Rhinitis (Mild)",
                 factors: ["ar"],
                 assessment_date: "2026-03-15"
@@ -3878,14 +4316,53 @@
                 hosp: "05844",
                 hosp_name: "รพ.สต.บ้านแม่นะ (เชียงดาว)",
                 tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
-                pm25: 21.5, // เขียว
-                temp: 30.0, // เฝ้าระวัง
+                pm25: 95.0,
+                temp: 52.4,
                 conditions: "Obesity, Diuretic",
                 factors: ["obesity", "diuretic"],
                 assessment_date: "2026-03-05"
             },
+            {
+                cid: "3500200874198",
+                name: "นาย มงคล แสงคำ",
+                gender_age: "M/36",
+                hosp: "05844",
+                hosp_name: "รพ.สต.บ้านแม่นะ (เชียงดาว)",
+                tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
+                pm25: 95.0,
+                temp: 52.4,
+                conditions: "ตรวจสุขภาพแรงงานทั่วไป",
+                factors: [],
+                assessment_date: "2026-04-06"
+            },
+            {
+                cid: "3500200874197",
+                name: "นาง ศิริพร แม่นะ",
+                gender_age: "F/45",
+                hosp: "05844",
+                hosp_name: "รพ.สต.บ้านแม่นะ (เชียงดาว)",
+                tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
+                pm25: 95.0,
+                temp: 52.4,
+                conditions: "ตรวจเช็คสุขภาพเบื้องต้น",
+                factors: [],
+                assessment_date: "2026-04-07"
+            },
+            {
+                cid: "1501401889202",
+                name: "ด.ช. ชนะชัย แก้วกังวาล",
+                gender_age: "M/2",
+                hosp: "05844",
+                hosp_name: "รพ.สต.บ้านแม่นะ (เชียงดาว)",
+                tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
+                pm25: 95.0,
+                temp: 52.4,
+                conditions: "Children <= 5 yrs",
+                factors: ["child_5"],
+                assessment_date: "2026-03-14"
+            },
 
-            // --- 05866: รพ.สต.บ้านช่อแล (ต.ช่อแล อ.แม่แตง จ.เชียงใหม่) ---
+            // --- 05866: รพ.สต.บ้านช่อแล (ต.ช่อแล อ.แม่แตง จ.เชียงใหม่) | PM2.5: 32.5 µg/m³ (เหลือง), Temp: 31.0 °C (เฝ้าระวัง) ---
             {
                 cid: "5144140267888",
                 name: "นาย บุญยืน ช่อแก้ว",
@@ -3893,8 +4370,8 @@
                 hosp: "05866",
                 hosp_name: "รพ.สต.บ้านช่อแล (แม่แตง)",
                 tambon: "ต.ช่อแล (Cho Lae, Mae Taeng)",
-                pm25: 82.0, // แดง
-                temp: 47.5, // อันตราย -> เสี่ยง 2 ด้าน
+                pm25: 32.5,
+                temp: 31.0,
                 conditions: "Kidney Disease, Diuretic, Beta Blocker",
                 factors: ["kidney", "diuretic", "beta_blocker"],
                 assessment_date: "2026-03-18"
@@ -3906,8 +4383,8 @@
                 hosp: "05866",
                 hosp_name: "รพ.สต.บ้านช่อแล (แม่แตง)",
                 tambon: "ต.ช่อแล (Cho Lae, Mae Taeng)",
-                pm25: 78.5, // แดง
-                temp: 52.3, // อันตรายมาก -> วิกฤต 2 ด้าน
+                pm25: 32.5,
+                temp: 31.0,
                 conditions: "Newborn (<= 1 yr), Children <= 5 yrs, Fever",
                 factors: ["newborn", "child_5", "fever"],
                 assessment_date: "2026-04-01"
@@ -3919,8 +4396,8 @@
                 hosp: "05866",
                 hosp_name: "รพ.สต.บ้านช่อแล (แม่แตง)",
                 tambon: "ต.ช่อแล (Cho Lae, Mae Taeng)",
-                pm25: 48.0, // ส้ม
-                temp: 37.2, // เตือนภัย -> เสี่ยง 2 ด้าน
+                pm25: 32.5,
+                temp: 31.0,
                 conditions: "Asthma, Allergic Rhinitis",
                 factors: ["asthma", "ar"],
                 assessment_date: "2026-02-15"
@@ -3932,8 +4409,8 @@
                 hosp: "05866",
                 hosp_name: "รพ.สต.บ้านช่อแล (แม่แตง)",
                 tambon: "ต.ช่อแล (Cho Lae, Mae Taeng)",
-                pm25: 34.0, // เหลือง
-                temp: 31.0, // เฝ้าระวัง
+                pm25: 32.5,
+                temp: 31.0,
                 conditions: "Obesity, Diuretic",
                 factors: ["obesity", "diuretic"],
                 assessment_date: "2026-01-22"
@@ -3945,8 +4422,8 @@
                 hosp: "05866",
                 hosp_name: "รพ.สต.บ้านช่อแล (แม่แตง)",
                 tambon: "ต.ช่อแล (Cho Lae, Mae Taeng)",
-                pm25: 22.5, // เขียว
-                temp: 29.5, // เฝ้าระวัง
+                pm25: 32.5,
+                temp: 31.0,
                 conditions: "Outdoor Athlete, Allergic Rhinitis",
                 factors: ["athlete", "ar"],
                 assessment_date: "2026-02-25"
@@ -3958,14 +4435,53 @@
                 hosp: "05866",
                 hosp_name: "รพ.สต.บ้านช่อแล (แม่แตง)",
                 tambon: "ต.ช่อแล (Cho Lae, Mae Taeng)",
-                pm25: 11.5, // ฟ้า
-                temp: 28.5, // เฝ้าระวัง
+                pm25: 32.5,
+                temp: 31.0,
                 conditions: "Children <= 5 yrs",
                 factors: ["child_5"],
                 assessment_date: "2026-03-08"
             },
+            {
+                cid: "3501400293700",
+                name: "นาง พรทิพย์ ช่อแล",
+                gender_age: "F/39",
+                hosp: "05866",
+                hosp_name: "รพ.สต.บ้านช่อแล (แม่แตง)",
+                tambon: "ต.ช่อแล (Cho Lae, Mae Taeng)",
+                pm25: 32.5,
+                temp: 31.0,
+                conditions: "ให้คำปรึกษาสุขภาพและโภชนาการ",
+                factors: [],
+                assessment_date: "2026-04-02"
+            },
+            {
+                cid: "3501400293701",
+                name: "นาย อภิเชษฐ์ ปินตา",
+                gender_age: "M/27",
+                hosp: "05866",
+                hosp_name: "รพ.สต.บ้านช่อแล (แม่แตง)",
+                tambon: "ต.ช่อแล (Cho Lae, Mae Taeng)",
+                pm25: 32.5,
+                temp: 31.0,
+                conditions: "ตรวจสุขภาพประจำปี",
+                factors: [],
+                assessment_date: "2026-04-05"
+            },
+            {
+                cid: "3501400293702",
+                name: "นาย เอกพล คำปัน",
+                gender_age: "M/50",
+                hosp: "05866",
+                hosp_name: "รพ.สต.บ้านช่อแล (แม่แตง)",
+                tambon: "ต.ช่อแล (Cho Lae, Mae Taeng)",
+                pm25: 32.5,
+                temp: 31.0,
+                conditions: "ตรวจเช็คน้ำตาลและคอเลสเตอรอลปกติ",
+                factors: [],
+                assessment_date: "2026-04-06"
+            },
 
-            // --- 05868: รพ.สต.บ้านปางม่วง (ต.สบเปิง อ.แม่แตง จ.เชียงใหม่) ---
+            // --- 05868: รพ.สต.บ้านปางม่วง (ต.สบเปิง อ.แม่แตง จ.เชียงใหม่) | PM2.5: 20.0 µg/m³ (เขียว), Temp: 29.5 °C (เฝ้าระวัง) ---
             {
                 cid: "5144140267333",
                 name: "นาย อินสอน ปางม่วง",
@@ -3973,8 +4489,8 @@
                 hosp: "05868",
                 hosp_name: "รพ.สต.บ้านปางม่วง (แม่แตง)",
                 tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
-                pm25: 80.0, // แดง
-                temp: 45.0, // อันตราย -> เสี่ยง 2 ด้าน
+                pm25: 20.0,
+                temp: 29.5,
                 conditions: "BPD (Active/History), Asthma, Beta Blocker",
                 factors: ["bpd", "asthma", "beta_blocker"],
                 assessment_date: "2026-03-28"
@@ -3986,8 +4502,8 @@
                 hosp: "05868",
                 hosp_name: "รพ.สต.บ้านปางม่วง (แม่แตง)",
                 tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
-                pm25: 56.0, // ส้ม
-                temp: 52.6, // อันตรายมาก -> วิกฤต 2 ด้าน
+                pm25: 20.0,
+                temp: 29.5,
                 conditions: "Children <= 5 yrs, Recurrent RTI (>=3/6mo), Fever",
                 factors: ["child_5", "rti", "fever"],
                 assessment_date: "2026-04-06"
@@ -3999,8 +4515,8 @@
                 hosp: "05868",
                 hosp_name: "รพ.สต.บ้านปางม่วง (แม่แตง)",
                 tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
-                pm25: 42.0, // ส้ม
-                temp: 35.5, // เตือนภัย -> เสี่ยง 2 ด้าน
+                pm25: 20.0,
+                temp: 29.5,
                 conditions: "Kidney Disease, Obesity",
                 factors: ["kidney", "obesity"],
                 assessment_date: "2026-02-25"
@@ -4012,8 +4528,8 @@
                 hosp: "05868",
                 hosp_name: "รพ.สต.บ้านปางม่วง (แม่แตง)",
                 tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
-                pm25: 31.0, // เหลือง
-                temp: 31.0, // เฝ้าระวัง
+                pm25: 20.0,
+                temp: 29.5,
                 conditions: "Outdoor Athlete, Allergic Rhinitis",
                 factors: ["athlete", "ar"],
                 assessment_date: "2026-03-12"
@@ -4025,8 +4541,8 @@
                 hosp: "05868",
                 hosp_name: "รพ.สต.บ้านปางม่วง (แม่แตง)",
                 tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
-                pm25: 20.0, // เขียว
-                temp: 29.5, // เฝ้าระวัง
+                pm25: 20.0,
+                temp: 29.5,
                 conditions: "Beta Blocker",
                 factors: ["beta_blocker"],
                 assessment_date: "2026-03-01"
@@ -4038,11 +4554,50 @@
                 hosp: "05868",
                 hosp_name: "รพ.สต.บ้านปางม่วง (แม่แตง)",
                 tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
-                pm25: 14.0, // ฟ้า
-                temp: 28.0, // เฝ้าระวัง
+                pm25: 20.0,
+                temp: 29.5,
                 conditions: "Newborn (<= 1 yr), Children <= 5 yrs",
                 factors: ["newborn", "child_5"],
                 assessment_date: "2026-01-30"
+            },
+            {
+                cid: "3500201198902",
+                name: "นาง คำเอ้ย ปางม่วง",
+                gender_age: "F/63",
+                hosp: "05868",
+                hosp_name: "รพ.สต.บ้านปางม่วง (แม่แตง)",
+                tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
+                pm25: 20.0,
+                temp: 29.5,
+                conditions: "วัดความดันโลหิตปกติ ตรวจทั่วไป",
+                factors: [],
+                assessment_date: "2026-04-02"
+            },
+            {
+                cid: "3500201198903",
+                name: "นาย สุชาติ มณีโชติ",
+                gender_age: "M/31",
+                hosp: "05868",
+                hosp_name: "รพ.สต.บ้านปางม่วง (แม่แตง)",
+                tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
+                pm25: 20.0,
+                temp: 29.5,
+                conditions: "ตรวจสุขภาพประจำปีทั่วไป",
+                factors: [],
+                assessment_date: "2026-04-05"
+            },
+            {
+                cid: "1501401994334",
+                name: "ด.ช. ปวริศ ปางม่วง",
+                gender_age: "M/6",
+                hosp: "05868",
+                hosp_name: "รพ.สต.บ้านปางม่วง (แม่แตง)",
+                tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
+                pm25: 20.0,
+                temp: 29.5,
+                conditions: "Recurrent RTI (>=3/6mo)",
+                factors: ["rti"],
+                assessment_date: "2026-03-27"
             }
         ];
 
@@ -4155,10 +4710,30 @@
         ];
 
         function selectAllFilters(selectState) {
+            const chkNormal = document.getElementById('chk-normal-patient');
+            if (chkNormal) chkNormal.checked = selectState;
             filterCheckboxes.forEach(item => {
                 const el = document.getElementById(item.id);
                 if (el) el.checked = selectState;
             });
+            filterPatients();
+        }
+
+        function selectFilterPreset(preset) {
+            const chkNormal = document.getElementById('chk-normal-patient');
+            if (preset === 'air') {
+                if (chkNormal) chkNormal.checked = false;
+                filterCheckboxes.forEach(item => {
+                    const el = document.getElementById(item.id);
+                    if (el) el.checked = AIR_RISK_FACTORS.includes(item.key);
+                });
+            } else if (preset === 'temp') {
+                if (chkNormal) chkNormal.checked = false;
+                filterCheckboxes.forEach(item => {
+                    const el = document.getElementById(item.id);
+                    if (el) el.checked = TEMP_RISK_FACTORS.includes(item.key);
+                });
+            }
             filterPatients();
         }
 
@@ -4296,23 +4871,38 @@
                 .filter(item => document.getElementById(item.id)?.checked)
                 .map(item => item.key);
 
+            const includeNormal = document.getElementById('chk-normal-patient')?.checked ?? true;
+
             const badgeEl = document.getElementById('active-filter-badge');
             if (badgeEl) {
-                badgeEl.innerText = `${activeKeys.length} เงื่อนไขที่เลือก`;
-                badgeEl.className = activeKeys.length === 0
+                const totalActive = activeKeys.length + (includeNormal ? 1 : 0);
+                badgeEl.innerText = `${totalActive} เงื่อนไขที่เลือก`;
+                badgeEl.className = totalActive === 0
                     ? "text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full border border-gray-200"
                     : "text-xs font-medium text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200";
             }
 
             const searchInput = document.getElementById('patient-search')?.value.toLowerCase().trim() || "";
 
+            const activeHospital = HOSPITAL_ROLES.find(h => h.hospcode === currentHospitalCode) || HOSPITAL_ROLES[0];
             const hospitalFilteredDb = allPatientsDb.filter(p => p.hosp === currentHospitalCode);
+
+            // Synchronize environmental PM2.5 and Temp with active hospital for all patients in that hospital
+            hospitalFilteredDb.forEach(p => {
+                p.pm25 = activeHospital.pm25;
+                p.temp = activeHospital.temp;
+                p.tambon = activeHospital.tambon;
+            });
 
             // Compute risk and filter base criteria
             const baseFiltered = hospitalFilteredDb.filter(p => {
-                const hasMatchingFactor = (activeKeys.length === 0)
-                    ? false
-                    : p.factors.some(f => activeKeys.includes(f));
+                const isNormal = (!p.factors || p.factors.length === 0);
+                let matchesFactor = false;
+                if (isNormal) {
+                    matchesFactor = includeNormal;
+                } else {
+                    matchesFactor = (activeKeys.length === 0) ? false : p.factors.some(f => activeKeys.includes(f));
+                }
 
                 const risk = calculateCompositeRisk(p);
                 p._risk = risk;
@@ -4324,43 +4914,67 @@
                     matchesSearch = text.includes(searchInput);
                 }
 
-                return hasMatchingFactor && matchesSearch;
+                return matchesFactor && matchesSearch;
             });
 
-            // Calculate counts for:
             // 1. Dual Risk Box
             const countDual = baseFiltered.filter(p => p._risk.isDualRisk).length;
             const countDualCrit = baseFiltered.filter(p => p._risk.isDualCritical).length;
 
-            // 2. Air Risk Boxes (5 levels)
-            const countAir1 = baseFiltered.filter(p => p._risk.air.level === 1).length;
-            const countAir2 = baseFiltered.filter(p => p._risk.air.level === 2).length;
-            const countAir3 = baseFiltered.filter(p => p._risk.air.level === 3).length;
-            const countAir4 = baseFiltered.filter(p => p._risk.air.level === 4).length;
-            const countAir5 = baseFiltered.filter(p => p._risk.air.level === 5).length;
-
-            // 3. Temperature Risk Boxes (4 levels)
-            const countTemp1 = baseFiltered.filter(p => p._risk.temp.level === 1).length;
-            const countTemp2 = baseFiltered.filter(p => p._risk.temp.level === 2).length;
-            const countTemp3 = baseFiltered.filter(p => p._risk.temp.level === 3).length;
-            const countTemp4 = baseFiltered.filter(p => p._risk.temp.level === 4).length;
-
-            // Update DOM counters
             const elDual = document.getElementById('count-dual-risk');
             const elDualCrit = document.getElementById('count-dual-critical');
             if (elDual) elDual.innerText = countDual;
             if (elDualCrit) elDualCrit.innerText = countDualCrit;
 
-            if (document.getElementById('count-air-1')) document.getElementById('count-air-1').innerText = countAir1;
-            if (document.getElementById('count-air-2')) document.getElementById('count-air-2').innerText = countAir2;
-            if (document.getElementById('count-air-3')) document.getElementById('count-air-3').innerText = countAir3;
-            if (document.getElementById('count-air-4')) document.getElementById('count-air-4').innerText = countAir4;
-            if (document.getElementById('count-air-5')) document.getElementById('count-air-5').innerText = countAir5;
+            // 2. Air Risk Boxes (5 levels): Calculate Normal and Risk patient counts
+            const activeAirLevel = getAirRisk(activeHospital.pm25).level;
+            for (let lvl = 1; lvl <= 5; lvl++) {
+                const countNormal = baseFiltered.filter(p => p._risk.air.level === lvl && !isAirRiskPatient(p)).length;
+                const countRisk = baseFiltered.filter(p => p._risk.air.level === lvl && isAirRiskPatient(p)).length;
+                const countTotal = countNormal + countRisk;
 
-            if (document.getElementById('count-temp-1')) document.getElementById('count-temp-1').innerText = countTemp1;
-            if (document.getElementById('count-temp-2')) document.getElementById('count-temp-2').innerText = countTemp2;
-            if (document.getElementById('count-temp-3')) document.getElementById('count-temp-3').innerText = countTemp3;
-            if (document.getElementById('count-temp-4')) document.getElementById('count-temp-4').innerText = countTemp4;
+                const elNormal = document.getElementById(`count-air-normal-${lvl}`);
+                const elRisk = document.getElementById(`count-air-risk-${lvl}`);
+                const elTotal = document.getElementById(`count-air-${lvl}`);
+                const elCurrentBadge = document.getElementById(`badge-air-current-${lvl}`);
+
+                if (elNormal) elNormal.innerText = countNormal;
+                if (elRisk) elRisk.innerText = countRisk;
+                if (elTotal) elTotal.innerText = countTotal;
+
+                if (elCurrentBadge) {
+                    if (lvl === activeAirLevel) {
+                        elCurrentBadge.classList.remove('hidden');
+                    } else {
+                        elCurrentBadge.classList.add('hidden');
+                    }
+                }
+            }
+
+            // 3. Temperature Risk Boxes (4 levels): Calculate Normal and Risk patient counts
+            const activeTempLevel = getTempRisk(activeHospital.temp).level;
+            for (let lvl = 1; lvl <= 4; lvl++) {
+                const countNormal = baseFiltered.filter(p => p._risk.temp.level === lvl && !isTempRiskPatient(p)).length;
+                const countRisk = baseFiltered.filter(p => p._risk.temp.level === lvl && isTempRiskPatient(p)).length;
+                const countTotal = countNormal + countRisk;
+
+                const elNormal = document.getElementById(`count-temp-normal-${lvl}`);
+                const elRisk = document.getElementById(`count-temp-risk-${lvl}`);
+                const elTotal = document.getElementById(`count-temp-${lvl}`);
+                const elCurrentBadge = document.getElementById(`badge-temp-current-${lvl}`);
+
+                if (elNormal) elNormal.innerText = countNormal;
+                if (elRisk) elRisk.innerText = countRisk;
+                if (elTotal) elTotal.innerText = countTotal;
+
+                if (elCurrentBadge) {
+                    if (lvl === activeTempLevel) {
+                        elCurrentBadge.classList.remove('hidden');
+                    } else {
+                        elCurrentBadge.classList.add('hidden');
+                    }
+                }
+            }
 
             // Update Top Header Summary Badge
             const totalRiskCountEl = document.getElementById('total-risk-count');
@@ -4369,9 +4983,16 @@
                     totalRiskCountEl.innerHTML = `<span class="text-gray-500 font-medium">0 ผู้ป่วยในระบบ</span>`;
                     totalRiskCountEl.className = "bg-gray-100 text-gray-700 text-sm font-bold px-3.5 py-1.5 rounded-full inline-flex items-center gap-2 border border-gray-200 shadow-xs";
                 } else {
+                    const totalAirRisk = baseFiltered.filter(p => isAirRiskPatient(p)).length;
+                    const totalTempRisk = baseFiltered.filter(p => isTempRiskPatient(p)).length;
+                    const totalNormal = baseFiltered.filter(p => !isAirRiskPatient(p) && !isTempRiskPatient(p)).length;
+
                     totalRiskCountEl.innerHTML = `
                         <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
-                        กลุ่มเสี่ยง 2 ด้าน: <strong class="text-red-700 font-black ml-0.5">${countDual}</strong> ราย | เสี่ยงสูง (ส้ม+แดง): <strong class="text-red-700 font-black ml-0.5">${countAir4 + countAir5}</strong> ราย (รวม ${baseFiltered.length} ราย)
+                        เสี่ยง 2 ด้าน: <strong class="text-red-700 font-black ml-0.5">${countDual}</strong> ราย |
+                        เสี่ยงฝุ่น: <strong class="text-sky-700 font-black ml-0.5">${totalAirRisk}</strong> ราย |
+                        เสี่ยงความร้อน: <strong class="text-amber-800 font-black ml-0.5">${totalTempRisk}</strong> ราย |
+                        ทั่วไป: <strong class="text-blue-700 font-black ml-0.5">${totalNormal}</strong> ราย (รวม ${baseFiltered.length} ราย)
                     `;
                     totalRiskCountEl.className = "bg-red-50 text-red-800 text-sm font-bold px-3.5 py-1.5 rounded-full inline-flex items-center gap-2 border border-red-200 shadow-xs";
                 }
@@ -4416,6 +5037,17 @@
                 const air = risk.air;
                 const tempRisk = risk.temp;
 
+                const isAirRisk = isAirRiskPatient(p);
+                const isTempRisk = isTempRiskPatient(p);
+
+                const airGroupTag = isAirRisk
+                    ? `<span class="inline-flex items-center gap-1 bg-sky-100 text-sky-800 text-[10px] font-bold px-2 py-0.5 rounded border border-sky-300 shadow-2xs">● กลุ่มเสี่ยงฝุ่น</span>`
+                    : `<span class="inline-flex items-center gap-1 bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-0.5 rounded border border-gray-200">กลุ่มทั่วไปฝุ่น</span>`;
+
+                const tempGroupTag = isTempRisk
+                    ? `<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-900 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-300 shadow-2xs">● กลุ่มเสี่ยงความร้อน</span>`
+                    : `<span class="inline-flex items-center gap-1 bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-0.5 rounded border border-gray-200">กลุ่มทั่วไปความร้อน</span>`;
+
                 const dualBadge = risk.isDualRisk
                     ? `<span class="inline-flex items-center gap-1 bg-purple-700 text-white text-[10px] font-black px-2 py-0.5 rounded shadow-2xs">
                            ⚡ เสี่ยง 2 ด้าน
@@ -4438,17 +5070,25 @@
                         </td>
                         <td class="px-5 py-3.5 whitespace-nowrap">
                             <div class="flex flex-col gap-1 items-start">
-                                <span class="inline-flex items-center gap-1 ${air.badgeClass} text-[11px] font-bold px-2 py-0.5 rounded shadow-2xs">
-                                    🌫️ PM2.5: ${p.pm25} µg/m³ (${air.colorName})
-                                </span>
-                                <span class="inline-flex items-center gap-1 ${tempRisk.badgeClass} text-[11px] font-bold px-2 py-0.5 rounded shadow-2xs">
-                                    🌡️ ดัชนีความร้อน: ${p.temp}°C (${tempRisk.name})
-                                </span>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="inline-flex items-center gap-1 ${air.badgeClass} text-[11px] font-bold px-2 py-0.5 rounded shadow-2xs">
+                                        🌫️ PM2.5: ${p.pm25} µg/m³ (${air.colorName})
+                                    </span>
+                                    ${airGroupTag}
+                                </div>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="inline-flex items-center gap-1 ${tempRisk.badgeClass} text-[11px] font-bold px-2 py-0.5 rounded shadow-2xs">
+                                        🌡️ ดัชนีความร้อน: ${p.temp}°C (${tempRisk.name})
+                                    </span>
+                                    ${tempGroupTag}
+                                </div>
                                 ${dualBadge}
                             </div>
                         </td>
                         <td class="px-5 py-3.5 min-w-[280px]">
-                            ${renderPatientFactorsByType(p)}
+                            ${(!p.factors || p.factors.length === 0)
+                                ? '<span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-blue-50 text-blue-800 border border-blue-200 shadow-2xs">👥 ผู้ป่วยทั่วไป (ไม่มีปัจจัยเปราะบาง)</span>'
+                                : renderPatientFactorsByType(p)}
                         </td>
                         <td class="px-5 py-3.5 whitespace-nowrap text-right text-sm font-medium">
                             <div class="flex justify-end items-center space-x-1.5">
