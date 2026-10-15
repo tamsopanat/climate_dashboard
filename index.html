@@ -1395,7 +1395,7 @@
                         </button>
                         <button type="button" onclick="selectFilterPreset('temp')"
                             class="text-xs font-semibold text-amber-900 hover:text-amber-950 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-lg border border-amber-300 transition flex items-center gap-1 shadow-2xs">
-                            <span>🌡️</span> เฉพาะเสี่ยงความร้อน (12 เกณฑ์)
+                            <span>🌡️</span> เฉพาะเสี่ยงความร้อน (11 เกณฑ์)
                         </button>
                         <button type="button" onclick="selectAllFilters(false)"
                             class="text-xs font-semibold text-gray-600 hover:text-gray-800 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg border border-gray-200 transition">
@@ -1415,7 +1415,7 @@
                                 <span>🌫️</span> เสี่ยงฝุ่น PM2.5: เด็กเล็ก, BPD, ติดเชื้อทางเดินหายใจซ้ำ, หอบหืด, ภูมิแพ้โพรงจมูก, หัวใจพิการแต่กำเนิด
                             </span>
                             <span class="inline-flex items-center gap-1 text-[11px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
-                                <span>🌡️</span> เสี่ยงความร้อน: ทารก, ไข้สูง, ทำงานกลางแจ้ง, ไตเรื้อรัง, ประสาท/สมอง, อ้วน, ผอม, หอบหืด, เบต้าบล็อกเกอร์, แก้แพ้, ขับปัสสาวะ, หัวใจพิการฯ
+                                <span>🌡️</span> เสี่ยงความร้อน: ทารก, ทำงานกลางแจ้ง, ไตเรื้อรัง, ประสาท/สมอง, อ้วน, ผอม, หอบหืด, เบต้าบล็อกเกอร์, แก้แพ้, ขับปัสสาวะ, หัวใจพิการฯ
                             </span>
                         </div>
                         <!-- Normal Patient Toggle -->
@@ -1595,17 +1595,6 @@
                                             <span class="text-[10px] font-bold text-purple-800 bg-purple-100 px-1.5 py-0.2 rounded">⚡ เสี่ยงฝุ่น + ความร้อน</span>
                                         </div>
                                         <div class="text-[11px] text-gray-500 font-normal">เสี่ยงภาวะหัวใจทำงานหนัก เหนื่อยหอบง่าย</div>
-                                    </div>
-                                </label>
-                                <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                    <input type="checkbox" id="chk-fever" checked onchange="filterPatients()"
-                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                    <div class="leading-snug min-w-0">
-                                        <div class="flex items-center gap-1.5 flex-wrap">
-                                            <span class="text-xs sm:text-sm font-bold text-gray-900">มีไข้สูงหรือตัวร้อน</span>
-                                            <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️ เสี่ยงความร้อน</span>
-                                        </div>
-                                        <div class="text-[11px] text-gray-500 font-normal">อุณหภูมิกายสูง เสี่ยงภาวะเพลียแดดหรือชัก</div>
                                     </div>
                                 </label>
                                 <label class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
@@ -3761,7 +3750,7 @@
 
             // Clinical Vulnerability Score
             const weights = {
-                newborn: 3, bpd: 3, fever: 3, chd: 3,
+                newborn: 3, bpd: 3, chd: 3,
                 child_5: 2, asthma: 2, kidney: 2, neuro: 2, rti: 2,
                 beta_blocker: 1, diuretic: 1, antihistamine: 1, athlete: 1, obesity: 1, underweight: 1, ar: 1
             };
@@ -3811,7 +3800,7 @@
                 score = Math.max(score, 3.65);
             } else if (pmScore === 5 && vulnScore >= 3) {
                 score = Math.max(score, 4.30);
-            } else if (tempScore >= 4 && (factors.includes('fever') || factors.includes('newborn') || factors.includes('chd'))) {
+            } else if (tempScore >= 4 && (factors.includes('newborn') || factors.includes('chd'))) {
                 score = Math.max(score, 4.30);
             }
 
@@ -3856,21 +3845,20 @@
         // 6. โรคหัวใจพิการแต่กำเนิด (chd)
         const AIR_RISK_FACTORS = ['child_5', 'bpd', 'rti', 'asthma', 'ar', 'chd'];
 
-        // Temp Risk Conditions (12 conditions):
+        // Temp Risk Conditions (11 conditions):
         // 1. ทารก (newborn)
-        // 2. มีไข้สูงหรือตัวร้อน (fever)
-        // 3. ผู้ออกกำลังหรือทำงานกลางแจ้ง (athlete)
-        // 4. โรคไตเรื้อรัง (kidney)
-        // 5. โรคระบบประสาทและสมอง (neuro)
-        // 6. ภาวะอ้วน (obesity)
-        // 7. น้ำหนักต่ำกว่าเกณฑ์ (underweight)
-        // 8. โรคหอบหืด (asthma)
-        // 9. ยาเบต้าบล็อกเกอร์ (beta_blocker)
-        // 10. ยาแก้แพ้ (antihistamine)
-        // 11. ยาขับปัสสาวะ (diuretic)
-        // 12. โรคหัวใจพิการแต่กำเนิด (chd)
+        // 2. ผู้ออกกำลังหรือทำงานกลางแจ้ง (athlete)
+        // 3. โรคไตเรื้อรัง (kidney)
+        // 4. โรคระบบประสาทและสมอง (neuro)
+        // 5. ภาวะอ้วน (obesity)
+        // 6. น้ำหนักต่ำกว่าเกณฑ์ (underweight)
+        // 7. โรคหอบหืด (asthma)
+        // 8. ยาเบต้าบล็อกเกอร์ (beta_blocker)
+        // 9. ยาแก้แพ้ (antihistamine)
+        // 10. ยาขับปัสสาวะ (diuretic)
+        // 11. โรคหัวใจพิการแต่กำเนิด (chd)
         const TEMP_RISK_FACTORS = [
-            'newborn', 'fever', 'athlete', 'kidney', 'neuro',
+            'newborn', 'athlete', 'kidney', 'neuro',
             'obesity', 'underweight', 'asthma', 'beta_blocker',
             'antihistamine', 'diuretic', 'chd'
         ];
@@ -4015,8 +4003,8 @@
                 tambon: "ต.สันทราย (San Sai, Mae Chan)",
                 pm25: 82.4,
                 temp: 45.2,
-                conditions: "Newborn (<= 1 yr), Children <= 5 yrs, Asthma, Fever",
-                factors: ["newborn", "child_5", "asthma", "fever"],
+                conditions: "Newborn (<= 1 yr), Children <= 5 yrs, Asthma",
+                factors: ["newborn", "child_5", "asthma"],
                 assessment_date: "2026-04-05"
             },
             {
@@ -4147,8 +4135,8 @@
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
                 pm25: 48.5,
                 temp: 36.8,
-                conditions: "Newborn (<= 1 yr), Children <= 5 yrs, BPD (Active/History), Fever",
-                factors: ["newborn", "child_5", "bpd", "fever"],
+                conditions: "Newborn (<= 1 yr), Children <= 5 yrs, BPD (Active/History)",
+                factors: ["newborn", "child_5", "bpd"],
                 assessment_date: "2026-04-02"
             },
             {
@@ -4253,8 +4241,8 @@
                 tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
                 pm25: 95.0,
                 temp: 52.4,
-                conditions: "Outdoor Athlete, Asthma, Allergic Rhinitis, Fever",
-                factors: ["athlete", "asthma", "ar", "fever"],
+                conditions: "Outdoor Athlete, Asthma, Allergic Rhinitis",
+                factors: ["athlete", "asthma", "ar"],
                 assessment_date: "2026-03-25"
             },
             {
@@ -4385,8 +4373,8 @@
                 tambon: "ต.ช่อแล (Cho Lae, Mae Taeng)",
                 pm25: 32.5,
                 temp: 31.0,
-                conditions: "Newborn (<= 1 yr), Children <= 5 yrs, Fever",
-                factors: ["newborn", "child_5", "fever"],
+                conditions: "Newborn (<= 1 yr), Children <= 5 yrs",
+                factors: ["newborn", "child_5"],
                 assessment_date: "2026-04-01"
             },
             {
@@ -4504,8 +4492,8 @@
                 tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
                 pm25: 20.0,
                 temp: 29.5,
-                conditions: "Children <= 5 yrs, Recurrent RTI (>=3/6mo), Fever",
-                factors: ["child_5", "rti", "fever"],
+                conditions: "Children <= 5 yrs, Recurrent RTI (>=3/6mo)",
+                factors: ["child_5", "rti"],
                 assessment_date: "2026-04-06"
             },
             {
@@ -4629,7 +4617,6 @@
             asthma: { id: "chk-asthma", th: "โรคหอบหืด", en: "Asthma", badgeClass: "bg-orange-50 text-orange-800 border-orange-200" },
             ar: { id: "chk-ar", th: "โรคภูมิแพ้โพรงจมูก", en: "Allergic Rhinitis", badgeClass: "bg-sky-50 text-sky-800 border-sky-200" },
             chd: { id: "chk-chd", th: "โรคหัวใจพิการแต่กำเนิด", en: "Congenital Heart Dis.", badgeClass: "bg-red-50 text-red-800 border-red-200" },
-            fever: { id: "chk-fever", th: "มีไข้สูงหรือตัวร้อน", en: "Fever", badgeClass: "bg-amber-50 text-amber-900 border-amber-200" },
             kidney: { id: "chk-kidney", th: "โรคไตเรื้อรัง", en: "Kidney Disease", badgeClass: "bg-violet-50 text-violet-800 border-violet-200" },
             neuro: { id: "chk-neuro", th: "โรคระบบประสาทและสมอง", en: "Neurologic Disease", badgeClass: "bg-slate-50 text-slate-800 border-slate-200" }
         };
@@ -4657,7 +4644,7 @@
                 },
                 {
                     key: "condition",
-                    keys: ["bpd", "rti", "asthma", "ar", "chd", "fever", "kidney", "neuro"],
+                    keys: ["bpd", "rti", "asthma", "ar", "chd", "kidney", "neuro"],
                     badgeClass: "bg-rose-50 text-rose-900 border-rose-200"
                 }
             ];
@@ -4704,7 +4691,6 @@
             { id: "chk-asthma", key: "asthma" },
             { id: "chk-ar", key: "ar" },
             { id: "chk-chd", key: "chd" },
-            { id: "chk-fever", key: "fever" },
             { id: "chk-kidney", key: "kidney" },
             { id: "chk-neuro", key: "neuro" }
         ];
