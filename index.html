@@ -154,6 +154,69 @@
             padding-left: 0.5rem !important;
             padding-right: 0.5rem !important;
         }
+
+        /* Student Attendance Status Tooltip Hover Popover */
+        .student-status-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .student-status-popover {
+            position: absolute;
+            right: 0;
+            bottom: calc(100% + 10px);
+            width: 20rem;
+            max-width: 22rem;
+            background: rgba(17, 24, 39, 0.96);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #ffffff;
+            border-radius: 1rem;
+            padding: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35), 0 10px 10px -5px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            z-index: 60;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(6px);
+            transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: left;
+        }
+
+        /* For top rows, display downward so it is never clipped by table header */
+        .student-status-popover.popover-down {
+            bottom: auto;
+            top: calc(100% + 10px);
+            transform: translateY(-6px);
+        }
+
+        .student-status-container:hover .student-status-popover {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .student-status-popover::after {
+            content: '';
+            position: absolute;
+            right: 1.5rem;
+            bottom: -6px;
+            width: 12px;
+            height: 12px;
+            background: rgba(17, 24, 39, 0.96);
+            border-right: 1px solid rgba(255, 255, 255, 0.16);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+            transform: rotate(45deg);
+        }
+
+        .student-status-popover.popover-down::after {
+            bottom: auto;
+            top: -6px;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1px solid rgba(255, 255, 255, 0.16);
+            border-top: 1px solid rgba(255, 255, 255, 0.16);
+        }
     </style>
 </head>
 
@@ -254,6 +317,24 @@
                         กลุ่มเสี่ยง PM2.5/ความร้อน
                     </span>
                 </button>
+
+                <!-- Tab 3: ข้อมูลนักเรียน (School Restricted: Saraphi & Mae Tha) -->
+                <button type="button" id="nav-tab-student" onclick="switchDashboardTab('student')"
+                    title="ข้อมูลนักเรียน (เฉพาะสถานศึกษา)"
+                    class="sidebar-tab-btn hidden w-full text-left px-4 py-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3.5 group cursor-pointer font-bold text-gray-900 hover:bg-gray-200/50">
+                    <span id="nav-tab-student-icon" class="shrink-0 flex items-center justify-center">
+                        <!-- Student/Graduation Cap SVG Icon -->
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                            <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                        </svg>
+                    </span>
+                    <span id="nav-tab-student-text"
+                        class="sidebar-text text-sm lg:text-[15px] tracking-tight truncate flex-1 leading-snug">
+                        ข้อมูลนักเรียน
+                    </span>
+                </button>
             </nav>
         </div>
 
@@ -288,7 +369,8 @@
         </div>
 
         <!-- Mobile Tabs -->
-        <div class="grid grid-cols-2 gap-1.5 p-2 bg-[#eaebf2]/60 border-t border-gray-200/80">
+        <div id="mobile-tabs-container"
+            class="grid grid-cols-2 gap-1.5 p-2 bg-[#eaebf2]/60 border-t border-gray-200/80">
             <button type="button" id="nav-tab-env-mobile" onclick="switchDashboardTab('env')"
                 class="py-2.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 truncate cursor-pointer">
                 <span>
@@ -300,7 +382,7 @@
                         <path d="M5 21h14" />
                     </svg>
                 </span>
-                <span class="truncate">คุณภาพอากาศรายพื้นที่</span>
+                <span class="truncate">คุณภาพอากาศ</span>
             </button>
             <button type="button" id="nav-tab-risk-mobile" onclick="switchDashboardTab('risk')"
                 class="py-2.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 truncate cursor-pointer">
@@ -311,7 +393,18 @@
                         <path d="M16 6h1.5v5.5H16zM16.75 16a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z" />
                     </svg>
                 </span>
-                <span class="truncate">ผู้ป่วยกลุ่มเสี่ยง PM2.5...</span>
+                <span class="truncate">กลุ่มเสี่ยง</span>
+            </button>
+            <button type="button" id="nav-tab-student-mobile" onclick="switchDashboardTab('student')"
+                class="hidden py-2.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 truncate cursor-pointer">
+                <span>
+                    <svg class="w-4 h-4 inline-block -mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                    </svg>
+                </span>
+                <span class="truncate">ข้อมูลนักเรียน</span>
             </button>
         </div>
     </div>
@@ -338,17 +431,17 @@
                             <button type="button" onclick="selectUserType('Gov Office')" id="global-role-gov"
                                 class="px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 hover:text-indigo-900 font-bold"
                                 title="ดูข้อมูลในฐานะหน่วยงานภาครัฐ / อปท. (แสดงตำบลที่รับผิดชอบ)">
-                                <span>🏛️</span> Gov Office
+                                <span>🏛️</span> หน่วยงานภาครัฐ/อปท.
                             </button>
                             <button type="button" onclick="selectUserType('School')" id="global-role-school"
                                 class="px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 hover:text-blue-900 font-bold"
-                                title="ดูข้อมูลในฐานะโรงเรียน (รัศมี 5 กม.)">
-                                <span>🏫</span> School
+                                title="ดูข้อมูลในฐานะสถานศึกษา (รัศมี 5 กม.)">
+                                <span>🏫</span> สถานศึกษา
                             </button>
                             <button type="button" onclick="selectUserType('Hospital')" id="global-role-hospital"
                                 class="px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 hover:text-emerald-900 font-bold"
                                 title="ดูข้อมูลในฐานะสถานพยาบาล / รพ.สต.">
-                                <span>🏥</span> Hospital
+                                <span>🏥</span> สถานพยาบาล
                             </button>
                         </div>
 
@@ -360,8 +453,9 @@
                                 📍
                             </div>
                             <div class="flex flex-col truncate w-full">
-                                <span class="text-[9px] uppercase font-extrabold text-gray-400 tracking-wider">Select
-                                    Active User / Site</span>
+                                <span
+                                    class="text-[9px] uppercase font-extrabold text-gray-400 tracking-wider">เลือกหน่วยงาน
+                                    / พื้นที่ใช้งาน</span>
                                 <select id="user-select" onchange="onUserChanged(this.value)"
                                     class="bg-transparent text-sm font-bold text-gray-900 outline-none cursor-pointer truncate w-full">
                                     <!-- Populated dynamically via JS -->
@@ -381,15 +475,15 @@
                         <div class="flex items-center gap-2 mb-1">
                             <span
                                 class="bg-blue-100 text-blue-700 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
-                            <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Exposure Monitoring &
-                                Time-Series Analytics</span>
+                            <span
+                                class="text-xs font-bold text-blue-600 uppercase tracking-wider">การติดตามมลพิษและแนวโน้มข้อมูลสภาพอากาศ</span>
                         </div>
                         <h2 class="text-2xl font-black text-gray-900 tracking-tight">
-                            Environmental Exposure Trends
+                            แนวโน้มมลพิษทางอากาศและสภาพอากาศรายพื้นที่
                         </h2>
                         <p class="text-sm text-gray-500 mt-1">
-                            Compare active site exposure against surrounding community stations & 7-Day PM2.5 and
-                            Temperature Forecast (Observed & Extreme Threshold Alerts)
+                            เปรียบเทียบระดับมลพิษของพื้นที่ใช้งานกับสถานีตรวจวัดโดยรอบ และการพยากรณ์ PM2.5 และอุณหภูมิ 7
+                            วันล่วงหน้า (ข้อมูลตรวจวัดจริงและการแจ้งเตือนเกณฑ์วิกฤต)
                         </p>
                     </div>
 
@@ -398,25 +492,25 @@
                         <!-- Compare with: Address Filter -->
                         <div class="flex items-center gap-2">
                             <span class="text-xs font-bold text-gray-600 uppercase tracking-wider hidden sm:inline">
-                                Compare with:
+                                เปรียบเทียบกับ:
                             </span>
                             <div
                                 class="flex items-center bg-white border border-gray-300 rounded-lg p-1 px-3 space-x-2 shadow-2xs h-10">
                                 <select id="province-select" onchange="updateLocationDropdowns('province')"
                                     class="bg-transparent text-gray-600 text-sm focus:outline-none cursor-pointer appearance-none pr-2"
-                                    title="Comparison Province">
+                                    title="จังหวัดที่ต้องการเปรียบเทียบ">
                                     <!-- Populated via JS -->
                                 </select>
                                 <span class="text-gray-300">/</span>
                                 <select id="amphoe-select" onchange="updateLocationDropdowns('amphoe')"
                                     class="bg-transparent text-gray-600 text-sm focus:outline-none cursor-pointer appearance-none pr-2"
-                                    title="Comparison District">
+                                    title="อำเภอที่ต้องการเปรียบเทียบ">
                                     <!-- Populated via JS -->
                                 </select>
                                 <span class="text-gray-300">/</span>
                                 <select id="location-select" onchange="updateLocationDropdowns('tambon')"
                                     class="bg-transparent text-blue-700 text-sm font-bold focus:outline-none cursor-pointer appearance-none pr-2"
-                                    title="Comparison Station or Subdistrict">
+                                    title="ตำบลหรือสถานีที่ต้องการเปรียบเทียบ">
                                     <!-- Populated via JS -->
                                 </select>
                             </div>
@@ -427,7 +521,7 @@
                             class="flex items-center bg-white border border-gray-300 rounded-lg p-1 px-3 space-x-2 shadow-2xs h-10">
                             <input type="date" id="start-date" value="2026-09-30" onchange="fetchDashboardData()"
                                 class="text-sm text-gray-700 focus:outline-none cursor-pointer" />
-                            <span class="text-gray-400 font-medium">to</span>
+                            <span class="text-gray-400 font-medium">ถึง</span>
                             <input type="date" id="end-date" value="2026-10-13" onchange="fetchDashboardData()"
                                 class="text-sm text-gray-700 focus:outline-none cursor-pointer" />
                         </div>
@@ -445,12 +539,12 @@
                             <div class="flex items-center gap-2">
                                 <span
                                     class="inline-block w-3.5 h-3.5 rounded-full bg-red-600 border border-red-700 shadow-2xs"></span>
-                                <span class="font-bold text-gray-800">Critical PM2.5 (&ge; 150 µg/m³)</span>
+                                <span class="font-bold text-gray-800">PM2.5 ระดับวิกฤต (&ge; 150 µg/m³)</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span
                                     class="inline-block w-3.5 h-3.5 rounded-full bg-orange-500 border border-orange-600 shadow-2xs"></span>
-                                <span class="font-bold text-gray-800">Extreme Heat (&ge; 38.0 °C)</span>
+                                <span class="font-bold text-gray-800">อากาศร้อนจัด (&ge; 38.0 °C)</span>
                             </div>
                         </div>
 
@@ -462,7 +556,7 @@
                                     <div class="w-5 h-0.5 bg-gray-700"></div>
                                     <div class="w-2 h-2 rounded-full bg-gray-700 -ml-3.5 z-10"></div>
                                 </div>
-                                <span class="font-medium text-gray-700">PM2.5: Line with Circle Point (●)</span>
+                                <span class="font-medium text-gray-700">PM2.5: เส้นทึบ จุดกลม (●)</span>
                             </div>
                             <span class="text-gray-300">•</span>
                             <div class="flex items-center gap-2">
@@ -470,18 +564,18 @@
                                     <div class="w-5 h-0.5 border-t-2 border-dashed border-gray-700"></div>
                                     <div class="w-2 h-2 bg-gray-700 -ml-3.5 z-10"></div>
                                 </div>
-                                <span class="font-medium text-gray-700">Temp: Dash with Square Point (■)</span>
+                                <span class="font-medium text-gray-700">อุณหภูมิ: เส้นประ จุดสี่เหลี่ยม (■)</span>
                             </div>
                             <span class="text-gray-300">•</span>
                             <div class="flex items-center gap-1.5">
                                 <div class="w-5 h-0.5 bg-blue-600 border-t-2 border-dashed"></div>
-                                <span>Dashed in Gray Zone: 7-Day Forecast (PM2.5 & Temp)</span>
+                                <span>เส้นประในแถบสีเทา: พยากรณ์ล่วงหน้า 7 วัน (PM2.5 และ อุณหภูมิ)</span>
                             </div>
                             <span class="text-gray-300">•</span>
                             <div class="flex items-center gap-1.5">
                                 <span class="w-2 h-2 rounded-xs bg-blue-600"></span>
                                 <span class="w-2 h-2 rounded-xs bg-emerald-500 -ml-0.5"></span>
-                                <span>Same Site = Same Color</span>
+                                <span>พื้นที่เดียวกัน = สีเดียวกัน</span>
                             </div>
                         </div>
                     </div>
@@ -501,15 +595,15 @@
                             <div class="flex items-center gap-2 mb-0.5">
                                 <span
                                     class="bg-emerald-100 text-emerald-700 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
-                                <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Geospatial
-                                    Surveillance & Community Radius</span>
+                                <span
+                                    class="text-xs font-bold text-emerald-600 uppercase tracking-wider">การเฝ้าระวังเชิงพื้นที่และรัศมีชุมชน</span>
                             </div>
                             <h2 class="text-xl font-black text-gray-900 flex items-center gap-2">
-                                CMU Regional PM2.5 Map & Community Network
+                                แผนที่เครือข่ายเซนเซอร์ PM2.5 และการเฝ้าระวังชุมชน
                             </h2>
                             <p class="text-xs text-gray-500 mt-0.5">
-                                Nearby PM2.5 sensor network around assigned institutions, 5 km safety buffer, and
-                                student residence assessment
+                                เครือข่ายสถานีตรวจวัด PM2.5 รอบหน่วยงาน/สถานศึกษา รัศมีความปลอดภัย 5 กม.
+                                และการประเมินตำแหน่งที่อยู่อาศัย
                             </p>
                         </div>
                     </div>
@@ -518,13 +612,13 @@
                     <div
                         class="bg-blue-50/60 border-b border-blue-100 px-6 py-3 flex flex-wrap items-center justify-between text-xs sm:text-sm text-gray-800 shrink-0 gap-3">
                         <div class="flex items-center gap-2">
-                            <span class="font-bold text-blue-900" id="active-user-name">Loading...</span>
+                            <span class="font-bold text-blue-900" id="active-user-name">กำลังโหลด...</span>
                             <span class="text-blue-300">•</span>
-                            <span id="active-user-desc" class="text-blue-700 font-medium">Location info</span>
+                            <span id="active-user-desc" class="text-blue-700 font-medium">ข้อมูลตำแหน่ง</span>
                             <span class="text-blue-300">•</span>
                             <span id="active-station-count"
                                 class="bg-white px-2 py-0.5 rounded-full text-blue-800 font-semibold border border-blue-200 text-xs">0
-                                Stations Nearby</span>
+                                สถานีในบริเวณใกล้เคียง</span>
                             <span class="text-blue-300">•</span>
                             <span id="jurisdiction-badge"
                                 class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-blue-800 bg-white px-2 py-0.5 rounded-full border border-blue-200 shadow-2xs"
@@ -604,8 +698,8 @@
                                         <div>
                                             <h3 class="font-black text-sm leading-tight" id="panel-header-title">
                                                 มลพิษรอบบริเวณที่ปักหมุด</h3>
-                                            <p class="text-[10px] text-rose-100" id="panel-header-subtitle">Pinned Area
-                                                Air Assessment</p>
+                                            <p class="text-[10px] text-rose-100" id="panel-header-subtitle">
+                                                การประเมินคุณภาพอากาศจุดที่ปักหมุด</p>
                                         </div>
                                     </div>
                                     <button type="button" onclick="clearStudentPin()"
@@ -2135,6 +2229,238 @@
             </div>
         </div>
 
+        <!-- ========================================================================= -->
+        <!-- TAB PANEL 3: ข้อมูลนักเรียน (School Restricted: Saraphi & Mae Tha)        -->
+        <!-- ========================================================================= -->
+        <div id="panel-student" class="w-full hidden">
+            <div class="max-w-7xl mx-auto space-y-6">
+
+                <!-- 1. Top Banner: พื้นที่เฉพาะสถานศึกษา (School-Restricted Workspace) -->
+                <div
+                    class="bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 border border-blue-400/30">
+                    <!-- Decorative background subtle glow circles -->
+                    <div
+                        class="absolute -right-12 -bottom-12 w-64 h-64 bg-white/10 rounded-full blur-2xl pointer-events-none">
+                    </div>
+                    <div
+                        class="absolute left-1/3 -top-10 w-48 h-48 bg-indigo-400/20 rounded-full blur-xl pointer-events-none">
+                    </div>
+
+                    <div class="relative z-10 space-y-2">
+                        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight">
+                            ข้อมูลนักเรียนและการเข้าเรียน
+                        </h2>
+                        <p class="text-xs sm:text-sm text-blue-100/90 max-w-2xl font-medium leading-relaxed">
+                            บันทึกการเข้าเรียนและข้อมูลนักเรียน
+                        </p>
+                    </div>
+
+                    <!-- Right Card: Current data scope with Quick School Switcher -->
+                    <div
+                        class="relative z-10 bg-white/12 backdrop-blur-md border border-white/25 rounded-2xl p-4 sm:p-4.5 min-w-[270px] shadow-lg flex flex-col justify-between">
+                        <div class="flex items-center justify-between gap-2 text-xs text-blue-100 mb-1.5">
+                            <span class="font-medium text-[11px] text-blue-200">ขอบเขตข้อมูลสถานศึกษา</span>
+                            <span
+                                class="text-[10px] bg-emerald-400/20 text-emerald-200 border border-emerald-300/30 px-2 py-0.5 rounded-full font-bold">เข้าสู่ระบบแล้ว</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xl">🏫</span>
+                            <select id="student-school-switcher" onchange="switchStudentSchool(this.value)"
+                                class="w-full bg-white/20 hover:bg-white/25 text-white font-bold text-sm px-3 py-2 rounded-xl border border-white/30 outline-none cursor-pointer transition shadow-2xs">
+                                <option value="usr_saraphi" class="text-gray-900 bg-white">โรงเรียนสารภีพิทยาคม</option>
+                                <option value="usr_maetha" class="text-gray-900 bg-white">โรงเรียนบ้านศาลาแม่ทา</option>
+                            </select>
+                        </div>
+                        <p id="student-scope-desc" class="text-[11px] text-blue-100/80 mt-2 truncate">
+                            ต.ยางเนิ้ง อ.สารภี จ.เชียงใหม่
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2. Top Metric Cards (4 Cards Grid in Thai) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+                    <!-- Card 1: Total students -->
+                    <div
+                        class="bg-blue-50/40 rounded-2xl p-5 border border-blue-200/80 shadow-xs hover:shadow-md transition flex flex-col justify-between h-full">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-xs font-bold text-blue-900 uppercase tracking-wider truncate">นักเรียนทั้งหมด</span>
+                            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 shadow-2xs">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            <div id="stat-total-students" class="text-3xl font-black text-blue-900 tracking-tight leading-none">842</div>
+                        </div>
+                        <div class="min-h-[26px] flex items-center text-xs text-blue-700/90 font-medium">จำนวนนักเรียนในสถานศึกษา</div>
+                    </div>
+
+                    <!-- Card 2: Present today -->
+                    <div
+                        class="bg-emerald-50/40 rounded-2xl p-5 border border-emerald-200/80 shadow-xs hover:shadow-md transition flex flex-col justify-between h-full">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-xs font-bold text-emerald-900 uppercase tracking-wider truncate">มาเรียนวันนี้</span>
+                            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 shadow-2xs">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                    <polyline points="17 11 19 13 23 9"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            <div id="stat-present-today" class="text-3xl font-black text-emerald-700 tracking-tight leading-none">803</div>
+                        </div>
+                        <div class="min-h-[26px] flex items-center gap-1.5 text-xs text-emerald-800 font-semibold">
+                            <span id="stat-present-rate-badge"
+                                class="inline-flex items-center bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-[11px] font-bold">95.4%</span>
+                            <span class="truncate">ของนักเรียนทั้งหมด</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Absent today -->
+                    <div
+                        class="bg-rose-50/40 rounded-2xl p-5 border border-rose-200/80 shadow-xs hover:shadow-md transition flex flex-col justify-between h-full">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-xs font-bold text-rose-900 uppercase tracking-wider truncate" title="ไม่มาเรียน / ขาด-ลา-สาย">ไม่มาเรียน / ขาด-ลา-สาย</span>
+                            <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0 shadow-2xs">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                    <line x1="18" y1="8" x2="23" y2="13"></line>
+                                    <line x1="23" y1="8" x2="18" y2="13"></line>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            <div id="stat-absent-today" class="text-3xl font-black text-rose-600 tracking-tight leading-none">39</div>
+                        </div>
+                        <div id="stat-absent-breakdown" class="min-h-[26px] flex items-center text-xs text-rose-800 font-medium truncate" title="ขาด 8 • ลา 14 • สาย 9 • ห้องพยาบาล 8">
+                            ขาด 8 • ลา 14 • สาย 9 • ห้องพยาบาล 8
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Attendance rate -->
+                    <div
+                        class="bg-purple-50/40 rounded-2xl p-5 border border-purple-200/80 shadow-xs hover:shadow-md transition flex flex-col justify-between h-full">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-xs font-bold text-purple-900 uppercase tracking-wider truncate">อัตราการเข้าเรียน</span>
+                            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center shrink-0 shadow-2xs">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                    <polyline points="17 6 23 6 23 12"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            <div id="stat-attendance-rate" class="text-3xl font-black text-purple-700 tracking-tight leading-none">95.4%</div>
+                        </div>
+                        <div class="min-h-[26px] flex items-center text-xs text-purple-700 font-medium">ข้อมูล ณ เวลา 08:30 น. วันนี้</div>
+                    </div>
+                </div>
+
+                <!-- 3. Student Table Card (Thai View & Clean Columns) -->
+                <div class="bg-white rounded-2xl shadow-xs border border-gray-200/90 overflow-hidden">
+                    <!-- Card Top Header -->
+                    <div
+                        class="p-5 sm:p-6 border-b border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h3
+                                class="text-lg sm:text-xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+                                <span>📋</span>
+                                <span>ข้อมูลส่วนตัวและสถานะนักเรียน</span>
+                            </h3>
+                            <p class="text-xs sm:text-sm text-gray-500 mt-0.5">
+                                แสดงเฉพาะรายชื่อนักเรียนในสังกัด <strong id="student-table-school-title"
+                                    class="text-gray-900 font-bold">โรงเรียนสารภีพิทยาคม</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Filter & Search Controls -->
+                    <div
+                        class="px-5 sm:px-6 py-4 bg-gray-50/70 border-b border-gray-200/80 flex flex-col lg:flex-row lg:items-center justify-between gap-3.5">
+                        <!-- Status Filter Pills -->
+                        <div class="flex flex-wrap items-center gap-1.5">
+                            <span class="text-xs font-bold text-gray-500 mr-1">สถานะ:</span>
+                            <button type="button" onclick="setStudentStatusFilter('all')" id="pill-status-all"
+                                class="student-status-pill text-xs font-bold px-3 py-1.5 rounded-xl transition cursor-pointer bg-blue-600 text-white shadow-xs">
+                                ทั้งหมด (<span id="count-status-all">0</span>)
+                            </button>
+                            <button type="button" onclick="setStudentStatusFilter('มา')" id="pill-status-มา"
+                                class="student-status-pill text-xs font-bold px-3 py-1.5 rounded-xl transition cursor-pointer bg-white text-emerald-800 border border-emerald-300 hover:bg-emerald-50">
+                                ✓ มา (<span id="count-status-มา">0</span>)
+                            </button>
+                            <button type="button" onclick="setStudentStatusFilter('สาย')" id="pill-status-สาย"
+                                class="student-status-pill text-xs font-bold px-3 py-1.5 rounded-xl transition cursor-pointer bg-white text-amber-800 border border-amber-300 hover:bg-amber-50">
+                                ⏰ สาย (<span id="count-status-สาย">0</span>)
+                            </button>
+                            <button type="button" onclick="setStudentStatusFilter('ลา')" id="pill-status-ลา"
+                                class="student-status-pill text-xs font-bold px-3 py-1.5 rounded-xl transition cursor-pointer bg-white text-orange-800 border border-orange-300 hover:bg-orange-50">
+                                📋 ลา (<span id="count-status-ลา">0</span>)
+                            </button>
+                            <button type="button" onclick="setStudentStatusFilter('ขาด')" id="pill-status-ขาด"
+                                class="student-status-pill text-xs font-bold px-3 py-1.5 rounded-xl transition cursor-pointer bg-white text-rose-800 border border-rose-300 hover:bg-rose-50">
+                                ✕ ขาด (<span id="count-status-ขาด">0</span>)
+                            </button>
+                            <button type="button" onclick="setStudentStatusFilter('ห้องพยาบาล')"
+                                id="pill-status-ห้องพยาบาล"
+                                class="student-status-pill text-xs font-bold px-3 py-1.5 rounded-xl transition cursor-pointer bg-white text-purple-800 border border-purple-300 hover:bg-purple-50">
+                                🏥 ห้องพยาบาล (<span id="count-status-ห้องพยาบาล">0</span>)
+                            </button>
+                        </div>
+
+                        <!-- Search and Class Filter -->
+                        <div class="flex items-center gap-2.5">
+                            <div class="relative w-full sm:w-64">
+                                <span
+                                    class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 text-xs">🔍</span>
+                                <input type="text" id="student-search-input" oninput="onStudentSearchChanged()"
+                                    placeholder="ค้นหา รหัสนักเรียน, ชื่อ-สกุล, ชั้น..."
+                                    class="w-full text-xs bg-white border border-gray-300 rounded-xl pl-8 pr-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 font-sans shadow-2xs">
+                            </div>
+                            <select id="student-class-filter" onchange="onStudentClassFilterChanged(this.value)"
+                                class="text-xs bg-white border border-gray-300 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 font-bold text-gray-700 shadow-2xs cursor-pointer shrink-0">
+                                <option value="all">ทุกระดับชั้น</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Table (Without SCHOOL and HEALTH NOTE columns) -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead
+                                class="bg-gray-50 border-b border-gray-200 text-gray-600 text-xs font-bold uppercase tracking-wider">
+                                <tr>
+                                    <th class="px-5 py-3.5 whitespace-nowrap">รหัสนักเรียน</th>
+                                    <th class="px-5 py-3.5 whitespace-nowrap">ชื่อ-สกุล</th>
+                                    <th class="px-5 py-3.5 whitespace-nowrap">ชั้นเรียน</th>
+                                    <th class="px-5 py-3.5 whitespace-nowrap">วันเดือนปีเกิด</th>
+                                    <th class="px-5 py-3.5 whitespace-nowrap">เบอร์ติดต่อผู้ปกครอง</th>
+                                    <th class="px-5 py-3.5 whitespace-nowrap text-center">สถานะวันนี้</th>
+                                </tr>
+                            </thead>
+                            <tbody id="student-table-body" class="divide-y divide-gray-100">
+                                <!-- Populated dynamically via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Table Footer -->
+                    <div id="student-table-footer"
+                        class="px-6 py-3.5 border-t border-gray-200 bg-gray-50 text-xs text-gray-500 font-medium flex items-center justify-between">
+                        <span>แสดงรายชื่อนักเรียนตัวแทนของสถานศึกษาที่เลือก</span>
+                        <span id="student-record-count-text" class="font-bold text-gray-700">-- รายการ</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </main>
 
     <!-- ========================================================================= -->
@@ -2353,6 +2679,62 @@
         </div>
     </div>
 
+    <!-- ======================================================= -->
+    <!-- 3. STUDENT STATUS DETAIL MODAL (Click / Mobile popup)   -->
+    <!-- ======================================================= -->
+    <div id="studentStatusModal"
+        class="fixed inset-0 bg-gray-900/60 backdrop-blur-xs hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 border border-gray-100 space-y-4">
+            <div class="flex justify-between items-start pb-3 border-b border-gray-100">
+                <div class="flex items-center gap-2">
+                    <span id="modal-status-badge" class="px-3 py-1 rounded-full text-xs font-bold"></span>
+                    <h3 id="modal-student-name" class="text-base font-black text-gray-900"></h3>
+                </div>
+                <button type="button" onclick="closeStudentStatusModal()"
+                    class="text-gray-400 hover:text-gray-600 text-2xl font-bold p-1 leading-none cursor-pointer">&times;</button>
+            </div>
+            <div class="space-y-3 text-xs text-gray-700">
+                <div class="p-3 bg-gray-50 rounded-xl border border-gray-200/80 space-y-1.5">
+                    <div class="flex justify-between text-gray-500 text-[11px]">
+                        <span>รหัสนักเรียน: <strong id="modal-student-id"
+                                class="text-gray-800 font-mono"></strong></span>
+                        <span>ชั้นเรียน: <strong id="modal-student-class" class="text-gray-800"></strong></span>
+                    </div>
+                    <div class="text-gray-500 text-[11px]">
+                        <span>สถานศึกษา: <strong id="modal-student-school" class="text-gray-800"></strong></span>
+                    </div>
+                </div>
+                <div>
+                    <span class="font-bold text-gray-900 block mb-1">เหตุผลและบันทึกการเช็คชื่อ:</span>
+                    <div id="modal-status-reason"
+                        class="p-3 bg-blue-50/50 rounded-xl border border-blue-200/60 text-gray-800 leading-relaxed font-medium">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-[11px]">
+                    <div class="p-2.5 bg-gray-50 rounded-lg border border-gray-200">
+                        <span class="text-gray-500 block">เวลาบันทึก:</span>
+                        <strong id="modal-status-time" class="text-gray-900 font-mono"></strong>
+                    </div>
+                    <div class="p-2.5 bg-gray-50 rounded-lg border border-gray-200">
+                        <span class="text-gray-500 block">ผู้บันทึก:</span>
+                        <strong id="modal-status-recorder" class="text-gray-900"></strong>
+                    </div>
+                </div>
+                <div>
+                    <span class="font-bold text-gray-900 block mb-1">การดำเนินการ / การดูแล:</span>
+                    <div id="modal-status-action"
+                        class="p-2.5 bg-gray-50 rounded-lg border border-gray-200 text-gray-700 leading-relaxed"></div>
+                </div>
+            </div>
+            <div class="pt-3 border-t border-gray-100 flex justify-end">
+                <button type="button" onclick="closeStudentStatusModal()"
+                    class="px-4 py-2 text-xs font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl transition cursor-pointer">
+                    ปิดหน้าต่าง
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Notification -->
     <div id="toast"
         class="fixed bottom-6 right-6 z-50 bg-gray-900 text-white px-4 py-2.5 rounded-xl shadow-lg text-xs font-semibold flex items-center gap-2 opacity-0 pointer-events-none transition-all duration-300">
@@ -2419,10 +2801,18 @@
         function switchDashboardTab(tabId) {
             const panelEnv = document.getElementById('panel-env');
             const panelRisk = document.getElementById('panel-risk');
+            const panelStudent = document.getElementById('panel-student');
+
+            // Access guard: student tab only available for school roles (usr_saraphi, usr_maetha)
+            const isSchoolUser = (currentHospitalCode === 'usr_saraphi' || currentHospitalCode === 'usr_maetha' || currentActiveSiteId === 'usr_saraphi' || currentActiveSiteId === 'usr_maetha');
+            if (tabId === 'student' && !isSchoolUser) {
+                tabId = 'risk';
+            }
 
             if (tabId === 'env') {
-                panelEnv.classList.remove('hidden');
-                panelRisk.classList.add('hidden');
+                if (panelEnv) panelEnv.classList.remove('hidden');
+                if (panelRisk) panelRisk.classList.add('hidden');
+                if (panelStudent) panelStudent.classList.add('hidden');
                 updateSidebarNavVisuals('env');
 
                 if (window.history && window.history.replaceState) {
@@ -2440,8 +2830,9 @@
                 }, 120);
 
             } else if (tabId === 'risk') {
-                panelEnv.classList.add('hidden');
-                panelRisk.classList.remove('hidden');
+                if (panelEnv) panelEnv.classList.add('hidden');
+                if (panelRisk) panelRisk.classList.remove('hidden');
+                if (panelStudent) panelStudent.classList.add('hidden');
                 updateSidebarNavVisuals('risk');
 
                 if (window.history && window.history.replaceState) {
@@ -2451,17 +2842,31 @@
                 if (typeof filterPatients === 'function') {
                     filterPatients();
                 }
+
+            } else if (tabId === 'student') {
+                if (panelEnv) panelEnv.classList.add('hidden');
+                if (panelRisk) panelRisk.classList.add('hidden');
+                if (panelStudent) panelStudent.classList.remove('hidden');
+                updateSidebarNavVisuals('student');
+
+                if (window.history && window.history.replaceState) {
+                    window.history.replaceState(null, '', '#student');
+                }
+
+                if (typeof renderStudentInfoDashboard === 'function') {
+                    renderStudentInfoDashboard();
+                }
             }
         }
 
         function updateSidebarNavVisuals(activeTab) {
-            const isEnv = activeTab === 'env';
-
             const envTab = document.getElementById('nav-tab-env');
             const riskTab = document.getElementById('nav-tab-risk');
+            const studentTab = document.getElementById('nav-tab-student');
 
             const envMobile = document.getElementById('nav-tab-env-mobile');
             const riskMobile = document.getElementById('nav-tab-risk-mobile');
+            const studentMobile = document.getElementById('nav-tab-student-mobile');
 
             const activePillClasses = "w-full text-left px-4 py-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3.5 group cursor-pointer bg-gradient-to-r from-[#c2a1fe] via-[#a97bfe] to-[#9154fd] text-white shadow-lg shadow-[#9154fd]/25 font-bold";
             const inactiveClasses = "w-full text-left px-4 py-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3.5 group cursor-pointer text-gray-900 hover:bg-gray-200/50 font-bold";
@@ -2469,18 +2874,18 @@
             const activeMobileClasses = "py-2.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 truncate cursor-pointer bg-gradient-to-r from-[#c2a1fe] via-[#a97bfe] to-[#9154fd] text-white shadow-md shadow-[#9154fd]/20";
             const inactiveMobileClasses = "py-2.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 truncate cursor-pointer text-gray-700 hover:bg-gray-200/60 bg-transparent";
 
-            if (isEnv) {
-                if (envTab) envTab.className = activePillClasses;
-                if (riskTab) riskTab.className = inactiveClasses;
+            const isSchoolUser = (currentHospitalCode === 'usr_saraphi' || currentHospitalCode === 'usr_maetha' || currentActiveSiteId === 'usr_saraphi' || currentActiveSiteId === 'usr_maetha');
 
-                if (envMobile) envMobile.className = activeMobileClasses;
-                if (riskMobile) riskMobile.className = inactiveMobileClasses;
-            } else {
-                if (riskTab) riskTab.className = activePillClasses;
-                if (envTab) envTab.className = inactiveClasses;
+            if (envTab) envTab.className = (activeTab === 'env') ? activePillClasses : inactiveClasses;
+            if (riskTab) riskTab.className = (activeTab === 'risk') ? activePillClasses : inactiveClasses;
+            if (studentTab) {
+                studentTab.className = `${(activeTab === 'student') ? activePillClasses : inactiveClasses} ${isSchoolUser ? '' : 'hidden'}`;
+            }
 
-                if (riskMobile) riskMobile.className = activeMobileClasses;
-                if (envMobile) envMobile.className = inactiveMobileClasses;
+            if (envMobile) envMobile.className = (activeTab === 'env') ? activeMobileClasses : inactiveMobileClasses;
+            if (riskMobile) riskMobile.className = (activeTab === 'risk') ? activeMobileClasses : inactiveMobileClasses;
+            if (studentMobile) {
+                studentMobile.className = `${(activeTab === 'student') ? activeMobileClasses : inactiveMobileClasses} ${isSchoolUser ? '' : 'hidden'}`;
             }
         }
 
@@ -2636,65 +3041,65 @@
 
         // ================= 2. COMPARISON LOCATIONS DATABASE & HIERARCHY =================
         const locationHierarchy = {
-            "Chiang Mai": {
-                "Fang": [
-                    { id: "tam_monpin", name: "ต.ม่อนปิ่น (Mon Pin)" },
-                    { id: "tam_maengon", name: "ต.แม่งอน (Mae Ngon)" },
-                    { id: "tam_pongnamron", name: "ต.โป่งน้ำร้อน (Pong Nam Ron)" },
-                    { id: "tam_sansai", name: "ต.สันทราย (San Sai)" },
-                    { id: "tam_maesun", name: "ต.แม่สูน (Mae Sun)" },
-                    { id: "tam_maekha", name: "ต.แม่ข่า (Mae Kha)" },
-                    { id: "tam_wiang", name: "ต.เวียง (Wiang - Other Stations)" }
+            "เชียงใหม่": {
+                "อ.ฝาง": [
+                    { id: "tam_monpin", name: "ต.ม่อนปิ่น" },
+                    { id: "tam_maengon", name: "ต.แม่งอน" },
+                    { id: "tam_pongnamron", name: "ต.โป่งน้ำร้อน" },
+                    { id: "tam_sansai", name: "ต.สันทราย" },
+                    { id: "tam_maesun", name: "ต.แม่สูน" },
+                    { id: "tam_maekha", name: "ต.แม่ข่า" },
+                    { id: "tam_wiang", name: "ต.เวียง (สถานีอื่น)" }
                 ],
-                "Mueang Chiang Mai": [
-                    { id: "tam_suthep", name: "ต.สุเทพ (Suthep / มช. CMU)" },
-                    { id: "tam_changphueak", name: "ต.ช้างเผือก (Chang Phueak / ศปก.)" },
-                    { id: "tam_sriphum", name: "ต.ศรีภูมิ (Sri Phum / คูเมือง)" },
-                    { id: "tam_padaet", name: "ต.ป่าแดด (Pa Daet)" },
-                    { id: "tam_maehia", name: "ต.แม่เหียะ (Mae Hia)" }
+                "อ.เมืองเชียงใหม่": [
+                    { id: "tam_suthep", name: "ต.สุเทพ (มช. CMU)" },
+                    { id: "tam_changphueak", name: "ต.ช้างเผือก (ศปก.)" },
+                    { id: "tam_sriphum", name: "ต.ศรีภูมิ (คูเมือง)" },
+                    { id: "tam_padaet", name: "ต.ป่าแดด" },
+                    { id: "tam_maehia", name: "ต.แม่เหียะ" }
                 ],
-                "Mae Rim": [
-                    { id: "tam_maesa", name: "ต.แม่สา (Mae Sa)" },
-                    { id: "tam_rimtai", name: "ต.ริมใต้ (Rim Tai / ทต.แม่ริม)" },
-                    { id: "tam_pongyaeng", name: "ต.โป่งแยง (Pong Yaeng)" }
+                "อ.แม่ริม": [
+                    { id: "tam_maesa", name: "ต.แม่สา" },
+                    { id: "tam_rimtai", name: "ต.ริมใต้ (ทต.แม่ริม)" },
+                    { id: "tam_pongyaeng", name: "ต.โป่งแยง" }
                 ]
             },
-            "Lampang": {
-                "Mueang Lampang": [
-                    { id: "tam_phrabat", name: "ต.พระบาท (Phra Bat)" },
-                    { id: "tam_huawiang", name: "ต.หัวเวียง (Hua Wiang / รพ.ลำปาง)" },
-                    { id: "tam_phichai", name: "ต.พิชัย (Phichai)" }
+            "ลำปาง": {
+                "อ.เมืองลำปาง": [
+                    { id: "tam_phrabat", name: "ต.พระบาท" },
+                    { id: "tam_huawiang", name: "ต.หัวเวียง (รพ.ลำปาง)" },
+                    { id: "tam_phichai", name: "ต.พิชัย" }
                 ],
-                "Ko Kha": [
-                    { id: "tam_kokha", name: "ต.เกาะคา (Ko Kha)" },
-                    { id: "tam_sala", name: "ต.ศาลา (Sala)" },
-                    { id: "tam_nakaeo", name: "ต.นาแก้ว (Na Kaeo)" }
+                "อ.เกาะคา": [
+                    { id: "tam_kokha", name: "ต.เกาะคา" },
+                    { id: "tam_sala", name: "ต.ศาลา" },
+                    { id: "tam_nakaeo", name: "ต.นาแก้ว" }
                 ]
             }
         };
 
         const comparisonLocationsDb = {
-            "tam_monpin": { name: "ต.ม่อนปิ่น (Mon Pin)", color: "#8b5cf6", pmOffset: 15, tempOffset: -4.0 },
-            "tam_maengon": { name: "ต.แม่งอน (Mae Ngon)", color: "#10b981", pmOffset: 16, tempOffset: -2.8 },
-            "tam_pongnamron": { name: "ต.โป่งน้ำร้อน (Pong Nam Ron)", color: "#f59e0b", pmOffset: 14, tempOffset: -4.5 },
-            "tam_sansai": { name: "ต.สันทราย (San Sai)", color: "#f43f5e", pmOffset: 10, tempOffset: 2.8 },
-            "tam_maesun": { name: "ต.แม่สูน (Mae Sun)", color: "#06b6d4", pmOffset: 12, tempOffset: 3.4 },
-            "tam_maekha": { name: "ต.แม่ข่า (Mae Kha)", color: "#6366f1", pmOffset: 18, tempOffset: 4.0 },
-            "tam_wiang": { name: "ต.เวียง (Wiang - Other Stations)", color: "#ec4899", pmOffset: 8, tempOffset: 2.4 },
-            "tam_suthep": { name: "ต.สุเทพ (Suthep / CMU)", color: "#0ea5e9", pmOffset: -5, tempOffset: -3.6 },
-            "tam_changphueak": { name: "ต.ช้างเผือก (Chang Phueak)", color: "#14b8a6", pmOffset: 2, tempOffset: 2.2 },
-            "tam_sriphum": { name: "ต.ศรีภูมิ (Sri Phum)", color: "#d946ef", pmOffset: 5, tempOffset: 3.0 },
-            "tam_padaet": { name: "ต.ป่าแดด (Pa Daet)", color: "#84cc16", pmOffset: -2, tempOffset: 2.0 },
-            "tam_maehia": { name: "ต.แม่เหียะ (Mae Hia)", color: "#f97316", pmOffset: -4, tempOffset: -2.2 },
-            "tam_maesa": { name: "ต.แม่สา (Mae Sa)", color: "#a855f7", pmOffset: -3, tempOffset: -2.8 },
-            "tam_rimtai": { name: "ต.ริมใต้ (Rim Tai)", color: "#f43f5e", pmOffset: 1, tempOffset: 2.0 },
-            "tam_pongyaeng": { name: "ต.โป่งแยง (Pong Yaeng)", color: "#10b981", pmOffset: -8, tempOffset: -5.5 },
-            "tam_phrabat": { name: "ต.พระบาท (Phra Bat)", color: "#e11d48", pmOffset: 6, tempOffset: 4.5 },
-            "tam_huawiang": { name: "ต.หัวเวียง (Hua Wiang)", color: "#9333ea", pmOffset: 4, tempOffset: 3.8 },
-            "tam_phichai": { name: "ต.พิชัย (Phichai)", color: "#0284c7", pmOffset: 2, tempOffset: 3.2 },
-            "tam_kokha": { name: "ต.เกาะคา (Ko Kha)", color: "#ca8a04", pmOffset: -1, tempOffset: 3.6 },
-            "tam_sala": { name: "ต.ศาลา (Sala)", color: "#16a34a", pmOffset: -3, tempOffset: 2.8 },
-            "tam_nakaeo": { name: "ต.นาแก้ว (Na Kaeo)", color: "#4f46e5", pmOffset: 0, tempOffset: 3.0 }
+            "tam_monpin": { name: "ต.ม่อนปิ่น", color: "#8b5cf6", pmOffset: 15, tempOffset: -4.0 },
+            "tam_maengon": { name: "ต.แม่งอน", color: "#10b981", pmOffset: 16, tempOffset: -2.8 },
+            "tam_pongnamron": { name: "ต.โป่งน้ำร้อน", color: "#f59e0b", pmOffset: 14, tempOffset: -4.5 },
+            "tam_sansai": { name: "ต.สันทราย", color: "#f43f5e", pmOffset: 10, tempOffset: 2.8 },
+            "tam_maesun": { name: "ต.แม่สูน", color: "#06b6d4", pmOffset: 12, tempOffset: 3.4 },
+            "tam_maekha": { name: "ต.แม่ข่า", color: "#6366f1", pmOffset: 18, tempOffset: 4.0 },
+            "tam_wiang": { name: "ต.เวียง (สถานีอื่น)", color: "#ec4899", pmOffset: 8, tempOffset: 2.4 },
+            "tam_suthep": { name: "ต.สุเทพ (มช. CMU)", color: "#0ea5e9", pmOffset: -5, tempOffset: -3.6 },
+            "tam_changphueak": { name: "ต.ช้างเผือก", color: "#14b8a6", pmOffset: 2, tempOffset: 2.2 },
+            "tam_sriphum": { name: "ต.ศรีภูมิ", color: "#d946ef", pmOffset: 5, tempOffset: 3.0 },
+            "tam_padaet": { name: "ต.ป่าแดด", color: "#84cc16", pmOffset: -2, tempOffset: 2.0 },
+            "tam_maehia": { name: "ต.แม่เหียะ", color: "#f97316", pmOffset: -4, tempOffset: -2.2 },
+            "tam_maesa": { name: "ต.แม่สา", color: "#a855f7", pmOffset: -3, tempOffset: -2.8 },
+            "tam_rimtai": { name: "ต.ริมใต้ (ทต.แม่ริม)", color: "#f43f5e", pmOffset: 1, tempOffset: 2.0 },
+            "tam_pongyaeng": { name: "ต.โป่งแยง", color: "#10b981", pmOffset: -8, tempOffset: -5.5 },
+            "tam_phrabat": { name: "ต.พระบาท", color: "#e11d48", pmOffset: 6, tempOffset: 4.5 },
+            "tam_huawiang": { name: "ต.หัวเวียง (รพ.ลำปาง)", color: "#9333ea", pmOffset: 4, tempOffset: 3.8 },
+            "tam_phichai": { name: "ต.พิชัย", color: "#0284c7", pmOffset: 2, tempOffset: 3.2 },
+            "tam_kokha": { name: "ต.เกาะคา", color: "#ca8a04", pmOffset: -1, tempOffset: 3.6 },
+            "tam_sala": { name: "ต.ศาลา", color: "#16a34a", pmOffset: -3, tempOffset: 2.8 },
+            "tam_nakaeo": { name: "ต.นาแก้ว", color: "#4f46e5", pmOffset: 0, tempOffset: 3.0 }
         };
 
         // Mocked Observed Environmental Data (Sept 30 - Oct 6, 2026)
@@ -2727,11 +3132,11 @@
 
         // ================= 3. THAI STANDARD AQI COLORS & STYLES =================
         function getAqiStyles(pm25) {
-            if (pm25 <= 15.0) return { bg: 'bg-blue-400', text: 'text-white', badge: 'bg-blue-50 text-blue-800 border-blue-200', label: 'Very Good (ดีมาก)' };
-            if (pm25 <= 25.0) return { bg: 'bg-green-500', text: 'text-white', badge: 'bg-green-50 text-green-800 border-green-200', label: 'Good (ดี)' };
-            if (pm25 <= 37.5) return { bg: 'bg-yellow-400', text: 'text-gray-900', badge: 'bg-yellow-50 text-yellow-800 border-yellow-200', label: 'Moderate (ปานกลาง)' };
-            if (pm25 <= 75.0) return { bg: 'bg-orange-500', text: 'text-white', badge: 'bg-orange-50 text-orange-800 border-orange-200', label: 'Unhealthy for Sensitive (เริ่มมีผลกระทบ)' };
-            return { bg: 'bg-red-600', text: 'text-white', badge: 'bg-red-50 text-red-800 border-red-200', label: 'Unhealthy (มีผลกระทบ)' };
+            if (pm25 <= 15.0) return { bg: 'bg-blue-400', text: 'text-white', badge: 'bg-blue-50 text-blue-800 border-blue-200', label: 'ดีมาก' };
+            if (pm25 <= 25.0) return { bg: 'bg-green-500', text: 'text-white', badge: 'bg-green-50 text-green-800 border-green-200', label: 'ดี' };
+            if (pm25 <= 37.5) return { bg: 'bg-yellow-400', text: 'text-gray-900', badge: 'bg-yellow-50 text-yellow-800 border-yellow-200', label: 'ปานกลาง' };
+            if (pm25 <= 75.0) return { bg: 'bg-orange-500', text: 'text-white', badge: 'bg-orange-50 text-orange-800 border-orange-200', label: 'เริ่มมีผลกระทบ' };
+            return { bg: 'bg-red-600', text: 'text-white', badge: 'bg-red-50 text-red-800 border-red-200', label: 'มีผลกระทบต่อสุขภาพ' };
         }
 
         const CRITICAL_PM25_THRESHOLD = 150;
@@ -2882,7 +3287,7 @@
                     ctx.font = 'bold 11px ui-sans-serif, system-ui, sans-serif';
                     ctx.fillStyle = '#64748b';
                     ctx.textAlign = 'left';
-                    ctx.fillText('7-Day Forecast Zone', leftPx + 8, chartArea.top + 16);
+                    ctx.fillText('แถบพยากรณ์ล่วงหน้า 7 วัน', leftPx + 8, chartArea.top + 16);
                     ctx.restore();
                 }
             }
@@ -2944,13 +3349,13 @@
                                         if (label.includes('PM2.5')) {
                                             label += val + ' µg/m³';
                                             if (currentMode === 'weekly' && peak !== null && peak !== undefined && peak !== val) {
-                                                label += ` (Daily Peak: ${peak} µg/m³)`;
+                                                label += ` (สูงสุดรายวัน: ${peak} µg/m³)`;
                                             }
-                                            if (isForecast) label += '  [PM2.5 Forecast]';
+                                            if (isForecast) label += '  [พยากรณ์ PM2.5]';
                                             if (val >= CRITICAL_PM25_THRESHOLD || (peak !== null && peak >= CRITICAL_PM25_THRESHOLD)) {
-                                                label += '  🚨 [Critical ≥150]';
+                                                label += '  🚨 [วิกฤต ≥150]';
                                             }
-                                        } else if (label.includes('Temp')) {
+                                        } else if (label.includes('Temp') || label.includes('อุณหภูมิ')) {
                                             label += val + ' °C';
                                             if (context.dataset.isComparison) {
                                                 const primaryTempDataset = envChart.data.datasets.find(ds => ds.isPrimary && ds.yAxisID === 'y1');
@@ -2958,15 +3363,15 @@
                                                     const pTemp = primaryTempDataset.data[idx];
                                                     const diff = Math.round((val - pTemp) * 10) / 10;
                                                     const sign = diff >= 0 ? '+' : '';
-                                                    label += ` (${sign}${diff} °C vs ${activeSite.name})`;
+                                                    label += ` (${sign}${diff} °C เทียบกับ ${activeSite.name})`;
                                                 }
                                             }
-                                            if (isForecast) label += '  [Temp Forecast]';
+                                            if (isForecast) label += '  [พยากรณ์อุณหภูมิ]';
                                             if (currentMode === 'weekly' && peak !== null && peak !== undefined && peak !== val) {
-                                                label += ` (Daily Peak: ${peak} °C)`;
+                                                label += ` (สูงสุดรายวัน: ${peak} °C)`;
                                             }
                                             if (val >= EXTREME_TEMP_THRESHOLD || (peak !== null && peak >= EXTREME_TEMP_THRESHOLD)) {
-                                                label += '  🔥 [Extreme Heat ≥38°C]';
+                                                label += '  🔥 [อากาศร้อนจัด ≥38°C]';
                                             }
                                         } else {
                                             label += val;
@@ -3008,7 +3413,7 @@
                             position: 'right',
                             title: {
                                 display: true,
-                                text: 'Temperature (°C)',
+                                text: 'อุณหภูมิ (°C)',
                                 font: { weight: 'bold', size: 12, family: 'ui-sans-serif, system-ui, sans-serif' },
                                 color: '#64748b'
                             },
@@ -3069,7 +3474,7 @@
                 const m = String(current.getMonth() + 1).padStart(2, '0');
                 const d = String(current.getDate()).padStart(2, '0');
                 const isoDate = `${y}-${m}-${d}`;
-                const label = current.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                const label = current.toLocaleDateString('th-TH', { month: 'short', day: 'numeric' });
 
                 const isForecastDay = (isoDate > forecastConfig.issueDate && forecastConfig.forecasts[isoDate] !== undefined);
 
@@ -3166,8 +3571,8 @@
                     let weekLabel = (chunk.length === 1)
                         ? first.label
                         : (first.date.getMonth() === last.date.getMonth())
-                            ? `${first.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${last.date.getDate()}`
-                            : `${first.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${last.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+                            ? `${first.date.getDate()} - ${last.date.getDate()} ${first.date.toLocaleDateString('th-TH', { month: 'short' })}`
+                            : `${first.date.toLocaleDateString('th-TH', { month: 'short', day: 'numeric' })} - ${last.date.toLocaleDateString('th-TH', { month: 'short', day: 'numeric' })}`;
                     labels.push(weekLabel);
 
                     const isFcWeek = (chunk.filter(d => d.isForecastDay).length >= Math.ceil(chunk.length / 2));
@@ -3239,7 +3644,7 @@
             // Active Site Temperature
             datasets.push({
                 isPrimary: true,
-                label: `${activeSite.name} - Temp (°C)`,
+                label: `${activeSite.name} - อุณหภูมิ (°C)`,
                 data: primaryTemp,
                 peakData: primaryPeakTemp,
                 borderColor: primaryColorPM,
@@ -3286,7 +3691,7 @@
 
                 datasets.push({
                     isComparison: true,
-                    label: `${compMeta.name} - Temp (°C)`,
+                    label: `${compMeta.name} - อุณหภูมิ (°C)`,
                     data: compSeriesTemp,
                     peakData: compSeriesPeakTemp,
                     borderColor: compColor,
@@ -3346,7 +3751,7 @@
             for (const prov in locationHierarchy) {
                 provSelect.innerHTML += `<option value="${prov}">${prov}</option>`;
             }
-            updateLocationDropdowns('province', 'Chiang Mai', 'Fang', '');
+            updateLocationDropdowns('province', 'เชียงใหม่', 'อ.ฝาง', '');
         }
 
         function updateLocationDropdowns(trigger, forceProv = null, forceAmphoe = null, forceTambon = null) {
@@ -3369,7 +3774,7 @@
             const selectedAmphoe = amphoeSelect.value;
 
             if (trigger === 'province' || trigger === 'amphoe' || forceProv || forceAmphoe) {
-                tambonSelect.innerHTML = '<option value="">-- No Comparison (Site Only) --</option>';
+                tambonSelect.innerHTML = '<option value="">-- ไม่เปรียบเทียบ (แสดงเฉพาะพื้นที่ใช้งาน) --</option>';
                 if (selectedAmphoe && amphoes[selectedAmphoe]) {
                     const tambons = amphoes[selectedAmphoe];
                     for (const item of tambons) {
@@ -3434,7 +3839,7 @@
             });
             regionalStations.forEach(st => {
                 if (!list.some(item => item.name === st.name)) {
-                    list.push({ ...st, dist: 'Regional' });
+                    list.push({ ...st, dist: 'สถานีเครือข่าย' });
                 }
             });
             return list;
@@ -3488,9 +3893,9 @@
                 'Hospital': document.createElement('optgroup')
             };
 
-            groups['Gov Office'].label = '🏛️ หน่วยงานภาครัฐ / อปท. (Gov Office)';
-            groups['School'].label = '🏫 สถาบันการศึกษา (School)';
-            groups['Hospital'].label = '🏥 สถานพยาบาล / รพ.สต. (Hospital)';
+            groups['Gov Office'].label = '🏛️ หน่วยงานภาครัฐ / อปท.';
+            groups['School'].label = '🏫 สถาบันการศึกษา / โรงเรียน';
+            groups['Hospital'].label = '🏥 สถานพยาบาล / รพ.สต.';
 
             userSites.forEach(site => {
                 const opt = document.createElement('option');
@@ -3569,6 +3974,17 @@
 
             // Update Section 2 (Regional Map Layer)
             updateMapForActiveUser(user, flyAnimate);
+
+            // Synchronize Student Tab visibility & scope if school role
+            if (typeof updateSchoolStudentTabVisibility === 'function') {
+                updateSchoolStudentTabVisibility(siteId);
+            }
+            if (siteId === 'usr_saraphi' || siteId === 'usr_maetha') {
+                if (typeof currentStudentSchoolId !== 'undefined') currentStudentSchoolId = siteId;
+                const sw = document.getElementById('student-school-switcher');
+                if (sw) sw.value = siteId;
+                if (typeof renderStudentInfoDashboard === 'function') renderStudentInfoDashboard();
+            }
         }
 
         function updateMapForActiveUser(user, flyAnimate = true) {
@@ -3605,7 +4021,7 @@
                     jurisdictionBadge.className = 'inline-flex items-center gap-1.5 text-[11px] font-semibold text-indigo-900 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200 shadow-2xs';
                 }
             } else {
-                document.getElementById('active-station-count').textContent = `${user.stations.length} Nearby Stations`;
+                document.getElementById('active-station-count').textContent = `${user.stations.length} สถานีในบริเวณใกล้เคียง`;
                 if (jurisdictionBadge) {
                     const labelText = user.type === 'Hospital' ? 'รัศมี รพ./รพ.สต. 5 กม.' : 'รัศมี รร. 5 กม.';
                     jurisdictionBadge.innerHTML = `
@@ -3642,7 +4058,7 @@
             userMarker.bindPopup(`
                 <div class="p-1">
                     <span class="text-[10px] font-extrabold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
-                        Your Primary Site (${user.type.toUpperCase()})
+                        พื้นที่ใช้งานหลัก (${user.type === 'Gov Office' ? 'หน่วยงานภาครัฐ/อปท.' : (user.type === 'Hospital' ? 'สถานพยาบาล' : 'สถานศึกษา')})
                     </span>
                     <h4 class="font-extrabold text-gray-900 text-sm mt-1">${user.name}</h4>
                     <p class="text-xs text-gray-500">${user.desc}</p>
@@ -3735,17 +4151,17 @@
             marker.bindPopup(`
                 <div class="p-1">
                     <div class="flex items-center justify-between gap-3 mb-1">
-                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">${st.type || 'Monitoring Station'}</span>
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">${st.type || 'สถานีตรวจวัด'}</span>
                         ${st.dist ? `<span class="text-[10px] font-extrabold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">ห่าง ${st.dist}</span>` : ''}
                     </div>
                     <h4 class="font-extrabold text-gray-900 text-sm leading-snug">${st.name}</h4>
                     <div class="mt-2.5 p-2 rounded-xl flex items-center justify-between border ${style.badge}">
                         <div>
-                            <span class="text-[10px] font-bold uppercase tracking-wider block opacity-75">PM2.5 Realtime</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider block opacity-75">PM2.5 ขณะนี้</span>
                             <span class="text-xl font-black">${st.pm25} <span class="text-xs font-normal">µg/m³</span></span>
                         </div>
                         <span class="px-2 py-1 rounded-lg text-xs font-bold text-white shadow-2xs ${style.bg}">
-                            ${style.label.split(' ')[0]}
+                            ${style.label}
                         </span>
                     </div>
                 </div>
@@ -3893,7 +4309,7 @@
             studentHomeMarker.bindPopup(`
                 <div class="p-1 min-w-[220px]">
                     <span class="text-[10px] font-extrabold uppercase tracking-wider text-rose-600 bg-rose-50 px-2 py-0.5 rounded">
-                        Pinned Location
+                        ตำแหน่งที่ปักหมุด
                     </span>
                     <h4 class="font-extrabold text-gray-900 text-sm mt-1">ตำแหน่งที่ปักหมุด</h4>
                     <p class="text-xs text-gray-500 mt-0.5">ห่างจาก ${currentSite.name}: <strong>${distFromSchoolText}</strong></p>
@@ -4521,6 +4937,17 @@
             if (typeof selectedRiskFilters !== 'undefined') selectedRiskFilters.clear();
             updateRiskFilterVisuals();
             filterPatients();
+
+            // Synchronize Student Tab visibility & scope if school role
+            if (typeof updateSchoolStudentTabVisibility === 'function') {
+                updateSchoolStudentTabVisibility(code);
+            }
+            if (code === 'usr_saraphi' || code === 'usr_maetha') {
+                if (typeof currentStudentSchoolId !== 'undefined') currentStudentSchoolId = code;
+                const sw = document.getElementById('student-school-switcher');
+                if (sw) sw.value = code;
+                if (typeof renderStudentInfoDashboard === 'function') renderStudentInfoDashboard();
+            }
         }
 
         // --- 3. Patient Registry with Normal Patients & Specific Hazard-Risk Patients ---
@@ -6345,8 +6772,821 @@
             }, 2600);
         }
 
-        // Initialize on page load
-        // [risk DOMContentLoaded handled by unified coordinator]
+        // =========================================================================
+        // MODULE 3: ข้อมูลนักเรียน (STUDENT INFORMATION & ATTENDANCE SYSTEM)
+        // Restricted to: โรงเรียนสารภีพิทยาคม (usr_saraphi) & โรงเรียนบ้านศาลาแม่ทา (usr_maetha)
+        // =========================================================================
+
+        const SCHOOL_PROFILES = {
+            'usr_saraphi': {
+                id: 'usr_saraphi',
+                name: 'โรงเรียนสารภีพิทยาคม',
+                shortName: 'รร.สารภีพิทยาคม',
+                desc: 'ต.ยางเนิ้ง อ.สารภี จ.เชียงใหม่',
+                totalEnrolled: 842,
+                presentToday: 803,
+                absentToday: 39,
+                attendanceRate: '95.4%',
+                asOfTime: '08:30 น. วันนี้',
+                absentBreakdownText: 'ขาด 8 • ลา 14 • สาย 9 • ห้องพยาบาล 8'
+            },
+            'usr_maetha': {
+                id: 'usr_maetha',
+                name: 'โรงเรียนบ้านศาลาแม่ทา',
+                shortName: 'รร.บ้านศาลาแม่ทา',
+                desc: 'ต.ทาสบเส้า อ.แม่ทา จ.ลำพูน',
+                totalEnrolled: 365,
+                presentToday: 348,
+                absentToday: 17,
+                attendanceRate: '95.3%',
+                asOfTime: '08:30 น. วันนี้',
+                absentBreakdownText: 'ขาด 3 • ลา 6 • สาย 4 • ห้องพยาบาล 4'
+            }
+        };
+
+        let currentStudentSchoolId = 'usr_saraphi';
+        let currentStudentStatusFilter = 'all';
+        let currentStudentSearchQuery = '';
+        let currentStudentClassFilter = 'all';
+
+        const studentAttendanceDb = [
+            // --- โรงเรียนสารภีพิทยาคม (usr_saraphi) ---
+            {
+                id: "SP-670184",
+                name: "นาย ณัฐพงษ์ แซ่ลิ้ม",
+                schoolId: "usr_saraphi",
+                schoolName: "โรงเรียนสารภีพิทยาคม",
+                gradeClass: "ม.4/2",
+                gradeGroup: "ม.4",
+                dob: "14 ก.พ. 2553",
+                guardianContact: "089-245-1180",
+                healthNote: "Asthma (โรคหอบหืด มีใบรับรองแพทย์)",
+                status: "มา",
+                statusDetail: {
+                    reason: "มาเรียนตามปกติ เข้าแถวเคารพธงชาติทันเวลา",
+                    time: "07:45 น.",
+                    recordedBy: "ครูวิภา (ครูประจำชั้น ม.4/2)",
+                    actionTaken: "เข้าเรียนตามตารางเรียนปกติ พร้อมพกยาส่วนตัว"
+                }
+            },
+            {
+                id: "SP-670231",
+                name: "น.ส. พิมพ์ชนก ขำดี",
+                schoolId: "usr_saraphi",
+                schoolName: "โรงเรียนสารภีพิทยาคม",
+                gradeClass: "ม.4/3",
+                gradeGroup: "ม.4",
+                dob: "3 มิ.ย. 2553",
+                guardianContact: "081-762-4533",
+                healthNote: "None",
+                status: "มา",
+                statusDetail: {
+                    reason: "มาเรียนตามปกติ เข้าแถวเคารพธงชาติทันเวลา",
+                    time: "07:40 น.",
+                    recordedBy: "ครูสมหมาย (ครูประจำชั้น ม.4/3)",
+                    actionTaken: "เข้าเรียนตามตารางเรียนปกติ"
+                }
+            },
+            {
+                id: "SP-660097",
+                name: "นาย ธนากร อินตา",
+                schoolId: "usr_saraphi",
+                schoolName: "โรงเรียนสารภีพิทยาคม",
+                gradeClass: "ม.5/1",
+                gradeGroup: "ม.5",
+                dob: "28 พ.ย. 2552",
+                guardianContact: "086-119-8064",
+                healthNote: "Peanut allergy (แพ้ถั่วลิสงรุนแรง)",
+                status: "ขาด",
+                statusDetail: {
+                    reason: "ไม่มาเข้าแถวและไม่พบในห้องเรียน ไม่มีการแจ้งล่วงหน้า ครูประจำชั้นโทรหาผู้ปกครอง 2 ครั้งยังไม่สามารถติดต่อได้",
+                    time: "08:40 น.",
+                    recordedBy: "ครูกานดา (ครูประจำชั้น ม.5/1)",
+                    actionTaken: "ส่งข้อความ SMS แจ้งผู้ปกครอง และประสานงานครูฝ่ายปกครองติดตามต่อเนื่อง"
+                }
+            },
+            {
+                id: "SP-650142",
+                name: "น.ส. กัญญาณัฐ วงค์ษา",
+                schoolId: "usr_saraphi",
+                schoolName: "โรงเรียนสารภีพิทยาคม",
+                gradeClass: "ม.6/4",
+                gradeGroup: "ม.6",
+                dob: "17 ส.ค. 2551",
+                guardianContact: "095-447-2231",
+                healthNote: "None",
+                status: "มา",
+                statusDetail: {
+                    reason: "มาเรียนตามปกติ ทำหน้าที่หัวหน้าห้อง",
+                    time: "07:30 น.",
+                    recordedBy: "ครูประสงค์ (ครูประจำชั้น ม.6/4)",
+                    actionTaken: "เข้าเรียนตามปกติ"
+                }
+            },
+            {
+                id: "SP-680055",
+                name: "ด.ช. ภูริณัฐ ไชยโย",
+                schoolId: "usr_saraphi",
+                schoolName: "โรงเรียนสารภีพิทยาคม",
+                gradeClass: "ม.3/2",
+                gradeGroup: "ม.3",
+                dob: "21 ม.ค. 2554",
+                guardianContact: "092-536-9017",
+                healthNote: "Inhaler on file (มียาพ่นฉุกเฉินฝากไว้ที่ห้องพยาบาล)",
+                status: "มา",
+                statusDetail: {
+                    reason: "มาเรียนตามปกติ ตรวจสอบยาพ่นฉุกเฉินกับครูพยาบาลเรียบร้อย",
+                    time: "07:50 น.",
+                    recordedBy: "ครูสุดา (ครูประจำชั้น ม.3/2)",
+                    actionTaken: "เข้าเรียนในห้องเรียนปรับอากาศที่มีเครื่องฟอกอากาศ"
+                }
+            },
+            {
+                id: "SP-670312",
+                name: "น.ส. วรินทร ปัญญาวงศ์",
+                schoolId: "usr_saraphi",
+                schoolName: "โรงเรียนสารภีพิทยาคม",
+                gradeClass: "ม.4/1",
+                gradeGroup: "ม.4",
+                dob: "10 ก.ย. 2553",
+                guardianContact: "084-552-9182",
+                healthNote: "Allergic rhinitis (ภูมิแพ้อากาศ ไวต่อฝุ่นละออง)",
+                status: "ลา",
+                statusDetail: {
+                    reason: "ผู้ปกครองส่งใบลาป่วยทางระบบออนไลน์ มีอาการคัดจมูก หายใจขัด และมีไข้ 38.1°C เนื่องจากสภาพอากาศฝุ่น PM2.5 สูง",
+                    time: "07:35 น.",
+                    recordedBy: "ครูอัญชลี (ครูประจำชั้น ม.4/1)",
+                    actionTaken: "อนุมัติการลาป่วย มอบหมายการบ้านผ่านระบบ LMS และประสาน รพ.สต. ติดตามอาการ"
+                }
+            },
+            {
+                id: "SP-660420",
+                name: "นาย ธนภัทร สุขสม",
+                schoolId: "usr_saraphi",
+                schoolName: "โรงเรียนสารภีพิทยาคม",
+                gradeClass: "ม.5/3",
+                gradeGroup: "ม.5",
+                dob: "5 ธ.ค. 2552",
+                guardianContact: "087-321-7788",
+                healthNote: "None",
+                status: "สาย",
+                statusDetail: {
+                    reason: "มาถึงโรงเรียนเวลา 08:25 น. (หลังแถวเคารพธงชาติ) เนื่องจากรถรับส่งนักเรียนขัดข้องบริเวณสี่แยกสารภี",
+                    time: "08:25 น.",
+                    recordedBy: "ครูเวรประจำวัน (อ.สมเกียรติ)",
+                    actionTaken: "ลงบันทึกเวลามาสาย ตักเตือน และอนุญาตให้เข้าห้องเรียนคาบที่ 1"
+                }
+            },
+            {
+                id: "SP-680199",
+                name: "ด.ญ. อมิตา ใจแก้ว",
+                schoolId: "usr_saraphi",
+                schoolName: "โรงเรียนสารภีพิทยาคม",
+                gradeClass: "ม.3/1",
+                gradeGroup: "ม.3",
+                dob: "18 พ.ค. 2554",
+                guardianContact: "091-884-2190",
+                healthNote: "Asthma & Dust Allergy (หอบหืดและแพ้ฝุ่นละออง)",
+                status: "ห้องพยาบาล",
+                statusDetail: {
+                    reason: "ส่งตัวเข้าห้องพยาบาลเวลา 09:30 น. (คาบ 2) มีอาการแน่นหน้าอก หายใจเสียงหวีด จากค่าฝุ่นละออง PM2.5 ในพื้นที่สูง",
+                    time: "09:30 น.",
+                    recordedBy: "ครูพยาบาล (อาจารย์ชุลีพร)",
+                    actionTaken: "ให้สูดยาพ่นขยายหลอดลม จัดให้นอนพักผ่อนในห้องปลอดฝุ่น (Clean Air Room) และโทรแจ้งผู้ปกครองรับทราบ"
+                }
+            },
+            {
+                id: "SP-670405",
+                name: "นาย ภาคิน คำมา",
+                schoolId: "usr_saraphi",
+                schoolName: "โรงเรียนสารภีพิทยาคม",
+                gradeClass: "ม.4/4",
+                gradeGroup: "ม.4",
+                dob: "2 ก.ค. 2553",
+                guardianContact: "083-662-1459",
+                healthNote: "None",
+                status: "สาย",
+                statusDetail: {
+                    reason: "มาถึงโรงเรียนเวลา 08:35 น. ช่วยครอบครัวขนส่งผลผลิตทางการเกษตรก่อนเดินทางมาเรียน",
+                    time: "08:35 น.",
+                    recordedBy: "ครูเวรประจำวัน (อ.สมเกียรติ)",
+                    actionTaken: "ลงบันทึกเวลามาสายและอนุญาตให้เข้าห้องเรียน"
+                }
+            },
+            {
+                id: "SP-660288",
+                name: "น.ส. สุพิชชา มหาวัน",
+                schoolId: "usr_saraphi",
+                schoolName: "โรงเรียนสารภีพิทยาคม",
+                gradeClass: "ม.5/2",
+                gradeGroup: "ม.5",
+                dob: "14 มี.ค. 2552",
+                guardianContact: "089-994-3321",
+                healthNote: "Migraine (ไมเกรน ไวต่อแสงแดดและความร้อนจัด)",
+                status: "ห้องพยาบาล",
+                statusDetail: {
+                    reason: "ส่งตัวเข้าห้องพยาบาลเวลา 10:45 น. มีอาการปวดศีรษะรุนแรง ตาพร่ามัว และคลื่นไส้จากดัชนีความร้อนสูง",
+                    time: "10:45 น.",
+                    recordedBy: "ครูพยาบาล (อาจารย์ชุลีพร)",
+                    actionTaken: "ให้รับประทานยาแก้ปวด ประคบเย็น และนอนพักในห้องพยาบาลปรับอากาศ"
+                }
+            },
+            {
+                id: "SP-650081",
+                name: "นาย กฤษฎา ปันเต",
+                schoolId: "usr_saraphi",
+                schoolName: "โรงเรียนสารภีพิทยาคม",
+                gradeClass: "ม.6/1",
+                gradeGroup: "ม.6",
+                dob: "12 ก.พ. 2551",
+                guardianContact: "082-190-6744",
+                healthNote: "None",
+                status: "ขาด",
+                statusDetail: {
+                    reason: "ขาดเรียนโดยไม่ได้ยื่นใบลา ครูประจำชั้นโทรสอบถามผู้ปกครอง แจ้งว่าจำเป็นต้องพาไปร่วมงานศพญาติที่ต่างจังหวัดเร่งด่วน",
+                    time: "09:00 น.",
+                    recordedBy: "ครูณัฐวุฒิ (ครูประจำชั้น ม.6/1)",
+                    actionTaken: "แจ้งให้ผู้ปกครองส่งใบลาพร้อมหลักฐานย้อนหลังในวันพรุ่งนี้"
+                }
+            },
+            {
+                id: "SP-680244",
+                name: "ด.ญ. ชนิกานต์ ดวงแก้ว",
+                schoolId: "usr_saraphi",
+                schoolName: "โรงเรียนสารภีพิทยาคม",
+                gradeClass: "ม.3/3",
+                gradeGroup: "ม.3",
+                dob: "9 พ.ย. 2554",
+                guardianContact: "098-441-5502",
+                healthNote: "None",
+                status: "ลา",
+                statusDetail: {
+                    reason: "ลากิจ: ผู้ปกครองแจ้งล่วงหน้าเพื่อพานักเรียนไปทำบัตรประชาชนและตรวจเอกสารทะเบียนราษฎร์",
+                    time: "07:45 น.",
+                    recordedBy: "ครูเบญจมาศ (ครูประจำชั้น ม.3/3)",
+                    actionTaken: "อนุมัติการลากิจตามระเบียบโรงเรียน"
+                }
+            },
+
+            // --- โรงเรียนบ้านศาลาแม่ทา (usr_maetha) ---
+            {
+                id: "MT-670012",
+                name: "ด.ช. ศิวกร ทาปินตา",
+                schoolId: "usr_maetha",
+                schoolName: "โรงเรียนบ้านศาลาแม่ทา",
+                gradeClass: "ป.5/1",
+                gradeGroup: "ป.5",
+                dob: "15 มี.ค. 2558",
+                guardianContact: "086-455-2199",
+                healthNote: "Asthma (หอบหืด มีประวัติแพ้ควันไฟป่า)",
+                status: "ห้องพยาบาล",
+                statusDetail: {
+                    reason: "ส่งตัวเข้าห้องพยาบาลเวลา 10:15 น. มีอาการแสบตา คัดจมูก และไอแห้งจากควันไฟในพื้นที่",
+                    time: "10:15 น.",
+                    recordedBy: "ครูอรทัย (ครูอนามัยโรงเรียน)",
+                    actionTaken: "ล้างตาด้วยน้ำเกลือปราศจากเชื้อ ให้สวมหน้ากาก N95 และพักในห้องปลอดฝุ่น"
+                }
+            },
+            {
+                id: "MT-670045",
+                name: "ด.ญ. ณิชาภัทร ขันคำ",
+                schoolId: "usr_maetha",
+                schoolName: "โรงเรียนบ้านศาลาแม่ทา",
+                gradeClass: "ป.5/2",
+                gradeGroup: "ป.5",
+                dob: "22 ส.ค. 2558",
+                guardianContact: "089-771-3345",
+                healthNote: "None",
+                status: "มา",
+                statusDetail: {
+                    reason: "มาเรียนตามปกติ เข้าแถวเคารพธงชาติทันเวลา",
+                    time: "07:40 น.",
+                    recordedBy: "ครูปิยะ (ครูประจำชั้น ป.5/2)",
+                    actionTaken: "เข้าเรียนตามปกติ"
+                }
+            },
+            {
+                id: "MT-680018",
+                name: "ด.ช. กิตติพงษ์ ใจมูล",
+                schoolId: "usr_maetha",
+                schoolName: "โรงเรียนบ้านศาลาแม่ทา",
+                gradeClass: "ป.4/1",
+                gradeGroup: "ป.4",
+                dob: "8 ม.ค. 2559",
+                guardianContact: "081-332-9011",
+                healthNote: "Food allergy (แพ้อาหารทะเล)",
+                status: "มา",
+                statusDetail: {
+                    reason: "มาเรียนตามปกติ บันทึกกำกับอาหารกลางวันปลอดอาหารทะเล",
+                    time: "07:50 น.",
+                    recordedBy: "ครูวิภาดา (ครูประจำชั้น ป.4/1)",
+                    actionTaken: "กำชับแม่ครัวโรงเรียนจัดอาหารเฉพาะราย"
+                }
+            },
+            {
+                id: "MT-660089",
+                name: "ด.ญ. พรรณวดี เมืองมา",
+                schoolId: "usr_maetha",
+                schoolName: "โรงเรียนบ้านศาลาแม่ทา",
+                gradeClass: "ป.6/1",
+                gradeGroup: "ป.6",
+                dob: "11 พ.ค. 2557",
+                guardianContact: "093-612-4480",
+                healthNote: "Allergic rhinitis (ภูมิแพ้อากาศ)",
+                status: "ลา",
+                statusDetail: {
+                    reason: "ลาป่วย: ไข้สูง 38.4°C เจ็บคอ ผู้ปกครองนำตัวไปรับการตรวจรักษาที่ รพ.สต.ทาสบเส้า ได้รับยากลับมาพักฟื้น",
+                    time: "08:00 น.",
+                    recordedBy: "ครูชัยวัฒน์ (ครูประจำชั้น ป.6/1)",
+                    actionTaken: "อนุมัติการลาป่วย ประสาน อสม. และ รพ.สต. ติดตามอาการต่อเนื่อง"
+                }
+            },
+            {
+                id: "MT-660023",
+                name: "ด.ช. ธีรภัทร มูลอินทร์",
+                schoolId: "usr_maetha",
+                schoolName: "โรงเรียนบ้านศาลาแม่ทา",
+                gradeClass: "ป.6/2",
+                gradeGroup: "ป.6",
+                dob: "19 ต.ค. 2557",
+                guardianContact: "087-190-8833",
+                healthNote: "None",
+                status: "สาย",
+                statusDetail: {
+                    reason: "มาถึงเวลา 08:35 น. ทางเข้าหมู่บ้านสบเส้ามีน้ำท่วมขัง รถสองแถวรับส่งนักเรียนล่าช้า",
+                    time: "08:35 น.",
+                    recordedBy: "ครูเวรประจำวัน (ครูสมคิด)",
+                    actionTaken: "บันทึกเวลามาสายและอนุญาตเข้าห้องเรียนโดยไม่ตัดคะแนนความประพฤติ"
+                }
+            },
+            {
+                id: "MT-650015",
+                name: "นาย อัครเดช หล้าคำ",
+                schoolId: "usr_maetha",
+                schoolName: "โรงเรียนบ้านศาลาแม่ทา",
+                gradeClass: "ม.3/1",
+                gradeGroup: "ม.3",
+                dob: "29 เม.ย. 2554",
+                guardianContact: "085-224-1190",
+                healthNote: "None",
+                status: "ขาด",
+                statusDetail: {
+                    reason: "ขาดเรียนโดยไม่มีการแจ้งล่วงหน้า ครูประจำชั้นโทรติดต่อผู้ปกครอง แจ้งว่าเดินทางไปช่วยงานครอบครัวที่ อ.ป่าซาง",
+                    time: "09:15 น.",
+                    recordedBy: "ครูประทีป (ครูประจำชั้น ม.3/1)",
+                    actionTaken: "บันทึกขาดเรียนและกำชับให้ส่งเอกสารขออนุญาตย้อนหลัง"
+                }
+            },
+            {
+                id: "MT-680072",
+                name: "ด.ญ. ชุติกาญจน์ ปัญญา",
+                schoolId: "usr_maetha",
+                schoolName: "โรงเรียนบ้านศาลาแม่ทา",
+                gradeClass: "ป.4/2",
+                gradeGroup: "ป.4",
+                dob: "14 ก.พ. 2559",
+                guardianContact: "090-445-1288",
+                healthNote: "Inhaler on file (มีประวัติหลอดลมอักเสบ)",
+                status: "มา",
+                statusDetail: {
+                    reason: "มาเรียนตามปกติ เข้าแถวเคารพธงชาติเรียบร้อย",
+                    time: "07:45 น.",
+                    recordedBy: "ครูกรรณิการ์ (ครูประจำชั้น ป.4/2)",
+                    actionTaken: "ดูแลให้อยู่ในห้องเรียนที่มีเครื่องฟอกอากาศ"
+                }
+            },
+            {
+                id: "MT-670094",
+                name: "ด.ช. ปวริศ แก้วดวงดี",
+                schoolId: "usr_maetha",
+                schoolName: "โรงเรียนบ้านศาลาแม่ทา",
+                gradeClass: "ป.5/1",
+                gradeGroup: "ป.5",
+                dob: "4 ธ.ค. 2558",
+                guardianContact: "088-912-3344",
+                healthNote: "None",
+                status: "ลา",
+                statusDetail: {
+                    reason: "ลากิจ: ผู้ปกครองแจ้งล่วงหน้า พาไปตรวจฟันและอุดฟันตามนัดหมายที่โรงพยาบาลแม่ทา",
+                    time: "07:30 น.",
+                    recordedBy: "ครูสมคิด (ครูประจำชั้น ป.5/1)",
+                    actionTaken: "อนุมัติการลากิจ"
+                }
+            },
+            {
+                id: "MT-690005",
+                name: "ด.ช. วรัญญู อินปา",
+                schoolId: "usr_maetha",
+                schoolName: "โรงเรียนบ้านศาลาแม่ทา",
+                gradeClass: "ป.3/1",
+                gradeGroup: "ป.3",
+                dob: "3 ก.ย. 2560",
+                guardianContact: "094-883-7712",
+                healthNote: "Heat intolerance (แพ้ความร้อน ไวต่อแดด มีผื่นคัน)",
+                status: "ห้องพยาบาล",
+                statusDetail: {
+                    reason: "ส่งเข้าห้องพยาบาลเวลา 11:20 น. มีอาการอ่อนเพลีย วิงเวียน และหน้าแดงจากอากาศร้อนอบอ้าว",
+                    time: "11:20 น.",
+                    recordedBy: "ครูอรทัย (ครูอนามัยโรงเรียน)",
+                    actionTaken: "เช็ดตัวคลายความร้อน ให้จิบน้ำเกลือแร่ และนอนพักผ่อนในห้องพยาบาล"
+                }
+            },
+            {
+                id: "MT-650044",
+                name: "น.ส. พิชญา ศรีวิชัย",
+                schoolId: "usr_maetha",
+                schoolName: "โรงเรียนบ้านศาลาแม่ทา",
+                gradeClass: "ม.3/2",
+                gradeGroup: "ม.3",
+                dob: "17 ก.ค. 2554",
+                guardianContact: "082-556-9901",
+                healthNote: "None",
+                status: "สาย",
+                statusDetail: {
+                    reason: "มาถึงเวลา 08:25 น. รถจักรยานโซ่ตกและยางรั่วระหว่างทางจากบ้านสบเส้า",
+                    time: "08:25 น.",
+                    recordedBy: "ครูเวรประจำวัน (ครูปิยะ)",
+                    actionTaken: "ช่วยซ่อมจักรยานเบื้องต้น ลงบันทึกเวลา และอนุญาตเข้าเรียน"
+                }
+            }
+        ];
+
+        function isStudentTabAllowed(role) {
+            const code = role || (typeof currentHospitalCode !== 'undefined' ? currentHospitalCode : null) || (typeof currentActiveSiteId !== 'undefined' ? currentActiveSiteId : null);
+            return (code === 'usr_saraphi' || code === 'usr_maetha');
+        }
+
+        function updateSchoolStudentTabVisibility(roleCode) {
+            const isAllowed = isStudentTabAllowed(roleCode);
+            const navStudent = document.getElementById('nav-tab-student');
+            const navStudentMobile = document.getElementById('nav-tab-student-mobile');
+            const mobileContainer = document.getElementById('mobile-tabs-container');
+
+            if (navStudent) {
+                if (isAllowed) {
+                    navStudent.classList.remove('hidden');
+                } else {
+                    navStudent.classList.add('hidden');
+                }
+            }
+
+            if (navStudentMobile) {
+                if (isAllowed) {
+                    navStudentMobile.classList.remove('hidden');
+                    if (mobileContainer) {
+                        mobileContainer.classList.remove('grid-cols-2');
+                        mobileContainer.classList.add('grid-cols-3');
+                    }
+                } else {
+                    navStudentMobile.classList.add('hidden');
+                    if (mobileContainer) {
+                        mobileContainer.classList.remove('grid-cols-3');
+                        mobileContainer.classList.add('grid-cols-2');
+                    }
+                }
+            }
+
+            // Guard: If currently viewing student panel and role changed to an unauthorized role (hospital or PAO)
+            const panelStudent = document.getElementById('panel-student');
+            if (!isAllowed && panelStudent && !panelStudent.classList.contains('hidden')) {
+                switchDashboardTab('risk');
+            }
+        }
+
+        function switchStudentSchool(schoolId) {
+            if (!SCHOOL_PROFILES[schoolId]) return;
+            currentStudentSchoolId = schoolId;
+            currentStudentClassFilter = 'all';
+
+            // Synchronize with hospital & map site dropdowns if they exist
+            currentHospitalCode = schoolId;
+            currentActiveSiteId = schoolId;
+
+            const hospSelect = document.getElementById('hospital-select');
+            if (hospSelect && hospSelect.value !== schoolId) hospSelect.value = schoolId;
+            const userSelect = document.getElementById('user-select');
+            if (userSelect && userSelect.value !== schoolId) userSelect.value = schoolId;
+
+            const switcher = document.getElementById('student-school-switcher');
+            if (switcher && switcher.value !== schoolId) switcher.value = schoolId;
+
+            // Trigger internal role updates
+            if (typeof onHospitalChanged === 'function') {
+                const h = HOSPITAL_ROLES.find(x => x.hospcode === schoolId);
+                if (h) {
+                    const subtitle = document.getElementById('active-hospital-subtitle');
+                    if (subtitle) subtitle.textContent = `${h.name} • ${h.desc}`;
+                }
+            }
+
+            renderStudentInfoDashboard();
+        }
+
+        function setStudentStatusFilter(status) {
+            currentStudentStatusFilter = status;
+
+            // Update pill styling
+            const pills = document.querySelectorAll('.student-status-pill');
+            pills.forEach(p => {
+                p.classList.remove('bg-blue-600', 'text-white', 'shadow-xs', 'bg-emerald-600', 'bg-amber-600', 'bg-orange-600', 'bg-rose-600', 'bg-purple-600');
+                p.classList.add('bg-white');
+            });
+
+            const activePill = document.getElementById(`pill-status-${status}`);
+            if (activePill) {
+                activePill.classList.remove('bg-white', 'text-emerald-800', 'text-amber-800', 'text-orange-800', 'text-rose-800', 'text-purple-800');
+                if (status === 'all') activePill.classList.add('bg-blue-600', 'text-white', 'shadow-xs');
+                else if (status === 'มา') activePill.classList.add('bg-emerald-600', 'text-white', 'shadow-xs');
+                else if (status === 'สาย') activePill.classList.add('bg-amber-600', 'text-white', 'shadow-xs');
+                else if (status === 'ลา') activePill.classList.add('bg-orange-600', 'text-white', 'shadow-xs');
+                else if (status === 'ขาด') activePill.classList.add('bg-rose-600', 'text-white', 'shadow-xs');
+                else if (status === 'ห้องพยาบาล') activePill.classList.add('bg-purple-600', 'text-white', 'shadow-xs');
+            }
+
+            renderStudentTableOnly();
+        }
+
+        function onStudentSearchChanged() {
+            const input = document.getElementById('student-search-input');
+            currentStudentSearchQuery = input ? input.value.trim().toLowerCase() : '';
+            renderStudentTableOnly();
+        }
+
+        function onStudentClassFilterChanged(cls) {
+            currentStudentClassFilter = cls;
+            renderStudentTableOnly();
+        }
+
+        function renderStudentInfoDashboard() {
+            const profile = SCHOOL_PROFILES[currentStudentSchoolId] || SCHOOL_PROFILES['usr_saraphi'];
+
+            // 1. Update Top Banner Scope
+            const switcher = document.getElementById('student-school-switcher');
+            if (switcher) switcher.value = profile.id;
+            const scopeDesc = document.getElementById('student-scope-desc');
+            if (scopeDesc) scopeDesc.textContent = profile.desc;
+
+            // 2. Update Top 4 Metric Cards
+            const totalEl = document.getElementById('stat-total-students');
+            if (totalEl) totalEl.textContent = profile.totalEnrolled;
+            const presentEl = document.getElementById('stat-present-today');
+            if (presentEl) presentEl.textContent = profile.presentToday;
+            const presentRateEl = document.getElementById('stat-present-rate-badge');
+            if (presentRateEl) presentRateEl.textContent = profile.attendanceRate;
+            const absentEl = document.getElementById('stat-absent-today');
+            if (absentEl) absentEl.textContent = profile.absentToday;
+            const absentBreakdownEl = document.getElementById('stat-absent-breakdown');
+            if (absentBreakdownEl) absentBreakdownEl.textContent = profile.absentBreakdownText;
+            const rateEl = document.getElementById('stat-attendance-rate');
+            if (rateEl) rateEl.textContent = profile.attendanceRate;
+
+            // 3. Update Table Header Title
+            const schoolTitle = document.getElementById('student-table-school-title');
+            if (schoolTitle) schoolTitle.textContent = profile.name;
+
+            // 4. Populate Class Filter Dropdown for the active school
+            const schoolStudents = studentAttendanceDb.filter(s => s.schoolId === profile.id);
+            const classSelect = document.getElementById('student-class-filter');
+            if (classSelect) {
+                const classes = Array.from(new Set(schoolStudents.map(s => s.gradeGroup))).sort();
+                let html = '<option value="all">ทุกระดับชั้น</option>';
+                classes.forEach(c => {
+                    const sel = (currentStudentClassFilter === c) ? 'selected' : '';
+                    html += `<option value="${c}" ${sel}>ชั้น ${c}</option>`;
+                });
+                classSelect.innerHTML = html;
+            }
+
+            // 5. Update Status Pill Counts
+            const countAll = schoolStudents.length;
+            const countPresent = schoolStudents.filter(s => s.status === 'มา').length;
+            const countLate = schoolStudents.filter(s => s.status === 'สาย').length;
+            const countLeave = schoolStudents.filter(s => s.status === 'ลา').length;
+            const countAbsent = schoolStudents.filter(s => s.status === 'ขาด').length;
+            const countInfirmary = schoolStudents.filter(s => s.status === 'ห้องพยาบาล').length;
+
+            const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+            setTxt('count-status-all', countAll);
+            setTxt('count-status-มา', countPresent);
+            setTxt('count-status-สาย', countLate);
+            setTxt('count-status-ลา', countLeave);
+            setTxt('count-status-ขาด', countAbsent);
+            setTxt('count-status-ห้องพยาบาล', countInfirmary);
+
+            // 6. Render Table rows
+            renderStudentTableOnly();
+        }
+
+        function renderStudentTableOnly() {
+            const tbody = document.getElementById('student-table-body');
+            if (!tbody) return;
+
+            const profile = SCHOOL_PROFILES[currentStudentSchoolId] || SCHOOL_PROFILES['usr_saraphi'];
+            let list = studentAttendanceDb.filter(s => s.schoolId === profile.id);
+
+            // Apply Status Filter
+            if (currentStudentStatusFilter !== 'all') {
+                list = list.filter(s => s.status === currentStudentStatusFilter);
+            }
+
+            // Apply Class Filter
+            if (currentStudentClassFilter !== 'all') {
+                list = list.filter(s => s.gradeGroup === currentStudentClassFilter);
+            }
+
+            // Apply Search Query
+            if (currentStudentSearchQuery) {
+                const q = currentStudentSearchQuery;
+                list = list.filter(s =>
+                    s.id.toLowerCase().includes(q) ||
+                    s.name.toLowerCase().includes(q) ||
+                    s.gradeClass.toLowerCase().includes(q) ||
+                    s.guardianContact.toLowerCase().includes(q) ||
+                    s.status.toLowerCase().includes(q)
+                );
+            }
+
+            // Update footer count
+            const countText = document.getElementById('student-record-count-text');
+            if (countText) {
+                countText.textContent = `แสดงทั้งหมด ${list.length} รายการ`;
+            }
+
+            if (list.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="px-6 py-12 text-center text-gray-500">
+                            <div class="text-3xl mb-2">🔍</div>
+                            <p class="font-bold text-gray-700 text-sm">ไม่พบข้อมูลนักเรียนที่ตรงกับเงื่อนไข</p>
+                            <p class="text-xs text-gray-400 mt-1">ลองเปลี่ยนคำค้นหา หรือรีเซ็ตตัวกรองสถานะ/ระดับชั้น</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            const statusConfigs = {
+                'มา': {
+                    badgeClass: 'bg-emerald-50 text-emerald-700 border border-emerald-300 hover:bg-emerald-100',
+                    icon: '✓',
+                    title: 'บันทึกการเข้าเรียน: มา',
+                    dotColor: 'bg-emerald-400'
+                },
+                'สาย': {
+                    badgeClass: 'bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100',
+                    icon: '⏰',
+                    title: 'บันทึกการมาสาย',
+                    dotColor: 'bg-amber-400'
+                },
+                'ลา': {
+                    badgeClass: 'bg-orange-50 text-orange-900 border border-orange-300 hover:bg-orange-100',
+                    icon: '📋',
+                    title: 'บันทึกการลา',
+                    dotColor: 'bg-orange-400'
+                },
+                'ขาด': {
+                    badgeClass: 'bg-rose-50 text-rose-700 border border-rose-300 hover:bg-rose-100',
+                    icon: '✕',
+                    title: 'บันทึกการขาดเรียน',
+                    dotColor: 'bg-rose-400'
+                },
+                'ห้องพยาบาล': {
+                    badgeClass: 'bg-purple-50 text-purple-900 border border-purple-300 hover:bg-purple-100',
+                    icon: '🏥',
+                    title: 'บันทึกส่งเข้าห้องพยาบาล',
+                    dotColor: 'bg-purple-400'
+                }
+            };
+
+            const rowsHtml = list.map((s, idx) => {
+                const cfg = statusConfigs[s.status] || statusConfigs['มา'];
+                const hasHover = (s.status === 'ขาด' || s.status === 'ลา' || s.status === 'สาย' || s.status === 'ห้องพยาบาล');
+                const isTopRow = idx < 2;
+                const popoverPosClass = isTopRow ? 'student-status-popover popover-down' : 'student-status-popover';
+
+                return `
+                    <tr class="hover:bg-blue-50/30 transition-colors duration-150">
+                        <td class="px-5 py-3.5 whitespace-nowrap font-mono text-xs font-bold text-gray-600">
+                            ${s.id}
+                        </td>
+                        <td class="px-5 py-3.5 whitespace-nowrap">
+                            <span class="font-bold text-gray-900 text-sm tracking-tight block">${s.name}</span>
+                        </td>
+                        <td class="px-5 py-3.5 whitespace-nowrap text-xs text-gray-800 font-bold">
+                            ${s.gradeClass}
+                        </td>
+                        <td class="px-5 py-3.5 whitespace-nowrap text-xs text-gray-600">
+                            ${s.dob}
+                        </td>
+                        <td class="px-5 py-3.5 whitespace-nowrap font-mono text-xs text-gray-700">
+                            ${s.guardianContact}
+                        </td>
+                        <td class="px-5 py-3.5 whitespace-nowrap text-center">
+                            <div class="student-status-container">
+                                <button type="button" onclick="openStudentStatusModal('${s.id}')"
+                                    title="${hasHover ? 'แตะ/คลิก หรือเลื่อนเมาส์ชี้เพื่อดูเหตุผล' : 'มาเรียนตามปกติ'}"
+                                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${cfg.badgeClass} cursor-pointer shadow-2xs transition transform hover:scale-105">
+                                    <span>${cfg.icon}</span>
+                                    <span>${s.status}</span>
+                                    ${hasHover ? '<span class="text-[10px] opacity-70">ℹ️</span>' : ''}
+                                </button>
+
+                                ${hasHover ? `
+                                <div class="${popoverPosClass}">
+                                    <div class="flex items-center justify-between gap-2 border-b border-gray-700/80 pb-2 mb-2.5">
+                                        <div class="flex items-center gap-1.5 font-black text-white text-xs">
+                                            <span class="w-2.5 h-2.5 rounded-full ${cfg.dotColor} animate-pulse"></span>
+                                            <span>${cfg.title}</span>
+                                        </div>
+                                        <span class="text-[10px] text-gray-300 font-mono bg-white/10 px-1.5 py-0.5 rounded">${s.statusDetail.time}</span>
+                                    </div>
+                                    <div class="space-y-2 text-gray-200 text-xs">
+                                        <div>
+                                            <span class="text-[10px] font-bold text-blue-200 block mb-0.5 uppercase tracking-wider">เหตุผลที่บันทึกสถานะ:</span>
+                                            <p class="text-white font-medium bg-white/10 rounded-lg p-2 border border-white/10 text-xs leading-relaxed">${s.statusDetail.reason}</p>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-2 text-[10px]">
+                                            <div class="bg-white/5 rounded-lg p-1.5 border border-white/5">
+                                                <span class="text-gray-400 block">ผู้บันทึก:</span>
+                                                <strong class="text-white font-semibold block truncate">${s.statusDetail.recordedBy}</strong>
+                                            </div>
+                                            <div class="bg-white/5 rounded-lg p-1.5 border border-white/5">
+                                                <span class="text-gray-400 block">เวลาที่บันทึก:</span>
+                                                <strong class="text-white font-mono block">${s.statusDetail.time}</strong>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span class="text-[10px] font-bold text-emerald-300 block mb-0.5 uppercase tracking-wider">การดำเนินการ / การดูแล:</span>
+                                            <p class="text-emerald-200 text-[11px] font-medium bg-emerald-950/50 border border-emerald-500/20 rounded-lg p-1.5 leading-snug">${s.statusDetail.actionTaken}</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2.5 pt-2 border-t border-gray-700/60 flex items-center justify-between text-[10px] text-gray-400">
+                                        <span class="text-blue-300 font-medium">💡 คลิกที่ปุ่มเพื่อดูหน้าต่างเต็ม</span>
+                                        <span>LHS School</span>
+                                    </div>
+                                </div>` : ''}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            tbody.innerHTML = rowsHtml;
+        }
+
+        function openStudentStatusModal(studentId) {
+            const student = studentAttendanceDb.find(s => s.id === studentId);
+            if (!student) return;
+
+            const modal = document.getElementById('studentStatusModal');
+            if (!modal) return;
+
+            const statusColors = {
+                'มา': 'bg-emerald-100 text-emerald-800 border border-emerald-300',
+                'สาย': 'bg-amber-100 text-amber-900 border border-amber-300',
+                'ลา': 'bg-orange-100 text-orange-900 border border-orange-300',
+                'ขาด': 'bg-rose-100 text-rose-800 border border-rose-300',
+                'ห้องพยาบาล': 'bg-purple-100 text-purple-900 border border-purple-300'
+            };
+
+            const badge = document.getElementById('modal-status-badge');
+            if (badge) {
+                badge.className = `px-3 py-1 rounded-full text-xs font-bold ${statusColors[student.status] || 'bg-gray-100 text-gray-800'}`;
+                badge.textContent = `สถานะ: ${student.status}`;
+            }
+
+            const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+            setText('modal-student-name', student.name);
+            setText('modal-student-id', student.id);
+            setText('modal-student-class', student.gradeClass);
+            setText('modal-student-school', student.schoolName);
+            setText('modal-status-reason', student.statusDetail ? student.statusDetail.reason : 'ไม่มีข้อมูลเหตุผล');
+            setText('modal-status-time', student.statusDetail ? student.statusDetail.time : '-');
+            setText('modal-status-recorder', student.statusDetail ? student.statusDetail.recordedBy : '-');
+            setText('modal-status-action', student.statusDetail ? student.statusDetail.actionTaken : '-');
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeStudentStatusModal() {
+            const modal = document.getElementById('studentStatusModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function initStudentInfoDashboard() {
+            // Backdrop click dismiss for modal
+            const modal = document.getElementById('studentStatusModal');
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeStudentStatusModal();
+                });
+            }
+
+            // Initial render
+            if (typeof renderStudentInfoDashboard === 'function') {
+                renderStudentInfoDashboard();
+            }
+        }
 
         // =========================================================================
         // UNIFIED DOM READY INITIALIZATION COORDINATOR
@@ -6372,7 +7612,17 @@
                 console.error("Error initializing Patient Risk module:", e);
             }
 
-            // 3. Tab routing based on URL Hash or parameters
+            // 3. Initialize Student Information Dashboard (Tab 3)
+            try {
+                if (typeof initStudentInfoDashboard === 'function') initStudentInfoDashboard();
+                if (typeof updateSchoolStudentTabVisibility === 'function') {
+                    updateSchoolStudentTabVisibility(currentHospitalCode || currentActiveSiteId);
+                }
+            } catch (e) {
+                console.error("Error initializing Student Info module:", e);
+            }
+
+            // 4. Tab routing based on URL Hash or parameters
             // Restore sidebar collapsed preference
             try {
                 if (localStorage.getItem('sidebar_collapsed') === 'true') {
@@ -6387,13 +7637,19 @@
 
             const urlParams = new URLSearchParams(window.location.search);
             const hash = window.location.hash.toLowerCase();
-            if (hash === '#risk' || hash === '#patient' || urlParams.get('tab') === 'risk' || urlParams.get('test')) {
+            if (hash === '#student' || urlParams.get('tab') === 'student') {
+                if (isStudentTabAllowed()) {
+                    switchDashboardTab('student');
+                } else {
+                    switchDashboardTab('risk');
+                }
+            } else if (hash === '#risk' || hash === '#patient' || urlParams.get('tab') === 'risk' || urlParams.get('test')) {
                 switchDashboardTab('risk');
             } else {
                 switchDashboardTab('env');
             }
 
-            // 4. Test hooks preservation
+            // 5. Test hooks preservation
             if (urlParams.get('test') === 'normal') {
                 if (typeof openNormalSmsModal === 'function') openNormalSmsModal();
             } else if (urlParams.get('test') === 'specific') {
