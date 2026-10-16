@@ -251,7 +251,7 @@
                     </span>
                     <span id="nav-tab-risk-text"
                         class="sidebar-text text-sm lg:text-[15px] tracking-tight truncate flex-1 leading-snug">
-                        ผู้ป่วยกลุ่มเสี่ยง PM2.5/ความร้อน
+                        กลุ่มเสี่ยง PM2.5/ความร้อน
                     </span>
                 </button>
             </nav>
@@ -706,7 +706,7 @@
                             </div>
                             <div class="flex flex-col truncate w-full">
                                 <span class="text-[9px] uppercase font-extrabold text-gray-400 tracking-wider">Select
-                                    Role / Hospital / อบจ.</span>
+                                    Role / School / Hospital / อบจ.</span>
                                 <select id="hospital-user-select" onchange="onHospitalChanged(this.value)"
                                     class="bg-transparent text-sm font-bold text-gray-900 outline-none cursor-pointer truncate w-full">
                                     <!-- Populated dynamically via JS -->
@@ -2073,9 +2073,9 @@
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-3">
                             <div>
                                 <div class="flex items-center gap-2 mb-1">
-                                    <span
+                                    <span id="section-3-number-badge"
                                         class="bg-blue-100 text-blue-700 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">3</span>
-                                    <span
+                                    <span id="section-3-badge-text"
                                         class="text-xs font-bold text-blue-600 uppercase tracking-wider">บัญชีรายชื่อผู้ป่วย</span>
                                 </div>
                                 <h3 class="font-bold text-gray-900 text-lg flex items-center gap-2">
@@ -2086,10 +2086,10 @@
                                 <input type="text" id="patient-search" oninput="filterPatients()"
                                     placeholder="ค้นหา เลขประจำตัวประชาชน, ชื่อ-สกุล, ปัจจัยเปราะบาง, รพ...."
                                     class="text-xs bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 w-48 sm:w-64">
-                                <button type="button" onclick="openNormalSmsModal()"
+                                <button type="button" id="btn-group-sms" onclick="openNormalSmsModal()"
                                     class="text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg flex items-center gap-1.5 shadow-xs transition shrink-0"
-                                    title="ส่ง SMS ข้อความเดียวกันให้ผู้ป่วยทั้งกลุ่มพร้อมกัน">
-                                    <span>📢</span> ส่งข้อความกลุ่ม
+                                    title="ส่ง SMS ข้อความเดียวกันให้กลุ่มเป้าหมายพร้อมกัน">
+                                    <span id="btn-group-sms-text"><span>📢</span> ส่งข้อความกลุ่ม</span>
                                 </button>
                                 <button type="button" onclick="exportCSV()"
                                     class="text-xs font-semibold bg-white border border-gray-300 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center gap-1.5 shadow-xs transition shrink-0">
@@ -2104,12 +2104,16 @@
                                     <thead
                                         class="bg-gray-50 border-b border-gray-200 text-gray-600 text-xs font-bold uppercase tracking-wider">
                                         <tr>
-                                            <th class="px-5 py-3.5 whitespace-nowrap">เลขประจำตัวประชาชน</th>
-                                            <th class="px-5 py-3.5 whitespace-nowrap">ชื่อ-สกุล</th>
-                                            <th class="px-4 py-3.5 whitespace-nowrap text-center">เพศ/อายุ</th>
-                                            <th class="px-4 py-3.5 whitespace-nowrap text-center">รหัส รพ.</th>
+                                            <th id="th-cid" class="px-5 py-3.5 whitespace-nowrap">เลขประจำตัวประชาชน
+                                            </th>
+                                            <th id="th-name" class="px-5 py-3.5 whitespace-nowrap">ชื่อ-สกุล</th>
+                                            <th id="th-classroom" class="hidden px-5 py-3.5 whitespace-nowrap">
+                                                ชั้นเรียน</th>
+                                            <th id="th-gender-age" class="px-5 py-3.5 whitespace-nowrap">
+                                                เพศ/อายุ</th>
                                             <th class="px-5 py-3.5 whitespace-nowrap">ระดับความเสี่ยง</th>
-                                            <th class="px-5 py-3.5 whitespace-nowrap min-w-[280px]">ปัจจัยเปราะบาง /
+                                            <th id="th-factors" class="px-5 py-3.5 whitespace-nowrap min-w-[280px]">
+                                                ปัจจัยเปราะบาง /
                                                 โรคประจำตัว
                                             </th>
                                             <th class="px-5 py-3.5 text-right whitespace-nowrap">การดำเนินการ</th>
@@ -4316,8 +4320,8 @@
             };
         }
 
-        // --- 2. Hospital Roles (HOSPCODE Mapping) & Area Environmental Levels ---
-        // Each hospital faces ambient environmental conditions in its catchment area
+        // --- 2. Hospital & School Roles (HOSPCODE Mapping) & Area Environmental Levels ---
+        // Each site faces ambient environmental conditions in its catchment area
         const HOSPITAL_ROLES = [
             {
                 id: 'usr_pao',
@@ -4326,9 +4330,34 @@
                 desc: 'ภาพรวมทุกพื้นที่และทุก รพ.สต. ในจังหวัดเชียงใหม่',
                 shortName: 'อบจ.เชียงใหม่',
                 tambon: 'ภาพรวมทุกพื้นที่ในจังหวัด',
+                type: 'Gov Office',
                 isPao: true,
                 pm25: null, // Covers provincial range
                 temp: null  // Covers provincial range
+            },
+            {
+                id: 'usr_saraphi',
+                hospcode: 'usr_saraphi',
+                name: 'โรงเรียนสารภีพิทยาคม',
+                desc: 'ต.ยางเนิ้ง อ.สารภี จ.เชียงใหม่',
+                shortName: 'รร.สารภีพิทยาคม',
+                tambon: 'ต.ยางเนิ้ง (Yang Noeng, Saraphi)',
+                type: 'School',
+                isSchool: true,
+                pm25: 42.0, // Air: Level 4 - สีส้ม (เริ่มมีผลกระทบ 37.6 - 75.0)
+                temp: 34.5  // Temp: Level 2 - เตือนภัย (33.0 - 41.9 °C)
+            },
+            {
+                id: 'usr_maetha',
+                hospcode: 'usr_maetha',
+                name: 'โรงเรียนบ้านศาลาแม่ทา',
+                desc: 'ต.ทาสบเส้า อ.แม่ทา จ.ลำพูน',
+                shortName: 'รร.บ้านศาลาแม่ทา',
+                tambon: 'ต.ทาสบเส้า (Tha Sob Sao, Mae Tha)',
+                type: 'School',
+                isSchool: true,
+                pm25: 28.5, // Air: Level 3 - สีเหลือง (ปานกลาง 25.1 - 37.5)
+                temp: 31.5  // Temp: Level 1 - เฝ้าระวัง (27.0 - 32.9 °C)
             },
             {
                 id: 'usr_maechan',
@@ -4337,6 +4366,7 @@
                 desc: 'อ.แม่จัน จ.เชียงราย',
                 shortName: 'รพ.สต.สันทราย',
                 tambon: 'ต.สันทราย (San Sai, Mae Chan)',
+                type: 'Hospital',
                 pm25: 82.4, // Air: Level 5 - สีแดง (มีผลกระทบต่อสุขภาพ > 75.0)
                 temp: 45.2  // Temp: Level 3 - อันตราย (42.0 - 51.9 °C)
             },
@@ -4347,6 +4377,7 @@
                 desc: 'อ.อมก๋อย จ.เชียงใหม่',
                 shortName: 'รพ.สต.บ้านยางเปียง',
                 tambon: 'ต.ยางเปียง (Yang Piang, Omkoi)',
+                type: 'Hospital',
                 pm25: 48.5, // Air: Level 4 - สีส้ม (เริ่มมีผลกระทบ 37.6 - 75.0)
                 temp: 36.8  // Temp: Level 2 - เตือนภัย (33.0 - 41.9 °C)
             },
@@ -4357,6 +4388,7 @@
                 desc: 'อ.เชียงดาว จ.เชียงใหม่',
                 shortName: 'รพ.สต.บ้านแม่นะ',
                 tambon: 'ต.แม่นะ (Mae Na, Chiang Dao)',
+                type: 'Hospital',
                 pm25: 95.0, // Air: Level 5 - สีแดง (มีผลกระทบต่อสุขภาพ > 75.0)
                 temp: 52.4  // Temp: Level 4 - อันตรายมาก (≥ 52.0 °C)
             },
@@ -4367,6 +4399,7 @@
                 desc: 'ต.ช่อแล อ.แม่แตง จ.เชียงใหม่',
                 shortName: 'รพ.สต.บ้านช่อแล',
                 tambon: 'ต.ช่อแล (Cho Lae, Mae Taeng)',
+                type: 'Hospital',
                 pm25: 32.5, // Air: Level 3 - สีเหลือง (ปานกลาง 25.1 - 37.5)
                 temp: 31.0  // Temp: Level 1 - เฝ้าระวัง (27.0 - 32.9 °C)
             },
@@ -4377,6 +4410,7 @@
                 desc: 'ต.สบเปิง อ.แม่แตง จ.เชียงใหม่',
                 shortName: 'รพ.สต.บ้านปางม่วง',
                 tambon: 'ต.สบเปิง (Sop Poeng, Mae Taeng)',
+                type: 'Hospital',
                 pm25: 20.0, // Air: Level 2 - สีเขียว (ดี 15.1 - 25.0)
                 temp: 29.5  // Temp: Level 1 - เฝ้าระวัง (27.0 - 32.9 °C)
             }
@@ -4389,17 +4423,33 @@
             if (!select) return;
             select.innerHTML = '';
 
+            const groups = {
+                'School': document.createElement('optgroup'),
+                'Hospital': document.createElement('optgroup'),
+                'Gov Office': document.createElement('optgroup')
+            };
+
+            groups['School'].label = '🏫 สถาบันการศึกษา (School)';
+            groups['Hospital'].label = '🏥 สถานพยาบาล / รพ.สต. (Hospital)';
+            groups['Gov Office'].label = '🏛️ หน่วยงานภาครัฐ / อปท. (Gov Office)';
+
             HOSPITAL_ROLES.forEach(h => {
                 const opt = document.createElement('option');
                 opt.value = h.hospcode;
-                if (h.isPao) {
-                    opt.textContent = `🏛️ ${h.name} (ภาพรวมทุกพื้นที่)`;
-                } else {
-                    opt.textContent = `🏥 ${h.name} (${h.hospcode})`;
-                }
+                opt.textContent = h.name;
                 if (h.hospcode === currentHospitalCode) opt.selected = true;
-                select.appendChild(opt);
+
+                const grpKey = h.type || (h.isPao ? 'Gov Office' : (h.isSchool ? 'School' : 'Hospital'));
+                if (groups[grpKey]) groups[grpKey].appendChild(opt);
             });
+
+            // Append groups: School first (matching user request image!), then Hospital, then Gov Office
+            ['School', 'Hospital', 'Gov Office'].forEach(key => {
+                if (groups[key] && groups[key].children.length > 0) {
+                    select.appendChild(groups[key]);
+                }
+            });
+            select.value = currentHospitalCode;
         }
 
         function onHospitalChanged(code) {
@@ -4408,9 +4458,12 @@
             const subtitle = document.getElementById('active-hospital-subtitle');
             const h = HOSPITAL_ROLES.find(x => x.hospcode === code) || HOSPITAL_ROLES[0];
             const isPao = !!h.isPao;
+            const isSchool = (h.type === 'School' || !!h.isSchool);
 
             if (subtitle) {
                 if (isPao) {
+                    subtitle.textContent = `${h.name} • ${h.desc}`;
+                } else if (isSchool) {
                     subtitle.textContent = `${h.name} • ${h.desc}`;
                 } else {
                     subtitle.textContent = `${h.name} (${h.hospcode}) • ${h.desc}`;
@@ -4436,6 +4489,19 @@
                 if (userAvatar) {
                     userAvatar.textContent = '🏛️';
                     userAvatar.className = "w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm transition";
+                }
+            } else if (isSchool) {
+                if (roleIcon) roleIcon.textContent = '🏫';
+                if (roleText) roleText.textContent = 'School (สถานศึกษา)';
+                if (roleBtn) {
+                    roleBtn.className = "px-3 py-1.5 rounded-lg flex items-center gap-1.5 bg-white text-blue-900 shadow-xs font-bold cursor-default";
+                }
+                if (roleContainer) {
+                    roleContainer.className = "inline-flex items-center gap-1 bg-blue-50 border border-blue-200/80 p-1 rounded-xl text-xs font-semibold text-blue-800 shadow-2xs";
+                }
+                if (userAvatar) {
+                    userAvatar.textContent = '🏫';
+                    userAvatar.className = "w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm transition";
                 }
             } else {
                 if (roleIcon) roleIcon.textContent = '🏥';
@@ -5066,6 +5132,233 @@
                 conditions: "Recurrent RTI (>=3/6mo)",
                 factors: ["rti"],
                 assessment_date: "2026-03-27"
+            },
+            // --- usr_saraphi: โรงเรียนสารภีพิทยาคม (ต.ยางเนิ้ง อ.สารภี จ.เชียงใหม่) | PM2.5: 42.0 µg/m³ (ส้ม), Temp: 34.5 °C (เตือนภัย) ---
+            {
+                cid: "1509901882101",
+                name: "ด.ช. ภูริชญ์ วงศ์สุวรรณ",
+                classroom: "ม.1/3",
+                gender_age: "M/13",
+                hosp: "usr_saraphi",
+                hosp_name: "รร.สารภีพิทยาคม",
+                tambon: "ต.ยางเนิ้ง (Yang Noeng, Saraphi)",
+                pm25: 42.0,
+                temp: 34.5,
+                conditions: "Asthma, Allergic Rhinitis",
+                factors: ["asthma", "ar"],
+                assessment_date: "2026-04-10",
+                isStudent: true
+            },
+            {
+                cid: "2509900412384",
+                name: "ด.ญ. พิชญาภา คำแก้ว",
+                classroom: "ม.3/2",
+                gender_age: "F/15",
+                hosp: "usr_saraphi",
+                hosp_name: "รร.สารภีพิทยาคม",
+                tambon: "ต.ยางเนิ้ง (Yang Noeng, Saraphi)",
+                pm25: 42.0,
+                temp: 34.5,
+                conditions: "Congenital Heart Disease (Active), Beta Blocker",
+                factors: ["chd", "beta_blocker"],
+                assessment_date: "2026-04-08",
+                isStudent: true
+            },
+            {
+                cid: "1509902094833",
+                name: "นาย กิตติพงษ์ สิทธิโชค",
+                classroom: "ม.4/5",
+                gender_age: "M/16",
+                hosp: "usr_saraphi",
+                hosp_name: "รร.สารภีพิทยาคม",
+                tambon: "ต.ยางเนิ้ง (Yang Noeng, Saraphi)",
+                pm25: 42.0,
+                temp: 34.5,
+                conditions: "Outdoor Active / Athlete, Allergic Rhinitis",
+                factors: ["athlete", "ar"],
+                assessment_date: "2026-04-11",
+                isStudent: true
+            },
+            {
+                cid: "2509901776529",
+                name: "ด.ญ. ณัชชา แสนคำ",
+                classroom: "ม.2/1",
+                gender_age: "F/14",
+                hosp: "usr_saraphi",
+                hosp_name: "รร.สารภีพิทยาคม",
+                tambon: "ต.ยางเนิ้ง (Yang Noeng, Saraphi)",
+                pm25: 42.0,
+                temp: 34.5,
+                conditions: "Asthma, Antihistamine",
+                factors: ["asthma", "antihistamine"],
+                assessment_date: "2026-04-05",
+                isStudent: true
+            },
+            {
+                cid: "1509901654812",
+                name: "นาย ธนกฤต มณีรัตน์",
+                classroom: "ม.5/4",
+                gender_age: "M/17",
+                hosp: "usr_saraphi",
+                hosp_name: "รร.สารภีพิทยาคม",
+                tambon: "ต.ยางเนิ้ง (Yang Noeng, Saraphi)",
+                pm25: 42.0,
+                temp: 34.5,
+                conditions: "Obesity, Diuretic",
+                factors: ["obesity", "diuretic"],
+                assessment_date: "2026-04-02",
+                isStudent: true
+            },
+            {
+                cid: "1509901993420",
+                name: "ด.ช. อนันต์ รักษ์ดี",
+                classroom: "ม.1/2",
+                gender_age: "M/13",
+                hosp: "usr_saraphi",
+                hosp_name: "รร.สารภีพิทยาคม",
+                tambon: "ต.ยางเนิ้ง (Yang Noeng, Saraphi)",
+                pm25: 42.0,
+                temp: 34.5,
+                conditions: "Recurrent RTI (>=3/6mo)",
+                factors: ["rti"],
+                assessment_date: "2026-04-07",
+                isStudent: true
+            },
+            {
+                cid: "2509901332451",
+                name: "ด.ญ. สุพรรณิการ์ มั่นคง",
+                classroom: "ม.4/1",
+                gender_age: "F/16",
+                hosp: "usr_saraphi",
+                hosp_name: "รร.สารภีพิทยาคม",
+                tambon: "ต.ยางเนิ้ง (Yang Noeng, Saraphi)",
+                pm25: 42.0,
+                temp: 34.5,
+                conditions: "ตรวจสุขภาพประจำปีนักเรียน (ทั่วไป)",
+                factors: [],
+                assessment_date: "2026-04-01",
+                isStudent: true
+            },
+            {
+                cid: "1509901228905",
+                name: "นาย ปวริศร์ ชัยเจริญ",
+                classroom: "ม.3/4",
+                gender_age: "M/15",
+                hosp: "usr_saraphi",
+                hosp_name: "รร.สารภีพิทยาคม",
+                tambon: "ต.ยางเนิ้ง (Yang Noeng, Saraphi)",
+                pm25: 42.0,
+                temp: 34.5,
+                conditions: "ตรวจสุขภาพประจำปีนักเรียน (ทั่วไป)",
+                factors: [],
+                assessment_date: "2026-04-01",
+                isStudent: true
+            },
+            // --- usr_maetha: โรงเรียนบ้านศาลาแม่ทา (ต.ทาสบเส้า อ.แม่ทา จ.ลำพูน) | PM2.5: 28.5 µg/m³ (เหลือง), Temp: 31.5 °C (เฝ้าระวัง) ---
+            {
+                cid: "1519900384112",
+                name: "ด.ช. ธีรภัทร บุญปั๋น",
+                classroom: "ป.3/1",
+                gender_age: "M/9",
+                hosp: "usr_maetha",
+                hosp_name: "รร.บ้านศาลาแม่ทา",
+                tambon: "ต.ทาสบเส้า (Tha Sob Sao, Mae Tha)",
+                pm25: 28.5,
+                temp: 31.5,
+                conditions: "Asthma, Allergic Rhinitis",
+                factors: ["asthma", "ar"],
+                assessment_date: "2026-04-09",
+                isStudent: true
+            },
+            {
+                cid: "2519900192834",
+                name: "ด.ญ. กัญญารัตน์ ใจมูล",
+                classroom: "ป.5/2",
+                gender_age: "F/11",
+                hosp: "usr_maetha",
+                hosp_name: "รร.บ้านศาลาแม่ทา",
+                tambon: "ต.ทาสบเส้า (Tha Sob Sao, Mae Tha)",
+                pm25: 28.5,
+                temp: 31.5,
+                conditions: "Congenital Heart Disease (Active)",
+                factors: ["chd"],
+                assessment_date: "2026-04-06",
+                isStudent: true
+            },
+            {
+                cid: "1519900481290",
+                name: "ด.ช. พงศกร มะโนชัย",
+                classroom: "ป.2/1",
+                gender_age: "M/8",
+                hosp: "usr_maetha",
+                hosp_name: "รร.บ้านศาลาแม่ทา",
+                tambon: "ต.ทาสบเส้า (Tha Sob Sao, Mae Tha)",
+                pm25: 28.5,
+                temp: 31.5,
+                conditions: "Recurrent RTI (>=3/6mo), Underweight",
+                factors: ["rti", "underweight"],
+                assessment_date: "2026-04-08",
+                isStudent: true
+            },
+            {
+                cid: "2519900593411",
+                name: "ด.ญ. ปรียานุช คำตั๋น",
+                classroom: "ม.1/1",
+                gender_age: "F/13",
+                hosp: "usr_maetha",
+                hosp_name: "รร.บ้านศาลาแม่ทา",
+                tambon: "ต.ทาสบเส้า (Tha Sob Sao, Mae Tha)",
+                pm25: 28.5,
+                temp: 31.5,
+                conditions: "Allergic Rhinitis, Antihistamine",
+                factors: ["ar", "antihistamine"],
+                assessment_date: "2026-04-03",
+                isStudent: true
+            },
+            {
+                cid: "1519900294819",
+                name: "ด.ช. ธนพล อินถา",
+                classroom: "ป.6/1",
+                gender_age: "M/12",
+                hosp: "usr_maetha",
+                hosp_name: "รร.บ้านศาลาแม่ทา",
+                tambon: "ต.ทาสบเส้า (Tha Sob Sao, Mae Tha)",
+                pm25: 28.5,
+                temp: 31.5,
+                conditions: "Asthma",
+                factors: ["asthma"],
+                assessment_date: "2026-04-04",
+                isStudent: true
+            },
+            {
+                cid: "2519900661204",
+                name: "ด.ญ. นลินทิพย์ ปัญญา",
+                classroom: "ป.4/1",
+                gender_age: "F/10",
+                hosp: "usr_maetha",
+                hosp_name: "รร.บ้านศาลาแม่ทา",
+                tambon: "ต.ทาสบเส้า (Tha Sob Sao, Mae Tha)",
+                pm25: 28.5,
+                temp: 31.5,
+                conditions: "ตรวจสุขภาพประจำปีนักเรียน (ทั่วไป)",
+                factors: [],
+                assessment_date: "2026-04-02",
+                isStudent: true
+            },
+            {
+                cid: "1519900772390",
+                name: "ด.ช. วรัญญู รัตนพร",
+                classroom: "ป.1/2",
+                gender_age: "M/7",
+                hosp: "usr_maetha",
+                hosp_name: "รร.บ้านศาลาแม่ทา",
+                tambon: "ต.ทาสบเส้า (Tha Sob Sao, Mae Tha)",
+                pm25: 28.5,
+                temp: 31.5,
+                conditions: "ตรวจสุขภาพประจำปีนักเรียน (ทั่วไป)",
+                factors: [],
+                assessment_date: "2026-04-02",
+                isStudent: true
             }
         ];
 
@@ -5108,7 +5401,7 @@
 
         function renderPatientFactorsByType(patient) {
             if (!patient.factors || patient.factors.length === 0) {
-                return `<span class="text-gray-400 text-xs">-</span>`;
+                return `<span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-gray-100 text-gray-600 border border-gray-200 shadow-2xs">ไม่มีปัจจัยเปราะบาง</span>`;
             }
 
             const factorGroups = [
@@ -5251,11 +5544,12 @@
 
             const isPaoMode = (currentHospitalCode === 'PAO');
             const activeHospital = HOSPITAL_ROLES.find(h => h.hospcode === currentHospitalCode) || HOSPITAL_ROLES[0];
+            const isSchoolMode = (activeHospital.type === 'School' || !!activeHospital.isSchool);
 
             let hospitalFilteredDb;
             if (isPaoMode) {
-                hospitalFilteredDb = allPatientsDb;
-                // In PAO view, each patient inherits their home hospital's ambient PM2.5 and Temp
+                // In PAO overview, include only hospital patients across the province (exclude school students)
+                hospitalFilteredDb = allPatientsDb.filter(p => !p.isStudent);
                 hospitalFilteredDb.forEach(p => {
                     const h = HOSPITAL_ROLES.find(x => x.hospcode === p.hosp);
                     if (h && h.pm25 != null) {
@@ -5263,6 +5557,13 @@
                         p.temp = h.temp;
                         p.tambon = h.tambon;
                     }
+                });
+            } else if (isSchoolMode) {
+                hospitalFilteredDb = allPatientsDb.filter(p => p.hosp === currentHospitalCode);
+                hospitalFilteredDb.forEach(p => {
+                    p.pm25 = activeHospital.pm25;
+                    p.temp = activeHospital.temp;
+                    p.tambon = activeHospital.tambon;
                 });
             } else {
                 hospitalFilteredDb = allPatientsDb.filter(p => p.hosp === currentHospitalCode);
@@ -5274,32 +5575,51 @@
                 });
             }
 
-            // Compute composite risk for all hospital patients (Epidemiological population overview)
+            // Compute composite risk for all hospital/school patients (Epidemiological population overview)
             hospitalFilteredDb.forEach(p => {
                 p._risk = calculateCompositeRisk(p);
             });
 
-            // Base criteria for Part 3 Targeted Patient List (filtered by Part 2 vulnerability checkboxes & search)
-            const baseFiltered = hospitalFilteredDb.filter(p => {
-                const isNormal = (!p.factors || p.factors.length === 0);
-                let matchesFactor = false;
-                if (isNormal) {
-                    matchesFactor = includeNormal;
-                } else {
-                    matchesFactor = (activeKeys.length === 0) ? false : p.factors.some(f => activeKeys.includes(f));
-                }
+            // Base criteria for Part 3 Targeted Patient/Student List
+            let baseFiltered;
+            if (isSchoolMode) {
+                // School view: "remove ตัวกรองและเกณฑ์ประเมินความเสี่ยง (school dont need to filter they want to know only which student is at risk)"
+                // Automatically include only students who are at risk (air risk, heat risk, or dual risk)
+                baseFiltered = hospitalFilteredDb.filter(p => {
+                    const isAtRisk = isAirRiskPatient(p) || isTempRiskPatient(p) || (p._risk && p._risk.isDualRisk);
+                    if (!isAtRisk) return false;
 
-                const risk = p._risk;
+                    let matchesSearch = true;
+                    if (searchInput) {
+                        const thFactors = (p.factors || []).map(f => VULNERABILITY_DEF[f]?.th || "").join(' ');
+                        const risk = p._risk;
+                        const text = `${p.cid} ${p.name} ${p.classroom || ''} ${p.gender_age} ${p.hosp} ${p.hosp_name} ${risk.air.name} ${risk.air.colorName} ${risk.temp.name} ${p.pm25} ${p.temp} ${p.conditions} ${thFactors} ${p.tambon}`.toLowerCase();
+                        matchesSearch = text.includes(searchInput);
+                    }
+                    return matchesSearch;
+                });
+            } else {
+                baseFiltered = hospitalFilteredDb.filter(p => {
+                    const isNormal = (!p.factors || p.factors.length === 0);
+                    let matchesFactor = false;
+                    if (isNormal) {
+                        matchesFactor = includeNormal;
+                    } else {
+                        matchesFactor = (activeKeys.length === 0) ? false : p.factors.some(f => activeKeys.includes(f));
+                    }
 
-                let matchesSearch = true;
-                if (searchInput) {
-                    const thFactors = (p.factors || []).map(f => VULNERABILITY_DEF[f]?.th || "").join(' ');
-                    const text = `${p.cid} ${p.name} ${p.gender_age} ${p.hosp} ${p.hosp_name} ${risk.air.name} ${risk.air.colorName} ${risk.temp.name} ${p.pm25} ${p.temp} ${p.conditions} ${thFactors} ${p.tambon}`.toLowerCase();
-                    matchesSearch = text.includes(searchInput);
-                }
+                    const risk = p._risk;
 
-                return matchesFactor && matchesSearch;
-            });
+                    let matchesSearch = true;
+                    if (searchInput) {
+                        const thFactors = (p.factors || []).map(f => VULNERABILITY_DEF[f]?.th || "").join(' ');
+                        const text = `${p.cid} ${p.name} ${p.classroom || ''} ${p.gender_age} ${p.hosp} ${p.hosp_name} ${risk.air.name} ${risk.air.colorName} ${risk.temp.name} ${p.pm25} ${p.temp} ${p.conditions} ${thFactors} ${p.tambon}`.toLowerCase();
+                        matchesSearch = text.includes(searchInput);
+                    }
+
+                    return matchesFactor && matchesSearch;
+                });
+            }
 
             // 1. Dual Risk Box (Population overview - independent of Part 2 clinical filters)
             const countDual = hospitalFilteredDb.filter(p => p._risk && p._risk.isDualRisk).length;
@@ -5336,11 +5656,22 @@
             const secFilters = document.getElementById('section-clinical-filters');
             const secRoster = document.getElementById('section-patient-roster');
             const sec1Badge = document.getElementById('section-1-number-badge');
+            const sec3Badge = document.getElementById('section-3-number-badge');
+            const sec3BadgeText = document.getElementById('section-3-badge-text');
+            const providerListTitle = document.getElementById('provider-list-title');
+            const btnGroupSmsText = document.getElementById('btn-group-sms-text');
+            const thCid = document.getElementById('th-cid');
+            const thName = document.getElementById('th-name');
+            const thClassroom = document.getElementById('th-classroom');
+            const thGenderAge = document.getElementById('th-gender-age');
+            const thFactors = document.getElementById('th-factors');
+            const patientSearch = document.getElementById('patient-search');
 
             if (isPaoMode) {
                 if (secFilters) secFilters.classList.add('hidden');
                 if (secRoster) secRoster.classList.add('hidden');
                 if (sec1Badge) sec1Badge.classList.add('hidden');
+                if (thClassroom) thClassroom.classList.add('hidden');
 
                 if (providerBadge) providerBadge.textContent = "การประเมินความเสี่ยงทางคลินิก";
                 if (providerTitle) providerTitle.textContent = "การจัดการกลุ่มเปราะบาง";
@@ -5351,10 +5682,63 @@
 
                 if (airDesc) airDesc.textContent = "แสดงภาพรวมผู้ป่วยในทุก รพ.สต. จำแนกตาม 5 ระดับคุณภาพอากาศมาตรฐาน";
                 if (tempDesc) tempDesc.textContent = "แสดงภาพรวมผู้ป่วยในทุก รพ.สต. จำแนกตาม 4 ระดับดัชนีความร้อน";
+            } else if (isSchoolMode) {
+                // School view: REMOVE Section 2 (Clinical vulnerability filter)
+                if (secFilters) secFilters.classList.add('hidden');
+                // Keep Section 3 (Roster) visible to display at-risk students
+                if (secRoster) secRoster.classList.remove('hidden');
+
+                if (sec1Badge) {
+                    sec1Badge.classList.remove('hidden');
+                    sec1Badge.textContent = "1";
+                }
+                if (sec3Badge) sec3Badge.textContent = "2"; // Becomes step 2 because filter is removed
+                if (sec3BadgeText) sec3BadgeText.textContent = "บัญชีรายชื่อนักเรียนกลุ่มเสี่ยง";
+                if (providerListTitle) providerListTitle.textContent = `รายชื่อนักเรียนกลุ่มเสี่ยง`;
+                if (btnGroupSmsText) btnGroupSmsText.innerHTML = `<span>📢</span> แจ้งเตือนผู้ปกครอง (SMS)`;
+
+                if (thCid) thCid.textContent = "รหัสนักเรียน / CID";
+                if (thName) thName.textContent = "ชื่อ-สกุล นักเรียน";
+                if (thClassroom) thClassroom.classList.remove('hidden');
+                if (thGenderAge) thGenderAge.textContent = "เพศ/อายุ";
+                if (thFactors) thFactors.textContent = "ปัจจัยเสี่ยง / โรคประจำตัว";
+                if (patientSearch) patientSearch.placeholder = "ค้นหา รหัสนักเรียน, ชั้นเรียน, ชื่อ-สกุล, โรคประจำตัว...";
+
+                if (providerBadge) providerBadge.textContent = "การเฝ้าระวังสุขภาพนักเรียน";
+                if (providerTitle) providerTitle.textContent = `ข้อมูลความเสี่ยงและนักเรียนกลุ่มเปราะบาง`;
+
+                if (hazardsCont) hazardsCont.className = "grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 items-stretch";
+                if (airGrid) airGrid.className = "grid grid-cols-1 w-full gap-3.5 grow";
+                if (tempGrid) tempGrid.className = "grid grid-cols-1 w-full gap-3.5 grow";
+
+                if (airDesc) {
+                    const r = activeAirRisk || AIR_RISK_LEVELS[1];
+                    airDesc.innerHTML = `<span class="text-gray-600 font-medium">ระดับความเสี่ยงบริเวณโรงเรียน:</span> <strong class="text-gray-900 font-bold">${r.colorName} (${r.name})</strong> • เกณฑ์มาตรฐาน ${r.range}`;
+                }
+
+                if (tempDesc) {
+                    const r = activeTempRisk || TEMP_RISK_LEVELS[1];
+                    tempDesc.innerHTML = `<span class="text-gray-600 font-medium">ระดับความเสี่ยงบริเวณโรงเรียน:</span> <strong class="text-gray-900 font-bold">${r.name}</strong> • เกณฑ์มาตรฐาน ${r.range}`;
+                }
             } else {
+                // Hospital view
                 if (secFilters) secFilters.classList.remove('hidden');
                 if (secRoster) secRoster.classList.remove('hidden');
-                if (sec1Badge) sec1Badge.classList.remove('hidden');
+                if (sec1Badge) {
+                    sec1Badge.classList.remove('hidden');
+                    sec1Badge.textContent = "1";
+                }
+                if (sec3Badge) sec3Badge.textContent = "3";
+                if (sec3BadgeText) sec3BadgeText.textContent = "บัญชีรายชื่อผู้ป่วย";
+                if (providerListTitle) providerListTitle.textContent = `รายชื่อผู้ป่วยกลุ่มเป้าหมาย (${activeHospital.name})`;
+                if (btnGroupSmsText) btnGroupSmsText.innerHTML = `<span>📢</span> ส่งข้อความกลุ่ม`;
+
+                if (thCid) thCid.textContent = "เลขประจำตัวประชาชน";
+                if (thName) thName.textContent = "ชื่อ-สกุล";
+                if (thClassroom) thClassroom.classList.add('hidden');
+                if (thGenderAge) thGenderAge.textContent = "เพศ/อายุ";
+                if (thFactors) thFactors.textContent = "ปัจจัยเปราะบาง / โรคประจำตัว";
+                if (patientSearch) patientSearch.placeholder = "ค้นหา เลขประจำตัวประชาชน, ชื่อ-สกุล, ปัจจัยเปราะบาง, รพ....";
 
                 if (providerBadge) providerBadge.textContent = "การประเมินความเสี่ยงทางคลินิก";
                 if (providerTitle) providerTitle.textContent = "การจัดการกลุ่มเปราะบาง";
@@ -5486,14 +5870,14 @@
             if (currentFilteredPatients.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="7" class="px-6 py-10 text-center text-gray-500">
+                        <td colspan="${isSchoolMode ? 7 : 6}" class="px-6 py-10 text-center text-gray-500">
                             <div class="text-3xl mb-2">🔍</div>
-                            <div class="font-semibold text-gray-700">ไม่พบรายชื่อผู้ป่วยที่ตรงตามเงื่อนไขที่เลือก</div>
-                            <div class="text-xs text-gray-400 mt-1">ลองเลือกปัจจัยความเปราะบางเพิ่มเติม หรือคลิก "ล้างตัวกรอง"</div>
+                            <div class="font-semibold text-gray-700">${isSchoolMode ? 'ไม่พบรายชื่อนักเรียนกลุ่มเสี่ยง' : 'ไม่พบรายชื่อผู้ป่วยที่ตรงตามเงื่อนไขที่เลือก'}</div>
+                            <div class="text-xs text-gray-400 mt-1">${isSchoolMode ? 'นักเรียนทุกคนมีสุขภาพปกติ หรือไม่พบข้อมูลตามคำค้นหา' : 'ลองเลือกปัจจัยความเปราะบางเพิ่มเติม หรือคลิก "ล้างตัวกรอง"'}</div>
                         </td>
                     </tr>
                 `;
-                document.getElementById('table-footer').innerText = "Showing 0 patients.";
+                document.getElementById('table-footer').innerText = isSchoolMode ? "Showing 0 students." : "Showing 0 patients.";
                 return;
             }
 
@@ -5519,6 +5903,16 @@
                        </span>`
                     : '';
 
+                const contactBtnLabel = p.isStudent ? 'บันทึกการดูแล' : 'Log Contact';
+                const smsBtnLabel = p.isStudent ? 'แจ้งผู้ปกครอง' : 'ข้อความเฉพาะราย';
+                const smsBtnTitle = p.isStudent ? 'ส่ง SMS แจ้งเตือนผู้ปกครองเฉพาะราย' : 'พิมพ์ข้อความเจาะจงเฉพาะรายบุคคลโดยแพทย์หรือพยาบาล';
+
+                const classroomCell = isSchoolMode
+                    ? `<td class="px-5 py-3.5 font-medium text-gray-900 whitespace-nowrap">
+                           ${p.classroom || '-'}
+                       </td>`
+                    : '';
+
                 tbody.innerHTML += `
                     <tr class="hover:bg-blue-50/30 transition border-b border-gray-100 text-sm">
                         <td class="px-5 py-3.5 font-mono text-xs font-semibold text-gray-900 tracking-wider whitespace-nowrap">
@@ -5527,41 +5921,31 @@
                         <td class="px-5 py-3.5 font-medium text-gray-900 whitespace-nowrap">
                             ${p.name}
                         </td>
-                        <td class="px-4 py-3.5 text-xs font-semibold text-gray-700 text-center whitespace-nowrap">
-                            <span class="inline-block bg-gray-100 text-gray-800 px-2 py-0.5 rounded font-mono">${p.gender_age}</span>
-                        </td>
-                        <td class="px-4 py-3.5 font-mono text-xs text-blue-700 font-bold text-center whitespace-nowrap">
-                            <span class="inline-block bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200" title="${p.hosp_name}">${p.hosp}</span>
+                        ${classroomCell}
+                        <td class="px-5 py-3.5 font-medium text-gray-900 whitespace-nowrap">
+                            ${p.gender_age}
                         </td>
                         <td class="px-5 py-3.5 whitespace-nowrap">
-                            <div class="flex flex-col gap-1 items-start">
+                            <div class="flex flex-col gap-1.5 items-start">
+                                ${dualBadge}
                                 <div class="flex items-center gap-1.5">
-                                    <span class="inline-flex items-center gap-1 ${air.badgeClass} text-[11px] font-bold px-2 py-0.5 rounded shadow-2xs">
-                                        🌫️ PM2.5: ${p.pm25} µg/m³ (${air.colorName})
-                                    </span>
                                     ${airGroupTag}
-                                </div>
-                                <div class="flex items-center gap-1.5">
-                                    <span class="inline-flex items-center gap-1 ${tempRisk.badgeClass} text-[11px] font-bold px-2 py-0.5 rounded shadow-2xs">
-                                        🌡️ ดัชนีความร้อน: ${p.temp}°C (${tempRisk.name})
-                                    </span>
                                     ${tempGroupTag}
                                 </div>
-                                ${dualBadge}
                             </div>
                         </td>
                         <td class="px-5 py-3.5 min-w-[280px]">
                             ${(!p.factors || p.factors.length === 0)
-                        ? '<span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-blue-50 text-blue-800 border border-blue-200 shadow-2xs">👥 ผู้ป่วยทั่วไป (ไม่มีปัจจัยเปราะบาง)</span>'
+                        ? '<span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-gray-100 text-gray-600 border border-gray-200 shadow-2xs">ไม่มีปัจจัยเปราะบาง</span>'
                         : renderPatientFactorsByType(p)}
                         </td>
                         <td class="px-5 py-3.5 whitespace-nowrap text-right text-sm font-medium">
                             <div class="flex justify-end items-center space-x-1.5">
                                 <button type="button" onclick="logContact('${p.cid}', '${p.name}')" class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-xs font-semibold px-2.5 py-1.5 rounded-lg shadow-2xs transition">
-                                    Log Contact
+                                    ${contactBtnLabel}
                                 </button>
-                                <button type="button" onclick="openSpecificSmsModal('${p.cid}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-2.5 py-1.5 rounded-lg shadow-2xs transition flex items-center gap-1" title="พิมพ์ข้อความเจาะจงเฉพาะรายบุคคลโดยแพทย์หรือพยาบาล">
-                                    <span>✍️</span> ข้อความเฉพาะราย
+                                <button type="button" onclick="openSpecificSmsModal('${p.cid}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-2.5 py-1.5 rounded-lg shadow-2xs transition flex items-center gap-1" title="${smsBtnTitle}">
+                                    <span>✍️</span> ${smsBtnLabel}
                                 </button>
                             </div>
                         </td>
@@ -5594,24 +5978,40 @@
             if (currentHospObj) {
                 hospLabel = currentHospObj.isPao
                     ? `${currentHospObj.name} (ภาพรวมทุก รพ.สต.)`
-                    : `${currentHospObj.name} (${currentHospObj.hospcode})`;
+                    : (currentHospObj.isSchool ? currentHospObj.name : `${currentHospObj.name} (${currentHospObj.hospcode})`);
             }
-            document.getElementById('table-footer').innerText = `Showing ${currentFilteredPatients.length} of ${hospitalFilteredDb.length} patients for ${hospLabel}${filterStatusText}.`;
+            if (isSchoolMode) {
+                document.getElementById('table-footer').innerText = `Showing ${currentFilteredPatients.length} at-risk students for ${hospLabel}.`;
+            } else {
+                document.getElementById('table-footer').innerText = `Showing ${currentFilteredPatients.length} of ${hospitalFilteredDb.length} patients for ${hospLabel}${filterStatusText}.`;
+            }
         }
 
         // --- 8. Export CSV Function with Multi-Hazard Details ---
         function exportCSV() {
             if (currentFilteredPatients.length === 0) {
-                showToast("No patients to export.", "⚠️");
+                showToast("No data to export.", "⚠️");
                 return;
             }
 
+            const currentHosp = HOSPITAL_ROLES.find(h => h.hospcode === currentHospitalCode);
+            const isSchool = currentHosp && (currentHosp.isSchool || currentHosp.type === 'School');
+
             const headers = [
-                "CID", "ชื่อ-สกุล", "เพศ/อายุ", "รหัส รพ.",
-                "ระดับคุณภาพอากาศ", "ค่า PM2.5 (มคก./ลบ.ม.)",
-                "ระดับดัชนีความร้อน", "อุณหภูมิ (°C)",
-                "กลุ่มเสี่ยง 2 ด้าน (Dual Risk)", "คะแนนเปราะบาง",
-                "ปัจจัยเปราะบาง", "เงื่อนไขทางคลินิก", "วันที่ประเมินล่าสุด"
+                isSchool ? "รหัสนักเรียน / CID" : "CID",
+                "ชื่อ-สกุล",
+                ...(isSchool ? ["ชั้นเรียน"] : []),
+                "เพศ/อายุ",
+                isSchool ? "สถานศึกษา" : "รหัส รพ.",
+                "ระดับคุณภาพอากาศ",
+                "ค่า PM2.5 (มคก./ลบ.ม.)",
+                "ระดับดัชนีความร้อน",
+                "อุณหภูมิ (°C)",
+                "กลุ่มเสี่ยง 2 ด้าน (Dual Risk)",
+                "คะแนนเปราะบาง",
+                "ปัจจัยเปราะบาง / โรคประจำตัว",
+                "เงื่อนไขทางคลินิก",
+                "วันที่ประเมินล่าสุด"
             ];
 
             const rows = currentFilteredPatients.map(p => {
@@ -5622,8 +6022,9 @@
                 return [
                     `"${p.cid}"`,
                     `"${p.name}"`,
+                    ...(isSchool ? [`"${p.classroom || '-'}"`] : []),
                     `"${p.gender_age}"`,
-                    `"${p.hosp}"`,
+                    `"${p.isStudent ? (p.hosp_name || p.hosp) : p.hosp}"`,
                     `"${air.colorName} (${air.name})"`,
                     p.pm25,
                     `"${tempRisk.name}"`,
@@ -5639,15 +6040,16 @@
             const csvContent = "data:text/csv;charset=utf-8,\uFEFF"
                 + [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
 
+            const filenamePrefix = isSchool ? "targeted_student_risk_list" : "targeted_patient_list";
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `targeted_patient_list_${new Date().toISOString().slice(0, 10)}.csv`);
+            link.setAttribute("download", `${filenamePrefix}_${new Date().toISOString().slice(0, 10)}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
 
-            showToast(`Exported ${currentFilteredPatients.length} patients to CSV.`, "✓");
+            showToast(`Exported ${currentFilteredPatients.length} ${isSchool ? 'students' : 'patients'} to CSV.`, "✓");
         }
         // =======================================================
         // 8. SMS Messaging Handlers (Type 1: Normal SMS & Type 2: Specific SMS)
@@ -5659,7 +6061,8 @@
         // --- TYPE 1: NORMAL SMS (Broadcast to Multiple Patients) ---
         function openNormalSmsModal() {
             const currentHosp = HOSPITAL_ROLES.find(h => h.hospcode === currentHospitalCode);
-            const hospLabel = currentHosp ? `${currentHosp.name} (${currentHosp.hospcode})` : "";
+            const isSchool = currentHosp && (currentHosp.isSchool || currentHosp.type === 'School');
+            const hospLabel = currentHosp ? (isSchool ? currentHosp.name : `${currentHosp.name} (${currentHosp.hospcode})`) : "";
 
             document.getElementById('normal-sms-hosp-name').innerText = hospLabel;
 
@@ -5709,16 +6112,29 @@
         function applyNormalPreset(key) {
             const currentHosp = HOSPITAL_ROLES.find(h => h.hospcode === currentHospitalCode);
             const hospName = currentHosp ? currentHosp.shortName : "รพ.สต.";
+            const isSchool = currentHosp && (currentHosp.isSchool || currentHosp.type === 'School');
 
             let msg = "";
-            if (key === 'dual') {
-                msg = `[${hospName} แจ้งเตือนมลพิษฝุ่นและความร้อนจัด] สภาพอากาศในพื้นที่อยู่ในระดับเสี่ยงทั้งฝุ่น PM2.5 และอุณหภูมิสูง ขอให้กลุ่มเปราะบางงดกิจกรรมกลางแจ้ง ดื่มน้ำสะอาดสม่ำเสมอ พักในอาคาร/ห้องปลอดฝุ่น และสวมหน้ากากอนามัย N95`;
-            } else if (key === 'pm25') {
-                msg = `[${hospName} แจ้งเตือนมลพิษฝุ่น PM2.5] คุณภาพอากาศในพื้นที่เริ่มมีผลกระทบต่อสุขภาพ ขอให้ประชาชนและผู้ป่วยกลุ่มเปราะบางงดทำกิจกรรมกลางแจ้ง ปิดประตูหน้าต่าง สวมหน้ากากป้องกันฝุ่น N95 และเฝ้าระวังอาการทางเดินหายใจ`;
-            } else if (key === 'heat') {
-                msg = `[${hospName} แจ้งเตือนสภาวะอากาศร้อนจัด] ดัชนีความร้อนในพื้นที่สูงขึ้น ขอให้ประชาชนโดยเฉพาะผู้สูงอายุ เด็กเล็ก และผู้ป่วยเรื้อรัง ดื่มน้ำสะอาดอย่างสม่ำเสมอ หลีกเลี่ยงแดดจัด และสังเกตอาการเพลียแดดหรือโรคลมแดด (Heat stroke)`;
-            } else if (key === 'service') {
-                msg = `[${hospName} บริการห้องปลอดฝุ่น Safety Zone] สถานพยาบาลเปิดให้บริการห้องปลอดฝุ่นและจุดตรวจสุขภาพเบื้องต้นสำหรับผู้ป่วยกลุ่มเสี่ยงและประชาชนทั่วไป สามารถติดต่อรับบริการและขอรับหน้ากากอนามัยได้ในวันและเวลาราชการ`;
+            if (isSchool) {
+                if (key === 'dual') {
+                    msg = `[${hospName} แจ้งเตือนผู้ปกครอง] ขณะนี้สภาพอากาศบริเวณโรงเรียนมีความเสี่ยงทั้งฝุ่น PM2.5 และความร้อนจัด ทางโรงเรียนของดกิจกรรมกลางแจ้งทุกชนิด จัดกิจกรรมในห้องเรียนปรับอากาศ/ปลอดฝุ่น และขอให้ผู้ปกครองสังเกตอาการของบุตรหลานอย่างใกล้ชิด`;
+                } else if (key === 'pm25') {
+                    msg = `[${hospName} แจ้งเตือนฝุ่น PM2.5] ค่าฝุ่น PM2.5 บริเวณโรงเรียนเกินเกณฑ์มาตรฐาน ทางโรงเรียนเปิดระบบกรองอากาศในห้องเรียน งดกิจกรรมกลางแจ้ง และแจกจ่ายหน้ากากป้องกันฝุ่นสำหรับนักเรียนกลุ่มเสี่ยง`;
+                } else if (key === 'heat') {
+                    msg = `[${hospName} แจ้งเตือนดัชนีความร้อนสูง] สภาพอากาศมีอุณหภูมิและความร้อนสูง ทางโรงเรียนให้นักเรียนพักในที่ร่ม จัดเตรียมน้ำดื่มสะอาดอย่างเพียงพอ และเฝ้าระวังโรคลมแดดในนักเรียน`;
+                } else if (key === 'service') {
+                    msg = `[${hospName} ห้องพยาบาลและห้องปลอดฝุ่น] โรงเรียนเปิดให้บริการห้องพยาบาลปรับอากาศปลอดฝุ่น (Safety Zone) สำหรับนักเรียนที่มีอาการทางเดินหายใจหรือมีโรคประจำตัว สามารถเข้าพักได้ตลอดเวลาเรียน`;
+                }
+            } else {
+                if (key === 'dual') {
+                    msg = `[${hospName} แจ้งเตือนมลพิษฝุ่นและความร้อนจัด] สภาพอากาศในพื้นที่อยู่ในระดับเสี่ยงทั้งฝุ่น PM2.5 และอุณหภูมิสูง ขอให้กลุ่มเปราะบางงดกิจกรรมกลางแจ้ง ดื่มน้ำสะอาดสม่ำเสมอ พักในอาคาร/ห้องปลอดฝุ่น และสวมหน้ากากอนามัย N95`;
+                } else if (key === 'pm25') {
+                    msg = `[${hospName} แจ้งเตือนมลพิษฝุ่น PM2.5] คุณภาพอากาศในพื้นที่เริ่มมีผลกระทบต่อสุขภาพ ขอให้ประชาชนและผู้ป่วยกลุ่มเปราะบางงดทำกิจกรรมกลางแจ้ง ปิดประตูหน้าต่าง สวมหน้ากากป้องกันฝุ่น N95 และเฝ้าระวังอาการทางเดินหายใจ`;
+                } else if (key === 'heat') {
+                    msg = `[${hospName} แจ้งเตือนสภาวะอากาศร้อนจัด] ดัชนีความร้อนในพื้นที่สูงขึ้น ขอให้ประชาชนโดยเฉพาะผู้สูงอายุ เด็กเล็ก และผู้ป่วยเรื้อรัง ดื่มน้ำสะอาดอย่างสม่ำเสมอ หลีกเลี่ยงแดดจัด และสังเกตอาการเพลียแดดหรือโรคลมแดด (Heat stroke)`;
+                } else if (key === 'service') {
+                    msg = `[${hospName} บริการห้องปลอดฝุ่น Safety Zone] สถานพยาบาลเปิดให้บริการห้องปลอดฝุ่นและจุดตรวจสุขภาพเบื้องต้นสำหรับผู้ป่วยกลุ่มเสี่ยงและประชาชนทั่วไป สามารถติดต่อรับบริการและขอรับหน้ากากอนามัยได้ในวันและเวลาราชการ`;
+                }
             }
 
             const textarea = document.getElementById('normalSmsText');
@@ -5750,7 +6166,7 @@
 
             setTimeout(() => {
                 closeNormalSmsModal();
-                showToast(`ส่งข้อความ SMS สำเร็จไปยังผู้ป่วยทั้งหมด ${activeNormalRecipients.length} ราย`, "📢");
+                showToast(`ส่งข้อความ SMS สำเร็จไปยังผู้รับทั้งหมด ${activeNormalRecipients.length} ราย`, "📢");
                 btn.innerHTML = originalHtml;
                 btn.classList.add('bg-blue-600', 'hover:bg-blue-700');
                 btn.classList.remove('bg-emerald-600');
@@ -5758,7 +6174,7 @@
         }
 
 
-        // --- TYPE 2: SPECIFIC SMS (Individual Care typed by Doctor/Nurse) ---
+        // --- TYPE 2: SPECIFIC SMS (Individual Care typed by Doctor/Nurse/Teacher) ---
         function openSpecificSmsModal(cid) {
             const p = (typeof allPatientsDb !== 'undefined' ? allPatientsDb : []).find(item => item.cid === cid) || (currentFilteredPatients || []).find(item => item.cid === cid);
             if (!p) {
@@ -5772,7 +6188,9 @@
             const tempRisk = risk.temp;
 
             document.getElementById('specific-patient-name').innerText = p.name;
-            document.getElementById('specific-patient-meta').innerText = `CID: ${p.cid} • เพศ/อายุ: ${p.gender_age} • รหัส รพ.: ${p.hosp}`;
+            document.getElementById('specific-patient-meta').innerText = p.isStudent
+                ? `รหัสนักเรียน/CID: ${p.cid} • ชั้นเรียน: ${p.classroom || '-'} • เพศ/อายุ: ${p.gender_age} • โรงเรียน: ${p.hosp_name || p.hosp}`
+                : `CID: ${p.cid} • เพศ/อายุ: ${p.gender_age} • รหัส รพ.: ${p.hosp}`;
 
             // Risk badges
             let badgesHtml = `
@@ -5801,18 +6219,32 @@
             const shortHospName = hospObj ? hospObj.shortName : "รพ.สต.";
             document.getElementById('specific-sender-hosp').innerText = senderHospName;
 
-            // Generate initial clinical text for Doctor/Nurse to review or edit
-            let initialDoctorText = `[${shortHospName} - คำแนะนำเฉพาะบุคคลจากแพทย์/พยาบาล] เรียนคุณ${p.name}: `;
-            if (risk.isDualCritical) {
-                initialDoctorText += `เนื่องจากท่านมีภาวะ ${conditionsTh} และสภาพแวดล้อมมีความเสี่ยงวิกฤตทั้งฝุ่น PM2.5 (${p.pm25} µg/m³) และความร้อนจัด (${p.temp || 30}°C) ขอให้งดกิจกรรมกลางแจ้งเด็ดขาด พักในห้องปรับอากาศหรือห้องปลอดฝุ่น ดื่มน้ำสะอาดบ่อยๆ และสังเกตอาการผิดปกติอย่างใกล้ชิด หากเหนื่อยหอบ หายใจขัด หรือเวียนศีรษะให้ติดต่อ รพ.สต. หรือ 1669 ทันที`;
-            } else if (risk.isDualRisk) {
-                initialDoctorText += `เนื่องจากท่านมีภาวะ ${conditionsTh} และสภาพอากาศมีความเสี่ยงทั้งฝุ่น PM2.5 และความร้อน ขอให้งดกิจกรรมกลางแจ้ง สวมหน้ากาก N95 เมื่อจำเป็น และดื่มน้ำสะอาดสม่ำเสมอเพื่อป้องกันภาวะเพลียแดดและอาการกำเริบ`;
-            } else if (air.level >= 4) {
-                initialDoctorText += `เนื่องจากท่านมีภาวะ ${conditionsTh} และค่าฝุ่น PM2.5 อยู่ในระดับ ${air.colorName} (${p.pm25} µg/m³) ขอแนะนำสวมหน้ากาก N95 ตลอดเวลาเมื่อออกนอกอาคาร ปิดประตูหน้าต่าง และเฝ้าระวังอาการทางเดินหายใจ`;
-            } else if (tempRisk.level >= 3) {
-                initialDoctorText += `เนื่องจากท่านมีภาวะ ${conditionsTh} และดัชนีความร้อนอยู่ในระดับ ${tempRisk.name} (${p.temp || 30}°C) ขอให้หลีกเลี่ยงแดดจัด ดื่มน้ำสะอาดบ่อยๆ และระวังภาวะขาดน้ำหรือเพลียแดด`;
+            // Generate initial clinical/school text for Doctor/Nurse/Teacher to review or edit
+            let initialDoctorText = "";
+            if (p.isStudent) {
+                initialDoctorText = `[${shortHospName} แจ้งเตือนผู้ปกครอง] เรียนผู้ปกครองของ ${p.name}${p.classroom ? ` (ชั้น ${p.classroom})` : ''}: `;
+                if (risk.isDualCritical || risk.isDualRisk) {
+                    initialDoctorText += `เนื่องจากนักเรียนมีภาวะ ${conditionsTh} และสภาพอากาศวันนี้มีความเสี่ยงทั้งฝุ่น PM2.5 (${p.pm25} µg/m³) และความร้อนจัด (${p.temp || 30}°C) ทางโรงเรียนได้ให้นักเรียนพักในห้องเรียนปรับอากาศปลอดฝุ่นและดื่มน้ำสม่ำเสมอ ขอความร่วมมือผู้ปกครองเตรียมยาส่วนตัวและสังเกตอาการอย่างใกล้ชิด`;
+                } else if (air.level >= 4) {
+                    initialDoctorText += `เนื่องจากนักเรียนมีภาวะ ${conditionsTh} และค่าฝุ่น PM2.5 อยู่ในระดับ ${air.colorName} (${p.pm25} µg/m³) ทางโรงเรียนได้ให้นักเรียนสวมหน้ากากและงดกิจกรรมกลางแจ้ง ขอแนะนำเฝ้าระวังอาการทางเดินหายใจ`;
+                } else if (tempRisk.level >= 3) {
+                    initialDoctorText += `เนื่องจากนักเรียนมีภาวะ ${conditionsTh} และดัชนีความร้อนอยู่ในระดับ ${tempRisk.name} (${p.temp || 30}°C) ทางโรงเรียนได้จัดเตรียมน้ำดื่มสะอาดและหลีกเลี่ยงแดดจัด ขอให้สังเกตอาการเพลียแดด`;
+                } else {
+                    initialDoctorText += `ติดตามสุขภาพนักเรียนที่มีภาวะ ${conditionsTh} ในช่วงสภาพอากาศเปลี่ยนแปลง ทางโรงเรียนดูแลและเฝ้าระวังอย่างต่อเนื่อง`;
+                }
             } else {
-                initialDoctorText += `ติดตามอาการ ${conditionsTh} ในช่วงสภาพอากาศเปลี่ยนแปลง ขอให้ดูแลสุขภาพ ดื่มน้ำสะอาดอย่างเพียงพอ และหลีกเลี่ยงพื้นที่ที่มีฝุ่นควันและความร้อนสูง`;
+                initialDoctorText = `[${shortHospName} - คำแนะนำเฉพาะบุคคลจากแพทย์/พยาบาล] เรียนคุณ${p.name}: `;
+                if (risk.isDualCritical) {
+                    initialDoctorText += `เนื่องจากท่านมีภาวะ ${conditionsTh} และสภาพแวดล้อมมีความเสี่ยงวิกฤตทั้งฝุ่น PM2.5 (${p.pm25} µg/m³) และความร้อนจัด (${p.temp || 30}°C) ขอให้งดกิจกรรมกลางแจ้งเด็ดขาด พักในห้องปรับอากาศหรือห้องปลอดฝุ่น ดื่มน้ำสะอาดบ่อยๆ และสังเกตอาการผิดปกติอย่างใกล้ชิด หากเหนื่อยหอบ หายใจขัด หรือเวียนศีรษะให้ติดต่อ รพ.สต. หรือ 1669 ทันที`;
+                } else if (risk.isDualRisk) {
+                    initialDoctorText += `เนื่องจากท่านมีภาวะ ${conditionsTh} และสภาพอากาศมีความเสี่ยงทั้งฝุ่น PM2.5 และความร้อน ขอให้งดกิจกรรมกลางแจ้ง สวมหน้ากาก N95 เมื่อจำเป็น และดื่มน้ำสะอาดสม่ำเสมอเพื่อป้องกันภาวะเพลียแดดและอาการกำเริบ`;
+                } else if (air.level >= 4) {
+                    initialDoctorText += `เนื่องจากท่านมีภาวะ ${conditionsTh} และค่าฝุ่น PM2.5 อยู่ในระดับ ${air.colorName} (${p.pm25} µg/m³) ขอแนะนำสวมหน้ากาก N95 ตลอดเวลาเมื่อออกนอกอาคาร ปิดประตูหน้าต่าง และเฝ้าระวังอาการทางเดินหายใจ`;
+                } else if (tempRisk.level >= 3) {
+                    initialDoctorText += `เนื่องจากท่านมีภาวะ ${conditionsTh} และดัชนีความร้อนอยู่ในระดับ ${tempRisk.name} (${p.temp || 30}°C) ขอให้หลีกเลี่ยงแดดจัด ดื่มน้ำสะอาดบ่อยๆ และระวังภาวะขาดน้ำหรือเพลียแดด`;
+                } else {
+                    initialDoctorText += `ติดตามอาการ ${conditionsTh} ในช่วงสภาพอากาศเปลี่ยนแปลง ขอให้ดูแลสุขภาพ ดื่มน้ำสะอาดอย่างเพียงพอ และหลีกเลี่ยงพื้นที่ที่มีฝุ่นควันและความร้อนสูง`;
+                }
             }
 
             const textarea = document.getElementById('specificSmsText');
