@@ -2294,7 +2294,7 @@
                             </div>
                         </div>
                         <div class="my-3">
-                            <div id="stat-total-students" class="text-3xl font-black text-blue-900 tracking-tight leading-none">842</div>
+                            <div id="stat-total-students" class="text-3xl font-black text-blue-900 tracking-tight leading-none">12</div>
                         </div>
                         <div class="min-h-[26px] flex items-center text-xs text-blue-700/90 font-medium">จำนวนนักเรียนในสถานศึกษา</div>
                     </div>
@@ -2313,11 +2313,11 @@
                             </div>
                         </div>
                         <div class="my-3">
-                            <div id="stat-present-today" class="text-3xl font-black text-emerald-700 tracking-tight leading-none">803</div>
+                            <div id="stat-present-today" class="text-3xl font-black text-emerald-700 tracking-tight leading-none">4</div>
                         </div>
                         <div class="min-h-[26px] flex items-center gap-1.5 text-xs text-emerald-800 font-semibold">
                             <span id="stat-present-rate-badge"
-                                class="inline-flex items-center bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-[11px] font-bold">95.4%</span>
+                                class="inline-flex items-center bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-[11px] font-bold">33.3%</span>
                             <span class="truncate">ของนักเรียนทั้งหมด</span>
                         </div>
                     </div>
@@ -2337,10 +2337,10 @@
                             </div>
                         </div>
                         <div class="my-3">
-                            <div id="stat-absent-today" class="text-3xl font-black text-rose-600 tracking-tight leading-none">39</div>
+                            <div id="stat-absent-today" class="text-3xl font-black text-rose-600 tracking-tight leading-none">8</div>
                         </div>
-                        <div id="stat-absent-breakdown" class="min-h-[26px] flex items-center text-xs text-rose-800 font-medium truncate" title="ขาด 8 • ลา 14 • สาย 9 • ห้องพยาบาล 8">
-                            ขาด 8 • ลา 14 • สาย 9 • ห้องพยาบาล 8
+                        <div id="stat-absent-breakdown" class="min-h-[26px] flex items-center text-xs text-rose-800 font-medium truncate" title="ขาด 2 • ลา 2 • สาย 2 • ห้องพยาบาล 2">
+                            ขาด 2 • ลา 2 • สาย 2 • ห้องพยาบาล 2
                         </div>
                     </div>
 
@@ -2357,7 +2357,7 @@
                             </div>
                         </div>
                         <div class="my-3">
-                            <div id="stat-attendance-rate" class="text-3xl font-black text-purple-700 tracking-tight leading-none">95.4%</div>
+                            <div id="stat-attendance-rate" class="text-3xl font-black text-purple-700 tracking-tight leading-none">33.3%</div>
                         </div>
                         <div class="min-h-[26px] flex items-center text-xs text-purple-700 font-medium">ข้อมูล ณ เวลา 08:30 น. วันนี้</div>
                     </div>
@@ -6783,24 +6783,24 @@
                 name: 'โรงเรียนสารภีพิทยาคม',
                 shortName: 'รร.สารภีพิทยาคม',
                 desc: 'ต.ยางเนิ้ง อ.สารภี จ.เชียงใหม่',
-                totalEnrolled: 842,
-                presentToday: 803,
-                absentToday: 39,
-                attendanceRate: '95.4%',
+                totalEnrolled: 12,
+                presentToday: 4,
+                absentToday: 8,
+                attendanceRate: '33.3%',
                 asOfTime: '08:30 น. วันนี้',
-                absentBreakdownText: 'ขาด 8 • ลา 14 • สาย 9 • ห้องพยาบาล 8'
+                absentBreakdownText: 'ขาด 2 • ลา 2 • สาย 2 • ห้องพยาบาล 2'
             },
             'usr_maetha': {
                 id: 'usr_maetha',
                 name: 'โรงเรียนบ้านศาลาแม่ทา',
                 shortName: 'รร.บ้านศาลาแม่ทา',
                 desc: 'ต.ทาสบเส้า อ.แม่ทา จ.ลำพูน',
-                totalEnrolled: 365,
-                presentToday: 348,
-                absentToday: 17,
-                attendanceRate: '95.3%',
+                totalEnrolled: 10,
+                presentToday: 3,
+                absentToday: 7,
+                attendanceRate: '30.0%',
                 asOfTime: '08:30 น. วันนี้',
-                absentBreakdownText: 'ขาด 3 • ลา 6 • สาย 4 • ห้องพยาบาล 4'
+                absentBreakdownText: 'ขาด 1 • ลา 2 • สาย 2 • ห้องพยาบาล 2'
             }
         };
 
@@ -7326,26 +7326,40 @@
             const scopeDesc = document.getElementById('student-scope-desc');
             if (scopeDesc) scopeDesc.textContent = profile.desc;
 
-            // 2. Update Top 4 Metric Cards
+            // 2. Compute dynamic metrics based on student database for this school
+            const schoolStudents = studentAttendanceDb.filter(s => s.schoolId === profile.id);
+            const countAll = schoolStudents.length;
+            const countPresent = schoolStudents.filter(s => s.status === 'มา').length;
+            const countLate = schoolStudents.filter(s => s.status === 'สาย').length;
+            const countLeave = schoolStudents.filter(s => s.status === 'ลา').length;
+            const countAbsent = schoolStudents.filter(s => s.status === 'ขาด').length;
+            const countInfirmary = schoolStudents.filter(s => s.status === 'ห้องพยาบาล').length;
+            const countAbsentTotal = countAbsent + countLeave + countLate + countInfirmary;
+            const attendanceRateVal = countAll > 0 ? ((countPresent / countAll) * 100).toFixed(1) + '%' : '0.0%';
+            const absentBreakdownVal = `ขาด ${countAbsent} • ลา ${countLeave} • สาย ${countLate} • ห้องพยาบาล ${countInfirmary}`;
+
+            // Update Top 4 Metric Cards
             const totalEl = document.getElementById('stat-total-students');
-            if (totalEl) totalEl.textContent = profile.totalEnrolled;
+            if (totalEl) totalEl.textContent = countAll;
             const presentEl = document.getElementById('stat-present-today');
-            if (presentEl) presentEl.textContent = profile.presentToday;
+            if (presentEl) presentEl.textContent = countPresent;
             const presentRateEl = document.getElementById('stat-present-rate-badge');
-            if (presentRateEl) presentRateEl.textContent = profile.attendanceRate;
+            if (presentRateEl) presentRateEl.textContent = attendanceRateVal;
             const absentEl = document.getElementById('stat-absent-today');
-            if (absentEl) absentEl.textContent = profile.absentToday;
+            if (absentEl) absentEl.textContent = countAbsentTotal;
             const absentBreakdownEl = document.getElementById('stat-absent-breakdown');
-            if (absentBreakdownEl) absentBreakdownEl.textContent = profile.absentBreakdownText;
+            if (absentBreakdownEl) {
+                absentBreakdownEl.textContent = absentBreakdownVal;
+                absentBreakdownEl.title = absentBreakdownVal;
+            }
             const rateEl = document.getElementById('stat-attendance-rate');
-            if (rateEl) rateEl.textContent = profile.attendanceRate;
+            if (rateEl) rateEl.textContent = attendanceRateVal;
 
             // 3. Update Table Header Title
             const schoolTitle = document.getElementById('student-table-school-title');
             if (schoolTitle) schoolTitle.textContent = profile.name;
 
             // 4. Populate Class Filter Dropdown for the active school
-            const schoolStudents = studentAttendanceDb.filter(s => s.schoolId === profile.id);
             const classSelect = document.getElementById('student-class-filter');
             if (classSelect) {
                 const classes = Array.from(new Set(schoolStudents.map(s => s.gradeGroup))).sort();
@@ -7358,13 +7372,6 @@
             }
 
             // 5. Update Status Pill Counts
-            const countAll = schoolStudents.length;
-            const countPresent = schoolStudents.filter(s => s.status === 'มา').length;
-            const countLate = schoolStudents.filter(s => s.status === 'สาย').length;
-            const countLeave = schoolStudents.filter(s => s.status === 'ลา').length;
-            const countAbsent = schoolStudents.filter(s => s.status === 'ขาด').length;
-            const countInfirmary = schoolStudents.filter(s => s.status === 'ห้องพยาบาล').length;
-
             const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
             setTxt('count-status-all', countAll);
             setTxt('count-status-มา', countPresent);
