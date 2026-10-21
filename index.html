@@ -914,7 +914,8 @@
                                         </span>
                                         <span
                                             class="inline-flex items-center gap-1 text-[11px] font-bold text-sky-800 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-200">
-                                            <span>🌫️</span> เสี่ยงฝุ่น PM2.5: ทารก, เด็กเล็ก, BPD, ติดเชื้อทางเดินหายใจซ้ำ,
+                                            <span>🌫️</span> เสี่ยงฝุ่น PM2.5: ทารก, เด็กเล็ก, BPD,
+                                            ติดเชื้อทางเดินหายใจซ้ำ,
                                             หอบหืด, ภูมิแพ้โพรงจมูก, หัวใจพิการแต่กำเนิด
                                         </span>
                                         <span
@@ -1384,12 +1385,19 @@
                         </div>
                         <div class="my-3">
                             <div id="stat-present-today"
-                                class="text-3xl font-black text-emerald-700 tracking-tight leading-none">4</div>
+                                class="text-3xl font-black text-emerald-700 tracking-tight leading-none">8</div>
                         </div>
-                        <div class="min-h-[26px] flex items-center gap-1.5 text-xs text-emerald-800 font-semibold">
-                            <span id="stat-present-rate-badge"
-                                class="inline-flex items-center bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-[11px] font-bold">33.3%</span>
-                            <span class="truncate">ของนักเรียนทั้งหมด</span>
+                        <div class="min-h-[26px] flex flex-col justify-center text-xs text-emerald-800">
+                            <div class="flex items-center gap-1.5 font-semibold">
+                                <span id="stat-present-rate-badge"
+                                    class="inline-flex items-center bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-[11px] font-bold">66.7%</span>
+                                <span class="truncate">ของนักเรียนทั้งหมด</span>
+                            </div>
+                            <div id="stat-present-breakdown"
+                                class="text-[11px] text-emerald-700 font-medium truncate mt-0.5"
+                                title="ตรงเวลา 4 • มาสาย 2 • ห้องพยาบาล 2">
+                                ตรงเวลา 4 • มาสาย 2 • ห้องพยาบาล 2
+                            </div>
                         </div>
                     </div>
 
@@ -1398,7 +1406,7 @@
                         class="bg-rose-50/40 rounded-2xl p-5 border border-rose-200/80 shadow-xs hover:shadow-md transition flex flex-col justify-between h-full">
                         <div class="flex items-center justify-between gap-2">
                             <span class="text-xs font-bold text-rose-900 uppercase tracking-wider truncate"
-                                title="ไม่มาเรียน / ขาด-ลา-สาย">ไม่มาเรียน / ขาด-ลา-สาย</span>
+                                title="ไม่มาโรงเรียน (ขาด-ลา)">ไม่มาโรงเรียน (ขาด-ลา)</span>
                             <div
                                 class="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0 shadow-2xs">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
@@ -1412,12 +1420,18 @@
                         </div>
                         <div class="my-3">
                             <div id="stat-absent-today"
-                                class="text-3xl font-black text-rose-600 tracking-tight leading-none">8</div>
+                                class="text-3xl font-black text-rose-600 tracking-tight leading-none">4</div>
                         </div>
-                        <div id="stat-absent-breakdown"
-                            class="min-h-[26px] flex items-center text-xs text-rose-800 font-medium truncate"
-                            title="ขาด 2 • ลา 2 • สาย 2 • ห้องพยาบาล 2">
-                            ขาด 2 • ลา 2 • สาย 2 • ห้องพยาบาล 2
+                        <div class="min-h-[26px] flex flex-col justify-center text-xs text-rose-800">
+                            <div class="flex items-center gap-1.5 font-semibold">
+                                <span id="stat-absent-rate-badge"
+                                    class="inline-flex items-center bg-rose-100 text-rose-800 px-2 py-0.5 rounded text-[11px] font-bold">33.3%</span>
+                                <span class="truncate">ขาดเรียนและลา</span>
+                            </div>
+                            <div id="stat-absent-breakdown"
+                                class="text-[11px] text-rose-700 font-medium truncate mt-0.5" title="ขาด 2 • ลา 2">
+                                ขาด 2 • ลา 2
+                            </div>
                         </div>
                     </div>
 
@@ -1438,10 +1452,10 @@
                         </div>
                         <div class="my-3">
                             <div id="stat-attendance-rate"
-                                class="text-3xl font-black text-purple-700 tracking-tight leading-none">33.3%</div>
+                                class="text-3xl font-black text-purple-700 tracking-tight leading-none">66.7%</div>
                         </div>
-                        <div class="min-h-[26px] flex items-center text-xs text-purple-700 font-medium">ข้อมูล ณ เวลา
-                            08:30 น. วันนี้</div>
+                        <div class="min-h-[26px] flex items-center text-xs text-purple-700 font-medium">มาเรียน + มาสาย
+                            + ห้องพยาบาล</div>
                     </div>
                 </div>
 
@@ -1460,6 +1474,19 @@
                                 แสดงเฉพาะรายชื่อนักเรียนในสังกัด <strong id="student-table-school-title"
                                     class="text-gray-900 font-bold">โรงเรียนสารภีพิทยาคม</strong>
                             </p>
+                        </div>
+                        <div class="flex items-center gap-2.5 flex-wrap">
+                            <button type="button" onclick="openDailySchoolStatusLogModal()"
+                                class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 hover:border-indigo-300 font-bold text-xs sm:text-sm px-3.5 py-2.5 rounded-xl shadow-2xs hover:shadow-xs transition flex items-center gap-2 cursor-pointer shrink-0">
+                                <span>ไทม์ไลน์สถานะวันนี้</span>
+                                <span id="daily-log-badge-count"
+                                    class="bg-indigo-200/80 text-indigo-900 text-[11px] font-black px-2 py-0.5 rounded-full">14</span>
+                            </button>
+                            <button type="button" onclick="openSubmitStudentStatusModal()"
+                                class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-sm hover:shadow-md transition flex items-center gap-2 cursor-pointer shrink-0">
+                                <span class="text-base">📝</span>
+                                <span>บันทึกสถานะนักเรียน</span>
+                            </button>
                         </div>
                     </div>
 
@@ -1524,6 +1551,7 @@
                                     <th class="px-5 py-3.5 whitespace-nowrap">วันเดือนปีเกิด</th>
                                     <th class="px-5 py-3.5 whitespace-nowrap">เบอร์ติดต่อผู้ปกครอง</th>
                                     <th class="px-5 py-3.5 whitespace-nowrap text-center">สถานะวันนี้</th>
+                                    <th class="px-5 py-3.5 whitespace-nowrap text-right">การจัดการ</th>
                                 </tr>
                             </thead>
                             <tbody id="student-table-body" class="divide-y divide-gray-100">
@@ -1807,12 +1835,366 @@
                     <div id="modal-status-action"
                         class="p-2.5 bg-gray-50 rounded-lg border border-gray-200 text-gray-700 leading-relaxed"></div>
                 </div>
+                <!-- Today's Status Timeline for this Student -->
+                <div>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="font-bold text-gray-900 flex items-center gap-1.5 text-xs">
+                            <span>🕒</span> ประวัติและไทม์ไลน์สถานะวันนี้
+                        </span>
+                        <span id="modal-student-log-count"
+                            class="text-[10px] text-gray-500 font-semibold bg-gray-100 px-2 py-0.5 rounded-full">--</span>
+                    </div>
+                    <div id="modal-student-timeline-list" class="space-y-1.5 max-h-36 overflow-y-auto pr-1">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
             </div>
-            <div class="pt-3 border-t border-gray-100 flex justify-end">
+            <div class="pt-3 border-t border-gray-100 flex justify-between items-center gap-2">
+                <button type="button" id="btn-modal-edit-status" onclick="openSubmitStudentStatusModalFromDetail()"
+                    class="px-3.5 py-2 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-xl transition cursor-pointer flex items-center gap-1.5 shadow-2xs">
+                    <span>✏️</span> แก้ไข / บันทึกสถานะใหม่
+                </button>
                 <button type="button" onclick="closeStudentStatusModal()"
                     class="px-4 py-2 text-xs font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl transition cursor-pointer">
                     ปิดหน้าต่าง
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================= -->
+    <!-- 4. SUBMIT STUDENT STATUS MODAL (ขาด ลา มา สาย ห้องพยาบาล)-->
+    <!-- ======================================================= -->
+    <div id="submitStudentStatusModal"
+        class="fixed inset-0 bg-gray-900/60 backdrop-blur-xs hidden flex items-center justify-center z-50 p-4">
+        <div
+            class="bg-white rounded-3xl shadow-2xl max-w-xl w-full p-6 sm:p-7 border border-gray-100 max-h-[92vh] overflow-y-auto space-y-4 sm:space-y-5">
+            <!-- Header -->
+            <div class="flex justify-between items-start pb-3.5 border-b border-gray-100">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-lg font-black shadow-md shrink-0">📝</span>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-black text-gray-900 leading-tight">
+                            บันทึกสถานะนักเรียน (เช็คชื่อ / อาการป่วย)
+                        </h3>
+                        <p id="submit-status-school-name"
+                            class="text-xs text-blue-700 font-semibold mt-0.5 flex items-center gap-1">
+                            <span>🏫</span> <span id="submit-status-school-label">โรงเรียนสารภีพิทยาคม</span>
+                        </p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeSubmitStudentStatusModal()"
+                    class="text-gray-400 hover:text-gray-600 text-2xl font-bold p-1 leading-none cursor-pointer">&times;</button>
+            </div>
+
+            <!-- Student Selection & Student Info Card -->
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <label for="submit-status-student-select"
+                        class="text-xs font-bold text-gray-800 flex items-center gap-1.5">
+                        <span>👤</span> เลือกนักเรียน <span class="text-rose-500">*</span>
+                    </label>
+                    <span id="submit-status-mode-badge"
+                        class="text-[11px] font-semibold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-md">
+                        เลือกจากรายชื่อ
+                    </span>
+                </div>
+                <select id="submit-status-student-select" onchange="onSelectStudentInStatusForm(this.value)"
+                    class="w-full text-xs sm:text-sm font-semibold bg-gray-50 border border-gray-300 rounded-xl px-3.5 py-2.5 outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition cursor-pointer">
+                    <!-- Dynamic Options -->
+                </select>
+
+                <!-- Mini Student Card Preview -->
+                <div id="submit-status-student-card"
+                    class="p-3 bg-blue-50/60 rounded-xl border border-blue-200/80 flex items-center justify-between text-xs gap-3">
+                    <div class="space-y-0.5 min-w-0">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <span id="preview-student-name" class="font-bold text-gray-900 text-sm">--</span>
+                            <span id="preview-student-class"
+                                class="font-bold text-blue-700 bg-blue-100/70 px-2 py-0.2 rounded text-[11px]">--</span>
+                        </div>
+                        <div class="text-[11px] text-gray-500 flex items-center gap-2 flex-wrap">
+                            <span>รหัส: <strong id="preview-student-id"
+                                    class="font-mono text-gray-700">--</strong></span>
+                            <span>•</span>
+                            <span>ผู้ปกครอง: <strong id="preview-student-phone"
+                                    class="font-mono text-gray-700">--</strong></span>
+                        </div>
+                    </div>
+                    <div class="shrink-0 text-right">
+                        <span class="text-[10px] text-gray-400 block">สถานะปัจจุบัน</span>
+                        <span id="preview-student-current-status"
+                            class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-100 text-gray-800">
+                            --
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5 Status Options (Radio Cards) -->
+            <div class="space-y-2">
+                <label class="text-xs font-bold text-gray-800 flex items-center gap-1.5">
+                    <span>🎯</span> ระบุสถานะวันนี้ <span class="text-rose-500">*</span>
+                </label>
+                <input type="hidden" id="submit-status-value" value="มา">
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                    <!-- 1. มา -->
+                    <button type="button" onclick="selectStatusOption('มา')" id="btn-status-opt-มา"
+                        class="status-opt-btn p-2.5 rounded-xl border-2 text-center transition flex flex-col items-center justify-center gap-1 cursor-pointer bg-white border-gray-200 hover:border-emerald-300">
+                        <span class="text-lg">✓</span>
+                        <span class="text-xs font-black text-gray-800">มา</span>
+                        <span class="text-[10px] text-gray-400 font-normal">มาเรียนปกติ</span>
+                    </button>
+
+                    <!-- 2. สาย -->
+                    <button type="button" onclick="selectStatusOption('สาย')" id="btn-status-opt-สาย"
+                        class="status-opt-btn p-2.5 rounded-xl border-2 text-center transition flex flex-col items-center justify-center gap-1 cursor-pointer bg-white border-gray-200 hover:border-amber-300">
+                        <span class="text-lg">⏰</span>
+                        <span class="text-xs font-black text-gray-800">สาย</span>
+                        <span class="text-[10px] text-gray-400 font-normal">มาหลังเวลา</span>
+                    </button>
+
+                    <!-- 3. ลา -->
+                    <button type="button" onclick="selectStatusOption('ลา')" id="btn-status-opt-ลา"
+                        class="status-opt-btn p-2.5 rounded-xl border-2 text-center transition flex flex-col items-center justify-center gap-1 cursor-pointer bg-white border-gray-200 hover:border-orange-300">
+                        <span class="text-lg">📋</span>
+                        <span class="text-xs font-black text-gray-800">ลา</span>
+                        <span class="text-[10px] text-gray-400 font-normal">ลาป่วย/ลากิจ</span>
+                    </button>
+
+                    <!-- 4. ขาด -->
+                    <button type="button" onclick="selectStatusOption('ขาด')" id="btn-status-opt-ขาด"
+                        class="status-opt-btn p-2.5 rounded-xl border-2 text-center transition flex flex-col items-center justify-center gap-1 cursor-pointer bg-white border-gray-200 hover:border-rose-300">
+                        <span class="text-lg">✕</span>
+                        <span class="text-xs font-black text-gray-800">ขาด</span>
+                        <span class="text-[10px] text-gray-400 font-normal">ไม่แจ้งล่วงหน้า</span>
+                    </button>
+
+                    <!-- 5. ห้องพยาบาล -->
+                    <button type="button" onclick="selectStatusOption('ห้องพยาบาล')" id="btn-status-opt-ห้องพยาบาล"
+                        class="status-opt-btn p-2.5 rounded-xl border-2 text-center transition flex flex-col items-center justify-center gap-1 cursor-pointer bg-white border-gray-200 hover:border-purple-300 col-span-2 sm:col-span-1">
+                        <span class="text-lg">🏥</span>
+                        <span class="text-xs font-black text-gray-800">ห้องพยาบาล</span>
+                        <span class="text-[10px] text-gray-400 font-normal">ส่งพักรักษาตัว</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Time & Recorder Row -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div>
+                    <label for="submit-status-time" class="block font-bold text-gray-800 mb-1">
+                        เวลาที่บันทึก
+                    </label>
+                    <div class="flex items-center gap-1.5">
+                        <input type="text" id="submit-status-time"
+                            class="w-full text-xs font-mono font-bold bg-gray-50 border border-gray-300 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
+                            placeholder="เช่น 08:30 น.">
+                        <button type="button" onclick="setCurrentTimeToStatusForm()"
+                            class="px-2.5 py-2 text-[11px] font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-xl border border-blue-200 shrink-0 transition"
+                            title="ตั้งเวลาปัจจุบัน">
+                            ตอนนี้
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <label for="submit-status-recorder" class="block font-bold text-gray-800 mb-1">
+                        ครู/ผู้บันทึก
+                    </label>
+                    <input type="text" id="submit-status-recorder"
+                        class="w-full text-xs font-medium bg-gray-50 border border-gray-300 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
+                        placeholder="เช่น ครูวิภา (ครูประจำชั้น)">
+                    <div class="flex items-center gap-1 mt-1 flex-wrap text-[10px]">
+                        <span class="text-gray-400">เลือกด่วน:</span>
+                        <button type="button" onclick="setRecorderToStatusForm('ครูประจำชั้น')"
+                            class="text-blue-600 hover:underline">ครูประจำชั้น</button>
+                        <span>•</span>
+                        <button type="button" onclick="setRecorderToStatusForm('ครูเวรประจำวัน')"
+                            class="text-blue-600 hover:underline">ครูเวร</button>
+                        <span>•</span>
+                        <button type="button" onclick="setRecorderToStatusForm('ครูพยาบาล/อนามัย')"
+                            class="text-blue-600 hover:underline">ครูพยาบาล</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reason & Health Symptoms Textarea with Dynamic Quick Chips -->
+            <div class="space-y-1.5 text-xs">
+                <div class="flex items-center justify-between">
+                    <label for="submit-status-reason" class="font-bold text-gray-800">
+                        เหตุผล / รายละเอียดอาการ / บันทึกการเช็คชื่อ <span class="text-rose-500">*</span>
+                    </label>
+                    <span class="text-[10px] text-gray-400">คลิกข้อความด้านล่างเพื่อเติมด่วน</span>
+                </div>
+                <textarea id="submit-status-reason" rows="3"
+                    class="w-full text-xs bg-gray-50 border border-gray-300 rounded-xl p-3 outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white leading-relaxed"
+                    placeholder="ระบุเหตุผล เช่น มาเรียนปกติ, ลาป่วยจากฝุ่น PM2.5, แน่นหน้าอก, รถรับส่งขัดข้อง..."></textarea>
+                <!-- Quick Reason Preset Chips Container -->
+                <div id="status-quick-reasons-container" class="flex flex-wrap gap-1.5 pt-0.5">
+                    <!-- Populated dynamically based on selected status -->
+                </div>
+            </div>
+
+            <!-- Action Taken / Teacher Intervention -->
+            <div class="space-y-1.5 text-xs">
+                <label for="submit-status-action" class="font-bold text-gray-800">
+                    การดำเนินการ / การดูแลของครู
+                </label>
+                <input type="text" id="submit-status-action"
+                    class="w-full text-xs bg-gray-50 border border-gray-300 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
+                    placeholder="เช่น เข้าเรียนตามปกติ, ให้พักผ่อนในห้องปลอดฝุ่น (Clean Air Room), โทรแจ้งผู้ปกครอง...">
+                <div class="flex flex-wrap gap-1 text-[10px] pt-0.5">
+                    <span class="text-gray-400 py-0.5">ตัวอย่าง:</span>
+                    <button type="button" onclick="appendActionToStatusForm('เข้าเรียนตามตารางเรียนปกติ')"
+                        class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-0.5 rounded-md transition">เข้าเรียนปกติ</button>
+                    <button type="button" onclick="appendActionToStatusForm('พักผ่อนในห้องปลอดฝุ่น (Clean Air Room)')"
+                        class="bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-md transition">ห้องปลอดฝุ่น</button>
+                    <button type="button" onclick="appendActionToStatusForm('สูดยาพ่นขยายหลอดลมประจำตัว')"
+                        class="bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-md transition">สูดยาพ่น</button>
+                    <button type="button" onclick="appendActionToStatusForm('โทรแจ้งผู้ปกครองรับทราบ')"
+                        class="bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-md transition">โทรแจ้งผู้ปกครอง</button>
+                    <button type="button" onclick="appendActionToStatusForm('ส่ง SMS แจ้งเตือนผู้ปกครอง')"
+                        class="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-md transition">ส่ง
+                        SMS</button>
+                </div>
+            </div>
+
+            <!-- Footer Buttons -->
+            <div class="pt-3 border-t border-gray-100 flex items-center justify-between gap-3">
+                <button type="button" onclick="closeSubmitStudentStatusModal()"
+                    class="px-4 py-2 text-xs font-bold text-gray-600 hover:text-gray-800 bg-gray-100 hover:bg-gray-200 rounded-xl transition cursor-pointer">
+                    ยกเลิก
+                </button>
+                <button type="button" onclick="saveStudentStatusSubmission()"
+                    class="px-5 py-2.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-md hover:shadow-lg transition cursor-pointer flex items-center gap-2">
+                    <span>💾</span>
+                    <span>บันทึกสถานะนักเรียน</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================= -->
+    <!-- 5. DAILY SCHOOL STATUS LOG MODAL (ดูประวัติ/ไทม์ไลน์สถานะวันนี้) -->
+    <!-- ======================================================= -->
+    <div id="dailySchoolStatusLogModal"
+        class="fixed inset-0 bg-gray-900/60 backdrop-blur-xs hidden flex items-center justify-center z-50 p-3 sm:p-4">
+        <div
+            class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-5 sm:p-7 border border-gray-100 max-h-[92vh] flex flex-col space-y-4">
+            <!-- Header -->
+            <div class="flex items-start justify-between pb-3.5 border-b border-gray-100 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white flex items-center justify-center text-xl font-black shadow-md shrink-0">
+                        📜
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-black text-gray-900 leading-tight flex items-center gap-2">
+                            <span>ไทม์ไลน์และประวัติสถานะนักเรียนประจำวัน</span>
+                        </h3>
+                        <div class="flex items-center gap-2 text-xs text-gray-500 font-medium mt-0.5 flex-wrap">
+                            <span class="text-indigo-700 font-bold flex items-center gap-1">
+                                <span>🏫</span> <span id="daily-log-school-name">โรงเรียนสารภีพิทยาคม</span>
+                            </span>
+                            <span>•</span>
+                            <span class="text-gray-600 font-semibold" id="daily-log-date-badge">วันนี้ (21 ต.ค.
+                                2569)</span>
+                            <span>•</span>
+                            <span class="text-gray-500" id="daily-log-total-summary">ทั้งหมด 14 รายการ</span>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" onclick="closeDailySchoolStatusLogModal()"
+                    class="text-gray-400 hover:text-gray-600 text-2xl font-bold p-1 leading-none cursor-pointer">&times;</button>
+            </div>
+
+            <!-- Metric Summary Bar / Stat Pills -->
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 shrink-0">
+                <!-- All -->
+                <button type="button" onclick="setDailyLogFilter('all')" id="btn-daily-filter-all"
+                    class="daily-filter-btn p-2 rounded-xl border text-center transition flex flex-col items-center justify-center bg-indigo-50 border-indigo-300 text-indigo-900 ring-2 ring-indigo-500/20 shadow-xs cursor-pointer">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500">ทั้งหมด</span>
+                    <span id="daily-stat-all" class="text-base font-black text-indigo-800">14</span>
+                </button>
+                <!-- มา (ตรงเวลา) -->
+                <button type="button" onclick="setDailyLogFilter('มา')" id="btn-daily-filter-มา"
+                    class="daily-filter-btn p-2 rounded-xl border text-center transition flex flex-col items-center justify-center bg-white border-gray-200 hover:border-emerald-300 text-gray-700 cursor-pointer">
+                    <span class="text-[10px] font-bold text-emerald-700">✓ ตรงเวลา</span>
+                    <span id="daily-stat-มา" class="text-base font-black text-emerald-700">6</span>
+                </button>
+                <!-- สาย -->
+                <button type="button" onclick="setDailyLogFilter('สาย')" id="btn-daily-filter-สาย"
+                    class="daily-filter-btn p-2 rounded-xl border text-center transition flex flex-col items-center justify-center bg-white border-gray-200 hover:border-amber-300 text-gray-700 cursor-pointer">
+                    <span class="text-[10px] font-bold text-amber-700">⏰ มาสาย</span>
+                    <span id="daily-stat-สาย" class="text-base font-black text-amber-700">2</span>
+                </button>
+                <!-- ห้องพยาบาล -->
+                <button type="button" onclick="setDailyLogFilter('ห้องพยาบาล')" id="btn-daily-filter-ห้องพยาบาล"
+                    class="daily-filter-btn p-2 rounded-xl border text-center transition flex flex-col items-center justify-center bg-white border-gray-200 hover:border-purple-300 text-gray-700 cursor-pointer">
+                    <span class="text-[10px] font-bold text-purple-700">🏥 ห้องพยาบาล</span>
+                    <span id="daily-stat-ห้องพยาบาล" class="text-base font-black text-purple-700">2</span>
+                </button>
+                <!-- ลา -->
+                <button type="button" onclick="setDailyLogFilter('ลา')" id="btn-daily-filter-ลา"
+                    class="daily-filter-btn p-2 rounded-xl border text-center transition flex flex-col items-center justify-center bg-white border-gray-200 hover:border-orange-300 text-gray-700 cursor-pointer">
+                    <span class="text-[10px] font-bold text-orange-700">📋 ลา</span>
+                    <span id="daily-stat-ลา" class="text-base font-black text-orange-700">2</span>
+                </button>
+                <!-- ขาด -->
+                <button type="button" onclick="setDailyLogFilter('ขาด')" id="btn-daily-filter-ขาด"
+                    class="daily-filter-btn p-2 rounded-xl border text-center transition flex flex-col items-center justify-center bg-white border-gray-200 hover:border-rose-300 text-gray-700 cursor-pointer">
+                    <span class="text-[10px] font-bold text-rose-700">✕ ขาด</span>
+                    <span id="daily-stat-ขาด" class="text-base font-black text-rose-700">2</span>
+                </button>
+            </div>
+
+            <!-- Filters Row (Search & Class Filter) -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 shrink-0 pt-1">
+                <div class="relative flex-1">
+                    <span
+                        class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 text-xs">🔍</span>
+                    <input type="text" id="daily-log-search-input" oninput="onDailyLogSearchChanged()"
+                        placeholder="ค้นหาชื่อนักเรียน, รหัส, อาการป่วย, หรือเหตุผล..."
+                        class="w-full text-xs bg-gray-50 border border-gray-200 rounded-xl pl-8 pr-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition shadow-2xs font-sans">
+                </div>
+                <div class="flex items-center gap-2">
+                    <select id="daily-log-class-filter" onchange="onDailyLogClassFilterChanged(this.value)"
+                        class="text-xs bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500 font-bold text-gray-700 shadow-2xs cursor-pointer">
+                        <option value="all">ทุกระดับชั้น</option>
+                    </select>
+                    <button type="button" onclick="openSubmitModalFromDailyLog()"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow-xs transition flex items-center gap-1.5 cursor-pointer shrink-0">
+                        <span>📝</span>
+                        <span>บันทึกสถานะ</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scrollable Timeline Stream -->
+            <div id="daily-log-timeline-container" class="flex-1 overflow-y-auto pr-1 space-y-3 min-h-[300px]">
+                <!-- Populated dynamically by renderDailySchoolStatusLogs() -->
+            </div>
+
+            <!-- Footer -->
+            <div
+                class="pt-3 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shrink-0 text-xs text-gray-500">
+                <div class="flex items-center gap-2 flex-wrap">
+                    <span id="daily-log-filtered-count">แสดง 14 รายการ</span>
+                    <span>•</span>
+                    <span class="text-emerald-700 font-semibold">มาโรงเรียนวันนี้ (ตรงเวลา + มาสาย + ห้องพยาบาล):
+                        <strong id="daily-log-present-sum">8</strong> คน</span>
+                </div>
+                <div class="flex items-center gap-2 self-end sm:self-auto">
+                    <button type="button" onclick="printDailyStatusReport()"
+                        class="text-gray-700 hover:text-indigo-700 bg-gray-100 hover:bg-indigo-50 border border-gray-200 hover:border-indigo-200 px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1 cursor-pointer">
+                        <span>🖨️</span> พิมพ์รายงาน
+                    </button>
+                    <button type="button" onclick="closeDailySchoolStatusLogModal()"
+                        class="text-gray-700 bg-gray-100 hover:bg-gray-200 px-3.5 py-1.5 rounded-lg font-bold transition cursor-pointer">
+                        ปิด
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -6419,6 +6801,12 @@
 
         // --- 9. Log Contact Interaction ---
         function logContact(patientId, name) {
+            const activeHospital = (typeof HOSPITAL_ROLES !== 'undefined' ? HOSPITAL_ROLES.find(h => h.hospcode === currentHospitalCode) : null) || (typeof HOSPITAL_ROLES !== 'undefined' ? HOSPITAL_ROLES[0] : null);
+            const isSchoolMode = activeHospital && (activeHospital.type === 'School' || !!activeHospital.isSchool);
+            if (isSchoolMode && typeof openSubmitStudentStatusModalForRiskPatient === 'function') {
+                openSubmitStudentStatusModalForRiskPatient(patientId, name);
+                return;
+            }
             showToast(`Contact logged for ${name} (${patientId}) in EHR.`, "📋");
         }
 
@@ -6448,11 +6836,12 @@
                 shortName: 'รร.สารภีพิทยาคม',
                 desc: 'ต.ยางเนิ้ง อ.สารภี จ.เชียงใหม่',
                 totalEnrolled: 12,
-                presentToday: 4,
-                absentToday: 8,
-                attendanceRate: '33.3%',
+                presentToday: 8,
+                absentToday: 4,
+                attendanceRate: '66.7%',
                 asOfTime: '08:30 น. วันนี้',
-                absentBreakdownText: 'ขาด 2 • ลา 2 • สาย 2 • ห้องพยาบาล 2'
+                presentBreakdownText: 'ตรงเวลา 4 • มาสาย 2 • ห้องพยาบาล 2',
+                absentBreakdownText: 'ขาด 2 • ลา 2'
             },
             'usr_maetha': {
                 id: 'usr_maetha',
@@ -6460,11 +6849,12 @@
                 shortName: 'รร.บ้านศาลาแม่ทา',
                 desc: 'ต.ทาสบเส้า อ.แม่ทา จ.ลำพูน',
                 totalEnrolled: 10,
-                presentToday: 3,
-                absentToday: 7,
-                attendanceRate: '30.0%',
+                presentToday: 7,
+                absentToday: 3,
+                attendanceRate: '70.0%',
                 asOfTime: '08:30 น. วันนี้',
-                absentBreakdownText: 'ขาด 1 • ลา 2 • สาย 2 • ห้องพยาบาล 2'
+                presentBreakdownText: 'ตรงเวลา 3 • มาสาย 2 • ห้องพยาบาล 2',
+                absentBreakdownText: 'ขาด 1 • ลา 2'
             }
         };
 
@@ -6875,6 +7265,327 @@
             }
         ];
 
+        // =========================================================================
+        // DAILY STUDENT STATUS LOGS DATABASE (ไทม์ไลน์และประวัติสถานะนักเรียนประจำวัน)
+        // =========================================================================
+        let studentDailyLogsDb = [
+            // --- โรงเรียนสารภีพิทยาคม (usr_saraphi) ---
+            {
+                id: "LOG-SP-14",
+                studentId: "SP-660288",
+                studentName: "น.ส. สุพิชชา มหาวัน",
+                schoolId: "usr_saraphi",
+                gradeClass: "ม.5/2",
+                status: "ห้องพยาบาล",
+                time: "10:45 น.",
+                reason: "ส่งตัวเข้าห้องพยาบาลเวลา 10:45 น. มีอาการปวดศีรษะรุนแรง ตาพร่ามัว และคลื่นไส้จากดัชนีความร้อนสูง",
+                recordedBy: "ครูพยาบาล (อาจารย์ชุลีพร)",
+                actionTaken: "ให้รับประทานยาแก้ปวด ประคบเย็น และนอนพักในห้องพยาบาลปรับอากาศ"
+            },
+            {
+                id: "LOG-SP-13",
+                studentId: "SP-680199",
+                studentName: "ด.ญ. อมิตา ใจแก้ว",
+                schoolId: "usr_saraphi",
+                gradeClass: "ม.3/1",
+                status: "ห้องพยาบาล",
+                time: "09:30 น.",
+                reason: "ส่งตัวเข้าห้องพยาบาลเวลา 09:30 น. (คาบ 2) มีอาการแน่นหน้าอก หายใจเสียงหวีด จากค่าฝุ่นละออง PM2.5 ในพื้นที่สูง",
+                recordedBy: "ครูพยาบาล (อาจารย์ชุลีพร)",
+                actionTaken: "ให้สูดยาพ่นขยายหลอดลม จัดให้นอนพักผ่อนในห้องปลอดฝุ่น (Clean Air Room) และโทรแจ้งผู้ปกครองรับทราบ"
+            },
+            {
+                id: "LOG-SP-12",
+                studentId: "SP-650081",
+                studentName: "นาย กฤษฎา ปันเต",
+                schoolId: "usr_saraphi",
+                gradeClass: "ม.6/1",
+                status: "ขาด",
+                time: "09:00 น.",
+                reason: "ขาดเรียนโดยไม่ได้ยื่นใบลา ครูประจำชั้นโทรสอบถามผู้ปกครอง แจ้งว่าจำเป็นต้องพาไปร่วมงานศพญาติที่ต่างจังหวัดเร่งด่วน",
+                recordedBy: "ครูณัฐวุฒิ (ครูประจำชั้น ม.6/1)",
+                actionTaken: "แจ้งให้ผู้ปกครองส่งใบลาพร้อมหลักฐานย้อนหลังในวันพรุ่งนี้"
+            },
+            {
+                id: "LOG-SP-11",
+                studentId: "SP-660097",
+                studentName: "นาย ธนากร อินตา",
+                schoolId: "usr_saraphi",
+                gradeClass: "ม.5/1",
+                status: "ขาด",
+                time: "08:40 น.",
+                reason: "ไม่มาเข้าแถวและไม่พบในห้องเรียน ไม่มีการแจ้งล่วงหน้า ครูประจำชั้นโทรหาผู้ปกครอง 2 ครั้งยังไม่สามารถติดต่อได้",
+                recordedBy: "ครูกานดา (ครูประจำชั้น ม.5/1)",
+                actionTaken: "ส่งข้อความ SMS แจ้งผู้ปกครอง และประสานงานครูฝ่ายปกครองติดตามต่อเนื่อง"
+            },
+            {
+                id: "LOG-SP-10",
+                studentId: "SP-670405",
+                studentName: "นาย ภาคิน คำมา",
+                schoolId: "usr_saraphi",
+                gradeClass: "ม.4/4",
+                status: "สาย",
+                time: "08:35 น.",
+                reason: "มาถึงโรงเรียนเวลา 08:35 น. ช่วยครอบครัวขนส่งผลผลิตทางการเกษตรก่อนเดินทางมาเรียน",
+                recordedBy: "ครูเวรประจำวัน (อ.สมเกียรติ)",
+                actionTaken: "ลงบันทึกเวลามาสายและอนุญาตให้เข้าห้องเรียน"
+            },
+            {
+                id: "LOG-SP-09",
+                studentId: "SP-660420",
+                studentName: "นาย ธนภัทร สุขสม",
+                schoolId: "usr_saraphi",
+                gradeClass: "ม.5/3",
+                status: "สาย",
+                time: "08:25 น.",
+                reason: "มาถึงโรงเรียนเวลา 08:25 น. (หลังแถวเคารพธงชาติ) เนื่องจากรถรับส่งนักเรียนขัดข้องบริเวณสี่แยกสารภี",
+                recordedBy: "ครูเวรประจำวัน (อ.สมเกียรติ)",
+                actionTaken: "ลงบันทึกเวลามาสาย ตักเตือน และอนุญาตให้เข้าห้องเรียนคาบที่ 1"
+            },
+            {
+                id: "LOG-SP-08",
+                studentId: "SP-660288",
+                studentName: "น.ส. สุพิชชา มหาวัน",
+                schoolId: "usr_saraphi",
+                gradeClass: "ม.5/2",
+                status: "มา",
+                time: "07:55 น.",
+                reason: "มาถึงโรงเรียนและเข้าแถวเคารพธงชาติปกติ",
+                recordedBy: "ครูประจำชั้น ม.5/2",
+                actionTaken: "เข้าเรียนคาบเช้าตามปกติ"
+            },
+            {
+                id: "LOG-SP-07",
+                studentId: "SP-680199",
+                studentName: "ด.ญ. อมิตา ใจแก้ว",
+                schoolId: "usr_saraphi",
+                gradeClass: "ม.3/1",
+                status: "มา",
+                time: "07:50 น.",
+                reason: "มาถึงโรงเรียนตามเวลาปกติ เข้าแถวเคารพธงชาติเรียบร้อย",
+                recordedBy: "ครูประจำชั้น ม.3/1",
+                actionTaken: "เข้าเรียนตามตารางเรียนปกติ"
+            },
+            {
+                id: "LOG-SP-06",
+                studentId: "SP-680055",
+                studentName: "ด.ช. ภูริณัฐ ไชยโย",
+                schoolId: "usr_saraphi",
+                gradeClass: "ม.3/2",
+                status: "มา",
+                time: "07:50 น.",
+                reason: "มาเรียนตามปกติ ตรวจสอบยาพ่นฉุกเฉินกับครูพยาบาลเรียบร้อย",
+                recordedBy: "ครูสุดา (ครูประจำชั้น ม.3/2)",
+                actionTaken: "เข้าเรียนในห้องเรียนปรับอากาศที่มีเครื่องฟอกอากาศ"
+            },
+            {
+                id: "LOG-SP-05",
+                studentId: "SP-680244",
+                studentName: "ด.ญ. ชนิกานต์ ดวงแก้ว",
+                schoolId: "usr_saraphi",
+                gradeClass: "ม.3/3",
+                status: "ลา",
+                time: "07:45 น.",
+                reason: "ลากิจ: ผู้ปกครองแจ้งล่วงหน้าเพื่อพานักเรียนไปทำบัตรประชาชนและตรวจเอกสารทะเบียนราษฎร์",
+                recordedBy: "ครูเบญจมาศ (ครูประจำชั้น ม.3/3)",
+                actionTaken: "อนุมัติการลากิจตามระเบียบโรงเรียน"
+            },
+            {
+                id: "LOG-SP-04",
+                studentId: "SP-670184",
+                studentName: "นาย ณัฐพงษ์ แซ่ลิ้ม",
+                schoolId: "usr_saraphi",
+                gradeClass: "ม.4/2",
+                status: "มา",
+                time: "07:45 น.",
+                reason: "มาเรียนตามปกติ เข้าแถวเคารพธงชาติทันเวลา",
+                recordedBy: "ครูวิภา (ครูประจำชั้น ม.4/2)",
+                actionTaken: "เข้าเรียนตามตารางเรียนปกติ พร้อมพกยาส่วนตัว"
+            },
+            {
+                id: "LOG-SP-03",
+                studentId: "SP-670231",
+                studentName: "น.ส. พิมพ์ชนก ขำดี",
+                schoolId: "usr_saraphi",
+                gradeClass: "ม.4/3",
+                status: "มา",
+                time: "07:40 น.",
+                reason: "มาเรียนตามปกติ เข้าแถวเคารพธงชาติทันเวลา",
+                recordedBy: "ครูสมหมาย (ครูประจำชั้น ม.4/3)",
+                actionTaken: "เข้าเรียนตามตารางเรียนปกติ"
+            },
+            {
+                id: "LOG-SP-02",
+                studentId: "SP-670312",
+                studentName: "น.ส. วรินทร ปัญญาวงศ์",
+                schoolId: "usr_saraphi",
+                gradeClass: "ม.4/1",
+                status: "ลา",
+                time: "07:35 น.",
+                reason: "ผู้ปกครองส่งใบลาป่วยทางระบบออนไลน์ มีอาการคัดจมูก หายใจขัด และมีไข้ 38.1°C เนื่องจากสภาพอากาศฝุ่น PM2.5 สูง",
+                recordedBy: "ครูอัญชลี (ครูประจำชั้น ม.4/1)",
+                actionTaken: "อนุมัติการลาป่วย มอบหมายการบ้านผ่านระบบ LMS และประสาน รพ.สต. ติดตามอาการ"
+            },
+            {
+                id: "LOG-SP-01",
+                studentId: "SP-650142",
+                studentName: "น.ส. กัญญาณัฐ วงค์ษา",
+                schoolId: "usr_saraphi",
+                gradeClass: "ม.6/4",
+                status: "มา",
+                time: "07:30 น.",
+                reason: "มาเรียนตามปกติ ทำหน้าที่หัวหน้าห้อง",
+                recordedBy: "ครูประสงค์ (ครูประจำชั้น ม.6/4)",
+                actionTaken: "เข้าเรียนตามปกติ"
+            },
+
+            // --- โรงเรียนบ้านศาลาแม่ทา (usr_maetha) ---
+            {
+                id: "LOG-MT-12",
+                studentId: "MT-690005",
+                studentName: "ด.ช. วรัญญู อินปา",
+                schoolId: "usr_maetha",
+                gradeClass: "ป.3/1",
+                status: "ห้องพยาบาล",
+                time: "11:20 น.",
+                reason: "ส่งเข้าห้องพยาบาลเวลา 11:20 น. มีอาการอ่อนเพลีย วิงเวียน และหน้าแดงจากอากาศร้อนอบอ้าว",
+                recordedBy: "ครูอรทัย (ครูอนามัยโรงเรียน)",
+                actionTaken: "เช็ดตัวคลายความร้อน ให้จิบน้ำเกลือแร่ และนอนพักผ่อนในห้องพยาบาล"
+            },
+            {
+                id: "LOG-MT-11",
+                studentId: "MT-670012",
+                studentName: "ด.ช. ศิวกร ทาปินตา",
+                schoolId: "usr_maetha",
+                gradeClass: "ป.5/1",
+                status: "ห้องพยาบาล",
+                time: "10:15 น.",
+                reason: "ส่งตัวเข้าห้องพยาบาลเวลา 10:15 น. มีอาการแสบตา คัดจมูก และไอแห้งจากควันไฟในพื้นที่",
+                recordedBy: "ครูอรทัย (ครูอนามัยโรงเรียน)",
+                actionTaken: "ล้างตาด้วยน้ำเกลือปราศจากเชื้อ ให้สวมหน้ากาก N95 และพักในห้องปลอดฝุ่น"
+            },
+            {
+                id: "LOG-MT-10",
+                studentId: "MT-650015",
+                studentName: "นาย อัครเดช หล้าคำ",
+                schoolId: "usr_maetha",
+                gradeClass: "ม.3/1",
+                status: "ขาด",
+                time: "09:15 น.",
+                reason: "ขาดเรียนโดยไม่มีการแจ้งล่วงหน้า ครูประจำชั้นโทรติดต่อผู้ปกครอง แจ้งว่าเดินทางไปช่วยงานครอบครัวที่ อ.ป่าซาง",
+                recordedBy: "ครูประทีป (ครูประจำชั้น ม.3/1)",
+                actionTaken: "บันทึกขาดเรียนและกำชับให้ส่งเอกสารขออนุญาตย้อนหลัง"
+            },
+            {
+                id: "LOG-MT-09",
+                studentId: "MT-660023",
+                studentName: "ด.ช. ธีรภัทร มูลอินทร์",
+                schoolId: "usr_maetha",
+                gradeClass: "ป.6/2",
+                status: "สาย",
+                time: "08:35 น.",
+                reason: "มาถึงเวลา 08:35 น. ทางเข้าหมู่บ้านสบเส้ามีน้ำท่วมขัง รถสองแถวรับส่งนักเรียนล่าช้า",
+                recordedBy: "ครูเวรประจำวัน (ครูสมคิด)",
+                actionTaken: "บันทึกเวลามาสายและอนุญาตเข้าห้องเรียนโดยไม่ตัดคะแนนความประพฤติ"
+            },
+            {
+                id: "LOG-MT-08",
+                studentId: "MT-650044",
+                studentName: "น.ส. พิชญา ศรีวิชัย",
+                schoolId: "usr_maetha",
+                gradeClass: "ม.3/2",
+                status: "สาย",
+                time: "08:25 น.",
+                reason: "มาถึงเวลา 08:25 น. รถจักรยานโซ่ตกและยางรั่วระหว่างทางจากบ้านสบเส้า",
+                recordedBy: "ครูเวรประจำวัน (ครูปิยะ)",
+                actionTaken: "ช่วยซ่อมจักรยานเบื้องต้น ลงบันทึกเวลา และอนุญาตเข้าเรียน"
+            },
+            {
+                id: "LOG-MT-07",
+                studentId: "MT-660089",
+                studentName: "ด.ญ. พรรณวดี เมืองมา",
+                schoolId: "usr_maetha",
+                gradeClass: "ป.6/1",
+                status: "ลา",
+                time: "08:00 น.",
+                reason: "ลาป่วย: ไข้สูง 38.4°C เจ็บคอ ผู้ปกครองนำตัวไปรับการตรวจรักษาที่ รพ.สต.ทาสบเส้า ได้รับยากลับมาพักฟื้น",
+                recordedBy: "ครูชัยวัฒน์ (ครูประจำชั้น ป.6/1)",
+                actionTaken: "อนุมัติการลาป่วย ประสาน อสม. และ รพ.สต. ติดตามอาการต่อเนื่อง"
+            },
+            {
+                id: "LOG-MT-06",
+                studentId: "MT-690005",
+                studentName: "ด.ช. วรัญญู อินปา",
+                schoolId: "usr_maetha",
+                gradeClass: "ป.3/1",
+                status: "มา",
+                time: "07:55 น.",
+                reason: "มาถึงโรงเรียนและเข้าแถวเคารพธงชาติปกติ",
+                recordedBy: "ครูประจำชั้น ป.3/1",
+                actionTaken: "เข้าเรียนคาบเช้าตามปกติ"
+            },
+            {
+                id: "LOG-MT-05",
+                studentId: "MT-680018",
+                studentName: "ด.ช. กิตติพงษ์ ใจมูล",
+                schoolId: "usr_maetha",
+                gradeClass: "ป.4/1",
+                status: "มา",
+                time: "07:50 น.",
+                reason: "มาเรียนตามปกติ บันทึกกำกับอาหารกลางวันปลอดอาหารทะเล",
+                recordedBy: "ครูวิภาดา (ครูประจำชั้น ป.4/1)",
+                actionTaken: "กำชับแม่ครัวโรงเรียนจัดอาหารเฉพาะราย"
+            },
+            {
+                id: "LOG-MT-04",
+                studentId: "MT-670012",
+                studentName: "ด.ช. ศิวกร ทาปินตา",
+                schoolId: "usr_maetha",
+                gradeClass: "ป.5/1",
+                status: "มา",
+                time: "07:45 น.",
+                reason: "มาถึงโรงเรียนตามเวลาปกติ เข้าแถวเคารพธงชาติ",
+                recordedBy: "ครูประจำชั้น ป.5/1",
+                actionTaken: "เข้าเรียนตามตารางเรียนปกติ"
+            },
+            {
+                id: "LOG-MT-03",
+                studentId: "MT-680072",
+                studentName: "ด.ญ. ชุติกาญจน์ ปัญญา",
+                schoolId: "usr_maetha",
+                gradeClass: "ป.4/2",
+                status: "มา",
+                time: "07:45 น.",
+                reason: "มาเรียนตามปกติ เข้าแถวเคารพธงชาติเรียบร้อย",
+                recordedBy: "ครูกรรณิการ์ (ครูประจำชั้น ป.4/2)",
+                actionTaken: "ดูแลให้อยู่ในห้องเรียนที่มีเครื่องฟอกอากาศ"
+            },
+            {
+                id: "LOG-MT-02",
+                studentId: "MT-670045",
+                studentName: "ด.ญ. ณิชาภัทร ขันคำ",
+                schoolId: "usr_maetha",
+                gradeClass: "ป.5/2",
+                status: "มา",
+                time: "07:40 น.",
+                reason: "มาเรียนตามปกติ เข้าแถวเคารพธงชาติทันเวลา",
+                recordedBy: "ครูปิยะ (ครูประจำชั้น ป.5/2)",
+                actionTaken: "เข้าเรียนตามปกติ"
+            },
+            {
+                id: "LOG-MT-01",
+                studentId: "MT-670094",
+                studentName: "ด.ช. ปวริศ แก้วดวงดี",
+                schoolId: "usr_maetha",
+                gradeClass: "ป.5/1",
+                status: "ลา",
+                time: "07:30 น.",
+                reason: "ลากิจ: ผู้ปกครองแจ้งล่วงหน้า พาไปตรวจฟันและอุดฟันตามนัดหมายที่โรงพยาบาลแม่ทา",
+                recordedBy: "ครูสมคิด (ครูประจำชั้น ป.5/1)",
+                actionTaken: "อนุมัติการลากิจ"
+            }
+        ];
+
         function isStudentTabAllowed(role) {
             const code = role || (typeof currentHospitalCode !== 'undefined' ? currentHospitalCode : null) || (typeof currentActiveSiteId !== 'undefined' ? currentActiveSiteId : null);
             return (code === 'usr_saraphi' || code === 'usr_maetha');
@@ -6998,26 +7709,50 @@
             const countLeave = schoolStudents.filter(s => s.status === 'ลา').length;
             const countAbsent = schoolStudents.filter(s => s.status === 'ขาด').length;
             const countInfirmary = schoolStudents.filter(s => s.status === 'ห้องพยาบาล').length;
-            const countAbsentTotal = countAbsent + countLeave + countLate + countInfirmary;
-            const attendanceRateVal = countAll > 0 ? ((countPresent / countAll) * 100).toFixed(1) + '%' : '0.0%';
-            const absentBreakdownVal = `ขาด ${countAbsent} • ลา ${countLeave} • สาย ${countLate} • ห้องพยาบาล ${countInfirmary}`;
+
+            // Students present at school today (on-time + late + admitted to infirmary room)
+            const totalPresent = countPresent + countLate + countInfirmary;
+            // Students absent from school (absent + leave)
+            const totalAbsent = countAbsent + countLeave;
+
+            const attendanceRateVal = countAll > 0 ? ((totalPresent / countAll) * 100).toFixed(1) + '%' : '0.0%';
+            const absentRateVal = countAll > 0 ? ((totalAbsent / countAll) * 100).toFixed(1) + '%' : '0.0%';
+            const presentBreakdownVal = `ตรงเวลา ${countPresent} • มาสาย ${countLate} • ห้องพยาบาล ${countInfirmary}`;
+            const absentBreakdownVal = `ขาด ${countAbsent} • ลา ${countLeave}`;
 
             // Update Top 4 Metric Cards
             const totalEl = document.getElementById('stat-total-students');
             if (totalEl) totalEl.textContent = countAll;
+
             const presentEl = document.getElementById('stat-present-today');
-            if (presentEl) presentEl.textContent = countPresent;
+            if (presentEl) presentEl.textContent = totalPresent;
             const presentRateEl = document.getElementById('stat-present-rate-badge');
             if (presentRateEl) presentRateEl.textContent = attendanceRateVal;
+            const presentBreakdownEl = document.getElementById('stat-present-breakdown');
+            if (presentBreakdownEl) {
+                presentBreakdownEl.textContent = presentBreakdownVal;
+                presentBreakdownEl.title = presentBreakdownVal;
+            }
+
             const absentEl = document.getElementById('stat-absent-today');
-            if (absentEl) absentEl.textContent = countAbsentTotal;
+            if (absentEl) absentEl.textContent = totalAbsent;
+            const absentRateEl = document.getElementById('stat-absent-rate-badge');
+            if (absentRateEl) absentRateEl.textContent = absentRateVal;
             const absentBreakdownEl = document.getElementById('stat-absent-breakdown');
             if (absentBreakdownEl) {
                 absentBreakdownEl.textContent = absentBreakdownVal;
                 absentBreakdownEl.title = absentBreakdownVal;
             }
+
             const rateEl = document.getElementById('stat-attendance-rate');
             if (rateEl) rateEl.textContent = attendanceRateVal;
+
+            // Update daily log badge counter in header
+            const logBadge = document.getElementById('daily-log-badge-count');
+            if (logBadge && typeof studentDailyLogsDb !== 'undefined') {
+                const schoolLogs = studentDailyLogsDb.filter(l => l.schoolId === profile.id);
+                logBadge.textContent = schoolLogs.length;
+            }
 
             // 3. Update Table Header Title
             const schoolTitle = document.getElementById('student-table-school-title');
@@ -7086,7 +7821,7 @@
             if (list.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="6" class="px-6 py-12 text-center text-gray-500">
+                        <td colspan="7" class="px-6 py-12 text-center text-gray-500">
                             <div class="text-3xl mb-2">🔍</div>
                             <p class="font-bold text-gray-700 text-sm">ไม่พบข้อมูลนักเรียนที่ตรงกับเงื่อนไข</p>
                             <p class="text-xs text-gray-400 mt-1">ลองเปลี่ยนคำค้นหา หรือรีเซ็ตตัวกรองสถานะ/ระดับชั้น</p>
@@ -7198,6 +7933,18 @@
                                 </div>` : ''}
                             </div>
                         </td>
+                        <td class="px-5 py-3.5 whitespace-nowrap text-right text-xs font-medium">
+                            <div class="flex items-center justify-end gap-1.5">
+                                <button type="button" onclick="openStudentStatusModal('${s.id}')"
+                                    class="text-gray-600 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 px-2.5 py-1.5 rounded-lg transition font-semibold" title="ดูรายละเอียดสถานะ">
+                                    ℹ️ รายละเอียด
+                                </button>
+                                <button type="button" onclick="openSubmitStudentStatusModal('${s.id}')"
+                                    class="text-blue-700 hover:text-white bg-blue-50 hover:bg-blue-600 border border-blue-200 hover:border-blue-600 px-2.5 py-1.5 rounded-lg font-bold transition shadow-2xs flex items-center gap-1 cursor-pointer" title="บันทึกหรือเปลี่ยนสถานะนักเรียนคนนี้">
+                                    <span>✏️</span> บันทึกสถานะ
+                                </button>
+                            </div>
+                        </td>
                     </tr>
                 `;
             }).join('');
@@ -7205,9 +7952,64 @@
             tbody.innerHTML = rowsHtml;
         }
 
+        let currentViewingStudentId = null;
+
+        const STATUS_QUICK_PRESETS = {
+            'มา': {
+                reasons: [
+                    "มาเรียนตามปกติ เข้าแถวเคารพธงชาติทันเวลา",
+                    "เข้าเรียนในห้องเรียนปรับอากาศที่มีเครื่องฟอกอากาศ",
+                    "มาเรียนตามปกติ สุขภาพแข็งแรงดี"
+                ],
+                action: "เข้าเรียนตามตารางเรียนปกติ"
+            },
+            'สาย': {
+                reasons: [
+                    "มาถึงโรงเรียนหลังเวลาเข้าแถวเคารพธงชาติ",
+                    "รถรับส่งนักเรียนหรือการจราจรติดขัดล่าช้า",
+                    "ช่วยงานครอบครัวก่อนเดินทางมาโรงเรียน"
+                ],
+                action: "ลงบันทึกเวลามาสาย ตักเตือน และอนุญาตให้เข้าห้องเรียน"
+            },
+            'ลา': {
+                reasons: [
+                    "ลาป่วย: แน่นหน้าอก หายใจขัด และไอจากค่าฝุ่น PM2.5 สูง",
+                    "ลาป่วย: มีไข้สูง เจ็บคอ ปวดศีรษะ พักฟื้นที่บ้าน",
+                    "ลากิจ: ผู้ปกครองแจ้งล่วงหน้าเพื่อทำธุระจำเป็นของครอบครัว"
+                ],
+                action: "อนุมัติการลา และประสานงานมอบหมายงาน/ติดตามอาการ"
+            },
+            'ขาด': {
+                reasons: [
+                    "ไม่มาเข้าแถวและไม่พบในห้องเรียน โดยไม่ได้แจ้งล่วงหน้า",
+                    "ขาดเรียน ครูประจำชั้นโทรติดต่อผู้ปกครองแล้ว",
+                    "ขาดเรียนต่อเนื่อง อยู่ระหว่างติดตามจากฝ่ายปกครอง"
+                ],
+                action: "ส่งข้อความ SMS แจ้งผู้ปกครอง และประสานครูฝ่ายปกครองติดตาม"
+            },
+            'ห้องพยาบาล': {
+                reasons: [
+                    "ส่งตัวเข้าห้องพยาบาล มีอาการแน่นหน้าอก หายใจหวีด ไวต่อฝุ่น PM2.5",
+                    "ส่งตัวเข้าห้องพยาบาล มีอาการวิงเวียนศีรษะ หน้ามืดจากอากาศร้อนจัด",
+                    "ส่งตัวเข้าห้องพยาบาล มีไข้สูง ปวดศีรษะ อ่อนเพลีย",
+                    "ส่งตัวเข้าห้องพยาบาล แสบตา ไอแห้ง และคัดจมูก"
+                ],
+                action: "จัดให้นอนพักผ่อนในห้องปลอดฝุ่น (Clean Air Room) และโทรแจ้งผู้ปกครอง"
+            }
+        };
+
+        function formatCurrentTimeThai() {
+            const now = new Date();
+            const hh = String(now.getHours()).padStart(2, '0');
+            const mm = String(now.getMinutes()).padStart(2, '0');
+            return `${hh}:${mm} น.`;
+        }
+
         function openStudentStatusModal(studentId) {
             const student = studentAttendanceDb.find(s => s.id === studentId);
             if (!student) return;
+
+            currentViewingStudentId = studentId;
 
             const modal = document.getElementById('studentStatusModal');
             if (!modal) return;
@@ -7236,6 +8038,35 @@
             setText('modal-status-recorder', student.statusDetail ? student.statusDetail.recordedBy : '-');
             setText('modal-status-action', student.statusDetail ? student.statusDetail.actionTaken : '-');
 
+            // Populate student's log timeline of the day in studentStatusModal
+            const timelineContainer = document.getElementById('modal-student-timeline-list');
+            const logCountEl = document.getElementById('modal-student-log-count');
+            if (timelineContainer && typeof studentDailyLogsDb !== 'undefined') {
+                const studentLogs = studentDailyLogsDb.filter(l => l.studentId === studentId);
+                if (logCountEl) logCountEl.textContent = `${studentLogs.length} บันทึกวันนี้`;
+
+                if (studentLogs.length === 0) {
+                    timelineContainer.innerHTML = '<div class="text-center py-2.5 text-gray-400 text-xs">ยังไม่มีบันทึกสถานะวันนี้</div>';
+                } else {
+                    timelineContainer.innerHTML = studentLogs.map(l => {
+                        const col = statusColors[l.status] || 'bg-gray-100 text-gray-800';
+                        return `
+                            <div class="p-2 bg-gray-50 rounded-lg border border-gray-200/80 text-[11px] space-y-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="px-2 py-0.5 rounded-full font-bold ${col} text-[10px]">${l.status}</span>
+                                    <span class="font-mono text-gray-600 font-bold">${l.time}</span>
+                                </div>
+                                <p class="text-gray-800 font-medium leading-tight">${l.reason}</p>
+                                <div class="flex items-center justify-between text-[10px] text-gray-400 pt-0.5">
+                                    <span class="text-emerald-700">${l.actionTaken || '-'}</span>
+                                    <span class="text-gray-500">${l.recordedBy}</span>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            }
+
             modal.classList.remove('hidden');
         }
 
@@ -7244,12 +8075,548 @@
             if (modal) modal.classList.add('hidden');
         }
 
+        function openSubmitStudentStatusModalFromDetail() {
+            const sId = currentViewingStudentId;
+            closeStudentStatusModal();
+            if (sId) {
+                openSubmitStudentStatusModal(sId);
+            }
+        }
+
+        function openSubmitStudentStatusModal(studentId = null, prefillStatus = null) {
+            const profile = SCHOOL_PROFILES[currentStudentSchoolId] || SCHOOL_PROFILES['usr_saraphi'];
+            const schoolStudents = studentAttendanceDb.filter(s => s.schoolId === profile.id);
+
+            const schoolLabel = document.getElementById('submit-status-school-label');
+            if (schoolLabel) schoolLabel.textContent = profile.name;
+
+            // Populate Student Select Dropdown
+            const selectEl = document.getElementById('submit-status-student-select');
+            if (selectEl) {
+                let html = '';
+                schoolStudents.forEach(s => {
+                    const sel = (studentId && s.id === studentId) ? 'selected' : '';
+                    html += `<option value="${s.id}" ${sel}>[${s.gradeClass}] ${s.name} (${s.id}) - สถานะเดิม: ${s.status}</option>`;
+                });
+                selectEl.innerHTML = html;
+            }
+
+            const targetStudentId = studentId || (schoolStudents.length > 0 ? schoolStudents[0].id : null);
+            if (targetStudentId) {
+                if (selectEl) selectEl.value = targetStudentId;
+                onSelectStudentInStatusForm(targetStudentId, prefillStatus);
+            }
+
+            const modeBadge = document.getElementById('submit-status-mode-badge');
+            if (modeBadge) {
+                modeBadge.textContent = studentId ? "ระบุเฉพาะราย" : "เลือกจากรายชื่อสถานศึกษา";
+            }
+
+            const modal = document.getElementById('submitStudentStatusModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeSubmitStudentStatusModal() {
+            const modal = document.getElementById('submitStudentStatusModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function onSelectStudentInStatusForm(studentId, overrideStatus = null) {
+            const student = studentAttendanceDb.find(s => s.id === studentId);
+            if (!student) return;
+
+            const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+            setText('preview-student-name', student.name);
+            setText('preview-student-class', student.gradeClass);
+            setText('preview-student-id', student.id);
+            setText('preview-student-phone', student.guardianContact || '-');
+
+            const statusColors = {
+                'มา': 'bg-emerald-100 text-emerald-800',
+                'สาย': 'bg-amber-100 text-amber-900',
+                'ลา': 'bg-orange-100 text-orange-900',
+                'ขาด': 'bg-rose-100 text-rose-800',
+                'ห้องพยาบาล': 'bg-purple-100 text-purple-900'
+            };
+
+            const currentBadge = document.getElementById('preview-student-current-status');
+            if (currentBadge) {
+                currentBadge.className = `inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold ${statusColors[student.status] || 'bg-gray-100 text-gray-700'}`;
+                currentBadge.textContent = student.status;
+            }
+
+            const activeStatus = overrideStatus || student.status || 'มา';
+            selectStatusOption(activeStatus, false);
+
+            const timeInput = document.getElementById('submit-status-time');
+            if (timeInput) {
+                timeInput.value = (student.statusDetail && student.statusDetail.time) ? student.statusDetail.time : formatCurrentTimeThai();
+            }
+
+            const reasonInput = document.getElementById('submit-status-reason');
+            if (reasonInput) {
+                if (overrideStatus && overrideStatus !== student.status) {
+                    const preset = STATUS_QUICK_PRESETS[overrideStatus];
+                    reasonInput.value = preset ? preset.reasons[0] : '';
+                } else {
+                    reasonInput.value = (student.statusDetail && student.statusDetail.reason) ? student.statusDetail.reason : '';
+                }
+            }
+
+            const recorderInput = document.getElementById('submit-status-recorder');
+            if (recorderInput) {
+                recorderInput.value = (student.statusDetail && student.statusDetail.recordedBy) ? student.statusDetail.recordedBy : 'ครูประจำชั้น';
+            }
+
+            const actionInput = document.getElementById('submit-status-action');
+            if (actionInput) {
+                if (overrideStatus && overrideStatus !== student.status) {
+                    const preset = STATUS_QUICK_PRESETS[overrideStatus];
+                    actionInput.value = preset ? preset.action : '';
+                } else {
+                    actionInput.value = (student.statusDetail && student.statusDetail.actionTaken) ? student.statusDetail.actionTaken : '';
+                }
+            }
+        }
+
+        function selectStatusOption(status, autoFillIfEmpty = true) {
+            const hiddenInput = document.getElementById('submit-status-value');
+            if (hiddenInput) hiddenInput.value = status;
+
+            const allBtns = document.querySelectorAll('.status-opt-btn');
+            allBtns.forEach(btn => {
+                btn.className = 'status-opt-btn p-2.5 rounded-xl border-2 text-center transition flex flex-col items-center justify-center gap-1 cursor-pointer bg-white border-gray-200 hover:border-gray-300';
+            });
+
+            const activeBtn = document.getElementById(`btn-status-opt-${status}`);
+            if (activeBtn) {
+                if (status === 'มา') {
+                    activeBtn.className = 'status-opt-btn p-2.5 rounded-xl border-2 text-center transition flex flex-col items-center justify-center gap-1 cursor-pointer border-emerald-500 bg-emerald-50 text-emerald-900 ring-2 ring-emerald-500/20 shadow-xs';
+                } else if (status === 'สาย') {
+                    activeBtn.className = 'status-opt-btn p-2.5 rounded-xl border-2 text-center transition flex flex-col items-center justify-center gap-1 cursor-pointer border-amber-500 bg-amber-50 text-amber-900 ring-2 ring-amber-500/20 shadow-xs';
+                } else if (status === 'ลา') {
+                    activeBtn.className = 'status-opt-btn p-2.5 rounded-xl border-2 text-center transition flex flex-col items-center justify-center gap-1 cursor-pointer border-orange-500 bg-orange-50 text-orange-900 ring-2 ring-orange-500/20 shadow-xs';
+                } else if (status === 'ขาด') {
+                    activeBtn.className = 'status-opt-btn p-2.5 rounded-xl border-2 text-center transition flex flex-col items-center justify-center gap-1 cursor-pointer border-rose-500 bg-rose-50 text-rose-900 ring-2 ring-rose-500/20 shadow-xs';
+                } else if (status === 'ห้องพยาบาล') {
+                    activeBtn.className = 'status-opt-btn p-2.5 rounded-xl border-2 text-center transition flex flex-col items-center justify-center gap-1 cursor-pointer border-purple-500 bg-purple-50 text-purple-900 ring-2 ring-purple-500/20 shadow-xs col-span-2 sm:col-span-1';
+                }
+            }
+
+            // Populate quick reason chips
+            const container = document.getElementById('status-quick-reasons-container');
+            const preset = STATUS_QUICK_PRESETS[status];
+            if (container && preset) {
+                container.innerHTML = preset.reasons.map((r, i) => `
+                    <button type="button" onclick="setReasonToStatusForm('${r.replace(/'/g, "\\'")}')"
+                        class="text-[11px] font-medium bg-gray-100 hover:bg-blue-50 hover:text-blue-700 text-gray-700 border border-gray-200 hover:border-blue-300 px-2.5 py-1 rounded-lg transition text-left">
+                        • ${r}
+                    </button>
+                `).join('');
+            }
+
+            if (autoFillIfEmpty && preset) {
+                const reasonEl = document.getElementById('submit-status-reason');
+                if (reasonEl && !reasonEl.value.trim()) {
+                    reasonEl.value = preset.reasons[0];
+                }
+                const actionEl = document.getElementById('submit-status-action');
+                if (actionEl && !actionEl.value.trim()) {
+                    actionEl.value = preset.action;
+                }
+            }
+        }
+
+        function setCurrentTimeToStatusForm() {
+            const timeEl = document.getElementById('submit-status-time');
+            if (timeEl) timeEl.value = formatCurrentTimeThai();
+        }
+
+        function setRecorderToStatusForm(name) {
+            const recEl = document.getElementById('submit-status-recorder');
+            if (recEl) recEl.value = name;
+        }
+
+        function setReasonToStatusForm(text) {
+            const reasonEl = document.getElementById('submit-status-reason');
+            if (reasonEl) reasonEl.value = text;
+        }
+
+        function appendActionToStatusForm(text) {
+            const actionEl = document.getElementById('submit-status-action');
+            if (actionEl) actionEl.value = text;
+        }
+
+        function saveStudentStatusSubmission() {
+            const selectEl = document.getElementById('submit-status-student-select');
+            const studentId = selectEl ? selectEl.value : null;
+            if (!studentId) {
+                showToast("กรุณาเลือกนักเรียน", "⚠️");
+                return;
+            }
+
+            const student = studentAttendanceDb.find(s => s.id === studentId);
+            if (!student) {
+                showToast("ไม่พบข้อมูลนักเรียนในระบบ", "⚠️");
+                return;
+            }
+
+            const status = document.getElementById('submit-status-value')?.value || 'มา';
+            const reason = document.getElementById('submit-status-reason')?.value.trim() || 'มาเรียนตามปกติ';
+            const time = document.getElementById('submit-status-time')?.value.trim() || formatCurrentTimeThai();
+            const recordedBy = document.getElementById('submit-status-recorder')?.value.trim() || 'ครูประจำชั้น';
+            const actionTaken = document.getElementById('submit-status-action')?.value.trim() || 'เข้าเรียนตามปกติ';
+
+            // Mutate Database
+            student.status = status;
+            student.statusDetail = {
+                reason: reason,
+                time: time,
+                recordedBy: recordedBy,
+                actionTaken: actionTaken
+            };
+
+            // Prepend new activity log entry to studentDailyLogsDb
+            if (typeof studentDailyLogsDb !== 'undefined') {
+                studentDailyLogsDb.unshift({
+                    id: `LOG-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+                    studentId: student.id,
+                    studentName: student.name,
+                    schoolId: student.schoolId,
+                    gradeClass: student.gradeClass,
+                    status: status,
+                    time: time,
+                    reason: reason,
+                    recordedBy: recordedBy,
+                    actionTaken: actionTaken
+                });
+            }
+
+            // Real-time re-render of student dashboard metrics and table
+            renderStudentInfoDashboard();
+            if (typeof renderDailySchoolStatusLogs === 'function') {
+                renderDailySchoolStatusLogs();
+            }
+
+            showToast(`✓ บันทึกสถานะ "${status}" สำหรับ ${student.name} เรียบร้อยแล้ว`, "📝");
+            closeSubmitStudentStatusModal();
+        }
+
+        function openSubmitStudentStatusModalForRiskPatient(patientId, name) {
+            // Find existing student in attendance DB
+            let found = studentAttendanceDb.find(s => s.id === patientId || s.name === name);
+            if (!found && typeof allPatientsDb !== 'undefined') {
+                const patient = allPatientsDb.find(p => p.cid === patientId || p.name === name);
+                if (patient) {
+                    const activeHospital = (typeof HOSPITAL_ROLES !== 'undefined' ? HOSPITAL_ROLES.find(h => h.hospcode === currentHospitalCode) : null) || (typeof HOSPITAL_ROLES !== 'undefined' ? HOSPITAL_ROLES[0] : null);
+                    found = {
+                        id: `ST-${patientId.slice(-6)}`,
+                        cid: patientId,
+                        name: patient.name,
+                        schoolId: currentHospitalCode || 'usr_saraphi',
+                        schoolName: activeHospital ? activeHospital.name : "สถานศึกษา",
+                        gradeClass: patient.classroom || "ม.4/1",
+                        gradeGroup: (patient.classroom || "ม.4").split('/')[0],
+                        dob: "15 พ.ค. 2554",
+                        guardianContact: "089-xxx-xxxx",
+                        healthNote: patient.conditions || "None",
+                        status: "ห้องพยาบาล",
+                        statusDetail: {
+                            reason: `คัดกรองจากบัญชีรายชื่อกลุ่มเสี่ยง: ${patient.conditions || 'เฝ้าระวังผลกระทบสภาพอากาศ'} ส่งตัวรับการดูแล`,
+                            time: formatCurrentTimeThai(),
+                            recordedBy: "ครูพยาบาล/อนามัย",
+                            actionTaken: "จัดให้อยู่ในห้องปลอดฝุ่น (Clean Air Room) และติดตามอาการต่อเนื่อง"
+                        }
+                    };
+                    studentAttendanceDb.push(found);
+                }
+            }
+
+            if (found) {
+                // Ensure active school matches student school
+                if (currentStudentSchoolId !== found.schoolId && typeof switchStudentSchool === 'function') {
+                    switchStudentSchool(found.schoolId);
+                }
+                openSubmitStudentStatusModal(found.id, 'ห้องพยาบาล');
+            } else {
+                openSubmitStudentStatusModal(null, 'ห้องพยาบาล');
+            }
+        }
+
+        // =========================================================================
+        // DAILY STUDENT STATUS LOG CONTROLLERS
+        // =========================================================================
+        let currentDailyLogFilter = 'all';
+        let currentDailyLogSearch = '';
+        let currentDailyLogClassFilter = 'all';
+
+        function openDailySchoolStatusLogModal() {
+            const profile = SCHOOL_PROFILES[currentStudentSchoolId] || SCHOOL_PROFILES['usr_saraphi'];
+            const schoolLabel = document.getElementById('daily-log-school-name');
+            if (schoolLabel) schoolLabel.textContent = profile.name;
+
+            // Populate Class Filter Dropdown for Daily Log Modal
+            const classSelect = document.getElementById('daily-log-class-filter');
+            if (classSelect) {
+                const schoolStudents = studentAttendanceDb.filter(s => s.schoolId === profile.id);
+                const classes = Array.from(new Set(schoolStudents.map(s => s.gradeGroup))).sort();
+                let html = '<option value="all">ทุกระดับชั้น</option>';
+                classes.forEach(c => {
+                    const sel = (currentDailyLogClassFilter === c) ? 'selected' : '';
+                    html += `<option value="${c}" ${sel}>ชั้น ${c}</option>`;
+                });
+                classSelect.innerHTML = html;
+            }
+
+            renderDailySchoolStatusLogs();
+
+            const modal = document.getElementById('dailySchoolStatusLogModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeDailySchoolStatusLogModal() {
+            const modal = document.getElementById('dailySchoolStatusLogModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function setDailyLogFilter(status) {
+            currentDailyLogFilter = status;
+
+            // Update filter buttons styling
+            const filterBtns = document.querySelectorAll('.daily-filter-btn');
+            filterBtns.forEach(btn => {
+                btn.className = 'daily-filter-btn p-2 rounded-xl border text-center transition flex flex-col items-center justify-center bg-white border-gray-200 hover:border-gray-300 text-gray-700 cursor-pointer';
+            });
+            const activeBtn = document.getElementById(`btn-daily-filter-${status}`);
+            if (activeBtn) {
+                if (status === 'all') {
+                    activeBtn.className = 'daily-filter-btn p-2 rounded-xl border text-center transition flex flex-col items-center justify-center bg-indigo-50 border-indigo-300 text-indigo-900 ring-2 ring-indigo-500/20 shadow-xs cursor-pointer';
+                } else if (status === 'มา') {
+                    activeBtn.className = 'daily-filter-btn p-2 rounded-xl border text-center transition flex flex-col items-center justify-center bg-emerald-50 border-emerald-300 text-emerald-900 ring-2 ring-emerald-500/20 shadow-xs cursor-pointer';
+                } else if (status === 'สาย') {
+                    activeBtn.className = 'daily-filter-btn p-2 rounded-xl border text-center transition flex flex-col items-center justify-center bg-amber-50 border-amber-300 text-amber-900 ring-2 ring-amber-500/20 shadow-xs cursor-pointer';
+                } else if (status === 'ห้องพยาบาล') {
+                    activeBtn.className = 'daily-filter-btn p-2 rounded-xl border text-center transition flex flex-col items-center justify-center bg-purple-50 border-purple-300 text-purple-900 ring-2 ring-purple-500/20 shadow-xs cursor-pointer';
+                } else if (status === 'ลา') {
+                    activeBtn.className = 'daily-filter-btn p-2 rounded-xl border text-center transition flex flex-col items-center justify-center bg-orange-50 border-orange-300 text-orange-900 ring-2 ring-orange-500/20 shadow-xs cursor-pointer';
+                } else if (status === 'ขาด') {
+                    activeBtn.className = 'daily-filter-btn p-2 rounded-xl border text-center transition flex flex-col items-center justify-center bg-rose-50 border-rose-300 text-rose-900 ring-2 ring-rose-500/20 shadow-xs cursor-pointer';
+                }
+            }
+
+            renderDailySchoolStatusLogs();
+        }
+
+        function onDailyLogSearchChanged() {
+            const input = document.getElementById('daily-log-search-input');
+            currentDailyLogSearch = input ? input.value.trim().toLowerCase() : '';
+            renderDailySchoolStatusLogs();
+        }
+
+        function onDailyLogClassFilterChanged(cls) {
+            currentDailyLogClassFilter = cls;
+            renderDailySchoolStatusLogs();
+        }
+
+        function renderDailySchoolStatusLogs() {
+            const container = document.getElementById('daily-log-timeline-container');
+            if (!container) return;
+
+            const profile = SCHOOL_PROFILES[currentStudentSchoolId] || SCHOOL_PROFILES['usr_saraphi'];
+
+            // Logs for this school
+            let logs = (typeof studentDailyLogsDb !== 'undefined') ? studentDailyLogsDb.filter(l => l.schoolId === profile.id) : [];
+
+            // Compute summary counts for the current school
+            const totalCount = logs.length;
+            const countOnTime = logs.filter(l => l.status === 'มา').length;
+            const countLate = logs.filter(l => l.status === 'สาย').length;
+            const countInfirmary = logs.filter(l => l.status === 'ห้องพยาบาล').length;
+            const countLeave = logs.filter(l => l.status === 'ลา').length;
+            const countAbsent = logs.filter(l => l.status === 'ขาด').length;
+
+            const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+            setText('daily-stat-all', totalCount);
+            setText('daily-stat-มา', countOnTime);
+            setText('daily-stat-สาย', countLate);
+            setText('daily-stat-ห้องพยาบาล', countInfirmary);
+            setText('daily-stat-ลา', countLeave);
+            setText('daily-stat-ขาด', countAbsent);
+            setText('daily-log-badge-count', totalCount);
+            setText('daily-log-total-summary', `ทั้งหมด ${totalCount} รายการ`);
+
+            // Apply Status Filter
+            if (currentDailyLogFilter !== 'all') {
+                logs = logs.filter(l => l.status === currentDailyLogFilter);
+            }
+
+            // Apply Class Filter
+            if (currentDailyLogClassFilter !== 'all') {
+                logs = logs.filter(l => (l.gradeClass || '').startsWith(currentDailyLogClassFilter));
+            }
+
+            // Apply Search Query
+            if (currentDailyLogSearch) {
+                const q = currentDailyLogSearch;
+                logs = logs.filter(l =>
+                    (l.studentId || '').toLowerCase().includes(q) ||
+                    (l.studentName || '').toLowerCase().includes(q) ||
+                    (l.gradeClass || '').toLowerCase().includes(q) ||
+                    (l.status || '').toLowerCase().includes(q) ||
+                    (l.reason || '').toLowerCase().includes(q) ||
+                    (l.recordedBy || '').toLowerCase().includes(q) ||
+                    (l.actionTaken || '').toLowerCase().includes(q)
+                );
+            }
+
+            // Update footer
+            setText('daily-log-filtered-count', `แสดง ${logs.length} รายการ (จากทั้งหมด ${totalCount})`);
+            const schoolStudents = studentAttendanceDb.filter(s => s.schoolId === profile.id);
+            const presentStudents = schoolStudents.filter(s => s.status === 'มา' || s.status === 'สาย' || s.status === 'ห้องพยาบาล').length;
+            setText('daily-log-present-sum', presentStudents);
+
+            if (logs.length === 0) {
+                container.innerHTML = `
+                    <div class="p-8 text-center text-gray-500 bg-gray-50 rounded-2xl border border-gray-200/80">
+                        <div class="text-3xl mb-2">🔍</div>
+                        <p class="font-bold text-gray-700 text-sm">ไม่พบบันทึกสถานะตามเงื่อนไขที่เลือก</p>
+                        <p class="text-xs text-gray-400 mt-1">ลองเปลี่ยนคำค้นหา หรือรีเซ็ตตัวกรองสถานะ/ระดับชั้น</p>
+                        <button type="button" onclick="setDailyLogFilter('all'); document.getElementById('daily-log-search-input').value=''; onDailyLogSearchChanged();"
+                            class="mt-3 px-3 py-1.5 text-xs font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 rounded-lg border border-indigo-200 transition cursor-pointer">
+                            รีเซ็ตตัวกรองทั้งหมด
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            const statusStyles = {
+                'มา': {
+                    badgeClass: 'bg-emerald-100 text-emerald-800 border border-emerald-300',
+                    cardBorder: 'border-emerald-200/70 hover:border-emerald-300 bg-emerald-50/20',
+                    icon: '✓',
+                    tag: 'มาเรียนตรงเวลา (เข้าแถวทัน)',
+                    tagClass: 'text-emerald-700 bg-emerald-100/70 font-semibold'
+                },
+                'สาย': {
+                    badgeClass: 'bg-amber-100 text-amber-900 border border-amber-300',
+                    cardBorder: 'border-amber-200/80 hover:border-amber-300 bg-amber-50/30',
+                    icon: '⏰',
+                    tag: 'มาสาย (ถือว่ามาเรียนวันนี้)',
+                    tagClass: 'text-amber-800 bg-amber-100 font-bold'
+                },
+                'ห้องพยาบาล': {
+                    badgeClass: 'bg-purple-100 text-purple-900 border border-purple-300',
+                    cardBorder: 'border-purple-200/80 hover:border-purple-300 bg-purple-50/30',
+                    icon: '🏥',
+                    tag: 'พักรักษาตัวในห้องพยาบาล (ถือว่ามาเรียนวันนี้)',
+                    tagClass: 'text-purple-800 bg-purple-100 font-bold'
+                },
+                'ลา': {
+                    badgeClass: 'bg-orange-100 text-orange-900 border border-orange-300',
+                    cardBorder: 'border-orange-200/70 hover:border-orange-300 bg-orange-50/20',
+                    icon: '📋',
+                    tag: 'ลาป่วย/ลากิจ (ไม่มาโรงเรียน)',
+                    tagClass: 'text-orange-800 bg-orange-100 font-semibold'
+                },
+                'ขาด': {
+                    badgeClass: 'bg-rose-100 text-rose-800 border border-rose-300',
+                    cardBorder: 'border-rose-200/70 hover:border-rose-300 bg-rose-50/20',
+                    icon: '✕',
+                    tag: 'ขาดเรียน (ไม่มาโรงเรียน)',
+                    tagClass: 'text-rose-800 bg-rose-100 font-bold'
+                }
+            };
+
+            const html = logs.map(l => {
+                const style = statusStyles[l.status] || statusStyles['มา'];
+                return `
+                    <div class="p-3.5 sm:p-4 rounded-2xl border transition ${style.cardBorder} shadow-2xs hover:shadow-xs">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-2 border-b border-gray-100">
+                            <!-- Left: Status pill, Time, Student Name, Class -->
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${style.badgeClass} flex items-center gap-1 shadow-2xs">
+                                    <span>${style.icon}</span>
+                                    <span>${l.status}</span>
+                                </span>
+                                <span class="font-mono text-xs font-bold text-gray-700 bg-gray-100 px-2 py-0.5 rounded-md flex items-center gap-1">
+                                    <span>⏰</span> ${l.time}
+                                </span>
+                                <span class="text-xs font-bold text-gray-900">${l.studentName}</span>
+                                <span class="text-[11px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.2 rounded">${l.gradeClass}</span>
+                                <span class="font-mono text-[11px] text-gray-400">(${l.studentId})</span>
+                                <span class="text-[10px] px-2 py-0.5 rounded-md ${style.tagClass}">
+                                    ${style.tag}
+                                </span>
+                            </div>
+                            <!-- Right: Actions -->
+                            <div class="flex items-center gap-1.5 shrink-0 self-end sm:self-auto">
+                                <button type="button" onclick="closeDailySchoolStatusLogModal(); openStudentStatusModal('${l.studentId}')"
+                                    class="text-[11px] text-gray-600 hover:text-blue-700 bg-white hover:bg-blue-50 border border-gray-200 hover:border-blue-200 px-2.5 py-1 rounded-lg font-semibold transition cursor-pointer" title="ดูรายละเอียดนักเรียน">
+                                    ℹ️ รายละเอียด
+                                </button>
+                                <button type="button" onclick="closeDailySchoolStatusLogModal(); openSubmitStudentStatusModal('${l.studentId}', '${l.status}')"
+                                    class="text-[11px] text-blue-700 hover:text-white bg-blue-50 hover:bg-blue-600 border border-blue-200 hover:border-blue-600 px-2.5 py-1 rounded-lg font-bold transition cursor-pointer flex items-center gap-1" title="แก้ไขหรือบันทึกสถานะใหม่">
+                                    <span>✏️</span> แก้ไข
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Middle: Reason / Symptoms -->
+                        <div class="mt-2.5 text-xs text-gray-800 bg-white/90 p-2.5 rounded-xl border border-gray-100 leading-relaxed font-medium">
+                            <span class="text-gray-400 text-[10px] uppercase font-bold tracking-wider block mb-0.5">เหตุผล / บันทึกการเช็คชื่อ / อาการ:</span>
+                            ${l.reason}
+                        </div>
+
+                        <!-- Bottom: Action taken & Recorder info -->
+                        <div class="mt-2 flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-gray-600 gap-1.5 pt-1.5 border-t border-gray-100/80">
+                            <div class="flex items-center gap-1.5">
+                                <span class="font-bold text-emerald-800">การดูแล/ดำเนินการ:</span>
+                                <span class="text-gray-700 font-medium">${l.actionTaken || '-'}</span>
+                            </div>
+                            <div class="text-gray-500 shrink-0 font-medium text-[10px] sm:text-[11px]">
+                                บันทึกโดย: <strong class="text-gray-800">${l.recordedBy}</strong>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = html;
+        }
+
+        function openSubmitModalFromDailyLog() {
+            closeDailySchoolStatusLogModal();
+            openSubmitStudentStatusModal();
+        }
+
+        function printDailyStatusReport() {
+            const profile = SCHOOL_PROFILES[currentStudentSchoolId] || SCHOOL_PROFILES['usr_saraphi'];
+            window.print();
+        }
+
         function initStudentInfoDashboard() {
-            // Backdrop click dismiss for modal
+            // Backdrop click dismiss for detail modal
             const modal = document.getElementById('studentStatusModal');
             if (modal) {
                 modal.addEventListener('click', (e) => {
                     if (e.target === modal) closeStudentStatusModal();
+                });
+            }
+
+            // Backdrop click dismiss for submission modal
+            const submitModal = document.getElementById('submitStudentStatusModal');
+            if (submitModal) {
+                submitModal.addEventListener('click', (e) => {
+                    if (e.target === submitModal) closeSubmitStudentStatusModal();
+                });
+            }
+
+            // Backdrop click dismiss for daily log modal
+            const logModal = document.getElementById('dailySchoolStatusLogModal');
+            if (logModal) {
+                logModal.addEventListener('click', (e) => {
+                    if (e.target === logModal) closeDailySchoolStatusLogModal();
                 });
             }
 
