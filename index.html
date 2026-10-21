@@ -890,7 +890,7 @@
                                     </button>
                                     <button type="button" onclick="selectFilterPreset('air')"
                                         class="text-xs font-semibold text-sky-800 hover:text-sky-950 bg-sky-50 hover:bg-sky-100 px-3 py-1.5 rounded-lg border border-sky-300 transition flex items-center gap-1 shadow-2xs">
-                                        <span>🌫️</span> เฉพาะเสี่ยงฝุ่น PM2.5 (6 เกณฑ์)
+                                        <span>🌫️</span> เฉพาะเสี่ยงฝุ่น PM2.5 (7 เกณฑ์)
                                     </button>
                                     <button type="button" onclick="selectFilterPreset('temp')"
                                         class="text-xs font-semibold text-amber-900 hover:text-amber-950 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-lg border border-amber-300 transition flex items-center gap-1 shadow-2xs">
@@ -914,7 +914,7 @@
                                         </span>
                                         <span
                                             class="inline-flex items-center gap-1 text-[11px] font-bold text-sky-800 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-200">
-                                            <span>🌫️</span> เสี่ยงฝุ่น PM2.5: เด็กเล็ก, BPD, ติดเชื้อทางเดินหายใจซ้ำ,
+                                            <span>🌫️</span> เสี่ยงฝุ่น PM2.5: ทารก, เด็กเล็ก, BPD, ติดเชื้อทางเดินหายใจซ้ำ,
                                             หอบหืด, ภูมิแพ้โพรงจมูก, หัวใจพิการแต่กำเนิด
                                         </span>
                                         <span
@@ -963,20 +963,20 @@
                                                     </div>
                                                 </label>
                                                 <label
-                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-purple-50/50 border border-purple-200 hover:border-purple-400 hover:shadow-2xs cursor-pointer transition">
                                                     <input type="checkbox" id="chk-newborn" onchange="filterPatients()"
-                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                        class="form-checkbox h-4 w-4 text-purple-600 rounded mt-0.5 shrink-0">
                                                     <div class="leading-snug min-w-0">
                                                         <div class="flex items-center gap-1.5 flex-wrap">
                                                             <span
                                                                 class="text-xs sm:text-sm font-bold text-gray-900">ทารก
                                                                 (อายุ ≤ 1 ปี)</span>
                                                             <span
-                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
-                                                                เสี่ยงความร้อน</span>
+                                                                class="text-[10px] font-bold text-purple-800 bg-purple-100 px-1.5 py-0.2 rounded">⚡
+                                                                เสี่ยงฝุ่น + ความร้อน</span>
                                                         </div>
                                                         <div class="text-[11px] text-gray-500 font-normal">
-                                                            ระบบคุมอุณหภูมิยังไม่สมบูรณ์</div>
+                                                            ระบบคุมอุณหภูมิยังไม่สมบูรณ์ ไวต่อมลพิษฝุ่น</div>
                                                     </div>
                                                 </label>
                                                 <label
@@ -3703,14 +3703,15 @@
         }
 
         // Criteria for Risk Patients (as explicitly defined by clinical guidance):
-        // Air Risk Conditions (6 conditions):
-        // 1. เด็กเล็ก (child_5)
-        // 2. มีประวัติโรคหลอดลมและเนื้อเยื่อปอดเปราะบาง (bpd)
-        // 3. ติดเชื้อทางเดินหายใจซ้ำ (rti)
-        // 4. โรคหอบหืด (asthma)
-        // 5. โรคภูมิแพ้โพรงจมูก (ar)
-        // 6. โรคหัวใจพิการแต่กำเนิด (chd)
-        const AIR_RISK_FACTORS = ['child_5', 'bpd', 'rti', 'asthma', 'ar', 'chd'];
+        // Air Risk Conditions (7 conditions):
+        // 1. ทารก (newborn)
+        // 2. เด็กเล็ก (child_5)
+        // 3. มีประวัติโรคหลอดลมและเนื้อเยื่อปอดเปราะบาง (bpd)
+        // 4. ติดเชื้อทางเดินหายใจซ้ำ (rti)
+        // 5. โรคหอบหืด (asthma)
+        // 6. โรคภูมิแพ้โพรงจมูก (ar)
+        // 7. โรคหัวใจพิการแต่กำเนิด (chd)
+        const AIR_RISK_FACTORS = ['newborn', 'child_5', 'bpd', 'rti', 'asthma', 'ar', 'chd'];
 
         // Temp Risk Conditions (11 conditions):
         // 1. ทารก (newborn)
