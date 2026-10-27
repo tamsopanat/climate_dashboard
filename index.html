@@ -4436,6 +4436,7 @@
             if (typeof selectedStationBoxes !== 'undefined' && selectedStationBoxes.clear) selectedStationBoxes.clear();
             if (typeof activeStationFilter !== 'undefined') activeStationFilter = null;
             if (typeof selectedRiskFilters !== 'undefined') selectedRiskFilters.clear();
+            if (typeof hospitalBothRiskFilterActive !== 'undefined') hospitalBothRiskFilterActive = false;
             updateRiskFilterVisuals();
             filterPatients();
 
@@ -5627,6 +5628,7 @@
         ];
 
         function selectAllFilters(selectState) {
+            hospitalBothRiskFilterActive = false;
             const chkNormal = document.getElementById('chk-normal-patient');
             if (chkNormal) chkNormal.checked = true;
             filterCheckboxes.forEach(item => {
@@ -5637,6 +5639,7 @@
         }
 
         function selectFilterPreset(preset) {
+            hospitalBothRiskFilterActive = false;
             const chkNormal = document.getElementById('chk-normal-patient');
             if (preset === 'air') {
                 if (chkNormal) chkNormal.checked = false;
@@ -5664,6 +5667,7 @@
 
         function clearRiskFilter() {
             selectedRiskFilters.clear();
+            hospitalBothRiskFilterActive = false;
             if (typeof filterPatients === 'function') filterPatients();
         }
 
@@ -5681,6 +5685,12 @@
 
         // --- 7. Dynamic Patient Filtering & Counter Updates ---
         let currentFilteredPatients = [];
+        let hospitalBothRiskFilterActive = false;
+
+        function toggleHospitalBothRiskFilter() {
+            hospitalBothRiskFilterActive = !hospitalBothRiskFilterActive;
+            filterPatients();
+        }
 
 
         // --- MULTI-SENSOR DYNAMIC RENDERING & NEAREST STATION MAPPING ---
@@ -5690,6 +5700,27 @@
         function getStationsForRole(roleCode) {
             const role = HOSPITAL_ROLES.find(h => h.hospcode === roleCode || h.id === roleCode);
             if (!role) return [];
+            const isGov = (role.type === 'Gov Office' || !!role.isGov);
+            const isSchool = (role.type === 'School' || !!role.isSchool);
+            const isHospital = (!isGov && !isSchool) || role.type === 'Hospital';
+
+            if (isHospital || isSchool) {
+                return [
+                    {
+                        name: role.name,
+                        shortName: role.shortName || role.name,
+                        type: isSchool ? 'School' : 'Hospital',
+                        hospcode: role.hospcode,
+                        pm25: role.pm25 != null ? role.pm25 : 35.0,
+                        temp: role.temp != null ? role.temp : 32.0,
+                        lat: role.lat || 18.5200,
+                        lng: role.lng || 98.4200,
+                        isHospital: isHospital,
+                        isSchool: isSchool
+                    }
+                ];
+            }
+
             const site = userSites.find(s => s.id === role.id || s.id === roleCode);
             if (site && site.stations && site.stations.length > 0) {
                 return site.stations;
@@ -5759,7 +5790,7 @@
             clearAllStationBoxFilters();
         }
 
-        function generateAirCardHtml(station, airRisk, normalCount, riskCount, totalCount, isSelected, isGov = false, isSchool = false) {
+        function generateAirCardHtml(station, airRisk, normalCount, riskCount, totalCount, isSelected, isGov = false, isSchool = false, isHospital = false) {
             const config = {
                 1: {
                     borderClass: 'border-sky-300',
@@ -5831,12 +5862,20 @@
             const c = config[airRisk.level] || config[1];
             const pmVal = typeof station.pm25 === 'number' ? station.pm25.toFixed(1) : station.pm25;
             const unit = (isGov || isSchool) ? 'คน' : 'ราย';
-            const totalLabel = isGov ? 'รวมประชากรใกล้เคียง' : (isSchool ? 'รวมนักเรียนใกล้เคียง' : 'รวมผู้ป่วยใกล้เคียง');
+            const totalLabel = isHospital ? 'รวมผู้ป่วยในความดูแล' : (isSchool ? 'รวมนักเรียนในสถานศึกษา' : (isGov ? 'รวมประชากรใกล้เคียง' : 'รวมผู้ป่วยใกล้เคียง'));
+            const isClickable = !isGov && !isHospital && !isSchool;
+
+            let footerActionHtml = '';
+            if (!isGov && !isHospital && !isSchool) {
+                footerActionHtml = isSelected
+                    ? '<span class="bg-sky-600 text-white font-bold text-[9px] px-2 py-0.5 rounded-full shadow-2xs flex items-center gap-0.5">✓ กรองอยู่</span>'
+                    : '<span class="text-gray-400 text-[10px] hover:text-sky-600 font-medium flex items-center gap-0.5"><span>+</span> คลิกเพื่อกรอง</span>';
+            }
 
             return `
-                <div class="rounded-xl overflow-hidden border ${c.borderClass} bg-white flex flex-col justify-between shadow-2xs transition hover:shadow-md ${isGov ? 'cursor-default' : 'cursor-pointer'} ${!isGov && isSelected ? 'ring-2 ring-sky-500 shadow-md bg-sky-50/15' : ''}"
-                     ${isGov ? '' : `onclick="toggleStationHazardFilter('${station.name.replace(/'/g, "\\'")}', 'air')"`}
-                     title="${isGov ? '' : (isSelected ? 'คลิกเพื่อยกเลิกการกรองกล่องนี้' : 'คลิกเพื่อเลือกกรองกล่องนี้')}">
+                <div class="rounded-xl overflow-hidden border ${c.borderClass} bg-white flex flex-col justify-between shadow-2xs transition hover:shadow-md ${isClickable ? 'cursor-pointer' : 'cursor-default'} ${isClickable && isSelected ? 'ring-2 ring-sky-500 shadow-md bg-sky-50/15' : ''}"
+                     ${isClickable ? `onclick="toggleStationHazardFilter('${station.name.replace(/'/g, "\\'")}', 'air')"` : ''}
+                     title="${isClickable ? (isSelected ? 'คลิกเพื่อยกเลิกการกรองกล่องนี้' : 'คลิกเพื่อเลือกกรองกล่องนี้') : ''}">
                     <!-- Header -->
                     <div class="px-3.5 py-2 bg-gradient-to-br ${c.gradientClass} border-b flex flex-col justify-between">
                         <div class="flex items-center justify-between gap-1 mb-1">
@@ -5854,7 +5893,7 @@
                         <div class="bg-sky-50/80 rounded-lg px-3 py-1.5 border border-sky-200/90 shadow-2xs flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <span class="w-6 h-6 rounded-md ${c.iconBgClass} text-white flex items-center justify-center font-black text-xs shrink-0">💨</span>
-                                <span class="text-[11px] font-bold text-gray-700">ค่าฝุ่น PM2.5 ตรวจวัดจริง</span>
+                                <span class="text-[11px] font-bold text-gray-700">${isHospital ? 'ค่าฝุ่น PM2.5 ประจำสถานพยาบาล' : (isSchool ? 'ค่าฝุ่น PM2.5 ประจำสถานศึกษา' : 'ค่าฝุ่น PM2.5 ตรวจวัดจริง')}</span>
                             </div>
                             <div class="flex items-baseline gap-1">
                                 <span class="text-lg font-black ${c.valColorClass} font-mono leading-none">${pmVal}</span>
@@ -5889,10 +5928,7 @@
                             </div>
                             <div class="text-[10px] text-gray-500 font-medium flex items-center justify-between">
                                 <span>${totalLabel}: <strong class="text-gray-800 font-bold">${totalCount}</strong> ${unit}</span>
-                                ${isGov
-                    ? ''
-                    : (isSelected ? '<span class="bg-sky-600 text-white font-bold text-[9px] px-2 py-0.5 rounded-full shadow-2xs flex items-center gap-0.5">✓ กรองอยู่</span>' : '<span class="text-gray-400 text-[10px] hover:text-sky-600 font-medium flex items-center gap-0.5"><span>+</span> คลิกเพื่อกรอง</span>')
-                }
+                                ${footerActionHtml}
                             </div>
                         </div>
                     </div>
@@ -5900,7 +5936,7 @@
             `;
         }
 
-        function generateTempCardHtml(station, tempRisk, normalCount, riskCount, totalCount, isSelected, isGov = false, isSchool = false) {
+        function generateTempCardHtml(station, tempRisk, normalCount, riskCount, totalCount, isSelected, isGov = false, isSchool = false, isHospital = false) {
             const config = {
                 1: {
                     borderClass: 'border-emerald-300',
@@ -5959,12 +5995,20 @@
             const c = config[tempRisk.level] || config[1];
             const tempVal = typeof station.temp === 'number' ? station.temp.toFixed(1) : station.temp;
             const unit = (isGov || isSchool) ? 'คน' : 'ราย';
-            const totalLabel = isGov ? 'รวมประชากรใกล้เคียง' : (isSchool ? 'รวมนักเรียนใกล้เคียง' : 'รวมผู้ป่วยใกล้เคียง');
+            const totalLabel = isHospital ? 'รวมผู้ป่วยในความดูแล' : (isSchool ? 'รวมนักเรียนในสถานศึกษา' : (isGov ? 'รวมประชากรใกล้เคียง' : 'รวมผู้ป่วยใกล้เคียง'));
+            const isClickable = !isGov && !isHospital && !isSchool;
+
+            let footerActionHtml = '';
+            if (!isGov && !isHospital && !isSchool) {
+                footerActionHtml = isSelected
+                    ? '<span class="bg-amber-600 text-white font-bold text-[9px] px-2 py-0.5 rounded-full shadow-2xs flex items-center gap-0.5">✓ กรองอยู่</span>'
+                    : '<span class="text-gray-400 text-[10px] hover:text-amber-600 font-medium flex items-center gap-0.5"><span>+</span> คลิกเพื่อกรอง</span>';
+            }
 
             return `
-                <div class="rounded-xl overflow-hidden border ${c.borderClass} bg-white flex flex-col justify-between shadow-2xs transition hover:shadow-md ${isGov ? 'cursor-default' : 'cursor-pointer'} ${!isGov && isSelected ? 'ring-2 ring-amber-500 shadow-md bg-amber-50/15' : ''}"
-                     ${isGov ? '' : `onclick="toggleStationHazardFilter('${station.name.replace(/'/g, "\\'")}', 'temp')"`}
-                     title="${isGov ? '' : (isSelected ? 'คลิกเพื่อยกเลิกการกรองกล่องนี้' : 'คลิกเพื่อเลือกกรองกล่องนี้')}">
+                <div class="rounded-xl overflow-hidden border ${c.borderClass} bg-white flex flex-col justify-between shadow-2xs transition hover:shadow-md ${isClickable ? 'cursor-pointer' : 'cursor-default'} ${isClickable && isSelected ? 'ring-2 ring-amber-500 shadow-md bg-amber-50/15' : ''}"
+                     ${isClickable ? `onclick="toggleStationHazardFilter('${station.name.replace(/'/g, "\\'")}', 'temp')"` : ''}
+                     title="${isClickable ? (isSelected ? 'คลิกเพื่อยกเลิกการกรองกล่องนี้' : 'คลิกเพื่อเลือกกรองกล่องนี้') : ''}">
                     <!-- Header -->
                     <div class="px-3.5 py-2 bg-gradient-to-br ${c.gradientClass} border-b flex flex-col justify-between">
                         <div class="flex items-center justify-between gap-1 mb-1">
@@ -5982,7 +6026,7 @@
                         <div class="bg-amber-50/80 rounded-lg px-3 py-1.5 border border-amber-200/90 shadow-2xs flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <span class="w-6 h-6 rounded-md ${c.iconBgClass} text-white flex items-center justify-center font-black text-xs shrink-0">🌡️</span>
-                                <span class="text-[11px] font-bold text-gray-700">ดัชนีความร้อนตรวจวัดจริง</span>
+                                <span class="text-[11px] font-bold text-gray-700">${isHospital ? 'ดัชนีความร้อนประจำสถานพยาบาล' : (isSchool ? 'ดัชนีความร้อนประจำสถานศึกษา' : 'ดัชนีความร้อนตรวจวัดจริง')}</span>
                             </div>
                             <div class="flex items-baseline gap-1">
                                 <span class="text-lg font-black ${c.valColorClass} font-mono leading-none">${tempVal}</span>
@@ -6017,10 +6061,7 @@
                             </div>
                             <div class="text-[10px] text-gray-500 font-medium flex items-center justify-between">
                                 <span>${totalLabel}: <strong class="text-gray-800 font-bold">${totalCount}</strong> ${unit}</span>
-                                ${isGov
-                    ? ''
-                    : (isSelected ? '<span class="bg-amber-600 text-white font-bold text-[9px] px-2 py-0.5 rounded-full shadow-2xs flex items-center gap-0.5">✓ กรองอยู่</span>' : '<span class="text-gray-400 text-[10px] hover:text-amber-600 font-medium flex items-center gap-0.5"><span>+</span> คลิกเพื่อกรอง</span>')
-                }
+                                ${footerActionHtml}
                             </div>
                         </div>
                     </div>
@@ -6032,14 +6073,126 @@
             const container = document.getElementById('hazards-comparison-container');
             if (!container) return;
 
+            const activeHospital = HOSPITAL_ROLES.find(x => x.hospcode === currentHospitalCode) || HOSPITAL_ROLES[0];
+            const isGov = (activeHospital.type === 'Gov Office' || !!activeHospital.isGov);
+            const isSchool = (activeHospital.type === 'School' || !!activeHospital.isSchool);
+            const isHospital = (!isGov && !isSchool) || activeHospital.type === 'Hospital';
+
+            // Hospital & School roles: expose to only ONE PM2.5 and Heat index value (no need of outer header banner)
+            // Just two boxes (PM2.5 & Heat Index) + Box indicating individuals with both risks below the 2 boxes
+            if (isHospital || isSchool) {
+                const airRisk = getAirRisk(activeHospital.pm25);
+                const tempRisk = getTempRisk(activeHospital.temp);
+
+                const normalAirCount = allRolePatients.filter(p => !isAirRiskPatient(p)).length;
+                const riskAirCount = allRolePatients.filter(p => isAirRiskPatient(p)).length;
+
+                const normalTempCount = allRolePatients.filter(p => !isTempRiskPatient(p)).length;
+                const riskTempCount = allRolePatients.filter(p => isTempRiskPatient(p)).length;
+
+                const airCardHtml = generateAirCardHtml(
+                    { name: activeHospital.name, pm25: activeHospital.pm25 },
+                    airRisk, normalAirCount, riskAirCount, allRolePatients.length, false, false, isSchool, isHospital
+                );
+                const tempCardHtml = generateTempCardHtml(
+                    { name: activeHospital.name, temp: activeHospital.temp },
+                    tempRisk, normalTempCount, riskTempCount, allRolePatients.length, false, false, isSchool, isHospital
+                );
+
+                const bothRiskPatients = allRolePatients.filter(p => isAirRiskPatient(p) && isTempRiskPatient(p));
+                const bothRiskCount = bothRiskPatients.length;
+                const totalCount = allRolePatients.length;
+                const bothRiskPct = totalCount > 0 ? Math.round((bothRiskCount / totalCount) * 100) : 0;
+
+                const entityTitle = isSchool ? 'นักเรียนที่มีความเสี่ยงทั้งสองด้าน (ฝุ่น PM2.5 + ความร้อน)' : 'ผู้ป่วยที่มีความเสี่ยงทั้งสองด้าน (ฝุ่น PM2.5 + ความร้อน)';
+                const entitySubtitle = isSchool 
+                    ? 'นักเรียนในสถานศึกษาที่มีปัจจัยเปราะบางทางสุขภาพเข้าเกณฑ์กลุ่มเสี่ยงต่อทั้ง PM2.5 และอุณหภูมิ/ความร้อนพร้อมกัน' 
+                    : 'ผู้ป่วยในความดูแลที่มีปัจจัยเปราะบางทางสุขภาพเข้าเกณฑ์กลุ่มเสี่ยงต่อทั้ง PM2.5 และอุณหภูมิ/ความร้อนพร้อมกัน';
+                const entityMetric = isSchool ? 'จำนวนนักเรียนกลุ่มเสี่ยงร่วม' : 'จำนวนผู้ป่วยกลุ่มเสี่ยงร่วม';
+                const unit = isSchool ? 'คน' : 'ราย';
+                const guidance = isSchool
+                    ? 'นักเรียนกลุ่มนี้มีปัจจัยสุขภาพที่เปราะบางต่อผลกระทบซ้ำซ้อน ทั้งอาการทางเดินหายใจจากฝุ่น PM2.5 และภาวะเสี่ยงต่อความร้อน เช่น โรคหอบหืด, ภูมิแพ้ หรือนักเรียนที่มีภาวะอ้วน/น้ำหนักน้อย แนะนำให้คุณครูและบุคลากรสถานศึกษาเฝ้าระวังอย่างใกล้ชิด งดกิจกรรมกลางแจ้ง และประสานผู้ปกครองดูแลการใช้ยา'
+                    : 'ผู้ป่วยกลุ่มนี้มีปัจจัยสุขภาพที่เปราะบางต่อผลกระทบซ้ำซ้อน ทั้งอาการทางเดินหายใจจากฝุ่น PM2.5 และภาวะแทรกซ้อนจากความร้อน (Heat-related illness) เช่น โรคหอบหืด, โรคหัวใจ, หรือผู้ใช้ยาที่มีผลต่อการระบายความร้อน ควรจัดลำดับความสำคัญสูงสุดในการติดตามอาการและให้คำแนะนำ';
+
+                const bothRiskCardHtml = `
+                    <div class="rounded-xl overflow-hidden border ${hospitalBothRiskFilterActive ? 'border-purple-500 ring-2 ring-purple-400 bg-purple-50/20' : 'border-purple-200/90 bg-white'} shadow-2xs transition hover:shadow-md">
+                        <!-- Header -->
+                        <div class="px-4 py-2.5 bg-gradient-to-r from-purple-50 via-indigo-50/70 to-pink-50/40 border-b border-purple-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-7 h-7 rounded-lg bg-white border border-purple-200 shadow-2xs text-purple-700 flex items-center justify-center font-bold text-xs shrink-0">
+                                    ⚡
+                                </span>
+                                <div>
+                                    <h4 class="text-xs sm:text-sm font-black text-purple-950 leading-none">${entityTitle}</h4>
+                                    <p class="text-[11px] text-gray-500 mt-1 leading-none">
+                                        ${entitySubtitle}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                                <button type="button" onclick="toggleHospitalBothRiskFilter()" 
+                                    class="${hospitalBothRiskFilterActive 
+                                        ? 'bg-purple-700 hover:bg-purple-800 text-white shadow-xs ring-2 ring-purple-400' 
+                                        : 'bg-white hover:bg-purple-50 text-purple-800 border border-purple-200 shadow-2xs'} 
+                                        text-xs font-bold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer"
+                                    title="${hospitalBothRiskFilterActive ? 'คลิกเพื่อยกเลิกการกรองกลุ่มเสี่ยงทั้งสองด้าน' : 'คลิกเพื่อกรองตารางรายชื่อแสดงเฉพาะกลุ่มเสี่ยงทั้งสองด้าน'}">
+                                    <span>${hospitalBothRiskFilterActive ? '✓' : '🔍'}</span>
+                                    <span>${hospitalBothRiskFilterActive ? 'กำลังกรองเฉพาะกลุ่มนี้' : 'กรองเฉพาะกลุ่มนี้'}</span>
+                                    <span class="${hospitalBothRiskFilterActive ? 'bg-purple-800 text-purple-100' : 'bg-purple-100 text-purple-800'} text-[10px] font-mono px-1.5 py-0.2 rounded-full font-black">${bothRiskCount}</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="p-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3.5">
+                            <div class="flex items-center gap-3 shrink-0">
+                                <div class="bg-gradient-to-br from-purple-50 to-indigo-50/60 rounded-xl px-4 py-2.5 border border-purple-200/90 shadow-2xs flex items-center gap-3.5">
+                                    <div class="flex flex-col">
+                                        <span class="text-[10px] font-bold text-purple-900 uppercase tracking-wider">${entityMetric}</span>
+                                        <div class="flex items-baseline gap-1 mt-0.5">
+                                            <span class="text-2xl sm:text-3xl font-black text-purple-700 font-mono leading-none">${bothRiskCount}</span>
+                                            <span class="text-xs font-bold text-gray-600">${unit}</span>
+                                        </div>
+                                    </div>
+                                    <div class="border-l border-purple-200 pl-3.5 flex flex-col justify-center">
+                                        <div class="text-xs font-black text-purple-800 font-mono">${bothRiskPct}%</div>
+                                        <div class="text-[10px] text-gray-500 font-medium">จากทั้งหมด ${totalCount} ${unit}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-xs text-gray-600 leading-snug space-y-1 grow">
+                                <div class="font-bold text-gray-800 flex items-center gap-1">
+                                    <span>📋</span>
+                                    <span>แนวทางการเฝ้าระวังและการดูแล:</span>
+                                </div>
+                                <p class="text-gray-600 text-[11px] leading-relaxed">
+                                    ${guidance}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.innerHTML = `
+                    <div class="space-y-3.5">
+                        <!-- 2 Boxes: PM2.5 Box and Temperature Box side-by-side -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 items-stretch">
+                            ${airCardHtml}
+                            ${tempCardHtml}
+                        </div>
+
+                        <!-- Box indicating number of individuals that have both risks (below 2 boxes) -->
+                        ${bothRiskCardHtml}
+                    </div>
+                `;
+                return;
+            }
+
             if (!stations || stations.length === 0) {
                 container.innerHTML = `<div class="p-8 text-center text-gray-500 bg-white rounded-2xl border border-gray-200">ไม่พบสถานีตรวจวัดในพื้นที่นี้</div>`;
                 return;
             }
-
-            const activeHospital = HOSPITAL_ROLES.find(x => x.hospcode === currentHospitalCode) || HOSPITAL_ROLES[0];
-            const isGov = (activeHospital.type === 'Gov Office' || !!activeHospital.isGov);
-            const isSchool = (activeHospital.type === 'School' || !!activeHospital.isSchool);
 
             let filterBannerHtml = '';
             if (!isGov && selectedStationBoxes.size > 0) {
@@ -6094,8 +6247,8 @@
                 const isSelectedAir = !isGov && selectedStationBoxes.has(`${st.name}::air`);
                 const isSelectedTemp = !isGov && selectedStationBoxes.has(`${st.name}::temp`);
 
-                const airCardHtml = generateAirCardHtml(st, airRisk, normalAirCount, riskAirCount, stPatients.length, isSelectedAir, isGov, isSchool);
-                const tempCardHtml = generateTempCardHtml(st, tempRisk, normalTempCount, riskTempCount, stPatients.length, isSelectedTemp, isGov, isSchool);
+                const airCardHtml = generateAirCardHtml(st, airRisk, normalAirCount, riskAirCount, stPatients.length, isSelectedAir, isGov, isSchool, false);
+                const tempCardHtml = generateTempCardHtml(st, tempRisk, normalTempCount, riskTempCount, stPatients.length, isSelectedTemp, isGov, isSchool, false);
 
                 const patientSubText = isGov
                     ? `• ประชากรในพื้นที่ใกล้เคียงสถานีนี้: <strong class="text-gray-900 font-bold">${stPatients.length}</strong> คน`
@@ -6171,6 +6324,7 @@
             const activeHospital = HOSPITAL_ROLES.find(h => h.hospcode === currentHospitalCode) || HOSPITAL_ROLES[0];
             const isGovMode = (activeHospital.type === 'Gov Office' || !!activeHospital.isGov);
             const isSchoolMode = (activeHospital.type === 'School' || !!activeHospital.isSchool);
+            const isHospitalMode = (!isGovMode && !isSchoolMode) || activeHospital.type === 'Hospital';
 
             // Filter patients by active role
             const hospitalFilteredDb = allPatientsDb.filter(p => p.hosp === currentHospitalCode);
@@ -6178,18 +6332,32 @@
             // Get all monitoring stations for the active role area
             const stations = getStationsForRole(currentHospitalCode);
 
-            // Map each patient within this role area to their nearest station
-            hospitalFilteredDb.forEach(p => {
-                const nearest = findNearestStation(p, stations);
-                p._nearestStation = nearest;
-                if (nearest) {
-                    p.pm25 = nearest.pm25;
-                    p.temp = nearest.temp;
-                    p.station_name = nearest.name;
-                }
-                p.tambon = activeHospital.tambon;
-                p._risk = calculateCompositeRisk(p);
-            });
+            // Assign environmental exposure & risk
+            if (isHospitalMode || isSchoolMode) {
+                // Each hospital & school exposes to only one PM2.5 and Heat index value
+                // No need to map each patient/student to nearest sensor anymore
+                hospitalFilteredDb.forEach(p => {
+                    p._nearestStation = null;
+                    p.station_name = activeHospital.shortName || activeHospital.name;
+                    p.pm25 = activeHospital.pm25 != null ? activeHospital.pm25 : 35.0;
+                    p.temp = activeHospital.temp != null ? activeHospital.temp : 32.0;
+                    p.tambon = activeHospital.tambon;
+                    p._risk = calculateCompositeRisk(p);
+                });
+            } else {
+                // Map each patient within this role area to their nearest station
+                hospitalFilteredDb.forEach(p => {
+                    const nearest = findNearestStation(p, stations);
+                    p._nearestStation = nearest;
+                    if (nearest) {
+                        p.pm25 = nearest.pm25;
+                        p.temp = nearest.temp;
+                        p.station_name = nearest.name;
+                    }
+                    p.tambon = activeHospital.tambon;
+                    p._risk = calculateCompositeRisk(p);
+                });
+            }
 
             // Base criteria for Part 3 Targeted Patient/Student List
             let baseFiltered;
@@ -6235,7 +6403,7 @@
                     let matchesSearch = true;
                     if (searchInput) {
                         const thFactors = (p.factors || []).map(f => VULNERABILITY_DEF[f]?.th || "").join(' ');
-                        const stName = p._nearestStation ? p._nearestStation.name : "";
+                        const stName = (!isHospitalMode && p._nearestStation) ? p._nearestStation.name : "";
                         const text = `${p.cid} ${p.name} ${p.classroom || ''} ${p.gender_age} ${p.hosp} ${p.hosp_name} ${risk.air.name} ${risk.air.colorName} ${risk.temp.name} ${p.pm25} ${p.temp} ${p.conditions} ${thFactors} ${p.tambon} ${stName}`.toLowerCase();
                         matchesSearch = text.includes(searchInput);
                     }
@@ -6260,6 +6428,7 @@
             const thName = document.getElementById('th-name');
             const thClassroom = document.getElementById('th-classroom');
             const thGenderAge = document.getElementById('th-gender-age');
+            const thStation = document.getElementById('th-station');
             const thFactors = document.getElementById('th-factors');
             const patientSearch = document.getElementById('patient-search');
 
@@ -6279,8 +6448,9 @@
                 if (thName) thName.textContent = "ชื่อ-สกุล นักเรียน";
                 if (thClassroom) thClassroom.classList.remove('hidden');
                 if (thGenderAge) thGenderAge.textContent = "เพศ/อายุ";
+                if (thStation) thStation.classList.add('hidden');
                 if (thFactors) thFactors.textContent = "ปัจจัยเสี่ยง / โรคประจำตัว";
-                if (patientSearch) patientSearch.placeholder = "ค้นหา รหัสนักเรียน, ชั้นเรียน, ชื่อ-สกุล, สถานี...";
+                if (patientSearch) patientSearch.placeholder = "ค้นหา รหัสนักเรียน, ชั้นเรียน, ชื่อ-สกุล...";
 
                 if (providerBadge) providerBadge.textContent = "การเฝ้าระวังสุขภาพนักเรียน";
                 if (providerTitle) providerTitle.textContent = `ข้อมูลความเสี่ยงและนักเรียนกลุ่มเปราะบาง`;
@@ -6314,8 +6484,9 @@
                 if (thName) thName.textContent = "ชื่อ-สกุล";
                 if (thClassroom) thClassroom.classList.add('hidden');
                 if (thGenderAge) thGenderAge.textContent = "เพศ/อายุ";
+                if (thStation) thStation.classList.add('hidden');
                 if (thFactors) thFactors.textContent = "ปัจจัยเปราะบาง / โรคประจำตัว";
-                if (patientSearch) patientSearch.placeholder = "ค้นหา เลขประจำตัวประชาชน, ชื่อ-สกุล, สถานีตรวจวัด...";
+                if (patientSearch) patientSearch.placeholder = "ค้นหา เลขประจำตัวประชาชน, ชื่อ-สกุล, โรคประจำตัว...";
 
                 if (providerBadge) providerBadge.textContent = "การประเมินความเสี่ยงทางคลินิก";
                 if (providerTitle) providerTitle.textContent = "การจัดการกลุ่มเปราะบาง";
@@ -6332,8 +6503,8 @@
                 return;
             }
 
-            // Apply multi-box station/hazard filter
-            if (selectedStationBoxes.size > 0) {
+            // Apply multi-box station/hazard filter or hospital/school both-risk filter
+            if (!isHospitalMode && !isSchoolMode && selectedStationBoxes.size > 0) {
                 const selectedStations = new Set();
                 selectedStationBoxes.forEach(key => {
                     const [stName] = key.split('::');
@@ -6343,15 +6514,29 @@
                 currentFilteredPatients = baseFiltered.filter(p => {
                     return p._nearestStation && selectedStations.has(p._nearestStation.name);
                 });
+            } else if ((isHospitalMode || isSchoolMode) && hospitalBothRiskFilterActive) {
+                currentFilteredPatients = baseFiltered.filter(p => isAirRiskPatient(p) && isTempRiskPatient(p));
             } else {
                 currentFilteredPatients = baseFiltered;
+            }
+
+            if (providerListTitle) {
+                const entityTitle = isSchoolMode ? 'รายชื่อนักเรียนกลุ่มเสี่ยง' : 'รายชื่อผู้ป่วยกลุ่มเป้าหมาย';
+                const unitName = isSchoolMode ? 'คน' : 'ราย';
+                if ((isHospitalMode || isSchoolMode) && hospitalBothRiskFilterActive) {
+                    providerListTitle.innerHTML = `${entityTitle} <span class="inline-flex items-center gap-1 bg-purple-100 text-purple-800 text-xs font-bold px-2.5 py-0.5 rounded-full border border-purple-300 ml-2 font-normal">⚡ เสี่ยงทั้ง 2 ด้าน (${currentFilteredPatients.length} ${unitName}) <button type="button" onclick="toggleHospitalBothRiskFilter()" class="hover:text-purple-950 ml-0.5 font-black" title="ยกเลิกการกรอง">✕</button></span>`;
+                } else if (isHospitalMode) {
+                    providerListTitle.textContent = `รายชื่อผู้ป่วยกลุ่มเป้าหมาย`;
+                } else if (isSchoolMode) {
+                    providerListTitle.textContent = `รายชื่อนักเรียนกลุ่มเสี่ยง`;
+                }
             }
 
             // Render Table Rows
             const tbody = document.getElementById('patient-table-body');
             tbody.innerHTML = '';
 
-            const colCount = isSchoolMode ? 8 : 7;
+            const colCount = isSchoolMode ? 7 : (isHospitalMode ? 6 : 7);
             if (currentFilteredPatients.length === 0) {
                 tbody.innerHTML = `
                     <tr>
@@ -6393,6 +6578,24 @@
                 const stPm = p.pm25 != null ? (typeof p.pm25 === 'number' ? p.pm25.toFixed(1) : p.pm25) : '--';
                 const stTemp = p.temp != null ? (typeof p.temp === 'number' ? p.temp.toFixed(1) : p.temp) : '--';
 
+                const stationCell = (isHospitalMode || isSchoolMode)
+                    ? ''
+                    : `
+                        <td class="px-5 py-3.5 whitespace-nowrap">
+                            <div class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-md bg-indigo-50 border border-indigo-200 text-indigo-700 flex items-center justify-center text-xs shrink-0 font-bold">📡</span>
+                                <div>
+                                    <div class="text-xs font-bold text-gray-900">${stName}</div>
+                                    <div class="text-[11px] text-gray-500 font-mono flex items-center gap-1.5 mt-0.5">
+                                        <span>ฝุ่น: <strong class="text-sky-700 font-bold">${stPm}</strong></span>
+                                        <span>•</span>
+                                        <span>ความร้อน: <strong class="text-amber-700 font-bold">${stTemp}°C</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    `;
+
                 tbody.innerHTML += `
                     <tr class="hover:bg-blue-50/30 transition border-b border-gray-100 text-sm">
                         <td class="px-5 py-3.5 font-mono text-xs font-semibold text-gray-900 tracking-wider whitespace-nowrap">
@@ -6411,19 +6614,7 @@
                                 ${tempGroupTag}
                             </div>
                         </td>
-                        <td class="px-5 py-3.5 whitespace-nowrap">
-                            <div class="flex items-center gap-2">
-                                <span class="w-6 h-6 rounded-md bg-indigo-50 border border-indigo-200 text-indigo-700 flex items-center justify-center text-xs shrink-0 font-bold">📡</span>
-                                <div>
-                                    <div class="text-xs font-bold text-gray-900">${stName}</div>
-                                    <div class="text-[11px] text-gray-500 font-mono flex items-center gap-1.5 mt-0.5">
-                                        <span>ฝุ่น: <strong class="text-sky-700 font-bold">${stPm}</strong></span>
-                                        <span>•</span>
-                                        <span>ความร้อน: <strong class="text-amber-700 font-bold">${stTemp}°C</strong></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
+                        ${stationCell}
                         <td class="px-5 py-3.5 min-w-[280px]">
                             ${(!p.factors || p.factors.length === 0)
                         ? '<span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-gray-100 text-gray-600 border border-gray-200 shadow-2xs">ไม่มีปัจจัยเปราะบาง</span>'
@@ -6444,8 +6635,10 @@
             });
 
             let filterStatusText = "";
-            if (selectedStationBoxes.size > 0) {
+            if (!isHospitalMode && !isSchoolMode && selectedStationBoxes.size > 0) {
                 filterStatusText = ` (กรองเลือก ${selectedStationBoxes.size} กล่อง)`;
+            } else if ((isHospitalMode || isSchoolMode) && hospitalBothRiskFilterActive) {
+                filterStatusText = ` (กรองเฉพาะกลุ่มเสี่ยงทั้ง 2 ด้าน)`;
             }
 
             const currentHospObj = HOSPITAL_ROLES.find(h => h.hospcode === currentHospitalCode);
@@ -6468,6 +6661,7 @@
             const currentHosp = HOSPITAL_ROLES.find(h => h.hospcode === currentHospitalCode);
             const isSchool = currentHosp && (currentHosp.isSchool || currentHosp.type === 'School');
             const isGov = currentHosp && (currentHosp.isGov || currentHosp.type === 'Gov Office');
+            const isHospital = (!isSchool && !isGov) || (currentHosp && currentHosp.type === 'Hospital');
 
             const headers = [
                 isSchool ? "รหัสนักเรียน / CID" : "CID",
@@ -6475,7 +6669,7 @@
                 ...(isSchool ? ["ชั้นเรียน"] : []),
                 "เพศ/อายุ",
                 isSchool ? "สถานศึกษา" : (isGov ? "หน่วยงาน อปท." : "รหัส รพ."),
-                "สถานีตรวจวัดใกล้เคียง",
+                ...(!isHospital && !isSchool ? ["สถานีตรวจวัดใกล้เคียง"] : []),
                 "ระดับคุณภาพอากาศ",
                 "ค่า PM2.5 (มคก./ลบ.ม.)",
                 "ระดับดัชนีความร้อน",
@@ -6499,7 +6693,7 @@
                     ...(isSchool ? [`"${p.classroom || '-'}"`] : []),
                     `"${p.gender_age}"`,
                     `"${p.hosp_name || p.hosp}"`,
-                    `"${stName}"`,
+                    ...(!isHospital && !isSchool ? [`"${stName}"`] : []),
                     `"${air.name} (${air.colorName})"`,
                     p.pm25 != null ? (typeof p.pm25 === 'number' ? p.pm25.toFixed(1) : p.pm25) : "-",
                     `"ระดับ${tempRisk.name}"`,
