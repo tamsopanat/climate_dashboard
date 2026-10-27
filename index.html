@@ -780,13 +780,23 @@
                     class="bg-white/95 backdrop-blur-md rounded-2xl shadow-md border border-gray-200/90 px-6 py-3.5 flex flex-wrap items-center justify-end gap-3 sticky top-[116px] md:top-4 z-40 transition-all">
                     <!-- Role Switcher & Active Hospital Dropdown Controls -->
                     <div class="flex flex-wrap items-center justify-end gap-3 w-full">
-                        <!-- Role Pill -->
-                        <div id="role-pill-container"
-                            class="inline-flex items-center gap-1 bg-indigo-50 border border-indigo-200/80 p-1 rounded-xl text-xs font-semibold text-indigo-800 shadow-2xs">
-                            <button type="button" id="role-pill-btn"
-                                class="px-3 py-1.5 rounded-lg flex items-center gap-1.5 bg-white text-indigo-900 shadow-xs font-bold cursor-default"
-                                title="สลับบทบาท อปท., รพ.สต. หรือ โรงเรียน">
-                                <span id="role-pill-icon">🏛️</span> <span id="role-pill-text">อปท. (อบต.กองแขก)</span>
+                        <!-- Role Pills (Gov Office, School, Hospital) -->
+                        <div
+                            class="inline-flex items-center gap-1 bg-gray-100 p-1 rounded-xl text-xs font-semibold text-gray-600 shadow-2xs">
+                            <button type="button" onclick="selectHospitalRoleType('Gov Office')" id="risk-role-gov"
+                                class="px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 hover:text-indigo-900 font-bold"
+                                title="ดูข้อมูลในฐานะหน่วยงานภาครัฐ / อปท. (แสดงตำบลที่รับผิดชอบ)">
+                                <span>🏛️</span> หน่วยงานภาครัฐ/อปท.
+                            </button>
+                            <button type="button" onclick="selectHospitalRoleType('School')" id="risk-role-school"
+                                class="px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 hover:text-blue-900 font-bold"
+                                title="ดูข้อมูลในฐานะสถานศึกษา">
+                                <span>🏫</span> สถานศึกษา
+                            </button>
+                            <button type="button" onclick="selectHospitalRoleType('Hospital')" id="risk-role-hospital"
+                                class="px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 hover:text-emerald-900 font-bold"
+                                title="ดูข้อมูลในฐานะสถานพยาบาล / รพ.สต.">
+                                <span>🏥</span> สถานพยาบาล
                             </button>
                         </div>
 
@@ -798,8 +808,9 @@
                                 🏛️
                             </div>
                             <div class="flex flex-col truncate w-full">
-                                <span class="text-[9px] uppercase font-extrabold text-gray-400 tracking-wider">Select
-                                    Role / School / Hospital / อปท.</span>
+                                <span
+                                    class="text-[9px] uppercase font-extrabold text-gray-400 tracking-wider">เลือกหน่วยงาน
+                                    / พื้นที่ใช้งาน</span>
                                 <select id="hospital-user-select" onchange="onHospitalChanged(this.value)"
                                     class="bg-transparent text-sm font-bold text-gray-900 outline-none cursor-pointer truncate w-full">
                                     <!-- Populated dynamically via JS -->
@@ -3400,21 +3411,26 @@
             }
         }
 
-        function updateRolePillStyles(activeType) {
+        function updateRolePillStyles(activeType, target = 'all') {
+            if (!activeType) return;
             const roles = [
                 { key: 'gov', activeBg: 'bg-indigo-600', ring: 'ring-2 ring-indigo-400', hoverText: 'hover:text-indigo-900' },
                 { key: 'school', activeBg: 'bg-blue-600', ring: 'ring-2 ring-blue-400', hoverText: 'hover:text-blue-900' },
                 { key: 'hospital', activeBg: 'bg-emerald-600', ring: 'ring-2 ring-emerald-400', hoverText: 'hover:text-emerald-900' }
             ];
-            roles.forEach(({ key, activeBg, ring, hoverText }) => {
-                const globalBtn = document.getElementById(`global-role-${key}`);
-                const isMatch = (activeType.toLowerCase().includes(key));
+            const prefixes = target === 'global' ? ['global'] : (target === 'risk' ? ['risk'] : ['global', 'risk']);
+            prefixes.forEach(prefix => {
+                roles.forEach(({ key, activeBg, ring, hoverText }) => {
+                    const btn = document.getElementById(`${prefix}-role-${key}`);
+                    if (!btn) return;
+                    const isMatch = (activeType.toLowerCase().includes(key));
 
-                if (isMatch) {
-                    if (globalBtn) globalBtn.className = `px-3 py-1.5 rounded-lg ${activeBg} text-white font-bold shadow-xs transition flex items-center gap-1.5 ${ring}`;
-                } else {
-                    if (globalBtn) globalBtn.className = `px-3 py-1.5 rounded-lg text-gray-600 hover:text-gray-900 font-semibold transition flex items-center gap-1.5 hover:bg-gray-200/60 ${hoverText}`;
-                }
+                    if (isMatch) {
+                        btn.className = `px-3 py-1.5 rounded-lg ${activeBg} text-white font-bold shadow-xs transition flex items-center gap-1.5 ${ring}`;
+                    } else {
+                        btn.className = `px-3 py-1.5 rounded-lg text-gray-600 hover:text-gray-900 font-semibold transition flex items-center gap-1.5 hover:bg-gray-200/60 ${hoverText}`;
+                    }
+                });
             });
         }
 
@@ -4346,9 +4362,9 @@
                 'Hospital': document.createElement('optgroup')
             };
 
-            groups['Gov Office'].label = '🏛️ องค์กรปกครองส่วนท้องถิ่น (อปท.)';
-            groups['School'].label = '🏫 สถาบันการศึกษา (School)';
-            groups['Hospital'].label = '🏥 สถานพยาบาล / รพ.สต. (Hospital)';
+            groups['Gov Office'].label = '🏛️ หน่วยงานภาครัฐ / อปท.';
+            groups['School'].label = '🏫 สถาบันการศึกษา / โรงเรียน';
+            groups['Hospital'].label = '🏥 สถานพยาบาล / รพ.สต.';
 
             HOSPITAL_ROLES.forEach(h => {
                 const opt = document.createElement('option');
@@ -4369,6 +4385,18 @@
             select.value = currentHospitalCode;
         }
 
+        function selectHospitalRoleType(typeStr) {
+            const matched = HOSPITAL_ROLES.find(h => {
+                const hType = h.type || (h.isGov ? 'Gov Office' : (h.isSchool ? 'School' : 'Hospital'));
+                return hType.toLowerCase().includes(typeStr.toLowerCase());
+            });
+            if (matched) {
+                const select = document.getElementById('hospital-user-select');
+                if (select) select.value = matched.hospcode;
+                onHospitalChanged(matched.hospcode);
+            }
+        }
+
         function onHospitalChanged(code) {
             currentHospitalCode = code;
 
@@ -4385,49 +4413,26 @@
                 }
             }
 
-            // Update Role Pill and Avatar
-            const roleBtn = document.getElementById('role-pill-btn');
-            const roleContainer = document.getElementById('role-pill-container');
-            const roleIcon = document.getElementById('role-pill-icon');
-            const roleText = document.getElementById('role-pill-text');
-            const userAvatar = document.getElementById('hospital-user-avatar');
+            // Sync dropdown value if needed
+            const hospSelect = document.getElementById('hospital-user-select');
+            if (hospSelect && hospSelect.value !== code) {
+                hospSelect.value = code;
+            }
 
-            if (isGov) {
-                if (roleIcon) roleIcon.textContent = '🏛️';
-                if (roleText) roleText.textContent = 'อปท. (อบต.กองแขก)';
-                if (roleBtn) {
-                    roleBtn.className = "px-3 py-1.5 rounded-lg flex items-center gap-1.5 bg-white text-indigo-900 shadow-xs font-bold cursor-default";
-                }
-                if (roleContainer) {
-                    roleContainer.className = "inline-flex items-center gap-1 bg-indigo-50 border border-indigo-200/80 p-1 rounded-xl text-xs font-semibold text-indigo-800 shadow-2xs";
-                }
-                if (userAvatar) {
+            // Update Role Pills in Tab 2 header
+            const roleType = isGov ? 'Gov Office' : (isSchool ? 'School' : 'Hospital');
+            updateRolePillStyles(roleType, 'risk');
+
+            // Update Avatar in Tab 2 header
+            const userAvatar = document.getElementById('hospital-user-avatar');
+            if (userAvatar) {
+                if (isGov) {
                     userAvatar.textContent = '🏛️';
                     userAvatar.className = "w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm transition";
-                }
-            } else if (isSchool) {
-                if (roleIcon) roleIcon.textContent = '🏫';
-                if (roleText) roleText.textContent = 'School (สถานศึกษา)';
-                if (roleBtn) {
-                    roleBtn.className = "px-3 py-1.5 rounded-lg flex items-center gap-1.5 bg-white text-blue-900 shadow-xs font-bold cursor-default";
-                }
-                if (roleContainer) {
-                    roleContainer.className = "inline-flex items-center gap-1 bg-blue-50 border border-blue-200/80 p-1 rounded-xl text-xs font-semibold text-blue-800 shadow-2xs";
-                }
-                if (userAvatar) {
+                } else if (isSchool) {
                     userAvatar.textContent = '🏫';
                     userAvatar.className = "w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm transition";
-                }
-            } else {
-                if (roleIcon) roleIcon.textContent = '🏥';
-                if (roleText) roleText.textContent = 'Hospital (รพ.สต.)';
-                if (roleBtn) {
-                    roleBtn.className = "px-3 py-1.5 rounded-lg flex items-center gap-1.5 bg-white text-emerald-800 shadow-xs font-bold cursor-default";
-                }
-                if (roleContainer) {
-                    roleContainer.className = "inline-flex items-center gap-1 bg-emerald-50 border border-emerald-200/80 p-1 rounded-xl text-xs font-semibold text-emerald-800 shadow-2xs";
-                }
-                if (userAvatar) {
+                } else {
                     userAvatar.textContent = '🏥';
                     userAvatar.className = "w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm transition";
                 }
