@@ -2294,6 +2294,16 @@
                     window.history.replaceState(null, '', '#env');
                 }
 
+                // Ensure Tab 1 controls reflect currentActiveSiteId
+                const userSelect = document.getElementById('user-select');
+                if (userSelect && userSelect.value !== currentActiveSiteId) {
+                    userSelect.value = currentActiveSiteId;
+                }
+                const activeUser = typeof userSites !== 'undefined' ? userSites.find(s => s.id === currentActiveSiteId) : null;
+                if (activeUser && typeof updateRolePillStyles === 'function') {
+                    updateRolePillStyles(activeUser.type, 'global');
+                }
+
                 // Invalidate Leaflet map size and trigger Chart.js resize
                 setTimeout(() => {
                     if (typeof leafletMap !== 'undefined' && leafletMap) {
@@ -2312,6 +2322,17 @@
 
                 if (window.history && window.history.replaceState) {
                     window.history.replaceState(null, '', '#risk');
+                }
+
+                // Ensure Tab 2 controls reflect currentHospitalCode
+                const hospSelect = document.getElementById('hospital-user-select');
+                if (hospSelect && hospSelect.value !== currentHospitalCode) {
+                    hospSelect.value = currentHospitalCode;
+                }
+                const activeHosp = typeof HOSPITAL_ROLES !== 'undefined' ? (HOSPITAL_ROLES.find(h => h.hospcode === currentHospitalCode || h.id === currentHospitalCode) || HOSPITAL_ROLES[0]) : null;
+                if (activeHosp && typeof updateRolePillStyles === 'function') {
+                    const rType = activeHosp.type || (activeHosp.isGov ? 'Gov Office' : (activeHosp.isSchool ? 'School' : 'Hospital'));
+                    updateRolePillStyles(rType, 'risk');
                 }
 
                 if (typeof filterPatients === 'function') {
@@ -3434,7 +3455,7 @@
             });
         }
 
-        function onUserChanged(siteId, flyAnimate = true) {
+        function onUserChanged(siteId, flyAnimate = true, syncRisk = true) {
             const user = userSites.find(s => s.id === siteId);
             if (!user) return;
             currentActiveSiteId = siteId;
@@ -3484,6 +3505,14 @@
                 const sw = document.getElementById('student-school-switcher');
                 if (sw) sw.value = siteId;
                 if (typeof renderStudentInfoDashboard === 'function') renderStudentInfoDashboard();
+            }
+
+            // Synchronize with Tab 2 (Patient Risk Module)
+            if (syncRisk && typeof HOSPITAL_ROLES !== 'undefined') {
+                const matchedHosp = HOSPITAL_ROLES.find(h => h.id === siteId || h.hospcode === siteId);
+                if (matchedHosp && typeof onHospitalChanged === 'function') {
+                    onHospitalChanged(matchedHosp.hospcode, false);
+                }
             }
         }
 
@@ -4349,7 +4378,7 @@
             }
         ];
 
-        let currentHospitalCode = 'usr_maechaem'; // Default active view: อบต.กองแขก (อปท.)
+        let currentHospitalCode = 'usr_saraphi'; // Default active view: รร.สารภีพิทยาคม (synchronized with Tab 1)
 
         function populateHospitalDropdown() {
             const select = document.getElementById('hospital-user-select');
@@ -4397,11 +4426,11 @@
             }
         }
 
-        function onHospitalChanged(code) {
+        function onHospitalChanged(code, syncGlobal = true) {
             currentHospitalCode = code;
 
             const subtitle = document.getElementById('active-hospital-subtitle');
-            const h = HOSPITAL_ROLES.find(x => x.hospcode === code) || HOSPITAL_ROLES[0];
+            const h = HOSPITAL_ROLES.find(x => x.hospcode === code || x.id === code) || HOSPITAL_ROLES[0];
             const isGov = (h.type === 'Gov Office' || !!h.isGov);
             const isSchool = (h.type === 'School' || !!h.isSchool);
 
@@ -4415,8 +4444,8 @@
 
             // Sync dropdown value if needed
             const hospSelect = document.getElementById('hospital-user-select');
-            if (hospSelect && hospSelect.value !== code) {
-                hospSelect.value = code;
+            if (hospSelect && hospSelect.value !== h.hospcode) {
+                hospSelect.value = h.hospcode;
             }
 
             // Update Role Pills in Tab 2 header
@@ -4454,6 +4483,17 @@
                 const sw = document.getElementById('student-school-switcher');
                 if (sw) sw.value = code;
                 if (typeof renderStudentInfoDashboard === 'function') renderStudentInfoDashboard();
+            }
+
+            // Synchronize with Tab 1 (Environmental Health Module)
+            if (syncGlobal && typeof userSites !== 'undefined') {
+                const targetSiteId = h.id || code;
+                const matchedSite = userSites.find(s => s.id === targetSiteId);
+                if (matchedSite && currentActiveSiteId !== matchedSite.id) {
+                    if (typeof onUserChanged === 'function') {
+                        onUserChanged(matchedSite.id, false, false);
+                    }
+                }
             }
         }
 
@@ -7836,7 +7876,7 @@
             currentHospitalCode = schoolId;
             currentActiveSiteId = schoolId;
 
-            const hospSelect = document.getElementById('hospital-select');
+            const hospSelect = document.getElementById('hospital-user-select');
             if (hospSelect && hospSelect.value !== schoolId) hospSelect.value = schoolId;
             const userSelect = document.getElementById('user-select');
             if (userSelect && userSelect.value !== schoolId) userSelect.value = schoolId;
@@ -7846,11 +7886,10 @@
 
             // Trigger internal role updates
             if (typeof onHospitalChanged === 'function') {
-                const h = HOSPITAL_ROLES.find(x => x.hospcode === schoolId);
-                if (h) {
-                    const subtitle = document.getElementById('active-hospital-subtitle');
-                    if (subtitle) subtitle.textContent = `${h.name} • ${h.desc}`;
-                }
+                onHospitalChanged(schoolId, false);
+            }
+            if (typeof onUserChanged === 'function') {
+                onUserChanged(schoolId, false, false);
             }
 
             renderStudentInfoDashboard();
@@ -8844,7 +8883,7 @@
             // 2. Initialize Risk Patient Dashboard (Tab 2)
             try {
                 if (typeof populateHospitalDropdown === 'function') populateHospitalDropdown();
-                if (typeof onHospitalChanged === 'function') onHospitalChanged(currentHospitalCode);
+                if (typeof onHospitalChanged === 'function') onHospitalChanged(currentHospitalCode, false);
             } catch (e) {
                 console.error("Error initializing Patient Risk module:", e);
             }
