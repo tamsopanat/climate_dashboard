@@ -1,5 +1,5 @@
 /* =========================================================================
- * TSPE Thai Growth Chart View & Interactive Longitudinal Plotting
+ * TSPE Thai Growth Chart View & Official Image Longitudinal Plotting
  * Reference: Thai Society for Pediatric Endocrinology (TSPE 2022)
  * Role: School Only (บทบาท = สถานศึกษา)
  * ========================================================================= */
@@ -19,12 +19,107 @@
 
   let currentContext = { role: 'school', siteId: 'usr_saraphi' };
   let currentStudentId = null;
-  let chartMode = 'dual'; // 'dual' | 'height' | 'weight'
-  let showPercentiles = true;
+  let viewMode = 'official'; // 'official' (Official TSPE Image Sheet) | 'vector' (Vector Chart.js)
+  let showHeight = true;
+  let showWeight = true;
   let showTargetHeight = true;
-  let showPuberty = true;
-  let growthChartInstance = null;
+  let showYearTags = false;
   let classFilter = 'all';
+  let growthChartInstance = null;
+
+  // Cached image objects
+  const imageCache = {
+    boy: null,
+    girl: null
+  };
+
+  // Official TSPE Chart Sheet Coordinate Configuration (724 x 1024 px)
+  const TSPE_SHEET = Object.freeze({
+    boy: {
+      src: 'assets/images/tspe-boys-growth-chart.jpg',
+      width: 724,
+      height: 1024,
+      ageMin: 2.0,
+      ageMax: 19.0,
+      xMin: 69.5,
+      xMax: 654.5,
+      // Height scale: 190 cm at y=138.5, 80 cm at y=838.5
+      hMin: 80.0,
+      hMax: 190.0,
+      yHMax: 138.5,
+      yHMin: 838.5,
+      // Weight scale: 90 kg at y=422.5, 10 kg at y=934.5
+      wMin: 10.0,
+      wMax: 90.0,
+      yWMax: 422.5,
+      yWMin: 934.5,
+      hColor: '#0284c7', // vibrant cyan/blue
+      hLineColor: '#0284c7',
+      wColor: '#059669', // vibrant emerald
+      wLineColor: '#059669',
+      mphColor: '#6366f1',
+      // Text positions on top header blank lines
+      header: {
+        nameX: 190, nameY: 73,
+        dobX: 445, dobY: 73,
+        hnX: 575, hnY: 73,
+        fHeightX: 238, fHeightY: 100,
+        mHeightX: 412, mHeightY: 100,
+        mphX: 608, mphY: 100
+      }
+    },
+    girl: {
+      src: 'assets/images/tspe-girls-growth-chart.jpg',
+      width: 724,
+      height: 1024,
+      ageMin: 2.0,
+      ageMax: 19.0,
+      xMin: 69.5,
+      xMax: 654.5,
+      // Height scale: 180 cm at y=138.5, 80 cm at y=826.0
+      hMin: 80.0,
+      hMax: 180.0,
+      yHMax: 138.5,
+      yHMin: 826.0,
+      // Weight scale: 80 kg at y=447.0, 10 kg at y=930.0
+      wMin: 10.0,
+      wMax: 80.0,
+      yWMax: 447.0,
+      yWMin: 930.0,
+      hColor: '#db2777', // vibrant pink
+      hLineColor: '#db2777',
+      wColor: '#0d9488', // vibrant teal
+      wLineColor: '#0d9488',
+      mphColor: '#8b5cf6',
+      header: {
+        nameX: 190, nameY: 73,
+        dobX: 445, dobY: 73,
+        hnX: 575, hnY: 73,
+        fHeightX: 238, fHeightY: 100,
+        mHeightX: 412, mHeightY: 100,
+        mphX: 608, mphY: 100
+      }
+    }
+  });
+
+  function getCoordinates(gender, age, height, weight) {
+    const cfg = gender === 'girl' ? TSPE_SHEET.girl : TSPE_SHEET.boy;
+    const x = cfg.xMin + ((age - cfg.ageMin) / (cfg.ageMax - cfg.ageMin)) * (cfg.xMax - cfg.xMin);
+    const yH = cfg.yHMax + ((cfg.hMax - height) / (cfg.hMax - cfg.hMin)) * (cfg.yHMin - cfg.yHMax);
+    const yW = cfg.yWMax + ((cfg.wMax - weight) / (cfg.wMax - cfg.wMin)) * (cfg.yWMin - cfg.yWMax);
+    return { x, yH, yW };
+  }
+
+  function preloadImages() {
+    if (!imageCache.boy) {
+      imageCache.boy = new Image();
+      imageCache.boy.src = TSPE_SHEET.boy.src;
+    }
+    if (!imageCache.girl) {
+      imageCache.girl = new Image();
+      imageCache.girl.src = TSPE_SHEET.girl.src;
+    }
+  }
 
   function ensurePanel() {
     let panel = $('panel-growth');
@@ -46,8 +141,7 @@
 
   function getAvailableClasses() {
     const all = LhsGrowthData.getAllStudentsForSchool(currentContext.siteId);
-    const classes = Array.from(new Set(all.map(s => s.gradeGroup))).sort();
-    return classes;
+    return Array.from(new Set(all.map(s => s.gradeGroup))).sort();
   }
 
   function selectStudent(studentId) {
@@ -57,6 +151,7 @@
 
   function open(context) {
     currentContext = { ...context };
+    preloadImages();
     const students = LhsGrowthData.getAllStudentsForSchool(currentContext.siteId);
     if (!students.some(s => s.id === currentStudentId)) {
       currentStudentId = students.length > 0 ? students[0].id : null;
@@ -66,9 +161,10 @@
   }
 
   function resize() {
+    drawOfficialSheet();
     if (growthChartInstance) {
       setTimeout(() => {
-        try { growthChartInstance.resize(); } catch (e) {}
+        try { growthChartInstance.resize(); } catch (e) { }
       }, 60);
     }
   }
@@ -77,19 +173,13 @@
     const panel = ensurePanel();
     const students = getActiveStudents();
     const allSchoolStudents = LhsGrowthData.getAllStudentsForSchool(currentContext.siteId);
-    
-    // Fallback if current student is filtered out
+
     if (!students.some(s => s.id === currentStudentId)) {
       currentStudentId = students.length > 0 ? students[0].id : (allSchoolStudents.length > 0 ? allSchoolStudents[0].id : null);
     }
 
     const student = currentStudentId ? LhsGrowthData.getStudentGrowth(currentStudentId) : null;
     const isGirl = student?.gender === 'girl';
-    const themeColor = isGirl ? '#db2777' : '#0284c7';
-    const themeBg = isGirl ? '#fdf2f8' : '#f0f9ff';
-    const themeBorder = isGirl ? '#fbcfe8' : '#bae6fd';
-    const themeTag = isGirl ? 'bg-pink-100 text-pink-700 border-pink-200' : 'bg-sky-100 text-sky-700 border-sky-200';
-
     const schoolName = currentContext.siteId === 'usr_saraphi' ? 'โรงเรียนสารภีพิทยาคม' : 'โรงเรียนบ้านศาลาแม่ทา';
     const classes = getAvailableClasses();
 
@@ -97,11 +187,7 @@
       <div class="max-w-7xl mx-auto space-y-6 pb-12 font-sans">
         
         <!-- TOP BANNER -->
-        <div class="rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 border ${
-          isGirl 
-            ? 'bg-gradient-to-r from-pink-600 via-rose-500 to-fuchsia-600 border-pink-400/40 shadow-pink-500/10' 
-            : 'bg-gradient-to-r from-sky-600 via-blue-600 to-indigo-700 border-sky-400/40 shadow-blue-500/10'
-        }">
+        <div class="rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 border bg-gradient-to-r from-sky-600 via-blue-600 to-indigo-700 border-sky-400/40 shadow-blue-500/10">
           <div class="relative z-10 space-y-2 max-w-2xl">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md bg-white/20 text-white border border-white/30">
               <span>📊</span>
@@ -109,11 +195,11 @@
             </div>
             <h1 class="text-2xl sm:text-3xl font-black tracking-tight flex items-center gap-3">
               <span>กราฟติดตามการเจริญเติบโตรายปี</span>
-              <span class="text-xs font-normal px-2.5 py-1 rounded-lg bg-white/20 border border-white/25">TSPE 2022</span>
+              <span class="text-xs font-normal px-2.5 py-1 rounded-lg bg-white/20 border border-white/25">TSPE Official Sheet</span>
             </h1>
             <p class="text-white/90 text-xs sm:text-sm font-normal leading-relaxed">
-              เครื่องมือพล็อตกราฟเปรียบเทียบเกณฑ์มาตรฐานการเจริญเติบโตของสมาคมต่อมไร้ท่อเด็กและวัยรุ่นไทย (TSPE 2022)
-              ร่วมกับข้อมูลอ้างอิงกรมอนามัย กระทรวงสาธารณสุข และ WHO สำหรับนักเรียนอายุ 2–19 ปี ของ ${esc(schoolName)}
+              พล็อตค่าน้ำหนักและส่วนสูงจริงของนักเรียนลงบนแผ่นชาร์ตมาตรฐานสมาคมต่อมไร้ท่อเด็กและวัยรุ่นไทย (TSPE 2022)
+              อ้างอิงกรมอนามัย กระทรวงสาธารณสุข และ WHO 2006 สำหรับ ${esc(schoolName)}
             </p>
           </div>
 
@@ -136,20 +222,18 @@
             <!-- Class Filters -->
             <div class="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
               <span class="text-xs font-bold text-gray-500 whitespace-nowrap mr-1">ระดับชั้น:</span>
-              <button type="button" data-filter="all" class="growth-filter-chip px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
-                classFilter === 'all' 
-                  ? 'bg-purple-600 text-white shadow-xs' 
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }">ทั้งหมด (${allSchoolStudents.length})</button>
+              <button type="button" data-filter="all" class="growth-filter-chip px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${classFilter === 'all'
+        ? 'bg-purple-600 text-white shadow-xs'
+        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+      }">ทั้งหมด (${allSchoolStudents.length})</button>
               ${classes.map(c => {
-                const count = allSchoolStudents.filter(s => s.gradeGroup === c).length;
-                const active = classFilter === c;
-                return `<button type="button" data-filter="${esc(c)}" class="growth-filter-chip px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
-                  active 
-                    ? 'bg-purple-600 text-white shadow-xs' 
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }">${esc(c)} (${count})</button>`;
-              }).join('')}
+        const count = allSchoolStudents.filter(s => s.gradeGroup === c).length;
+        const active = classFilter === c;
+        return `<button type="button" data-filter="${esc(c)}" class="growth-filter-chip px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${active
+          ? 'bg-purple-600 text-white shadow-xs'
+          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+          }">${esc(c)} (${count})</button>`;
+      }).join('')}
             </div>
 
             <!-- Student Dropdown -->
@@ -182,7 +266,11 @@
 
     bindEvents();
     if (student) {
-      renderChart(student);
+      if (viewMode === 'official') {
+        drawOfficialSheet();
+      } else {
+        renderVectorChart(student);
+      }
     }
   }
 
@@ -195,9 +283,9 @@
     const mph = LhsGrowthData.calcMidParentalHeight(student.fatherHeight, student.motherHeight, student.gender);
     const heightAssess = latest ? LhsGrowthData.assessHeight(latest.height, latest.age, student.gender) : null;
     const weightAssess = latest ? LhsGrowthData.assessWeight(latest.weight, latest.age, student.gender) : null;
-    const bmiAssess = latest ? LhsGrowthData.assessBmi(latest.weight, latest.height) : null;
+    const bmiAssess = latest ? LhsGrowthData.assessBmi(latest.height, latest.weight) : null;
 
-    // Growth velocity cm/year
+    // Growth velocity
     let velocityText = '--';
     let velocityBadge = '';
     if (latest && previous) {
@@ -209,11 +297,8 @@
       }
     }
 
-    const chartBorderColor = isGirl ? '#ec4899' : '#0284c7';
-    const chartBgShade = isGirl ? 'rgba(253, 242, 248, 0.45)' : 'rgba(240, 249, 255, 0.45)';
-
     return `
-      <!-- STUDENT SUMMARY PROFILE & CLINICAL INDICATORS -->
+      <!-- CLINICAL ASSESSMENT & SUMMARY CARDS -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
         
         <!-- Profile Card (Left 4 cols) -->
@@ -222,16 +307,14 @@
             
             <div class="flex items-start justify-between gap-3">
               <div class="flex items-center gap-3.5">
-                <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-bold shadow-xs ${
-                  isGirl ? 'bg-pink-100 text-pink-700 border border-pink-200' : 'bg-sky-100 text-sky-700 border border-sky-200'
-                }">
+                <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-bold shadow-xs ${isGirl ? 'bg-pink-100 text-pink-700 border border-pink-200' : 'bg-sky-100 text-sky-700 border border-sky-200'
+      }">
                   ${isGirl ? '👧' : '👦'}
                 </div>
                 <div>
                   <div class="flex items-center gap-2">
-                    <span class="text-xs px-2 py-0.5 rounded-md font-bold uppercase ${
-                      isGirl ? 'bg-pink-50 text-pink-700 border border-pink-200' : 'bg-sky-50 text-sky-700 border border-sky-200'
-                    }">${isGirl ? 'เด็กหญิง' : 'เด็กชาย'}</span>
+                    <span class="text-xs px-2 py-0.5 rounded-md font-bold uppercase ${isGirl ? 'bg-pink-50 text-pink-700 border border-pink-200' : 'bg-sky-50 text-sky-700 border border-sky-200'
+      }">${isGirl ? 'เด็กหญิง' : 'เด็กชาย'}</span>
                     <span class="text-xs text-gray-400 font-mono">รหัส ${esc(student.id)}</span>
                   </div>
                   <h2 class="text-base sm:text-lg font-black text-gray-900 mt-1">${esc(student.name)}</h2>
@@ -265,7 +348,7 @@
               </div>
             </div>
 
-            <!-- Tanner / Pubertal Milestones -->
+            <!-- Pubertal reference -->
             <div class="p-3 rounded-2xl bg-gradient-to-r ${isGirl ? 'from-pink-50 to-rose-50 border border-pink-100' : 'from-sky-50 to-blue-50 border border-sky-100'} text-xs space-y-1.5">
               <div class="font-bold flex items-center justify-between text-gray-800">
                 <span>🌟 เกณฑ์วัยเจริญพันธุ์อ้างอิง TSPE</span>
@@ -394,9 +477,9 @@
               <div>
                 <span class="font-bold text-gray-800">การประเมินทิศทางการเจริญเติบโต (Longitudinal Trajectory):</span>
                 <p class="text-gray-600 text-[11px] mt-0.5">
-                  ${records.length >= 2 
-                    ? `เส้นทางการเติบโตของนักเรียนไต่ระดับตามช่องเปอร์เซ็นไทล์อย่างต่อเนื่อง (เกาะแนว ${heightAssess?.percentile || 'P50'}) บ่งชี้ภาวะโภชนาการและการเจริญเติบโตที่สมดุล` 
-                    : 'มีบันทึกตรวจวัด 1 ครั้ง แนะนำติดตามผลการตรวจวัดต่อเนื่องในรอบปีถัดไปเพื่อวิเคราะห์ Velocity Curve'}
+                  ${records.length >= 2
+        ? `เส้นทางการเติบโตของนักเรียนไต่ระดับตามช่องเปอร์เซ็นไทล์อย่างต่อเนื่อง (เกาะแนว ${heightAssess?.percentile || 'P50'}) บ่งชี้ภาวะโภชนาการและการเจริญเติบโตที่สมดุล`
+        : 'มีบันทึกตรวจวัด 1 ครั้ง แนะนำติดตามผลการตรวจวัดต่อเนื่องในรอบปีถัดไปเพื่อวิเคราะห์ Velocity Curve'}
                 </p>
               </div>
             </div>
@@ -410,98 +493,96 @@
 
       </div>
 
-      <!-- MAIN CHART CONTAINER & CONTROLS -->
+      <!-- MAIN TSPE CHART CONTAINER (OFFICIAL SHEET IMAGE WITH PLOTTED POINTS) -->
       <div class="bg-white rounded-3xl border border-gray-200/90 shadow-sm overflow-hidden">
         
-        <!-- Chart Header & Toolbar -->
+        <!-- Toolbar -->
         <div class="p-5 sm:p-6 border-b border-gray-100 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 bg-gradient-to-b from-gray-50/50 to-white">
           <div>
             <div class="flex items-center gap-2">
               <span class="w-3 h-3 rounded-full ${isGirl ? 'bg-pink-500' : 'bg-sky-500'}"></span>
               <h3 class="text-base sm:text-lg font-black text-gray-900">
-                ${isGirl ? 'กราฟการเจริญเติบโตเด็กหญิงอายุ 2–19 ปี (TSPE Reference)' : 'กราฟการเจริญเติบโตเด็กชายอายุ 2–19 ปี (TSPE Reference)'}
+                ${isGirl ? 'แบบบันทึกการเจริญเติบโตเด็กหญิงอายุ 2–19 ปี (TSPE Official Growth Chart)' : 'แบบบันทึกการเจริญเติบโตเด็กชายอายุ 2–19 ปี (TSPE Official Growth Chart)'}
               </h3>
             </div>
             <p class="text-xs text-gray-500 mt-1">
-              แกนนอน: อายุ (ปี) 2–19 ปี · จุดกราฟแสดงผลการตรวจวัดจริงรายปีของนักเรียน (พ.ศ. 2565–2569)
+              พล็อตค่าน้ำหนักและส่วนสูงจริงลงบนแผ่นชาร์ตต้นฉบับสมาคมต่อมไร้ท่อเด็กและวัยรุ่นไทย (TSPE 2022)
             </p>
           </div>
 
-          <!-- Chart Toggle Modes -->
-          <div class="flex flex-wrap items-center gap-2">
+          <!-- Controls & Toggles -->
+          <div class="flex flex-wrap items-center gap-3">
             
             <div class="bg-gray-100 p-1 rounded-2xl flex items-center text-xs font-bold">
-              <button type="button" data-mode="dual" class="growth-mode-btn px-3 py-1.5 rounded-xl transition cursor-pointer ${
-                chartMode === 'dual' ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-600 hover:text-gray-900'
-              }">กราฟคู่ ส่วนสูง-น้ำหนัก</button>
+              <button type="button" id="btn-view-official" class="px-3 py-1.5 rounded-xl transition cursor-pointer ${viewMode === 'official' ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-600 hover:text-gray-900'
+      }">📋 แผ่นชาร์ต TSPE (ต้นฉบับ)</button>
               
-              <button type="button" data-mode="height" class="growth-mode-btn px-3 py-1.5 rounded-xl transition cursor-pointer ${
-                chartMode === 'height' ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-600 hover:text-gray-900'
-              }">เฉพาะส่วนสูง</button>
-              
-              <button type="button" data-mode="weight" class="growth-mode-btn px-3 py-1.5 rounded-xl transition cursor-pointer ${
-                chartMode === 'weight' ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-600 hover:text-gray-900'
-              }">เฉพาะน้ำหนัก</button>
+              <button type="button" id="btn-view-vector" class="px-3 py-1.5 rounded-xl transition cursor-pointer ${viewMode === 'vector' ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-600 hover:text-gray-900'
+      }">📈 กราฟเวกเตอร์ขยายได้</button>
             </div>
 
-            <!-- Reference toggles -->
-            <label class="inline-flex items-center gap-1.5 text-xs text-gray-600 cursor-pointer ml-1 select-none">
-              <input type="checkbox" id="chk-percentiles" ${showPercentiles ? 'checked' : ''} class="rounded text-purple-600 focus:ring-purple-500">
-              <span class="font-medium">แสดงเส้นเปอร์เซ็นไทล์ (P3-P97)</span>
+            <!-- Plot Feature Toggles -->
+            <label class="inline-flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer select-none">
+              <input type="checkbox" id="chk-show-height" ${showHeight ? 'checked' : ''} class="rounded text-sky-600 focus:ring-sky-500">
+              <span class="font-medium">ส่วนสูง</span>
             </label>
 
-            <label class="inline-flex items-center gap-1.5 text-xs text-gray-600 cursor-pointer select-none">
-              <input type="checkbox" id="chk-target-height" ${showTargetHeight ? 'checked' : ''} class="rounded text-indigo-600 focus:ring-indigo-500">
-              <span class="font-medium">เป้าหมายพันธุกรรม (MPH)</span>
+            <label class="inline-flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer select-none">
+              <input type="checkbox" id="chk-show-weight" ${showWeight ? 'checked' : ''} class="rounded text-emerald-600 focus:ring-emerald-500">
+              <span class="font-medium">น้ำหนัก</span>
             </label>
 
           </div>
         </div>
 
-        <!-- The Chart Canvas Area -->
-        <div class="p-4 sm:p-6 relative bg-white" style="min-height: 480px;">
-          <!-- Watermark / Reference stamp matching TSPE Chart -->
-          <div class="absolute top-8 left-10 pointer-events-none opacity-40 select-none z-0">
-            <div class="text-[11px] font-black tracking-widest uppercase ${isGirl ? 'text-pink-900' : 'text-sky-900'}">
-              TSPE Thai Growth Standard (2022)
+        <!-- Sheet Display Body -->
+        <div class="p-4 sm:p-6 bg-slate-100/60 flex flex-col items-center justify-center relative min-h-[550px]">
+          
+          ${viewMode === 'official' ? `
+            <!-- OFFICIAL TSPE CANVAS CONTAINER -->
+            <div class="relative max-w-[760px] w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-300">
+              <canvas id="tspe-official-canvas" width="724" height="1024" class="w-full h-auto block select-none cursor-crosshair"></canvas>
+              
+              <!-- Floating Tooltip -->
+              <div id="tspe-canvas-tooltip" class="absolute pointer-events-none hidden bg-gray-950/95 text-white text-xs px-3 py-2.5 rounded-xl shadow-2xl border border-gray-700 z-30 space-y-1">
+                <div id="tooltip-title" class="font-bold text-sky-300">--</div>
+                <div id="tooltip-body" class="text-[11px] text-gray-200">--</div>
+              </div>
             </div>
-            <div class="text-[9px] text-gray-400">Bureau of Nutrition, MOPH & WHO</div>
-          </div>
+          ` : `
+            <!-- VECTOR CHART CANVAS -->
+            <div class="w-full bg-white rounded-2xl shadow-sm p-4 relative" style="height: 540px;">
+              <canvas id="tspe-growth-chart"></canvas>
+            </div>
+          `}
 
-          <div class="relative z-10 w-full" style="height: 520px;">
-            <canvas id="tspe-growth-chart"></canvas>
-          </div>
         </div>
 
-        <!-- Chart Footnote & Tanner Stages Visual Guide -->
-        <div class="p-4 sm:p-6 bg-gray-50/70 border-t border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-gray-600">
+        <!-- Chart Footnote & Actions -->
+        <div class="p-4 sm:p-6 bg-gray-50/80 border-t border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-gray-600">
           <div class="space-y-1">
             <div class="flex items-center gap-4 flex-wrap">
               <span class="inline-flex items-center gap-1.5">
-                <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block border-2 border-white shadow-xs"></span>
-                <strong class="text-gray-800">ผลตรวจวัดส่วนสูงรายปี (ซม.)</strong>
+                <span class="w-3.5 h-3.5 rounded-full ${isGirl ? 'bg-pink-600' : 'bg-sky-600'} inline-block border-2 border-white shadow-xs"></span>
+                <strong class="text-gray-900">ส่วนสูงจริง (Height Plot)</strong>
               </span>
               <span class="inline-flex items-center gap-1.5">
-                <span class="w-3 h-3 rounded-full bg-amber-500 inline-block border-2 border-white shadow-xs"></span>
-                <strong class="text-gray-800">ผลตรวจวัดน้ำหนักรายปี (กก.)</strong>
+                <span class="w-3.5 h-3.5 rounded-full ${isGirl ? 'bg-teal-600' : 'bg-emerald-600'} inline-block border-2 border-white shadow-xs"></span>
+                <strong class="text-gray-900">น้ำหนักจริง (Weight Plot)</strong>
               </span>
               <span class="inline-flex items-center gap-1.5">
                 <span class="w-5 h-0.5 bg-indigo-500 border-dashed inline-block"></span>
                 <span class="text-indigo-800 font-bold">Mid-parental height target</span>
               </span>
-              <span class="inline-flex items-center gap-1.5">
-                <span class="w-4 h-2 rounded-xs ${isGirl ? 'bg-pink-300' : 'bg-sky-300'} inline-block"></span>
-                <span>Tanner stage II / Puberty landmark</span>
-              </span>
             </div>
             <p class="text-[11px] text-gray-400 mt-1">
-              ที่มา: สมาคมต่อมไร้ท่อเด็กและวัยรุ่นไทย (TSPE 2022), เกณฑ์อ้างอิงการเจริญเติบโตของเด็กไทย 5–19 ปี สำนักโภชนาการ กรมอนามัย 2563 และ WHO Growth Standards 2006
+              ที่มา: สมาคมต่อมไร้ท่อเด็กและวัยรุ่นไทย (TSPE 2022) / สำนักโภชนาการ กรมอนามัย และ WHO Growth Standards 2006
             </p>
           </div>
 
-          <button type="button" id="btn-export-growth-chart" class="px-3.5 py-2 rounded-xl bg-white border border-gray-200 text-gray-700 font-bold text-xs hover:bg-gray-100 transition shadow-2xs flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+          <button type="button" id="btn-export-official-sheet" class="px-4 py-2.5 rounded-xl bg-purple-600 text-white font-bold text-xs hover:bg-purple-700 transition shadow-xs flex items-center gap-2 whitespace-nowrap cursor-pointer">
             <span>📷</span>
-            <span>บันทึกรูปกราฟ (PNG)</span>
+            <span>บันทึกรูปชาร์ต TSPE (PNG)</span>
           </button>
         </div>
 
@@ -544,23 +625,23 @@
             </thead>
             <tbody class="divide-y divide-gray-100">
               ${records.map((r, idx) => {
-                const prev = idx > 0 ? records[idx - 1] : null;
-                const hEval = LhsGrowthData.assessHeight(r.height, r.age, student.gender);
-                const wEval = LhsGrowthData.assessWeight(r.weight, r.age, student.gender);
-                const bEval = LhsGrowthData.assessBmi(r.weight, r.height);
-                
-                let vel = '--';
-                if (prev) {
-                  const yDiff = r.age - prev.age;
-                  if (yDiff > 0) {
-                    const rate = (r.height - prev.height) / yDiff;
-                    vel = `${rate >= 0 ? '+' : ''}${rate.toFixed(1)} ซม./ปี`;
-                  }
-                }
+        const prev = idx > 0 ? records[idx - 1] : null;
+        const hEval = LhsGrowthData.assessHeight(r.height, r.age, student.gender);
+        const wEval = LhsGrowthData.assessWeight(r.weight, r.age, student.gender);
+        const bEval = LhsGrowthData.assessBmi(r.height, r.weight);
 
-                const isLatest = idx === records.length - 1;
+        let vel = '--';
+        if (prev) {
+          const yDiff = r.age - prev.age;
+          if (yDiff > 0) {
+            const rate = (r.height - prev.height) / yDiff;
+            vel = `${rate >= 0 ? '+' : ''}${rate.toFixed(1)} ซม./ปี`;
+          }
+        }
 
-                return `
+        const isLatest = idx === records.length - 1;
+
+        return `
                   <tr class="hover:bg-purple-50/40 transition ${isLatest ? 'bg-purple-50/20 font-medium' : ''}">
                     <td class="px-4 py-3.5 whitespace-nowrap">
                       <span class="font-bold text-gray-900">พ.ศ. ${esc(r.yearBe)}</span>
@@ -589,7 +670,7 @@
                     </td>
                   </tr>
                 `;
-              }).join('')}
+      }).join('')}
             </tbody>
           </table>
         </div>
@@ -670,13 +751,11 @@
   }
 
   function bindEvents() {
-    // Student select change
     const sel = $('student-growth-select');
     if (sel) {
       sel.onchange = e => selectStudent(e.target.value);
     }
 
-    // Filter chips
     document.querySelectorAll('.growth-filter-chip').forEach(btn => {
       btn.onclick = () => {
         classFilter = btn.dataset.filter;
@@ -684,35 +763,17 @@
       };
     });
 
-    // Chart Mode buttons
-    document.querySelectorAll('.growth-mode-btn').forEach(btn => {
-      btn.onclick = () => {
-        chartMode = btn.dataset.mode;
-        render();
-      };
-    });
+    const btnOfficial = $('btn-view-official');
+    const btnVector = $('btn-view-vector');
+    if (btnOfficial) btnOfficial.onclick = () => { viewMode = 'official'; render(); };
+    if (btnVector) btnVector.onclick = () => { viewMode = 'vector'; render(); };
 
-    // Percentile checkbox
-    const chkP = $('chk-percentiles');
-    if (chkP) {
-      chkP.onchange = e => {
-        showPercentiles = e.target.checked;
-        const student = LhsGrowthData.getStudentGrowth(currentStudentId);
-        if (student) renderChart(student);
-      };
-    }
+    const chkH = $('chk-show-height');
+    if (chkH) chkH.onchange = e => { showHeight = e.target.checked; if (viewMode === 'official') drawOfficialSheet(); else renderVectorChart(LhsGrowthData.getStudentGrowth(currentStudentId)); };
 
-    // Target Height checkbox
-    const chkTH = $('chk-target-height');
-    if (chkTH) {
-      chkTH.onchange = e => {
-        showTargetHeight = e.target.checked;
-        const student = LhsGrowthData.getStudentGrowth(currentStudentId);
-        if (student) renderChart(student);
-      };
-    }
+    const chkW = $('chk-show-weight');
+    if (chkW) chkW.onchange = e => { showWeight = e.target.checked; if (viewMode === 'official') drawOfficialSheet(); else renderVectorChart(LhsGrowthData.getStudentGrowth(currentStudentId)); };
 
-    // Add Measurement Buttons
     const btnOpenAdd = $('btn-open-add-measurement');
     const btnAddYear = $('btn-add-year-measurement');
     if (btnOpenAdd) btnOpenAdd.onclick = openAddModal;
@@ -723,19 +784,19 @@
     if (btnClose) btnClose.onclick = closeAddModal;
     if (btnCancel) btnCancel.onclick = closeAddModal;
 
-    // Export chart button
-    const btnExport = $('btn-export-growth-chart');
+    const btnExport = $('btn-export-official-sheet');
     if (btnExport) {
       btnExport.onclick = () => {
-        if (!growthChartInstance) return;
-        const a = document.createElement('a');
-        a.href = growthChartInstance.toBase64Image();
-        a.download = `TSPE_Growth_Chart_${currentStudentId}.png`;
-        a.click();
+        const canvas = $('tspe-official-canvas') || $('tspe-growth-chart');
+        if (!canvas) return;
+        const link = document.createElement('a');
+        link.download = `TSPE_Growth_Chart_${currentStudentId}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
       };
     }
 
-    // Form submission
+    // Modal form logic
     const form = $('form-add-growth-measurement');
     if (form) {
       form.onsubmit = handleSaveMeasurement;
@@ -753,7 +814,7 @@
 
         if (h > 0 && w > 0 && a > 0) {
           const student = LhsGrowthData.getStudentGrowth(currentStudentId);
-          const b = LhsGrowthData.assessBmi(w, h);
+          const b = LhsGrowthData.assessBmi(h, w);
           const hAssess = LhsGrowthData.assessHeight(h, a, student.gender);
           const wAssess = LhsGrowthData.assessWeight(w, a, student.gender);
 
@@ -770,6 +831,406 @@
       if (wInput) wInput.oninput = updatePreview;
       if (ageInput) ageInput.oninput = updatePreview;
     }
+
+    // Setup interactive mouse hover on canvas
+    setupCanvasHover();
+  }
+
+  function setupCanvasHover() {
+    const canvas = $('tspe-official-canvas');
+    const tooltip = $('tspe-canvas-tooltip');
+    if (!canvas || !tooltip) return;
+
+    canvas.onmousemove = e => {
+      const student = LhsGrowthData.getStudentGrowth(currentStudentId);
+      if (!student) return;
+
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = 724 / rect.width;
+      const scaleY = 1024 / rect.height;
+
+      const mouseX = (e.clientX - rect.left) * scaleX;
+      const mouseY = (e.clientY - rect.top) * scaleY;
+
+      const records = student.records || [];
+      let found = null;
+      let minDistance = 16; // hover radius in canvas pixels
+
+      records.forEach(r => {
+        const { x, yH, yW } = getCoordinates(student.gender, r.age, r.height, r.weight);
+        if (showHeight) {
+          const dH = Math.hypot(mouseX - x, mouseY - yH);
+          if (dH < minDistance) {
+            minDistance = dH;
+            const evalH = LhsGrowthData.assessHeight(r.height, r.age, student.gender);
+            found = {
+              x: (x / scaleX),
+              y: (yH / scaleY),
+              title: `ปี พ.ศ. ${r.yearBe} (${r.grade}) · อายุ ${r.age} ปี`,
+              text: `📏 ส่วนสูง: <b>${r.height} ซม.</b> (${evalH.percentile} - ${evalH.label})<br>⚖️ น้ำหนัก: <b>${r.weight} กก.</b>`
+            };
+          }
+        }
+        if (showWeight) {
+          const dW = Math.hypot(mouseX - x, mouseY - yW);
+          if (dW < minDistance) {
+            minDistance = dW;
+            const evalW = LhsGrowthData.assessWeight(r.weight, r.age, student.gender);
+            const b = LhsGrowthData.assessBmi(r.height, r.weight);
+            found = {
+              x: (x / scaleX),
+              y: (yW / scaleY),
+              title: `ปี พ.ศ. ${r.yearBe} (${r.grade}) · อายุ ${r.age} ปี`,
+              text: `⚖️ น้ำหนัก: <b>${r.weight} กก.</b> (${evalW.percentile} - ${evalW.label})<br>🩺 BMI: <b>${b.bmi}</b> (${b.label})`
+            };
+          }
+        }
+      });
+
+      if (found) {
+        $('tooltip-title').innerHTML = found.title;
+        $('tooltip-body').innerHTML = found.text;
+        tooltip.style.left = `${Math.min(rect.width - 220, Math.max(10, found.x + 12))}px`;
+        tooltip.style.top = `${Math.max(10, found.y - 45)}px`;
+        tooltip.classList.remove('hidden');
+      } else {
+        tooltip.classList.add('hidden');
+      }
+    };
+
+    canvas.onmouseleave = () => {
+      tooltip.classList.add('hidden');
+    };
+  }
+
+  /* =========================================================================
+   * Official TSPE Sheet Canvas Drawing
+   * ========================================================================= */
+  function drawOfficialSheet() {
+    const canvas = $('tspe-official-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const student = LhsGrowthData.getStudentGrowth(currentStudentId);
+    if (!student) return;
+
+    const isGirl = student.gender === 'girl';
+    const cfg = isGirl ? TSPE_SHEET.girl : TSPE_SHEET.boy;
+    const img = isGirl ? imageCache.girl : imageCache.boy;
+
+    const doDraw = (imageObj) => {
+      // 1. Draw base TSPE background sheet
+      ctx.clearRect(0, 0, 724, 1024);
+      ctx.drawImage(imageObj, 0, 0, 724, 1024);
+
+      // 2. Render student header details on top blank lines
+      ctx.fillStyle = '#1e293b';
+      ctx.font = 'bold 12px Prompt, sans-serif';
+
+      // Name
+      ctx.fillText(student.name, cfg.header.nameX, cfg.header.nameY);
+      // DOB
+      ctx.fillText(student.dob, cfg.header.dobX, cfg.header.dobY);
+      // HN / Student ID
+      ctx.fillText(student.id, cfg.header.hnX, cfg.header.hnY);
+      // Father's height
+      if (student.fatherHeight) ctx.fillText(`${student.fatherHeight}`, cfg.header.fHeightX, cfg.header.fHeightY);
+      // Mother's height
+      if (student.motherHeight) ctx.fillText(`${student.motherHeight}`, cfg.header.mHeightX, cfg.header.mHeightY);
+      // Mid-parental height
+      const mph = LhsGrowthData.calcMidParentalHeight(student.fatherHeight, student.motherHeight, student.gender);
+      if (mph) ctx.fillText(`${mph.target}`, cfg.header.mphX, cfg.header.mphY);
+
+      const records = student.records || [];
+      if (records.length === 0) return;
+
+      // 3. Draw Height Trajectory and Points
+      if (showHeight) {
+        const heightColor = cfg.hColor;
+
+        // Line
+        ctx.beginPath();
+        ctx.strokeStyle = heightColor;
+        ctx.lineWidth = 3.5;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+
+        records.forEach((r, idx) => {
+          const { x, yH } = getCoordinates(student.gender, r.age, r.height, r.weight);
+          if (idx === 0) ctx.moveTo(x, yH);
+          else ctx.lineTo(x, yH);
+        });
+        ctx.stroke();
+
+        // Points & Labels
+        records.forEach(r => {
+          const { x, yH } = getCoordinates(student.gender, r.age, r.height, r.weight);
+
+          // Outer halo
+          ctx.beginPath();
+          ctx.arc(x, yH, 6, 0, Math.PI * 2);
+          ctx.fillStyle = '#ffffff';
+          ctx.fill();
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = heightColor;
+          ctx.stroke();
+
+          // Inner solid dot
+          ctx.beginPath();
+          ctx.arc(x, yH, 4, 0, Math.PI * 2);
+          ctx.fillStyle = heightColor;
+          ctx.fill();
+
+          // Year Tag
+          if (showYearTags) {
+            ctx.font = 'bold 10px Prompt, sans-serif';
+            ctx.fillStyle = '#0f172a';
+            ctx.textAlign = 'center';
+            ctx.fillText(`${r.yearBe}`, x, yH - 10);
+          }
+        });
+      }
+
+      // 4. Draw Weight Trajectory and Points
+      if (showWeight) {
+        const weightColor = cfg.wColor;
+
+        // Line
+        ctx.beginPath();
+        ctx.strokeStyle = weightColor;
+        ctx.lineWidth = 3.5;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+
+        records.forEach((r, idx) => {
+          const { x, yW } = getCoordinates(student.gender, r.age, r.height, r.weight);
+          if (idx === 0) ctx.moveTo(x, yW);
+          else ctx.lineTo(x, yW);
+        });
+        ctx.stroke();
+
+        // Points & Labels
+        records.forEach(r => {
+          const { x, yW } = getCoordinates(student.gender, r.age, r.height, r.weight);
+
+          // Outer halo
+          ctx.beginPath();
+          ctx.arc(x, yW, 5.5, 0, Math.PI * 2);
+          ctx.fillStyle = '#ffffff';
+          ctx.fill();
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = weightColor;
+          ctx.stroke();
+
+          // Inner solid dot
+          ctx.beginPath();
+          ctx.arc(x, yW, 3.5, 0, Math.PI * 2);
+          ctx.fillStyle = weightColor;
+          ctx.fill();
+
+          // Year Tag
+          if (showYearTags) {
+            ctx.font = 'bold 10px Prompt, sans-serif';
+            ctx.fillStyle = '#065f46';
+            ctx.textAlign = 'center';
+            ctx.fillText(`${r.yearBe}`, x, yW + 16);
+          }
+        });
+      }
+
+      // 5. Draw Mid-parental Target Height crosshair at Age 19
+      if (mph && showTargetHeight && showHeight) {
+        const { x, yH } = getCoordinates(student.gender, 19, mph.target, 50);
+
+        ctx.save();
+        ctx.setLineDash([5, 4]);
+        ctx.strokeStyle = cfg.mphColor;
+        ctx.lineWidth = 2;
+
+        // Horizontal target range bar at age 19
+        const { yH: yMin } = getCoordinates(student.gender, 19, mph.rangeMin, 50);
+        const { yH: yMax } = getCoordinates(student.gender, 19, mph.rangeMax, 50);
+
+        ctx.beginPath();
+        ctx.moveTo(x - 12, yH);
+        ctx.lineTo(x + 12, yH);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(x, yMin);
+        ctx.lineTo(x, yMax);
+        ctx.stroke();
+
+        // Target center circle
+        ctx.setLineDash([]);
+        ctx.beginPath();
+        ctx.arc(x, yH, 4, 0, Math.PI * 2);
+        ctx.fillStyle = cfg.mphColor;
+        ctx.fill();
+
+        ctx.font = 'bold 9px Prompt, sans-serif';
+        ctx.fillStyle = cfg.mphColor;
+        ctx.textAlign = 'right';
+        ctx.fillText(`MPH ${mph.target}`, x - 15, yH + 3);
+        ctx.restore();
+      }
+    };
+
+    if (img && img.complete && img.naturalWidth !== 0) {
+      doDraw(img);
+    } else {
+      const newImg = new Image();
+      newImg.src = cfg.src;
+      newImg.onload = () => {
+        if (isGirl) imageCache.girl = newImg;
+        else imageCache.boy = newImg;
+        doDraw(newImg);
+      };
+    }
+  }
+
+  /* =========================================================================
+   * Vector Chart.js Engine (Secondary View)
+   * ========================================================================= */
+  function renderVectorChart(student) {
+    const canvas = $('tspe-growth-chart');
+    if (!canvas || typeof Chart === 'undefined') return;
+
+    if (growthChartInstance) {
+      growthChartInstance.destroy();
+      growthChartInstance = null;
+    }
+
+    const isGirl = student.gender === 'girl';
+    const ref = isGirl ? LhsGrowthData.GIRLS_REFERENCE : LhsGrowthData.BOYS_REFERENCE;
+    const ages = LhsGrowthData.AGES;
+    const datasets = [];
+
+    const refCurveColor = isGirl ? 'rgba(219, 39, 119, 0.45)' : 'rgba(2, 132, 199, 0.45)';
+    const refP50Color = isGirl ? 'rgba(190, 24, 93, 0.85)' : 'rgba(3, 105, 161, 0.85)';
+    const refWeightColor = 'rgba(156, 163, 175, 0.5)';
+    const refWeightP50Color = 'rgba(75, 85, 99, 0.85)';
+    const percentiles = ['p3', 'p10', 'p25', 'p50', 'p75', 'p90', 'p97'];
+
+    // Height curves
+    if (showHeight) {
+      percentiles.forEach(p => {
+        const isP50 = p === 'p50';
+        datasets.push({
+          label: `ส่วนสูง ${p.toUpperCase()}`,
+          data: ages.map((age, i) => ({ x: age, y: ref.height[p][i] })),
+          borderColor: isP50 ? refP50Color : refCurveColor,
+          borderWidth: isP50 ? 2 : 1,
+          borderDash: isP50 ? [] : [3, 3],
+          pointRadius: 0,
+          fill: false,
+          tension: 0.35,
+          yAxisID: 'yHeight'
+        });
+      });
+    }
+
+    // Weight curves
+    if (showWeight) {
+      percentiles.forEach(p => {
+        const isP50 = p === 'p50';
+        datasets.push({
+          label: `น้ำหนัก ${p.toUpperCase()}`,
+          data: ages.map((age, i) => ({ x: age, y: ref.weight[p][i] })),
+          borderColor: isP50 ? refWeightP50Color : refWeightColor,
+          borderWidth: isP50 ? 2 : 1,
+          borderDash: isP50 ? [] : [3, 3],
+          pointRadius: 0,
+          fill: false,
+          tension: 0.35,
+          yAxisID: 'yWeight'
+        });
+      });
+    }
+
+    const records = student.records || [];
+
+    // Student Height Plot
+    if (showHeight) {
+      datasets.push({
+        label: `ส่วนสูงจริง: ${student.name} (ซม.)`,
+        data: records.map(r => ({ x: r.age, y: r.height, record: r })),
+        borderColor: '#0284c7',
+        backgroundColor: '#38bdf8',
+        borderWidth: 3,
+        pointRadius: 7,
+        pointHoverRadius: 10,
+        pointBackgroundColor: '#0284c7',
+        pointBorderColor: '#ffffff',
+        pointBorderWidth: 3,
+        fill: false,
+        tension: 0.25,
+        yAxisID: 'yHeight',
+        order: 1
+      });
+    }
+
+    // Student Weight Plot
+    if (showWeight) {
+      datasets.push({
+        label: `น้ำหนักจริง: ${student.name} (กก.)`,
+        data: records.map(r => ({ x: r.age, y: r.weight, record: r })),
+        borderColor: '#059669',
+        backgroundColor: '#34d399',
+        borderWidth: 3,
+        pointRadius: 7,
+        pointHoverRadius: 10,
+        pointBackgroundColor: '#059669',
+        pointBorderColor: '#ffffff',
+        pointBorderWidth: 3,
+        fill: false,
+        tension: 0.25,
+        yAxisID: 'yWeight',
+        order: 1
+      });
+    }
+
+    const scales = {
+      x: {
+        type: 'linear',
+        min: 2,
+        max: 19,
+        title: { display: true, text: 'อายุ (ปี) · AGE (years)', font: { family: 'Prompt, sans-serif', size: 12, weight: 'bold' } },
+        ticks: { stepSize: 1, callback: v => Number.isInteger(v) ? v : '' }
+      },
+      yHeight: {
+        type: 'linear',
+        position: 'left',
+        min: 80,
+        max: isGirl ? 180 : 190,
+        title: { display: true, text: 'ส่วนสูง · HEIGHT (cm)', font: { family: 'Prompt, sans-serif', size: 12, weight: 'bold' }, color: isGirl ? '#db2777' : '#0284c7' }
+      },
+      yWeight: {
+        type: 'linear',
+        position: 'right',
+        min: 10,
+        max: isGirl ? 80 : 90,
+        title: { display: true, text: 'น้ำหนัก · WEIGHT (kg)', font: { family: 'Prompt, sans-serif', size: 12, weight: 'bold' }, color: '#059669' },
+        grid: { drawOnChartArea: false }
+      }
+    };
+
+    growthChartInstance = new Chart(canvas, {
+      type: 'line',
+      data: { datasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true,
+            labels: {
+              filter: item => item.text.includes('จริง')
+            }
+          }
+        },
+        scales
+      }
+    });
   }
 
   function openAddModal() {
@@ -809,7 +1270,6 @@
     closeAddModal();
     render();
 
-    // Visual feedback
     if (typeof showToastNotification === 'function') {
       showToastNotification(`บันทึกผลการตรวจวัดประจำปี ${yearBe} ของ ${student.name} เรียบร้อยแล้ว`);
     } else {
@@ -817,335 +1277,13 @@
     }
   }
 
-  /* =========================================================================
-   * Chart.js Rendering Engine for TSPE Thai Growth Curve
-   * ========================================================================= */
-  function renderChart(student) {
-    const canvas = $('tspe-growth-chart');
-    if (!canvas || typeof Chart === 'undefined') return;
-
-    if (growthChartInstance) {
-      growthChartInstance.destroy();
-      growthChartInstance = null;
-    }
-
-    const isGirl = student.gender === 'girl';
-    const ref = isGirl ? LhsGrowthData.GIRLS_REFERENCE : LhsGrowthData.BOYS_REFERENCE;
-    const ages = LhsGrowthData.AGES; // 2..19
-
-    const datasets = [];
-
-    // Reference curves line styling based on gender
-    // In TSPE charts: Boys are cyan/blue, Girls are pink/rose.
-    const refCurveColor = isGirl ? 'rgba(219, 39, 119, 0.45)' : 'rgba(2, 132, 199, 0.45)';
-    const refP50Color = isGirl ? 'rgba(190, 24, 93, 0.85)' : 'rgba(3, 105, 161, 0.85)';
-    const refWeightColor = 'rgba(156, 163, 175, 0.5)';
-    const refWeightP50Color = 'rgba(75, 85, 99, 0.85)';
-
-    const percentiles = ['p3', 'p10', 'p25', 'p50', 'p75', 'p90', 'p97'];
-
-    // 1. HEIGHT PERCENTILES (Y-axis: yHeight)
-    if (chartMode === 'dual' || chartMode === 'height') {
-      if (showPercentiles) {
-        percentiles.forEach(p => {
-          const isP50 = p === 'p50';
-          const isExtreme = p === 'p3' || p === 'p97';
-          datasets.push({
-            label: `ส่วนสูง ${p.toUpperCase()}`,
-            data: ages.map((age, i) => ({ x: age, y: ref.height[p][i] })),
-            borderColor: isP50 ? refP50Color : refCurveColor,
-            borderWidth: isP50 ? 2 : (isExtreme ? 1.5 : 1),
-            borderDash: isP50 ? [] : (isExtreme ? [] : [3, 3]),
-            pointRadius: 0,
-            pointHoverRadius: 3,
-            fill: false,
-            tension: 0.35,
-            yAxisID: 'yHeight',
-            tspeType: 'ref-height',
-            percentile: p.toUpperCase()
-          });
-        });
-      }
-
-      // Mid-parental height line at age 19
-      if (showTargetHeight) {
-        const mph = LhsGrowthData.calcMidParentalHeight(student.fatherHeight, student.motherHeight, student.gender);
-        if (mph) {
-          datasets.push({
-            label: `ความสูงเป้าหมายพันธุกรรม (MPH: ${mph.target} ซม.)`,
-            data: [
-              { x: 17.0, y: mph.target },
-              { x: 19.0, y: mph.target }
-            ],
-            borderColor: '#6366f1',
-            borderWidth: 2.5,
-            borderDash: [6, 4],
-            pointRadius: [0, 5],
-            pointBackgroundColor: '#6366f1',
-            pointBorderColor: '#ffffff',
-            pointBorderWidth: 2,
-            fill: false,
-            yAxisID: 'yHeight',
-            tspeType: 'target-height'
-          });
-        }
-      }
-    }
-
-    // 2. WEIGHT PERCENTILES (Y-axis: yWeight)
-    if (chartMode === 'dual' || chartMode === 'weight') {
-      if (showPercentiles) {
-        percentiles.forEach(p => {
-          const isP50 = p === 'p50';
-          const isExtreme = p === 'p3' || p === 'p97';
-          datasets.push({
-            label: `น้ำหนัก ${p.toUpperCase()}`,
-            data: ages.map((age, i) => ({ x: age, y: ref.weight[p][i] })),
-            borderColor: isP50 ? refWeightP50Color : refWeightColor,
-            borderWidth: isP50 ? 2 : (isExtreme ? 1.5 : 1),
-            borderDash: isP50 ? [] : (isExtreme ? [] : [3, 3]),
-            pointRadius: 0,
-            pointHoverRadius: 3,
-            fill: false,
-            tension: 0.35,
-            yAxisID: chartMode === 'weight' ? 'yHeight' : 'yWeight',
-            tspeType: 'ref-weight',
-            percentile: p.toUpperCase()
-          });
-        });
-      }
-    }
-
-    // 3. STUDENT MEASUREMENTS PLOT (Longitudinal dots & line)
-    const records = student.records || [];
-    
-    // Student Height Plot
-    if (chartMode === 'dual' || chartMode === 'height') {
-      datasets.push({
-        label: `ส่วนสูงจริง: ${student.name} (ซม.)`,
-        data: records.map(r => ({
-          x: r.age,
-          y: r.height,
-          record: r
-        })),
-        borderColor: '#0284c7',
-        backgroundColor: '#38bdf8',
-        borderWidth: 3,
-        pointRadius: 7,
-        pointHoverRadius: 10,
-        pointBackgroundColor: '#0284c7',
-        pointBorderColor: '#ffffff',
-        pointBorderWidth: 3,
-        pointStyle: 'circle',
-        fill: false,
-        tension: 0.25,
-        yAxisID: 'yHeight',
-        order: 1,
-        tspeType: 'student-height'
-      });
-    }
-
-    // Student Weight Plot
-    if (chartMode === 'dual' || chartMode === 'weight') {
-      datasets.push({
-        label: `น้ำหนักจริง: ${student.name} (กก.)`,
-        data: records.map(r => ({
-          x: r.age,
-          y: r.weight,
-          record: r
-        })),
-        borderColor: '#059669',
-        backgroundColor: '#34d399',
-        borderWidth: 3,
-        pointRadius: 7,
-        pointHoverRadius: 10,
-        pointBackgroundColor: '#059669',
-        pointBorderColor: '#ffffff',
-        pointBorderWidth: 3,
-        pointStyle: 'rectRot',
-        fill: false,
-        tension: 0.25,
-        yAxisID: chartMode === 'weight' ? 'yHeight' : 'yWeight',
-        order: 1,
-        tspeType: 'student-weight'
-      });
-    }
-
-    // Configure Scales
-    const maxAge = 19;
-    const minAge = 2;
-
-    const scales = {
-      x: {
-        type: 'linear',
-        min: minAge,
-        max: maxAge,
-        title: {
-          display: true,
-          text: 'อายุ (ปี) · AGE (years)',
-          font: { family: 'Prompt, sans-serif', size: 12, weight: 'bold' },
-          color: '#374151',
-          padding: { top: 8 }
-        },
-        ticks: {
-          stepSize: 1,
-          font: { family: 'Prompt, sans-serif', size: 11, weight: '600' },
-          color: '#4b5563',
-          callback: value => Number.isInteger(value) ? value : ''
-        },
-        grid: {
-          color: 'rgba(229, 231, 235, 0.8)',
-          lineWidth: context => Number.isInteger(context.tick.value) ? 1.2 : 0.5
-        }
-      }
-    };
-
-    if (chartMode === 'dual' || chartMode === 'height') {
-      scales.yHeight = {
-        type: 'linear',
-        position: 'left',
-        min: 80,
-        max: isGirl ? 180 : 190,
-        title: {
-          display: true,
-          text: 'ส่วนสูง · HEIGHT (cm)',
-          font: { family: 'Prompt, sans-serif', size: 12, weight: 'bold' },
-          color: isGirl ? '#db2777' : '#0284c7'
-        },
-        ticks: {
-          stepSize: 5,
-          font: { family: 'Prompt, sans-serif', size: 10 },
-          color: '#6b7280'
-        },
-        grid: {
-          color: 'rgba(243, 244, 246, 0.9)'
-        }
-      };
-    }
-
-    if (chartMode === 'dual') {
-      scales.yWeight = {
-        type: 'linear',
-        position: 'right',
-        min: 10,
-        max: isGirl ? 80 : 90,
-        title: {
-          display: true,
-          text: 'น้ำหนัก · WEIGHT (kg)',
-          font: { family: 'Prompt, sans-serif', size: 12, weight: 'bold' },
-          color: '#059669'
-        },
-        ticks: {
-          stepSize: 5,
-          font: { family: 'Prompt, sans-serif', size: 10 },
-          color: '#059669'
-        },
-        grid: {
-          drawOnChartArea: false
-        }
-      };
-    } else if (chartMode === 'weight') {
-      scales.yHeight.title.text = 'น้ำหนัก · WEIGHT (kg)';
-      scales.yHeight.min = 10;
-      scales.yHeight.max = isGirl ? 80 : 90;
-      scales.yHeight.title.color = '#059669';
-    }
-
-    // Chart.js init
-    growthChartInstance = new Chart(canvas, {
-      type: 'line',
-      data: { datasets },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: {
-          duration: 650,
-          easing: 'easeOutQuart'
-        },
-        interaction: {
-          mode: 'nearest',
-          intersect: false,
-          axis: 'x'
-        },
-        plugins: {
-          legend: {
-            display: true,
-            position: 'top',
-            labels: {
-              boxWidth: 16,
-              boxHeight: 8,
-              font: { family: 'Prompt, sans-serif', size: 11, weight: '600' },
-              color: '#374151',
-              filter: item => {
-                // Only show student points and target height in top legend
-                return item.text.includes('จริง') || item.text.includes('เป้าหมาย');
-              }
-            }
-          },
-          tooltip: {
-            backgroundColor: 'rgba(17, 24, 39, 0.94)',
-            titleFont: { family: 'Prompt, sans-serif', size: 13, weight: 'bold' },
-            bodyFont: { family: 'Prompt, sans-serif', size: 11 },
-            padding: 12,
-            cornerRadius: 12,
-            boxPadding: 4,
-            callbacks: {
-              title: items => {
-                const item = items[0];
-                if (item?.raw?.record) {
-                  const r = item.raw.record;
-                  return `ปี ${r.yearBe} (${r.grade}) · อายุ ${r.age} ปี [${r.date}]`;
-                }
-                return `อายุ ${item.parsed.x.toFixed(1)} ปี`;
-              },
-              label: context => {
-                const type = context.dataset.tspeType;
-                const r = context.raw?.record;
-                if (type === 'student-height') {
-                  const hAssess = LhsGrowthData.assessHeight(context.parsed.y, context.parsed.x, student.gender);
-                  return `📏 ส่วนสูง: ${context.parsed.y} ซม. (${hAssess.percentile}: ${hAssess.label})`;
-                }
-                if (type === 'student-weight') {
-                  const wAssess = LhsGrowthData.assessWeight(context.parsed.y, context.parsed.x, student.gender);
-                  return `⚖️ น้ำหนัก: ${context.parsed.y} กก. (${wAssess.percentile}: ${wAssess.label})`;
-                }
-                if (type === 'target-height') {
-                  return `🎯 ความสูงเป้าหมายพันธุกรรม: ${context.parsed.y} ซม.`;
-                }
-                if (type === 'ref-height') {
-                  return `TSPE ${context.dataset.percentile}: ${context.parsed.y.toFixed(1)} ซม.`;
-                }
-                if (type === 'ref-weight') {
-                  return `TSPE ${context.dataset.percentile}: ${context.parsed.y.toFixed(1)} กก.`;
-                }
-                return `${context.dataset.label}: ${context.parsed.y}`;
-              },
-              afterBody: items => {
-                const studentItem = items.find(i => i.raw?.record);
-                if (studentItem && studentItem.raw.record) {
-                  const rec = studentItem.raw.record;
-                  const bmi = LhsGrowthData.assessBmi(rec.weight, rec.height);
-                  return [
-                    `------------------------`,
-                    `ดัชนีมวลกาย (BMI): ${bmi.bmi} กก./ม.² (${bmi.label})`
-                  ];
-                }
-                return [];
-              }
-            }
-          }
-        },
-        scales
-      }
-    });
-  }
-
   // Export View API
   globalThis.LhsGrowthView = Object.freeze({
     open,
     render,
     resize,
-    selectStudent
+    selectStudent,
+    drawOfficialSheet
   });
 
 })();
