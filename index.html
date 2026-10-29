@@ -359,6 +359,26 @@
                         ข้อมูลนักเรียน
                     </span>
                 </button>
+
+                <!-- Tab 4: การเจริญเติบโต (School Restricted: TSPE Growth Chart) -->
+                <button type="button" id="nav-tab-growth" onclick="switchDashboardTab('growth')"
+                    title="การเจริญเติบโต (เฉพาะสถานศึกษา)"
+                    class="sidebar-tab-btn hidden w-full text-left px-4 py-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3.5 group cursor-pointer font-bold text-gray-900 hover:bg-gray-200/50">
+                    <span id="nav-tab-growth-icon" class="shrink-0 flex items-center justify-center">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 3v18h18" />
+                            <path d="m19 9-5 5-4-4-7 7" />
+                            <circle cx="19" cy="9" r="1.5" />
+                            <circle cx="14" cy="14" r="1.5" />
+                            <circle cx="10" cy="10" r="1.5" />
+                        </svg>
+                    </span>
+                    <span id="nav-tab-growth-text"
+                        class="sidebar-text text-sm lg:text-[15px] tracking-tight truncate flex-1 leading-snug">
+                        การเจริญเติบโต
+                    </span>
+                </button>
             </nav>
         </div>
 
@@ -429,6 +449,17 @@
                     </svg>
                 </span>
                 <span class="truncate">ข้อมูลนักเรียน</span>
+            </button>
+            <button type="button" id="nav-tab-growth-mobile" onclick="switchDashboardTab('growth')"
+                class="hidden py-2.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 truncate cursor-pointer">
+                <span>
+                    <svg class="w-4 h-4 inline-block -mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 3v18h18" />
+                        <path d="m19 9-5 5-4-4-7 7" />
+                    </svg>
+                </span>
+                <span class="truncate">การเจริญเติบโต</span>
             </button>
         </div>
     </div>
@@ -1607,6 +1638,13 @@
             </div>
         </div>
 
+        <!-- ========================================================================= -->
+        <!-- TAB PANEL 4: กราฟการเจริญเติบโต (School Restricted: TSPE Growth Chart)      -->
+        <!-- ========================================================================= -->
+        <div id="panel-growth" class="w-full hidden">
+            <!-- Rendered dynamically by LhsGrowthView -->
+        </div>
+
     </main>
 
     <!-- ========================================================================= -->
@@ -2302,10 +2340,11 @@
             const panelEnv = document.getElementById('panel-env');
             const panelRisk = document.getElementById('panel-risk');
             const panelStudent = document.getElementById('panel-student');
+            const panelGrowth = document.getElementById('panel-growth');
 
-            // Access guard: student tab only available for school roles (usr_saraphi, usr_maetha)
+            // Access guard: student & growth tabs only available for school roles (usr_saraphi, usr_maetha)
             const isSchoolUser = (currentHospitalCode === 'usr_saraphi' || currentHospitalCode === 'usr_maetha' || currentActiveSiteId === 'usr_saraphi' || currentActiveSiteId === 'usr_maetha');
-            if (tabId === 'student' && !isSchoolUser) {
+            if ((tabId === 'student' || tabId === 'growth') && !isSchoolUser) {
                 tabId = 'risk';
             }
 
@@ -2313,6 +2352,7 @@
                 if (panelEnv) panelEnv.classList.remove('hidden');
                 if (panelRisk) panelRisk.classList.add('hidden');
                 if (panelStudent) panelStudent.classList.add('hidden');
+                if (panelGrowth) panelGrowth.classList.add('hidden');
                 updateSidebarNavVisuals('env');
 
                 if (window.history && window.history.replaceState) {
@@ -2343,6 +2383,7 @@
                 if (panelEnv) panelEnv.classList.add('hidden');
                 if (panelRisk) panelRisk.classList.remove('hidden');
                 if (panelStudent) panelStudent.classList.add('hidden');
+                if (panelGrowth) panelGrowth.classList.add('hidden');
                 updateSidebarNavVisuals('risk');
 
                 if (window.history && window.history.replaceState) {
@@ -2368,6 +2409,7 @@
                 if (panelEnv) panelEnv.classList.add('hidden');
                 if (panelRisk) panelRisk.classList.add('hidden');
                 if (panelStudent) panelStudent.classList.remove('hidden');
+                if (panelGrowth) panelGrowth.classList.add('hidden');
                 updateSidebarNavVisuals('student');
 
                 if (window.history && window.history.replaceState) {
@@ -2377,6 +2419,20 @@
                 if (typeof renderStudentInfoDashboard === 'function') {
                     renderStudentInfoDashboard();
                 }
+            } else if (tabId === 'growth') {
+                if (panelEnv) panelEnv.classList.add('hidden');
+                if (panelRisk) panelRisk.classList.add('hidden');
+                if (panelStudent) panelStudent.classList.add('hidden');
+                if (panelGrowth) panelGrowth.classList.remove('hidden');
+                updateSidebarNavVisuals('growth');
+
+                if (window.history && window.history.replaceState) {
+                    window.history.replaceState(null, '', '#growth');
+                }
+
+                if (typeof LhsGrowthView !== 'undefined' && LhsGrowthView.open) {
+                    LhsGrowthView.open({ role: 'school', siteId: currentHospitalCode || currentActiveSiteId || 'usr_saraphi' });
+                }
             }
         }
 
@@ -2384,10 +2440,12 @@
             const envTab = document.getElementById('nav-tab-env');
             const riskTab = document.getElementById('nav-tab-risk');
             const studentTab = document.getElementById('nav-tab-student');
+            const growthTab = document.getElementById('nav-tab-growth');
 
             const envMobile = document.getElementById('nav-tab-env-mobile');
             const riskMobile = document.getElementById('nav-tab-risk-mobile');
             const studentMobile = document.getElementById('nav-tab-student-mobile');
+            const growthMobile = document.getElementById('nav-tab-growth-mobile');
 
             const activePillClasses = "w-full text-left px-4 py-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3.5 group cursor-pointer bg-gradient-to-r from-[#c2a1fe] via-[#a97bfe] to-[#9154fd] text-white shadow-lg shadow-[#9154fd]/25 font-bold";
             const inactiveClasses = "w-full text-left px-4 py-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3.5 group cursor-pointer text-gray-900 hover:bg-gray-200/50 font-bold";
@@ -2402,11 +2460,17 @@
             if (studentTab) {
                 studentTab.className = `${(activeTab === 'student') ? activePillClasses : inactiveClasses} ${isSchoolUser ? '' : 'hidden'}`;
             }
+            if (growthTab) {
+                growthTab.className = `${(activeTab === 'growth') ? activePillClasses : inactiveClasses} ${isSchoolUser ? '' : 'hidden'}`;
+            }
 
             if (envMobile) envMobile.className = (activeTab === 'env') ? activeMobileClasses : inactiveMobileClasses;
             if (riskMobile) riskMobile.className = (activeTab === 'risk') ? activeMobileClasses : inactiveMobileClasses;
             if (studentMobile) {
                 studentMobile.className = `${(activeTab === 'student') ? activeMobileClasses : inactiveMobileClasses} ${isSchoolUser ? '' : 'hidden'}`;
+            }
+            if (growthMobile) {
+                growthMobile.className = `${(activeTab === 'growth') ? activeMobileClasses : inactiveMobileClasses} ${isSchoolUser ? '' : 'hidden'}`;
             }
         }
 
@@ -7406,6 +7470,8 @@
             const isAllowed = isStudentTabAllowed(roleCode);
             const navStudent = document.getElementById('nav-tab-student');
             const navStudentMobile = document.getElementById('nav-tab-student-mobile');
+            const navGrowth = document.getElementById('nav-tab-growth');
+            const navGrowthMobile = document.getElementById('nav-tab-growth-mobile');
             const mobileContainer = document.getElementById('mobile-tabs-container');
 
             if (navStudent) {
@@ -7416,26 +7482,50 @@
                 }
             }
 
-            if (navStudentMobile) {
+            if (navGrowth) {
                 if (isAllowed) {
-                    navStudentMobile.classList.remove('hidden');
-                    if (mobileContainer) {
-                        mobileContainer.classList.remove('grid-cols-2');
-                        mobileContainer.classList.add('grid-cols-3');
-                    }
+                    navGrowth.classList.remove('hidden');
                 } else {
-                    navStudentMobile.classList.add('hidden');
-                    if (mobileContainer) {
-                        mobileContainer.classList.remove('grid-cols-3');
-                        mobileContainer.classList.add('grid-cols-2');
-                    }
+                    navGrowth.classList.add('hidden');
                 }
             }
 
-            // Guard: If currently viewing student panel and role changed to an unauthorized role (hospital or PAO)
+            if (navStudentMobile) {
+                if (isAllowed) {
+                    navStudentMobile.classList.remove('hidden');
+                } else {
+                    navStudentMobile.classList.add('hidden');
+                }
+            }
+
+            if (navGrowthMobile) {
+                if (isAllowed) {
+                    navGrowthMobile.classList.remove('hidden');
+                } else {
+                    navGrowthMobile.classList.add('hidden');
+                }
+            }
+
+            if (mobileContainer) {
+                if (isAllowed) {
+                    mobileContainer.classList.remove('grid-cols-2', 'grid-cols-3');
+                    mobileContainer.classList.add('grid-cols-4');
+                } else {
+                    mobileContainer.classList.remove('grid-cols-3', 'grid-cols-4');
+                    mobileContainer.classList.add('grid-cols-2');
+                }
+            }
+
+            // Guard: If currently viewing student or growth panel and role changed to an unauthorized role (hospital or PAO)
             const panelStudent = document.getElementById('panel-student');
-            if (!isAllowed && panelStudent && !panelStudent.classList.contains('hidden')) {
-                switchDashboardTab('risk');
+            const panelGrowth = document.getElementById('panel-growth');
+            if (!isAllowed) {
+                if (panelStudent && !panelStudent.classList.contains('hidden')) {
+                    switchDashboardTab('risk');
+                }
+                if (panelGrowth && !panelGrowth.classList.contains('hidden')) {
+                    switchDashboardTab('risk');
+                }
             }
         }
 
@@ -8494,6 +8584,12 @@
                 } else {
                     switchDashboardTab('risk');
                 }
+            } else if (hash === '#growth' || urlParams.get('tab') === 'growth') {
+                if (isStudentTabAllowed()) {
+                    switchDashboardTab('growth');
+                } else {
+                    switchDashboardTab('risk');
+                }
             } else if (hash === '#risk' || hash === '#patient' || urlParams.get('tab') === 'risk' || urlParams.get('test')) {
                 switchDashboardTab('risk');
             } else {
@@ -8519,6 +8615,8 @@
     <script src="assets/workspace/community-data.js?v=village-spread-12"></script>
     <script src="assets/workspace/care-ops-view.js?v=village-spread-12"></script>
     <script src="assets/workspace/care-map.js?v=village-spread-12"></script>
+    <script src="assets/workspace/growth-data.js?v=village-spread-12"></script>
+    <script src="assets/workspace/growth-view.js?v=village-spread-12"></script>
     <script src="assets/workspace/workspace.js?v=village-spread-12"></script>
 </body>
 

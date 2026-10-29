@@ -3,11 +3,11 @@
   'use strict';
   const roles = Object.freeze({
     gov: Object.freeze({label:'หน่วยงานรัฐ / อปท.',type:'Gov Office',pages:Object.freeze(['env','risk','care-map','input'])}),
-    school: Object.freeze({label:'สถานศึกษา',type:'School',pages:Object.freeze(['env','risk','student','input'])}),
+    school: Object.freeze({label:'สถานศึกษา',type:'School',pages:Object.freeze(['env','risk','student','growth','input'])}),
     hospital: Object.freeze({label:'สถานพยาบาล',type:'Hospital',pages:Object.freeze(['env','risk'])}),
   });
   const pages = Object.freeze({
-    env:{label:'คุณภาพอากาศ',icon:'air'},risk:{label:'กลุ่มเสี่ยง',icon:'heart'},student:{label:'ข้อมูลนักเรียน',icon:'school'},input:{label:'บันทึกข้อมูล',icon:'edit'},'care-map':{label:'แผนที่การดูแลกลุ่มเปราะบาง',icon:'map'},
+    env:{label:'คุณภาพอากาศ',icon:'air'},risk:{label:'กลุ่มเสี่ยง',icon:'heart'},student:{label:'ข้อมูลนักเรียน',icon:'school'},growth:{label:'การเจริญเติบโต',icon:'growth'},input:{label:'บันทึกข้อมูล',icon:'edit'},'care-map':{label:'แผนที่การดูแลกลุ่มเปราะบาง',icon:'map'},
   });
   const roleForSite = site => Object.keys(roles).find(key=>roles[key].type===site?.type) || null;
   const canAccess = (role,page) => roles[role]?.pages.includes(page) || false;

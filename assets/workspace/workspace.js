@@ -6,7 +6,7 @@
   const legacySwitch=window.switchDashboardTab,legacyVisibility=window.updateSchoolStudentTabVisibility;
   const context={role:'school',siteId:'usr_saraphi',page:'env',form:null};
   let booting=true,changingContext=false;
-  const paths={air:'<path d="M12 3v3M4 12h3m10 0h3M7 15a5 5 0 0 1 10 0M3 18h18M6 22h12"/>',heart:'<path d="M20 5a5 5 0 0 0-7 0l-1 1-1-1a5 5 0 0 0-7 7l8 8 8-8a5 5 0 0 0 0-7zM5 12h4l2-4 2 8 2-4h4"/>',school:'<path d="m2 9 10-5 10 5-10 5zM6 11v7c4 3 8 3 12 0v-7M22 9v7"/>',edit:'<path d="m16 3 5 5M4 20l4-1L21 6l-5-5L3 14l-1 7z"/>',map:'<path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2zM9 3v16M15 5v16"/>'};
+  const paths={air:'<path d="M12 3v3M4 12h3m10 0h3M7 15a5 5 0 0 1 10 0M3 18h18M6 22h12"/>',heart:'<path d="M20 5a5 5 0 0 0-7 0l-1 1-1-1a5 5 0 0 0-7 7l8 8 8-8a5 5 0 0 0 0-7zM5 12h4l2-4 2 8 2-4h4"/>',school:'<path d="m2 9 10-5 10 5-10 5zM6 11v7c4 3 8 3 12 0v-7M22 9v7"/>',growth:'<path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-7 7"/><circle cx="19" cy="9" r="1.5"/><circle cx="14" cy="14" r="1.5"/><circle cx="10" cy="10" r="1.5"/><circle cx="3" cy="17" r="1.5"/>',edit:'<path d="m16 3 5 5M4 20l4-1L21 6l-5-5L3 14l-1 7z"/>',map:'<path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2zM9 3v16M15 5v16"/>'};
   const icon=name=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name]}</svg>`;
   function currentSite(){return userSites.find(s=>s.id===context.siteId);}
   function notice(text){const el=$('workspace-notice');el.hidden=!text;el.textContent=text || '';}
@@ -24,21 +24,23 @@
   }
   function normalizeRoute(page,form){return page==='input'?(context.role==='gov'?'#input-gov':form==='student'?'#input-student':'#input-infirmary'):'#'+page;}
   function navigate(page,form=null,{denied=false}={}){
-    if(booting){legacySwitch(page==='input'||page==='care-map'?'env':page);return;}
+    if(booting){legacySwitch(page==='input'||page==='care-map'||page==='growth'?'env':page);return;}
     if(changingContext)return;
     LhsEntry.capture();
     if(!P.canAccess(context.role,page)){page='env';form=null;denied=true;}
     if(page==='input'&&context.role==='school'&&form==='citizen'){page='env';denied=true;}
     if(page==='input'&&context.role==='gov'&&form&&form!=='citizen'){page='env';denied=true;}
     const previousPage=context.page;context.page=page;context.form=form;
-    ['env','risk','student','input','care-map'].forEach(id=>$('panel-'+id)?.classList.add('hidden'));
+    ['env','risk','student','growth','input','care-map'].forEach(id=>$('panel-'+id)?.classList.add('hidden'));
     if(['env','risk','student'].includes(page))legacySwitch(page);
+    else if(page==='growth')LhsGrowthView.open({...context});
     else if(page==='input')LhsEntry.open({...context},form);
     else if(page==='care-map')LhsCareMap.open({...context});
     $('panel-'+page).classList.remove('hidden');
     nav();updateHeader();history.replaceState(null,'',normalizeRoute(page,context.form));
     notice(denied?'หน้านี้ไม่อยู่ในบทบาทที่เลือก จึงแสดงหน้าคุณภาพอากาศ โดยคงบทบาทและหน่วยงานเดิมไว้':'');
     if(page==='input')setTimeout(()=>window.dispatchEvent(new Event('resize')),80);
+    if(page==='growth')LhsGrowthView.resize();
     if(page==='care-map')LhsCareMap.resize();
     if(previousPage!==page)window.scrollTo({top:0,left:0,behavior:'instant'});
   }
