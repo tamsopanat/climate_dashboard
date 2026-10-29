@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="หน้าจำลองระบบเฝ้าระวังคุณภาพอากาศและผู้ป่วยกลุ่มเสี่ยง ตามเว็บ climate_dashboard ข้อมูลและการแจ้งเตือนเป็นข้อมูลสาธิต">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#f4f5fb">
     <title>ระบบเฝ้าระวังคุณภาพอากาศและผู้ป่วยกลุ่มเสี่ยง - CMU Learning Health System</title>
 
     <!-- Google Fonts: Prompt & Inter for pristine typography -->
@@ -14,7 +17,7 @@
         rel="stylesheet">
 
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/vendor/tailwind.js?v=village-spread-12"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -38,11 +41,22 @@
     </script>
 
     <!-- Chart.js for Environmental Exposure Trends -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/vendor/chart.umd.js?v=village-spread-12"></script>
+    <script>
+        if (typeof Chart === 'undefined') {
+            document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js"><\/script>');
+        }
+    </script>
 
     <!-- Leaflet.js CSS & JS for OpenStreetMap & Geospatial Surveillance -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <link rel="stylesheet" href="assets/vendor/leaflet.css?v=village-spread-12" />
+    <script src="assets/vendor/leaflet.js?v=village-spread-12"></script>
+    <script>
+        if (typeof L === 'undefined') {
+            document.write('<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />');
+            document.write('<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\/script>');
+        }
+    </script>
 
     <style>
         /* Custom Leaflet popup styling matching dashboard theme */
@@ -218,6 +232,16 @@
             border-top: 1px solid rgba(255, 255, 255, 0.16);
         }
     </style>
+    <link rel="stylesheet" href="assets/entry/entry.css?v=village-spread-12">
+    <link rel="stylesheet" href="assets/workspace/workspace.css?v=village-spread-12">
+    <link rel="stylesheet" href="assets/workspace/ux-refinement.css?v=village-spread-12">
+    <link rel="stylesheet" href="assets/workspace/care-ops.css?v=village-spread-12">
+    <link rel="stylesheet" href="assets/workspace/forecast-decision.css?v=village-spread-12">
+    <script src="assets/workspace/policy.js?v=village-spread-12"></script>
+    <script src="assets/workspace/forecast-model.js?v=village-spread-12"></script>
+    <script src="assets/workspace/building-samples.js?v=village-spread-12"></script>
+    <script src="assets/workspace/care-model.js?v=village-spread-12"></script>
+    <script src="assets/workspace/care-ops-model.js?v=village-spread-12"></script>
 </head>
 
 <body
@@ -1559,6 +1583,7 @@
                                     <th class="px-5 py-3.5 whitespace-nowrap">รหัสนักเรียน</th>
                                     <th class="px-5 py-3.5 whitespace-nowrap">ชื่อ-สกุล</th>
                                     <th class="px-5 py-3.5 whitespace-nowrap">ชั้นเรียน</th>
+                                    <th class="px-5 py-3.5 whitespace-nowrap">ส่วนสูง / น้ำหนัก</th>
                                     <th class="px-5 py-3.5 whitespace-nowrap">วันเดือนปีเกิด</th>
                                     <th class="px-5 py-3.5 whitespace-nowrap">เบอร์ติดต่อผู้ปกครอง</th>
                                     <th class="px-5 py-3.5 whitespace-nowrap text-center">สถานะวันนี้</th>
@@ -2618,33 +2643,9 @@
             "tam_nakaeo": { name: "ต.นาแก้ว", color: "#4f46e5", pmOffset: 0, tempOffset: 3.0 }
         };
 
-        // Mocked Observed Environmental Data (Sept 30 - Oct 6, 2026)
-        // Includes Critical PM2.5 (>= 150 µg/m³) and Extreme Heat (>= 38.0 °C) peaks
-        const observedMockData = {
-            "2026-09-30": { pm25: 32.4, temp: 31.8 },
-            "2026-10-01": { pm25: 48.0, temp: 33.5 },
-            "2026-10-02": { pm25: 85.5, temp: 35.8 },
-            "2026-10-03": { pm25: 158.2, temp: 38.6 }, // 🚨 Critical PM & 🔥 Extreme Heat
-            "2026-10-04": { pm25: 172.0, temp: 39.4 }, // 🚨 Critical PM & 🔥 Extreme Heat
-            "2026-10-05": { pm25: 96.5, temp: 36.2 },
-            "2026-10-06": { pm25: 52.0, temp: 33.0 }
-        };
-
-        // Embedded 7-Day Forecast Data (Oct 7 - Oct 13, 2026) - Self-contained, no external forecast.json fetch needed
-        // Includes both PM2.5 and Temperature projections, with forecasted Critical PM & Extreme Heat alerts
-        const forecastConfig = {
-            issueDate: "2026-10-06",
-            forecasts: {
-                "2026-10-07": { pm25: 45.0, temp: 32.5, h: 1, level_th: "ปกติ" },
-                "2026-10-08": { pm25: 82.0, temp: 35.0, h: 2, level_th: "เริ่มมีผลกระทบ" },
-                "2026-10-09": { pm25: 154.0, temp: 38.8, h: 3, level_th: "มีผลกระทบ" }, // 🚨 Critical PM & 🔥 Extreme Heat
-                "2026-10-10": { pm25: 166.5, temp: 39.5, h: 4, level_th: "มีผลกระทบ" }, // 🚨 Critical PM & 🔥 Extreme Heat
-                "2026-10-11": { pm25: 112.0, temp: 36.8, h: 5, level_th: "เริ่มมีผลกระทบ" },
-                "2026-10-12": { pm25: 58.0, temp: 33.2, h: 6, level_th: "ปกติ" },
-                "2026-10-13": { pm25: 38.5, temp: 31.0, h: 7, level_th: "ปกติ" }
-            }
-        };
-        forecastConfig.station14Forecasts = forecastConfig.forecasts;
+        // Demo observations and seven-day forecasts use dates relative to the current Bangkok day.
+        // Forecast values and bounds are explicit demo data. See assets/workspace/forecast-model.js.
+        const forecastConfig = LhsForecast.createDemoSource();
 
         // ================= 3. THAI STANDARD AQI COLORS & STYLES =================
         function getAqiStyles(pm25) {
@@ -2825,440 +2826,9 @@
 
         let envChart = null;
 
-        function initEnvChart() {
-            const ctx = document.getElementById('env-chart').getContext('2d');
-            envChart = new Chart(ctx, {
-                type: 'line',
-                data: { labels: [], datasets: [] },
-                plugins: [forecastBackgroundPlugin],
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: { mode: 'index', intersect: false },
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top',
-                            align: 'start',
-                            labels: {
-                                usePointStyle: true,
-                                boxWidth: 8,
-                                font: { family: 'ui-sans-serif, system-ui, sans-serif', size: 12, weight: 'bold' }
-                            }
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                            titleFont: { size: 13, weight: 'bold' },
-                            bodyFont: { size: 12 },
-                            padding: 12,
-                            cornerRadius: 8,
-                            callbacks: {
-                                label: function (context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) label += ': ';
-                                    if (context.parsed.y !== null) {
-                                        const val = context.parsed.y;
-                                        const idx = context.dataIndex;
-                                        const isForecast = (envChart.forecastStartIndex !== -1 && idx >= envChart.forecastStartIndex);
-                                        const peak = context.dataset.peakData ? context.dataset.peakData[idx] : null;
-
-                                        if (label.includes('PM2.5')) {
-                                            label += val + ' µg/m³';
-                                            if (currentMode === 'weekly' && peak !== null && peak !== undefined && peak !== val) {
-                                                label += ` (สูงสุดรายวัน: ${peak} µg/m³)`;
-                                            }
-                                            if (isForecast) label += '  [พยากรณ์ PM2.5]';
-                                            if (val >= CRITICAL_PM25_THRESHOLD || (peak !== null && peak >= CRITICAL_PM25_THRESHOLD)) {
-                                                label += '  🚨 [วิกฤต ≥150]';
-                                            }
-                                        } else if (label.includes('Temp') || label.includes('อุณหภูมิ')) {
-                                            label += val + ' °C';
-                                            if (context.dataset.isComparison) {
-                                                const primaryTempDataset = envChart.data.datasets.find(ds => ds.isPrimary && ds.yAxisID === 'y1');
-                                                if (primaryTempDataset && primaryTempDataset.data[idx] !== null && primaryTempDataset.data[idx] !== undefined) {
-                                                    const pTemp = primaryTempDataset.data[idx];
-                                                    const diff = Math.round((val - pTemp) * 10) / 10;
-                                                    const sign = diff >= 0 ? '+' : '';
-                                                    label += ` (${sign}${diff} °C เทียบกับ ${activeSite.name})`;
-                                                }
-                                            }
-                                            if (isForecast) label += '  [พยากรณ์อุณหภูมิ]';
-                                            if (currentMode === 'weekly' && peak !== null && peak !== undefined && peak !== val) {
-                                                label += ` (สูงสุดรายวัน: ${peak} °C)`;
-                                            }
-                                            if (val >= EXTREME_TEMP_THRESHOLD || (peak !== null && peak >= EXTREME_TEMP_THRESHOLD)) {
-                                                label += '  🔥 [อากาศร้อนจัด ≥38°C]';
-                                            }
-                                        } else {
-                                            label += val;
-                                        }
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            grid: { display: false, drawBorder: false },
-                            ticks: {
-                                font: { family: 'ui-sans-serif, system-ui, sans-serif', size: 11 },
-                                maxRotation: 45,
-                                minRotation: 30,
-                                color: '#64748b'
-                            }
-                        },
-                        y: {
-                            type: 'linear',
-                            display: true,
-                            position: 'left',
-                            title: {
-                                display: true,
-                                text: 'PM2.5 (µg/m³)',
-                                font: { weight: 'bold', size: 12, family: 'ui-sans-serif, system-ui, sans-serif' },
-                                color: '#64748b'
-                            },
-                            min: 0,
-                            suggestedMax: 180,
-                            ticks: { stepSize: 20, font: { family: 'ui-sans-serif, system-ui, sans-serif' }, color: '#94a3b8' },
-                            grid: { color: '#f1f5f9', drawBorder: false }
-                        },
-                        y1: {
-                            type: 'linear',
-                            display: true,
-                            position: 'right',
-                            title: {
-                                display: true,
-                                text: 'อุณหภูมิ (°C)',
-                                font: { weight: 'bold', size: 12, family: 'ui-sans-serif, system-ui, sans-serif' },
-                                color: '#64748b'
-                            },
-                            min: 20,
-                            max: 45,
-                            ticks: { stepSize: 5, font: { family: 'ui-sans-serif, system-ui, sans-serif' }, color: '#94a3b8' },
-                            grid: { drawOnChartArea: false, drawBorder: false }
-                        }
-                    }
-                }
-            });
-        }
-
-        function fetchDashboardData() {
-            if (!envChart) return;
-            const start = new Date(document.getElementById('start-date').value);
-            const end = new Date(document.getElementById('end-date').value);
-            const selectedCompId = document.getElementById('location-select')?.value || '';
-            const activeSite = getCurrentSite();
-
-            // Comparison metadata
-            let compMeta = null;
-            if (selectedCompId) {
-                const loc = comparisonLocationsDb[selectedCompId];
-                if (loc) {
-                    const isCooler = loc.tempOffset < 0;
-                    compMeta = {
-                        name: loc.name.split(' (')[0],
-                        fullName: loc.name,
-                        colorPM: loc.color,
-                        colorTemp: isCooler ? '#0284c7' : '#ea580c',
-                        tempOffset: loc.tempOffset
-                    };
-                } else {
-                    const selOption = document.getElementById('location-select')?.selectedOptions?.[0];
-                    const optText = selOption ? selOption.textContent.split(' (')[0] : selectedCompId;
-                    compMeta = {
-                        name: optText,
-                        fullName: optText,
-                        colorPM: '#8b5cf6',
-                        colorTemp: '#ea580c',
-                        tempOffset: 2.5
-                    };
-                }
-            }
-
-            const isAprilSmokePeriod = (start.getMonth() === 3 && end.getMonth() <= 4 && start.getFullYear() === 2026);
-
-            const dailyRecords = [];
-            let current = new Date(start);
-            let idx = 0;
-
-            const siteBasePM = activeSite.basePM || 20.0;
-            const siteBaseTemp = activeSite.baseTemp || 30.8;
-
-            while (current <= end) {
-                const y = current.getFullYear();
-                const m = String(current.getMonth() + 1).padStart(2, '0');
-                const d = String(current.getDate()).padStart(2, '0');
-                const isoDate = `${y}-${m}-${d}`;
-                const label = current.toLocaleDateString('th-TH', { month: 'short', day: 'numeric' });
-
-                const isForecastDay = (isoDate > forecastConfig.issueDate && forecastConfig.forecasts[isoDate] !== undefined);
-
-                let pmVal, tempVal;
-                if (isForecastDay) {
-                    const fc = forecastConfig.forecasts[isoDate];
-                    const sitePmOffset = (siteBasePM || 20.0) - 20.0;
-                    const siteTempOffset = (siteBaseTemp || 30.8) - 30.8;
-                    pmVal = Math.round((fc.pm25 + sitePmOffset * 0.4) * 10) / 10;
-                    tempVal = Math.round((fc.temp + siteTempOffset * 0.4) * 10) / 10;
-                } else if (isAprilSmokePeriod && idx < referenceSmokeData.length) {
-                    pmVal = referenceSmokeData[idx].pm;
-                    tempVal = referenceSmokeData[idx].temp;
-                } else if (observedMockData[isoDate]) {
-                    const obs = observedMockData[isoDate];
-                    const sitePmOffset = (siteBasePM || 20.0) - 20.0;
-                    const siteTempOffset = (siteBaseTemp || 30.8) - 30.8;
-                    pmVal = Math.round((obs.pm25 + sitePmOffset * 0.4) * 10) / 10;
-                    tempVal = Math.round((obs.temp + siteTempOffset * 0.4) * 10) / 10;
-                } else {
-                    const diffDays = Math.floor((current - start) / (1000 * 60 * 60 * 24));
-                    pmVal = Math.max(12, Math.round(siteBasePM + Math.sin(diffDays * 0.45) * 5 + (isoDate === forecastConfig.issueDate ? 3.0 : 0)));
-                    tempVal = Math.round((siteBaseTemp + Math.cos(diffDays * 0.3) * 2.5) * 10) / 10;
-                }
-
-                let compDayPM = null;
-                let compDayTemp = null;
-                if (selectedCompId) {
-                    const loc = comparisonLocationsDb[selectedCompId] || { pmOffset: 12, tempOffset: 2.5 };
-                    if (isForecastDay) {
-                        const localVar = Math.sin(idx * 0.8 + loc.pmOffset) * 3.5;
-                        compDayPM = Math.max(12, Math.round((pmVal + loc.pmOffset * 0.4 + localVar) * 10) / 10);
-                        const tempNoise = Math.sin(idx * 0.65 + (loc.tempOffset > 0 ? 1.4 : 3.0)) * 0.5;
-                        compDayTemp = Math.round((tempVal + loc.tempOffset * 0.6 + tempNoise) * 10) / 10;
-                    } else {
-                        const localVariation = Math.sin(idx * 0.5 + loc.pmOffset) * 8;
-                        compDayPM = Math.max(12, Math.round(pmVal + loc.pmOffset * 0.4 + localVariation));
-                        const tempNoise = Math.sin(idx * 0.65 + (loc.tempOffset > 0 ? 1.4 : 3.0)) * 0.8;
-                        compDayTemp = Math.round((tempVal + loc.tempOffset + tempNoise) * 10) / 10;
-                    }
-                }
-
-                dailyRecords.push({
-                    date: new Date(current),
-                    isoDate,
-                    label,
-                    isForecastDay,
-                    primaryPM: pmVal,
-                    primaryTemp: tempVal,
-                    compPM: compDayPM,
-                    compTemp: compDayTemp
-                });
-
-                current.setDate(current.getDate() + 1);
-                idx++;
-                if (idx > 120) break;
-            }
-
-            let labels = [];
-            let primaryPM = [];
-            let primaryPeakPM = [];
-            let primaryTemp = [];
-            let primaryPeakTemp = [];
-            let compSeriesPM = [];
-            let compSeriesPeakPM = [];
-            let compSeriesTemp = [];
-            let compSeriesPeakTemp = [];
-            let forecastStartIdx = -1;
-
-            if (currentMode === 'daily') {
-                labels = dailyRecords.map(r => r.label);
-                primaryPM = dailyRecords.map(r => r.primaryPM);
-                primaryPeakPM = [...primaryPM];
-                primaryTemp = dailyRecords.map(r => r.primaryTemp);
-                primaryPeakTemp = [...primaryTemp];
-                forecastStartIdx = dailyRecords.findIndex(r => r.isForecastDay);
-
-                if (selectedCompId) {
-                    compSeriesPM = dailyRecords.map(r => r.compPM);
-                    compSeriesPeakPM = [...compSeriesPM];
-                    compSeriesTemp = dailyRecords.map(r => r.compTemp);
-                    compSeriesPeakTemp = [...compSeriesTemp];
-                }
-            } else {
-                const weekChunks = [];
-                for (let i = 0; i < dailyRecords.length; i += 7) {
-                    weekChunks.push(dailyRecords.slice(i, i + 7));
-                }
-
-                weekChunks.forEach((chunk, chunkIdx) => {
-                    const first = chunk[0];
-                    const last = chunk[chunk.length - 1];
-
-                    let weekLabel = (chunk.length === 1)
-                        ? first.label
-                        : (first.date.getMonth() === last.date.getMonth())
-                            ? `${first.date.getDate()} - ${last.date.getDate()} ${first.date.toLocaleDateString('th-TH', { month: 'short' })}`
-                            : `${first.date.toLocaleDateString('th-TH', { month: 'short', day: 'numeric' })} - ${last.date.toLocaleDateString('th-TH', { month: 'short', day: 'numeric' })}`;
-                    labels.push(weekLabel);
-
-                    const isFcWeek = (chunk.filter(d => d.isForecastDay).length >= Math.ceil(chunk.length / 2));
-                    if (isFcWeek && forecastStartIdx === -1) forecastStartIdx = chunkIdx;
-
-                    const avgPM = Math.round((chunk.reduce((sum, d) => sum + d.primaryPM, 0) / chunk.length) * 10) / 10;
-                    const peakPM = Math.max(...chunk.map(d => d.primaryPM));
-
-                    const validTemps = chunk.filter(d => d.primaryTemp !== null && d.primaryTemp !== undefined).map(d => d.primaryTemp);
-                    const avgTemp = (isFcWeek || validTemps.length === 0) ? null : Math.round((validTemps.reduce((sum, d) => sum + d, 0) / validTemps.length) * 10) / 10;
-                    const peakTemp = (isFcWeek || validTemps.length === 0) ? null : Math.max(...validTemps);
-
-                    primaryPM.push(avgPM);
-                    primaryPeakPM.push(peakPM);
-                    primaryTemp.push(avgTemp);
-                    primaryPeakTemp.push(peakTemp);
-
-                    if (selectedCompId) {
-                        const validCompPM = chunk.filter(d => d.compPM !== null);
-                        const validCompTemp = chunk.filter(d => d.compTemp !== null && d.compTemp !== undefined).map(d => d.compTemp);
-
-                        if (validCompPM.length > 0) {
-                            compSeriesPM.push(Math.round((validCompPM.reduce((sum, d) => sum + d.compPM, 0) / validCompPM.length) * 10) / 10);
-                            compSeriesPeakPM.push(Math.max(...validCompPM.map(d => d.compPM)));
-                        } else {
-                            compSeriesPM.push(null);
-                            compSeriesPeakPM.push(null);
-                        }
-
-                        if (!isFcWeek && validCompTemp.length > 0) {
-                            compSeriesTemp.push(Math.round((validCompTemp.reduce((sum, d) => sum + d, 0) / validCompTemp.length) * 10) / 10);
-                            compSeriesPeakTemp.push(Math.max(...validCompTemp));
-                        } else {
-                            compSeriesTemp.push(null);
-                            compSeriesPeakTemp.push(null);
-                        }
-                    }
-                });
-            }
-
-            envChart.forecastStartIndex = forecastStartIdx;
-            currentForecastStartIndex = forecastStartIdx;
-
-            const datasets = [];
-
-            // Active Site PM2.5
-            datasets.push({
-                isPrimary: true,
-                label: `${activeSite.name} - PM2.5 (µg/m³)`,
-                data: primaryPM,
-                peakData: primaryPeakPM,
-                borderColor: primaryColorPM,
-                backgroundColor: primaryColorPM,
-                borderWidth: 2.8,
-                pointStyle: 'circle',
-                yAxisID: 'y',
-                tension: 0.38,
-                segment: {
-                    borderDash: ctx => (currentForecastStartIndex !== -1 && ctx.p0DataIndex >= currentForecastStartIndex - 1) ? [5, 4] : undefined
-                },
-                pointRadius: getPM25PointRadius,
-                pointHoverRadius: getPM25PointHoverRadius,
-                pointBackgroundColor: getPM25PointBgColor,
-                pointBorderColor: getPM25PointBorderColor,
-                pointBorderWidth: getPM25PointBorderWidth,
-                order: 1
-            });
-
-            // Active Site Temperature
-            datasets.push({
-                isPrimary: true,
-                label: `${activeSite.name} - อุณหภูมิ (°C)`,
-                data: primaryTemp,
-                peakData: primaryPeakTemp,
-                borderColor: primaryColorPM,
-                backgroundColor: primaryColorPM,
-                borderWidth: 2.0,
-                borderDash: [5, 5],
-                pointStyle: 'rect',
-                spanGaps: false,
-                yAxisID: 'y1',
-                tension: 0.38,
-                pointRadius: getTempPointRadius,
-                pointHoverRadius: getTempPointHoverRadius,
-                pointBackgroundColor: getTempPointBgColor,
-                pointBorderColor: getTempPointBorderColor,
-                pointBorderWidth: getTempPointBorderWidth,
-                order: 3
-            });
-
-            // Comparison Station Datasets
-            if (selectedCompId && compMeta && compSeriesPM.length > 0) {
-                const compColor = compMeta.colorPM;
-
-                datasets.push({
-                    isComparison: true,
-                    label: `${compMeta.name} - PM2.5 (µg/m³)`,
-                    data: compSeriesPM,
-                    peakData: compSeriesPeakPM,
-                    borderColor: compColor,
-                    backgroundColor: compColor,
-                    borderWidth: 2.4,
-                    pointStyle: 'circle',
-                    yAxisID: 'y',
-                    tension: 0.38,
-                    segment: {
-                        borderDash: ctx => (currentForecastStartIndex !== -1 && ctx.p0DataIndex >= currentForecastStartIndex - 1) ? [5, 4] : undefined
-                    },
-                    pointRadius: getPM25PointRadius,
-                    pointHoverRadius: getPM25PointHoverRadius,
-                    pointBackgroundColor: getPM25PointBgColor,
-                    pointBorderColor: getPM25PointBorderColor,
-                    pointBorderWidth: getPM25PointBorderWidth,
-                    order: 2
-                });
-
-                datasets.push({
-                    isComparison: true,
-                    label: `${compMeta.name} - อุณหภูมิ (°C)`,
-                    data: compSeriesTemp,
-                    peakData: compSeriesPeakTemp,
-                    borderColor: compColor,
-                    backgroundColor: compColor,
-                    borderWidth: 2.0,
-                    borderDash: [5, 5],
-                    pointStyle: 'rect',
-                    spanGaps: false,
-                    yAxisID: 'y1',
-                    tension: 0.38,
-                    pointRadius: getTempPointRadius,
-                    pointHoverRadius: getTempPointHoverRadius,
-                    pointBackgroundColor: getTempPointBgColor,
-                    pointBorderColor: getTempPointBorderColor,
-                    pointBorderWidth: getTempPointBorderWidth,
-                    order: 4
-                });
-            }
-
-            envChart.data.labels = labels;
-            envChart.data.datasets = datasets;
-            envChart.update();
-        }
-
-        // Set default date range to Current + 7-Day Forecast
-        function setDefaultDateRange() {
-            const startInput = document.getElementById('start-date');
-            const endInput = document.getElementById('end-date');
-            if (!startInput || !endInput) return;
-
-            if (forecastConfig.issueDate) {
-                const issue = new Date(forecastConfig.issueDate + 'T00:00:00');
-                const start = new Date(issue);
-                start.setDate(start.getDate() - 6);
-                const end = new Date(issue);
-                end.setDate(end.getDate() + 7);
-
-                const toIso = (d) => {
-                    const y = d.getFullYear();
-                    const m = String(d.getMonth() + 1).padStart(2, '0');
-                    const day = String(d.getDate()).padStart(2, '0');
-                    return `${y}-${m}-${day}`;
-                };
-
-                startInput.value = toIso(start);
-                endInput.value = toIso(end);
-            } else {
-                startInput.value = '2026-09-30';
-                endInput.value = '2026-10-13';
-            }
-        }
+        function initEnvChart() { LhsForecastView.init(); }
+        function fetchDashboardData() { LhsForecastView.render(); }
+        function setDefaultDateRange() { LhsForecastView.defaults(); }
 
         // Dropdown location selector for comparison
         function initLocationDropdowns() {
@@ -3370,6 +2940,7 @@
 
             const esriSatelliteHybrid = L.layerGroup([
                 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 }),
+                L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 }),
                 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 })
             ]);
 
@@ -3379,12 +2950,12 @@
             leafletMap = L.map('map-container', {
                 center: [18.7126, 99.0357],
                 zoom: 13,
-                layers: [esriStreetLayer]
+                layers: [esriSatelliteHybrid]
             });
 
             const baseMaps = {
-                "แผนที่ถนน Esri (แนะนำ)": esriStreetLayer,
-                "ภาพถ่ายดาวเทียม + ถนน (Satellite)": esriSatelliteHybrid,
+                "ภาพถ่ายดาวเทียม + ถนน (Satellite) (แนะนำ)": esriSatelliteHybrid,
+                "แผนที่ถนน Esri (Street Map)": esriStreetLayer,
                 "แผนที่ภูมิประเทศ (Topo)": esriTopoLayer,
                 "แผนที่โทนสว่าง (Light Gray)": esriGrayLayer
             };
@@ -6372,7 +5943,8 @@
             const isHospitalMode = (!isGovMode && !isSchoolMode) || activeHospital.type === 'Hospital';
 
             // Filter patients by active role
-            const hospitalFilteredDb = allPatientsDb.filter(p => p.hosp === currentHospitalCode);
+            const hospitalFilteredDb = isGovMode && window.LhsCommunityData ? LhsCommunityData.patients(activeHospital) : allPatientsDb.filter(p => p.hosp === currentHospitalCode);
+            window.LhsCommunityData?.renderRiskSummary(activeHospital);
 
             // Get all monitoring stations for the active role area
             const stations = getStationsForRole(currentHospitalCode);
@@ -6503,7 +6075,7 @@
                     providerDesc.innerHTML = `การประเมินความเสี่ยงสุขภาพนักเรียน: คำนวณจาก <strong>ระดับฝุ่น PM2.5</strong>, <strong>ระดับอุณหภูมิและความร้อน</strong>, และ <strong>ข้อมูลกลุ่มเสี่ยงในสถานศึกษา</strong>`;
                 }
             } else if (isGovMode) {
-                // อบต.กองแขก: ซ่อนทั้งตัวกรองและตารางรายชื่อประชาชน เนื่องจากไม่มีสิทธิ์เข้าถึงข้อมูลส่วนบุคคล (PDPA)
+                // อบต.กองแขก: หน้ากลุ่มเสี่ยงแสดงข้อมูลสรุปเท่านั้น ทะเบียนและแผนที่การดูแลแยกเป็นเมนูเฉพาะ
                 if (secFilters) secFilters.classList.add('hidden');
                 if (secRoster) secRoster.classList.add('hidden');
                 if (sec1Badge) sec1Badge.classList.add('hidden');
@@ -6511,7 +6083,7 @@
                 if (providerBadge) providerBadge.textContent = "การบริหารจัดการพื้นที่ อปท. (อบต.กองแขก)";
                 if (providerTitle) providerTitle.textContent = "การเฝ้าระวังสิ่งแวดล้อมและสถานีตรวจวัดในพื้นที่";
                 if (providerDesc) {
-                    providerDesc.innerHTML = `การเฝ้าระวังคุณภาพสิ่งแวดล้อม: ติดตาม <strong>ระดับฝุ่น PM2.5</strong> และ <strong>ระดับอุณหภูมิและความร้อน</strong> จากทุกสถานีตรวจวัดในเขตรับผิดชอบ อบต.กองแขก (ไม่มีการเข้าถึงข้อมูลส่วนบุคคล)`;
+                    providerDesc.innerHTML = `การเฝ้าระวังคุณภาพสิ่งแวดล้อม: ติดตาม <strong>ระดับฝุ่น PM2.5</strong> และ <strong>ระดับอุณหภูมิและความร้อน</strong> จากทุกสถานีตรวจวัดในเขตรับผิดชอบ อบต.กองแขก (หน้านี้ไม่มีรายชื่อหรือข้อมูลส่วนบุคคล)`;
                 }
             } else {
                 if (secFilters) secFilters.classList.remove('hidden');
@@ -6647,7 +6219,7 @@
                             ${p.cid}
                         </td>
                         <td class="px-5 py-3.5 font-medium text-gray-900 whitespace-nowrap">
-                            ${p.name}
+                            ${entryEscape(p.name)}
                         </td>
                         ${classroomCell}
                         <td class="px-5 py-3.5 font-medium text-gray-900 whitespace-nowrap">
@@ -6667,7 +6239,7 @@
                         </td>
                         <td class="px-5 py-3.5 whitespace-nowrap text-right text-sm font-medium">
                             <div class="flex justify-end items-center space-x-1.5">
-                                <button type="button" onclick="logContact('${p.cid}', '${p.name}')" class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-xs font-semibold px-2.5 py-1.5 rounded-lg shadow-2xs transition">
+                                <button type="button" onclick="logContact('${p.cid}', decodeURIComponent('${encodeURIComponent(p.name).replace(/'/g, '%27')}'))" class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-xs font-semibold px-2.5 py-1.5 rounded-lg shadow-2xs transition">
                                     ${contactBtnLabel}
                                 </button>
                                 <button type="button" onclick="openSpecificSmsModal('${p.cid}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-2.5 py-1.5 rounded-lg shadow-2xs transition flex items-center gap-1" title="${smsBtnTitle}">
@@ -8059,7 +7631,7 @@
             if (list.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="7" class="px-6 py-12 text-center text-gray-500">
+                        <td colspan="8" class="px-6 py-12 text-center text-gray-500">
                             <div class="text-3xl mb-2">🔍</div>
                             <p class="font-bold text-gray-700 text-sm">ไม่พบข้อมูลนักเรียนที่ตรงกับเงื่อนไข</p>
                             <p class="text-xs text-gray-400 mt-1">ลองเปลี่ยนคำค้นหา หรือรีเซ็ตตัวกรองสถานะ/ระดับชั้น</p>
@@ -8111,23 +7683,26 @@
                 return `
                     <tr class="hover:bg-blue-50/30 transition-colors duration-150">
                         <td class="px-5 py-3.5 whitespace-nowrap font-mono text-xs font-bold text-gray-600">
-                            ${s.id}
+                            ${entryEscape(s.id)}
                         </td>
                         <td class="px-5 py-3.5 whitespace-nowrap">
-                            <span class="font-bold text-gray-900 text-sm tracking-tight block">${s.name}</span>
+                            <span class="font-bold text-gray-900 text-sm tracking-tight block">${entryEscape(s.name)}</span>
                         </td>
                         <td class="px-5 py-3.5 whitespace-nowrap text-xs text-gray-800 font-bold">
-                            ${s.gradeClass}
+                            ${entryEscape(s.gradeClass)}
                         </td>
                         <td class="px-5 py-3.5 whitespace-nowrap text-xs text-gray-600">
-                            ${s.dob}
+                            ${s.height != null ? entryEscape(s.height) + ' ซม.' : '—'} / ${s.weight != null ? entryEscape(s.weight) + ' กก.' : '—'}
+                        </td>
+                        <td class="px-5 py-3.5 whitespace-nowrap text-xs text-gray-600">
+                            ${entryEscape(s.dob)}
                         </td>
                         <td class="px-5 py-3.5 whitespace-nowrap font-mono text-xs text-gray-700">
-                            ${s.guardianContact}
+                            ${entryEscape(s.guardianContact)}
                         </td>
                         <td class="px-5 py-3.5 whitespace-nowrap text-center">
                             <div class="student-status-container">
-                                <button type="button" onclick="openStudentStatusModal('${s.id}')"
+                                <button type="button" onclick="openStudentStatusModal('${entryEscape(s.id)}')"
                                     title="${hasHover ? 'แตะ/คลิก หรือเลื่อนเมาส์ชี้เพื่อดูเหตุผล' : 'มาเรียนตามปกติ'}"
                                     class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${cfg.badgeClass} cursor-pointer shadow-2xs transition transform hover:scale-105">
                                     <span>${cfg.icon}</span>
@@ -8142,26 +7717,26 @@
                                             <span class="w-2.5 h-2.5 rounded-full ${cfg.dotColor} animate-pulse"></span>
                                             <span>${cfg.title}</span>
                                         </div>
-                                        <span class="text-[10px] text-gray-300 font-mono bg-white/10 px-1.5 py-0.5 rounded">${s.statusDetail.time}</span>
+                                        <span class="text-[10px] text-gray-300 font-mono bg-white/10 px-1.5 py-0.5 rounded">${entryEscape(s.statusDetail.time)}</span>
                                     </div>
                                     <div class="space-y-2 text-gray-200 text-xs">
                                         <div>
                                             <span class="text-[10px] font-bold text-blue-200 block mb-0.5 uppercase tracking-wider">เหตุผลที่บันทึกสถานะ:</span>
-                                            <p class="text-white font-medium bg-white/10 rounded-lg p-2 border border-white/10 text-xs leading-relaxed">${s.statusDetail.reason}</p>
+                                            <p class="text-white font-medium bg-white/10 rounded-lg p-2 border border-white/10 text-xs leading-relaxed">${entryEscape(s.statusDetail.reason)}</p>
                                         </div>
                                         <div class="grid grid-cols-2 gap-2 text-[10px]">
                                             <div class="bg-white/5 rounded-lg p-1.5 border border-white/5">
                                                 <span class="text-gray-400 block">ผู้บันทึก:</span>
-                                                <strong class="text-white font-semibold block truncate">${s.statusDetail.recordedBy}</strong>
+                                                <strong class="text-white font-semibold block truncate">${entryEscape(s.statusDetail.recordedBy)}</strong>
                                             </div>
                                             <div class="bg-white/5 rounded-lg p-1.5 border border-white/5">
                                                 <span class="text-gray-400 block">เวลาที่บันทึก:</span>
-                                                <strong class="text-white font-mono block">${s.statusDetail.time}</strong>
+                                                <strong class="text-white font-mono block">${entryEscape(s.statusDetail.time)}</strong>
                                             </div>
                                         </div>
                                         <div>
                                             <span class="text-[10px] font-bold text-emerald-300 block mb-0.5 uppercase tracking-wider">การดำเนินการ / การดูแล:</span>
-                                            <p class="text-emerald-200 text-[11px] font-medium bg-emerald-950/50 border border-emerald-500/20 rounded-lg p-1.5 leading-snug">${s.statusDetail.actionTaken}</p>
+                                            <p class="text-emerald-200 text-[11px] font-medium bg-emerald-950/50 border border-emerald-500/20 rounded-lg p-1.5 leading-snug">${entryEscape(s.statusDetail.actionTaken)}</p>
                                         </div>
                                     </div>
                                     <div class="mt-2.5 pt-2 border-t border-gray-700/60 flex items-center justify-between text-[10px] text-gray-400">
@@ -8173,11 +7748,11 @@
                         </td>
                         <td class="px-5 py-3.5 whitespace-nowrap text-right text-xs font-medium">
                             <div class="flex items-center justify-end gap-1.5">
-                                <button type="button" onclick="openStudentStatusModal('${s.id}')"
+                                <button type="button" onclick="openStudentStatusModal('${entryEscape(s.id)}')"
                                     class="text-gray-600 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 px-2.5 py-1.5 rounded-lg transition font-semibold" title="ดูรายละเอียดสถานะ">
                                     ℹ️ รายละเอียด
                                 </button>
-                                <button type="button" onclick="openSubmitStudentStatusModal('${s.id}')"
+                                <button type="button" onclick="openSubmitStudentStatusModal('${entryEscape(s.id)}')"
                                     class="text-blue-700 hover:text-white bg-blue-50 hover:bg-blue-600 border border-blue-200 hover:border-blue-600 px-2.5 py-1.5 rounded-lg font-bold transition shadow-2xs flex items-center gap-1 cursor-pointer" title="บันทึกหรือเปลี่ยนสถานะนักเรียนคนนี้">
                                     <span>✏️</span> บันทึกสถานะ
                                 </button>
@@ -8294,10 +7869,10 @@
                                     <span class="px-2 py-0.5 rounded-full font-bold ${col} text-[10px]">${l.status}</span>
                                     <span class="font-mono text-gray-600 font-bold">${l.time}</span>
                                 </div>
-                                <p class="text-gray-800 font-medium leading-tight">${l.reason}</p>
+                                <p class="text-gray-800 font-medium leading-tight">${entryEscape(l.reason)}</p>
                                 <div class="flex items-center justify-between text-[10px] text-gray-400 pt-0.5">
-                                    <span class="text-emerald-700">${l.actionTaken || '-'}</span>
-                                    <span class="text-gray-500">${l.recordedBy}</span>
+                                    <span class="text-emerald-700">${entryEscape(l.actionTaken || '-')}</span>
+                                    <span class="text-gray-500">${entryEscape(l.recordedBy)}</span>
                                 </div>
                             </div>
                         `;
@@ -8334,7 +7909,7 @@
                 let html = '';
                 schoolStudents.forEach(s => {
                     const sel = (studentId && s.id === studentId) ? 'selected' : '';
-                    html += `<option value="${s.id}" ${sel}>[${s.gradeClass}] ${s.name} (${s.id}) - สถานะเดิม: ${s.status}</option>`;
+                    html += `<option value="${s.id}" ${sel}>[${entryEscape(s.gradeClass)}] ${entryEscape(s.name)} (${s.id}) - สถานะเดิม: ${s.status}</option>`;
                 });
                 selectEl.innerHTML = html;
             }
@@ -8780,8 +8355,8 @@
                                 <span class="font-mono text-xs font-bold text-gray-700 bg-gray-100 px-2 py-0.5 rounded-md flex items-center gap-1">
                                     <span>⏰</span> ${l.time}
                                 </span>
-                                <span class="text-xs font-bold text-gray-900">${l.studentName}</span>
-                                <span class="text-[11px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.2 rounded">${l.gradeClass}</span>
+                                <span class="text-xs font-bold text-gray-900">${entryEscape(l.studentName)}</span>
+                                <span class="text-[11px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.2 rounded">${entryEscape(l.gradeClass)}</span>
                                 <span class="font-mono text-[11px] text-gray-400">(${l.studentId})</span>
                                 <span class="text-[10px] px-2 py-0.5 rounded-md ${style.tagClass}">
                                     ${style.tag}
@@ -8803,17 +8378,17 @@
                         <!-- Middle: Reason / Symptoms -->
                         <div class="mt-2.5 text-xs text-gray-800 bg-white/90 p-2.5 rounded-xl border border-gray-100 leading-relaxed font-medium">
                             <span class="text-gray-400 text-[10px] uppercase font-bold tracking-wider block mb-0.5">เหตุผล / บันทึกการเช็คชื่อ / อาการ:</span>
-                            ${l.reason}
+                            ${entryEscape(l.reason)}
                         </div>
 
                         <!-- Bottom: Action taken & Recorder info -->
                         <div class="mt-2 flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-gray-600 gap-1.5 pt-1.5 border-t border-gray-100/80">
                             <div class="flex items-center gap-1.5">
                                 <span class="font-bold text-emerald-800">การดูแล/ดำเนินการ:</span>
-                                <span class="text-gray-700 font-medium">${l.actionTaken || '-'}</span>
+                                <span class="text-gray-700 font-medium">${entryEscape(l.actionTaken || '-')}</span>
                             </div>
                             <div class="text-gray-500 shrink-0 font-medium text-[10px] sm:text-[11px]">
-                                บันทึกโดย: <strong class="text-gray-800">${l.recordedBy}</strong>
+                                บันทึกโดย: <strong class="text-gray-800">${entryEscape(l.recordedBy)}</strong>
                             </div>
                         </div>
                     </div>
@@ -8939,6 +8514,12 @@
             }
         });
     </script>
+    <script src="assets/workspace/forecast-view.js?v=village-spread-12"></script>
+    <script src="assets/entry/entry.js?v=village-spread-12"></script>
+    <script src="assets/workspace/community-data.js?v=village-spread-12"></script>
+    <script src="assets/workspace/care-ops-view.js?v=village-spread-12"></script>
+    <script src="assets/workspace/care-map.js?v=village-spread-12"></script>
+    <script src="assets/workspace/workspace.js?v=village-spread-12"></script>
 </body>
 
 </html>
