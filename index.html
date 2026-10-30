@@ -92,6 +92,43 @@
             border-top-color: rgba(17, 24, 39, 0.92);
         }
 
+        #map-container .leaflet-control-layers {
+            font-family: 'Prompt', sans-serif;
+            font-size: 11px;
+            line-height: 1.85;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            padding: 0;
+            color: #1f2937;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.14);
+        }
+
+        #map-container .leaflet-control-layers-expanded {
+            padding: 10px 13px;
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(8px);
+        }
+
+        #map-container .leaflet-control-layers-separator {
+            margin: 6px 0;
+            border-top-color: #e5e7eb;
+        }
+
+        #map-container .leaflet-control-layers label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin: 3px 0;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        #map-container .leaflet-control-layers input {
+            accent-color: #2563eb;
+            cursor: pointer;
+            margin: 0;
+        }
+
         /* Smooth scroll & modern scrollbar */
         html {
             scroll-behavior: smooth;
@@ -713,25 +750,44 @@
                         </div>
                     </div>
 
-                    <!-- Student Home / Community Observation Toolbar -->
+                    <!-- Student Home / Community Observation & PM2.5 Area Layer Toolbar -->
                     <div
                         class="bg-white border-b border-gray-100 px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs shrink-0">
-                        <div class="flex items-center gap-2">
+                        <div class="flex flex-wrap items-center gap-2">
                             <button type="button" id="btn-pin-mode" onclick="togglePinMode()"
-                                class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 shadow-2xs transition">
+                                class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 shadow-2xs transition cursor-pointer">
                                 <span>🏠</span>
                                 <span id="btn-pin-text">ปักหมุด</span>
                             </button>
 
                             <button type="button" id="btn-clear-pin" onclick="clearStudentPin()"
-                                class="hidden text-gray-500 hover:text-rose-600 font-bold px-2 py-1 rounded transition">
+                                class="hidden text-gray-500 hover:text-rose-600 font-bold px-2 py-1 rounded transition cursor-pointer">
                                 ✕ ล้างหมุด
                             </button>
+
+                            <div class="hidden sm:block h-4 w-px bg-gray-200 mx-1"></div>
+
+                            <!-- PM2.5 Display Mode / Layer Selector (Pin View vs Area View) -->
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-[11px] font-bold text-gray-600 whitespace-nowrap mr-0.5">รูปแบบการแสดงผล:</span>
+                                <div class="inline-flex items-center bg-gray-100 p-0.5 rounded-lg border border-gray-200">
+                                    <button type="button" id="btn-pm25-pin-view" onclick="setPm25MapDisplayMode('pin')"
+                                        class="px-2.5 py-1 rounded-md bg-white text-blue-700 font-bold text-[11px] shadow-2xs transition cursor-pointer"
+                                        title="แสดงค่าฝุ่นแบบหมุดสถานีตรวจวัด (Pin View)">
+                                        หมุดสถานี
+                                    </button>
+                                    <button type="button" id="btn-pm25-area-view" onclick="setPm25MapDisplayMode('area')"
+                                        class="px-2.5 py-1 rounded-md text-gray-600 hover:text-gray-900 font-semibold text-[11px] transition cursor-pointer"
+                                        title="แสดงพื้นที่ฝุ่นและค่าฝุ่นรายพื้นที่ (Area View)">
+                                        พื้นที่ฝุ่น
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="flex items-center gap-1.5 text-gray-500 text-[11px]" id="pin-status-text">
                             <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-                            <span>💡 คลิกปุ่ม "ปักหมุด" ก่อน จากนั้นคลิกบนแผนที่เพื่อดู 3 สถานีตรวจวัดใกล้เคียง</span>
+                            <span>💡 เลือก "พื้นที่ฝุ่น" หรือเปิดจากเมนูชั้นข้อมูลมุมซ้ายบนเพื่อดูค่าฝุ่นเชิงพื้นที่แทนหมุดสถานี</span>
                         </div>
                     </div>
 
@@ -2944,6 +3000,10 @@
         // ================= 5. LEAFLET MAP & GEOSPATIAL MODULE =================
         let leafletMap = null;
         let markersLayer = null;
+        let stationPinsLayer = null;
+        let pm25AreaLayer = null;
+        let pm25MapDisplayMode = 'pin'; // 'pin' (หมุดสถานี) | 'area' (พื้นที่ฝุ่น)
+        const PM25_AREA_CONTROL_LABEL = 'พื้นที่ฝุ่น (แสดงค่าฝุ่นรายพื้นที่)';
         let stationMarkersMap = {};
         let tambonPolygonLayer = null;
 
@@ -2954,6 +3014,14 @@
         let connectionLines = [];
         let top3HighlightLayers = [];
         let currentPinnedLatLng = null;
+
+        function getAqiHexColors(pm25) {
+            if (pm25 <= 15) return { stroke: '#0284c7', fill: '#38bdf8', rgb: [56, 189, 248], textBg: '#0284c7', textColor: '#ffffff' };
+            if (pm25 <= 25) return { stroke: '#16a34a', fill: '#22c55e', rgb: [34, 197, 94], textBg: '#16a34a', textColor: '#ffffff' };
+            if (pm25 <= 37.5) return { stroke: '#ca8a04', fill: '#facc15', rgb: [250, 204, 21], textBg: '#eab308', textColor: '#111827' };
+            if (pm25 <= 75) return { stroke: '#ea580c', fill: '#f97316', rgb: [249, 115, 22], textBg: '#ea580c', textColor: '#ffffff' };
+            return { stroke: '#b91c1c', fill: '#ef4444', rgb: [239, 68, 68], textBg: '#dc2626', textColor: '#ffffff' };
+        }
 
         function calculateDistanceKm(lat1, lon1, lat2, lon2) {
             const R = 6371;
@@ -3018,19 +3086,303 @@
                 layers: [esriSatelliteHybrid]
             });
 
+            markersLayer = L.layerGroup().addTo(leafletMap);
+            stationPinsLayer = L.layerGroup().addTo(leafletMap);
+            pm25AreaLayer = L.layerGroup();
+
             const baseMaps = {
                 "ภาพถ่ายดาวเทียม + ถนน (Satellite) (แนะนำ)": esriSatelliteHybrid,
                 "แผนที่ถนน Esri (Street Map)": esriStreetLayer,
                 "แผนที่ภูมิประเทศ (Topo)": esriTopoLayer,
                 "แผนที่โทนสว่าง (Light Gray)": esriGrayLayer
             };
-            L.control.layers(baseMaps, null, { position: 'topleft' }).addTo(leafletMap);
 
-            markersLayer = L.layerGroup().addTo(leafletMap);
+            const overlayMaps = {
+                [PM25_AREA_CONTROL_LABEL]: pm25AreaLayer
+            };
+
+            const layerControl = L.control.layers(baseMaps, overlayMaps, { position: 'topleft' }).addTo(leafletMap);
+            const toggleEl = layerControl.getContainer().querySelector('.leaflet-control-layers-toggle');
+            if (toggleEl) {
+                toggleEl.title = 'เลือกแผนที่ฐานและสลับชั้นข้อมูลพื้นที่ฝุ่น';
+                toggleEl.setAttribute('aria-label', 'เลือกแผนที่ฐานและสลับชั้นข้อมูลพื้นที่ฝุ่น');
+            }
+
+            // Synchronize when user toggles "พื้นที่ฝุ่น" from Leaflet's top-left layer control
+            leafletMap.on('overlayadd', function (e) {
+                if (e.name === PM25_AREA_CONTROL_LABEL) {
+                    pm25MapDisplayMode = 'area';
+                    if (stationPinsLayer && leafletMap.hasLayer(stationPinsLayer)) {
+                        leafletMap.removeLayer(stationPinsLayer);
+                    }
+                    syncPm25MapDisplayToolbarUI();
+                }
+            });
+
+            leafletMap.on('overlayremove', function (e) {
+                if (e.name === PM25_AREA_CONTROL_LABEL) {
+                    pm25MapDisplayMode = 'pin';
+                    if (stationPinsLayer && !leafletMap.hasLayer(stationPinsLayer)) {
+                        leafletMap.addLayer(stationPinsLayer);
+                    }
+                    syncPm25MapDisplayToolbarUI();
+                }
+            });
 
             leafletMap.on('click', function (e) {
                 if (!isPinModeActive) return;
                 pinStudentHome(e.latlng.lat, e.latlng.lng, false);
+            });
+        }
+
+        function setPm25MapDisplayMode(mode) {
+            if (!leafletMap) return;
+            pm25MapDisplayMode = (mode === 'area') ? 'area' : 'pin';
+
+            if (pm25MapDisplayMode === 'area') {
+                if (stationPinsLayer && leafletMap.hasLayer(stationPinsLayer)) {
+                    leafletMap.removeLayer(stationPinsLayer);
+                }
+                if (pm25AreaLayer && !leafletMap.hasLayer(pm25AreaLayer)) {
+                    leafletMap.addLayer(pm25AreaLayer);
+                }
+            } else {
+                if (pm25AreaLayer && leafletMap.hasLayer(pm25AreaLayer)) {
+                    leafletMap.removeLayer(pm25AreaLayer);
+                }
+                if (stationPinsLayer && !leafletMap.hasLayer(stationPinsLayer)) {
+                    leafletMap.addLayer(stationPinsLayer);
+                }
+            }
+            syncPm25MapDisplayToolbarUI();
+        }
+
+        function syncPm25MapDisplayToolbarUI() {
+            const pinBtn = document.getElementById('btn-pm25-pin-view');
+            const areaBtn = document.getElementById('btn-pm25-area-view');
+
+            const isArea = (pm25MapDisplayMode === 'area');
+            if (pinBtn) {
+                pinBtn.className = !isArea
+                    ? 'px-2.5 py-1 rounded-md bg-white text-blue-700 font-bold text-[11px] shadow-2xs transition cursor-pointer'
+                    : 'px-2.5 py-1 rounded-md text-gray-600 hover:text-gray-900 font-semibold text-[11px] transition cursor-pointer';
+                pinBtn.setAttribute('aria-pressed', String(!isArea));
+            }
+            if (areaBtn) {
+                areaBtn.className = isArea
+                    ? 'px-2.5 py-1 rounded-md bg-blue-600 text-white font-bold text-[11px] shadow-2xs transition cursor-pointer'
+                    : 'px-2.5 py-1 rounded-md text-gray-600 hover:text-gray-900 font-semibold text-[11px] transition cursor-pointer';
+                areaBtn.setAttribute('aria-pressed', String(isArea));
+            }
+        }
+
+        const STATION_AREA_RADIUS_KM = 5.0;
+
+        function buildBlended5KmCirclesOverlay(stations) {
+            if (!stations || stations.length === 0) return null;
+
+            const radiusKm = STATION_AREA_RADIUS_KM;
+            const marginKm = radiusKm + 0.25;
+
+            let sumLat = 0;
+            stations.forEach(st => { sumLat += st.lat; });
+            const meanLat = sumLat / stations.length;
+            const cosLat = Math.cos(meanLat * Math.PI / 180);
+
+            const dLatMargin = marginKm / 110.574;
+            const dLngMargin = marginKm / (111.320 * cosLat);
+
+            let minLat = Infinity, maxLat = -Infinity;
+            let minLng = Infinity, maxLng = -Infinity;
+
+            const preparedStations = stations.map(st => {
+                if (st.lat - dLatMargin < minLat) minLat = st.lat - dLatMargin;
+                if (st.lat + dLatMargin > maxLat) maxLat = st.lat + dLatMargin;
+                if (st.lng - dLngMargin < minLng) minLng = st.lng - dLngMargin;
+                if (st.lng + dLngMargin > maxLng) maxLng = st.lng + dLngMargin;
+                const hex = getAqiHexColors(st.pm25);
+                return {
+                    lat: st.lat,
+                    lng: st.lng,
+                    pm25: st.pm25,
+                    rgb: hex.rgb
+                };
+            });
+
+            const latSpan = maxLat - minLat;
+            const lngSpan = maxLng - minLng;
+            if (latSpan <= 0 || lngSpan <= 0) return null;
+
+            const widthKm = lngSpan * 111.320 * cosLat;
+            const heightKm = latSpan * 110.574;
+            const maxDimPx = 380;
+            const aspect = widthKm / Math.max(heightKm, 0.001);
+            const canvasW = aspect >= 1 ? maxDimPx : Math.max(160, Math.round(maxDimPx * aspect));
+            const canvasH = aspect >= 1 ? Math.max(160, Math.round(maxDimPx / aspect)) : maxDimPx;
+
+            const canvas = document.createElement('canvas');
+            canvas.width = canvasW;
+            canvas.height = canvasH;
+            const ctx = canvas.getContext('2d');
+            const imgData = ctx.createImageData(canvasW, canvasH);
+            const data = imgData.data;
+
+            const radiusKmSq = radiusKm * radiusKm;
+
+            for (let py = 0; py < canvasH; py++) {
+                // Top of canvas is maxLat, bottom is minLat
+                const lat = maxLat - ((py + 0.5) / canvasH) * latSpan;
+                const rowOffset = py * canvasW * 4;
+
+                for (let px = 0; px < canvasW; px++) {
+                    const lng = minLng + ((px + 0.5) / canvasW) * lngSpan;
+
+                    let totalWeight = 0;
+                    let rAcc = 0, gAcc = 0, bAcc = 0;
+                    let maxCircleCoverage = 0;
+
+                    for (let i = 0; i < preparedStations.length; i++) {
+                        const st = preparedStations[i];
+                        const dyKm = (lat - st.lat) * 110.574;
+                        const dxKm = (lng - st.lng) * 111.320 * cosLat;
+                        const distSq = dxKm * dxKm + dyKm * dyKm;
+
+                        if (distSq <= radiusKmSq) {
+                            const u2 = distSq / radiusKmSq; // 0 at center, 1 at 5 km edge
+                            const oneMinusU2 = 1 - u2;
+                            // Smooth radial weight so overlapping 5 km circles blend seamlessly
+                            const w = (oneMinusU2 * oneMinusU2) / (0.10 + u2);
+                            totalWeight += w;
+                            rAcc += st.rgb[0] * w;
+                            gAcc += st.rgb[1] * w;
+                            bAcc += st.rgb[2] * w;
+
+                            // Smooth edge feathering near the 5 km boundary (u > 0.85)
+                            const u = Math.sqrt(u2);
+                            const edgeCoverage = u < 0.85 ? 1.0 : Math.max(0, (1.0 - u) / 0.15);
+                            if (edgeCoverage > maxCircleCoverage) {
+                                maxCircleCoverage = edgeCoverage;
+                            }
+                        }
+                    }
+
+                    if (totalWeight > 0 && maxCircleCoverage > 0) {
+                        const idx = rowOffset + px * 4;
+                        data[idx] = Math.round(rAcc / totalWeight);
+                        data[idx + 1] = Math.round(gAcc / totalWeight);
+                        data[idx + 2] = Math.round(bAcc / totalWeight);
+                        // Smooth uniform translucency (~0.52) across blended 5 km circles
+                        const smoothEdge = maxCircleCoverage * maxCircleCoverage * (3 - 2 * maxCircleCoverage);
+                        data[idx + 3] = Math.round(135 * smoothEdge);
+                    }
+                }
+            }
+
+            ctx.putImageData(imgData, 0, 0);
+
+            return {
+                dataUrl: canvas.toDataURL('image/png'),
+                bounds: [[minLat, minLng], [maxLat, maxLng]]
+            };
+        }
+
+        function renderPm25AreaLayerForSite(user) {
+            if (!leafletMap || !pm25AreaLayer || !user) return;
+            pm25AreaLayer.clearLayers();
+
+            const stations = user.stations || [];
+            if (stations.length === 0) return;
+
+            // 1. Render blended 5 km circles overlay across all stations
+            const blendedOverlay = buildBlended5KmCirclesOverlay(stations);
+            if (blendedOverlay) {
+                L.imageOverlay(blendedOverlay.dataUrl, blendedOverlay.bounds, {
+                    opacity: 1,
+                    interactive: false
+                }).addTo(pm25AreaLayer);
+            }
+
+            // 2. Render subtle 5 km circle outlines, interactive hover/popup areas, and center PM2.5 labels
+            stations.forEach(st => {
+                const style = getAqiStyles(st.pm25);
+                const hex = getAqiHexColors(st.pm25);
+                const areaShortName = st.name.replace(/^จุดติดตั้ง\s*/, '').replace(/^รพ\.สต\.\s*/, 'เขต รพ.สต.');
+
+                const circle5km = L.circle([st.lat, st.lng], {
+                    radius: STATION_AREA_RADIUS_KM * 1000,
+                    color: hex.stroke,
+                    weight: 1.5,
+                    opacity: 0.55,
+                    dashArray: '6, 5',
+                    fillColor: hex.fill,
+                    fillOpacity: 0.01
+                }).addTo(pm25AreaLayer);
+
+                circle5km.on('mouseover', function () {
+                    circle5km.setStyle({ weight: 2.5, opacity: 0.95, fillOpacity: 0.08 });
+                });
+                circle5km.on('mouseout', function () {
+                    circle5km.setStyle({ weight: 1.5, opacity: 0.55, fillOpacity: 0.01 });
+                });
+
+                circle5km.bindTooltip(`
+                    <div class="text-xs">
+                        <strong>พื้นที่ฝุ่นรัศมี 5 กม.: ${areaShortName}</strong><br>
+                        <span>ค่าฝุ่น PM2.5: <strong>${st.pm25} µg/m³</strong> (${style.label})</span>
+                    </div>
+                `, {
+                    sticky: true,
+                    direction: 'top',
+                    className: 'distance-tooltip'
+                });
+
+                circle5km.bindPopup(`
+                    <div class="p-1 min-w-[225px]">
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            <span class="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">พื้นที่ฝุ่นรัศมี 5 กม.</span>
+                            ${st.dist ? `<span class="text-[10px] font-bold text-gray-500">ห่างจุดหลัก ${st.dist}</span>` : ''}
+                        </div>
+                        <h4 class="font-extrabold text-gray-900 text-sm leading-snug">${areaShortName}</h4>
+                        <p class="text-[11px] text-gray-500 mt-0.5">สถานีตรวจวัด: ${st.name} (ครอบคลุมรัศมี 5 กม.)</p>
+                        <div class="mt-2.5 p-2.5 rounded-xl flex items-center justify-between border ${style.badge}">
+                            <div>
+                                <span class="text-[10px] font-bold uppercase tracking-wider block opacity-75">ค่าฝุ่น PM2.5 ในพื้นที่</span>
+                                <span class="text-xl font-black">${st.pm25} <span class="text-xs font-normal">µg/m³</span></span>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-bold text-white shadow-2xs ${style.bg}">
+                                ${style.label}
+                            </span>
+                        </div>
+                    </div>
+                `);
+
+                circle5km.on('click', function (e) {
+                    if (isPinModeActive) {
+                        circle5km.closePopup();
+                        pinStudentHome(e.latlng.lat, e.latlng.lng, false);
+                    }
+                });
+
+                // Area PM2.5 value badge at the center of each station's 5 km circle
+                const areaValueIcon = L.divIcon({
+                    className: 'aqi-area-label',
+                    html: `
+                        <div class="flex flex-col items-center pointer-events-none select-none">
+                            <div class="px-2.5 py-1 rounded-xl border-2 border-white shadow-lg flex flex-col items-center leading-tight"
+                                 style="background:${hex.textBg}; color:${hex.textColor};">
+                                <span class="text-[9px] font-bold opacity-90 whitespace-nowrap max-w-[115px] truncate">${areaShortName}</span>
+                                <div class="flex items-baseline gap-0.5">
+                                    <span class="text-sm font-black tracking-tight">${st.pm25}</span>
+                                    <span class="text-[8px] font-bold opacity-85">µg/m³</span>
+                                </div>
+                            </div>
+                        </div>
+                    `,
+                    iconSize: [110, 42],
+                    iconAnchor: [55, 21]
+                });
+
+                L.marker([st.lat, st.lng], { icon: areaValueIcon, interactive: false }).addTo(pm25AreaLayer);
             });
         }
 
@@ -3157,6 +3509,8 @@
 
             // Clear previous layers
             markersLayer.clearLayers();
+            if (stationPinsLayer) stationPinsLayer.clearLayers();
+            if (pm25AreaLayer) pm25AreaLayer.clearLayers();
             primarySiteCircle = null;
             studentHomeCircle = null;
             stationMarkersMap = {};
@@ -3241,7 +3595,7 @@
                     weight: 3.5,
                     opacity: 0.9,
                     fillColor: '#818cf8',
-                    fillOpacity: 0.15,
+                    fillOpacity: 0.12,
                     dashArray: '6, 6'
                 }).addTo(markersLayer);
 
@@ -3257,7 +3611,7 @@
                     weight: 2,
                     opacity: 0.85,
                     fillColor: '#3b82f6',
-                    fillOpacity: 0.08,
+                    fillOpacity: 0.06,
                     dashArray: '6, 6'
                 }).addTo(markersLayer);
 
@@ -3268,9 +3622,12 @@
                 });
             }
 
-            // Render nearby stations
+            // Render nearby stations (into stationPinsLayer)
             const allLocalStations = user.stations || [];
             allLocalStations.forEach(st => renderStationMarker(st));
+
+            // Render PM2.5 Area polygons (into pm25AreaLayer)
+            renderPm25AreaLayerForSite(user);
 
             // Fit Bounds
             const bounds = [[user.lat, user.lng]];
@@ -3312,7 +3669,8 @@
                 popupAnchor: [0, -23]
             });
 
-            const marker = L.marker([st.lat, st.lng], { icon: stationIcon }).addTo(markersLayer);
+            const targetLayer = stationPinsLayer || markersLayer;
+            const marker = L.marker([st.lat, st.lng], { icon: stationIcon }).addTo(targetLayer);
             marker.bindPopup(`
                 <div class="p-1">
                     <div class="flex items-center justify-between gap-3 mb-1">
