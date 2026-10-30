@@ -19,7 +19,7 @@
     graphControls.append(toolbar);
     $('forecast-show-bands').addEventListener('change',e=>{showBands=e.target.checked;render();});
     comparison.id='forecast-comparison-fields';comparison.classList.add('forecast-comparison-fields');comparison.hidden=true;
-    const compareButton=document.createElement('button');compareButton.type='button';compareButton.id='forecast-compare-toggle';compareButton.className='entry-btn entry-btn-small';compareButton.textContent='เพิ่มพื้นที่เปรียบเทียบ';compareButton.setAttribute('aria-expanded','false');compareButton.setAttribute('aria-controls',comparison.id);graphControls.append(compareButton);
+    const compareButton=document.createElement('button');compareButton.type='button';compareButton.id='forecast-compare-toggle';compareButton.className='entry-btn entry-btn-small';compareButton.textContent='เพิ่มพื้นที่เปรียบเทียบ';compareButton.setAttribute('aria-expanded','false');compareButton.setAttribute('aria-controls',comparison.id);graphControls.append(compareButton,comparison);
     compareButton.onclick=()=>{const open=comparison.hidden;comparison.hidden=!open;compareButton.setAttribute('aria-expanded',String(open));compareButton.textContent=open?'ยกเลิกการเปรียบเทียบ':'เพิ่มพื้นที่เปรียบเทียบ';if(!open){$('location-select').value='';render();}};
     $('start-date').setAttribute('aria-label','วันที่เริ่มต้นกราฟแนวโน้ม');$('end-date').setAttribute('aria-label','วันที่สิ้นสุดกราฟแนวโน้ม');
     const board=document.createElement('section');board.id='forecast-alert-board';board.className='fc-decision-board';board.setAttribute('aria-labelledby','forecast-alert-title');

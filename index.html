@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="หน้าจำลองระบบเฝ้าระวังคุณภาพอากาศและผู้ป่วยกลุ่มเสี่ยง ตามเว็บ climate_dashboard ข้อมูลและการแจ้งเตือนเป็นข้อมูลสาธิต">
+    <meta name="description"
+        content="หน้าจำลองระบบเฝ้าระวังคุณภาพอากาศและผู้ป่วยกลุ่มเสี่ยง ตามเว็บ climate_dashboard ข้อมูลและการแจ้งเตือนเป็นข้อมูลสาธิต">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#f4f5fb">
     <title>ระบบเฝ้าระวังคุณภาพอากาศและผู้ป่วยกลุ่มเสี่ยง - CMU Learning Health System</title>
@@ -544,6 +545,16 @@
 
                     <!-- Graph Controls & Comparison Filters -->
                     <div class="flex flex-wrap items-center gap-3">
+                        <!-- Date Range Picker -->
+                        <div
+                            class="flex items-center bg-white border border-gray-300 rounded-lg p-1 px-3 space-x-2 shadow-2xs h-10">
+                            <input type="date" id="start-date" value="2026-09-30" onchange="fetchDashboardData()"
+                                class="text-sm text-gray-700 focus:outline-none cursor-pointer" />
+                            <span class="text-gray-400 font-medium">ถึง</span>
+                            <input type="date" id="end-date" value="2026-10-13" onchange="fetchDashboardData()"
+                                class="text-sm text-gray-700 focus:outline-none cursor-pointer" />
+                        </div>
+
                         <!-- Compare with: Address Filter -->
                         <div class="flex items-center gap-2">
                             <span class="text-xs font-bold text-gray-600 uppercase tracking-wider hidden sm:inline">
@@ -569,16 +580,6 @@
                                     <!-- Populated via JS -->
                                 </select>
                             </div>
-                        </div>
-
-                        <!-- Date Range Picker -->
-                        <div
-                            class="flex items-center bg-white border border-gray-300 rounded-lg p-1 px-3 space-x-2 shadow-2xs h-10">
-                            <input type="date" id="start-date" value="2026-09-30" onchange="fetchDashboardData()"
-                                class="text-sm text-gray-700 focus:outline-none cursor-pointer" />
-                            <span class="text-gray-400 font-medium">ถึง</span>
-                            <input type="date" id="end-date" value="2026-10-13" onchange="fetchDashboardData()"
-                                class="text-sm text-gray-700 focus:outline-none cursor-pointer" />
                         </div>
                     </div>
 
@@ -5785,8 +5786,8 @@
                 const bothRiskPct = totalCount > 0 ? Math.round((bothRiskCount / totalCount) * 100) : 0;
 
                 const entityTitle = isSchool ? 'นักเรียนที่มีความเสี่ยงทั้งสองด้าน (ฝุ่น PM2.5 + ความร้อน)' : 'ผู้ป่วยที่มีความเสี่ยงทั้งสองด้าน (ฝุ่น PM2.5 + ความร้อน)';
-                const entitySubtitle = isSchool 
-                    ? 'นักเรียนในสถานศึกษาที่มีปัจจัยเปราะบางทางสุขภาพเข้าเกณฑ์กลุ่มเสี่ยงต่อทั้ง PM2.5 และอุณหภูมิ/ความร้อนพร้อมกัน' 
+                const entitySubtitle = isSchool
+                    ? 'นักเรียนในสถานศึกษาที่มีปัจจัยเปราะบางทางสุขภาพเข้าเกณฑ์กลุ่มเสี่ยงต่อทั้ง PM2.5 และอุณหภูมิ/ความร้อนพร้อมกัน'
                     : 'ผู้ป่วยในความดูแลที่มีปัจจัยเปราะบางทางสุขภาพเข้าเกณฑ์กลุ่มเสี่ยงต่อทั้ง PM2.5 และอุณหภูมิ/ความร้อนพร้อมกัน';
                 const entityMetric = isSchool ? 'จำนวนนักเรียนกลุ่มเสี่ยงร่วม' : 'จำนวนผู้ป่วยกลุ่มเสี่ยงร่วม';
                 const unit = isSchool ? 'คน' : 'ราย';
@@ -5811,9 +5812,9 @@
                             </div>
                             <div class="flex items-center gap-2 self-end sm:self-auto shrink-0">
                                 <button type="button" onclick="toggleHospitalBothRiskFilter()" 
-                                    class="${hospitalBothRiskFilterActive 
-                                        ? 'bg-purple-700 hover:bg-purple-800 text-white shadow-xs ring-2 ring-purple-400' 
-                                        : 'bg-white hover:bg-purple-50 text-purple-800 border border-purple-200 shadow-2xs'} 
+                                    class="${hospitalBothRiskFilterActive
+                        ? 'bg-purple-700 hover:bg-purple-800 text-white shadow-xs ring-2 ring-purple-400'
+                        : 'bg-white hover:bg-purple-50 text-purple-800 border border-purple-200 shadow-2xs'} 
                                         text-xs font-bold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer"
                                     title="${hospitalBothRiskFilterActive ? 'คลิกเพื่อยกเลิกการกรองกลุ่มเสี่ยงทั้งสองด้าน' : 'คลิกเพื่อกรองตารางรายชื่อแสดงเฉพาะกลุ่มเสี่ยงทั้งสองด้าน'}">
                                     <span>${hospitalBothRiskFilterActive ? '✓' : '🔍'}</span>
@@ -8610,13 +8611,13 @@
             }
         });
     </script>
-    <script src="assets/workspace/forecast-view.js?v=village-spread-12"></script>
+    <script src="assets/workspace/forecast-view.js?v=village-spread-13"></script>
     <script src="assets/entry/entry.js?v=village-spread-12"></script>
     <script src="assets/workspace/community-data.js?v=village-spread-12"></script>
     <script src="assets/workspace/care-ops-view.js?v=village-spread-12"></script>
     <script src="assets/workspace/care-map.js?v=village-spread-12"></script>
     <script src="assets/workspace/growth-data.js?v=village-spread-12"></script>
-    <script src="assets/workspace/growth-view.js?v=village-spread-12"></script>
+    <script src="assets/workspace/growth-view.js?v=village-spread-14"></script>
     <script src="assets/workspace/workspace.js?v=village-spread-12"></script>
 </body>
 

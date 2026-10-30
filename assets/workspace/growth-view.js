@@ -187,51 +187,51 @@
       <div class="max-w-7xl mx-auto space-y-6 pb-12 font-sans">
         
         <!-- TOP BANNER -->
-        <div class="rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 border bg-gradient-to-r from-sky-600 via-blue-600 to-indigo-700 border-sky-400/40 shadow-blue-500/10">
+        <div class="bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 border border-blue-400/30">
+          <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="absolute left-1/3 -top-10 w-48 h-48 bg-indigo-400/20 rounded-full blur-xl pointer-events-none"></div>
+
           <div class="relative z-10 space-y-2 max-w-2xl">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md bg-white/20 text-white border border-white/30">
-              <span>📊</span>
-              <span>บทบาท: สถานศึกษา · กราฟการเจริญเติบโตรายปี (TSPE Growth Chart)</span>
-            </div>
-            <h1 class="text-2xl sm:text-3xl font-black tracking-tight flex items-center gap-3">
-              <span>กราฟติดตามการเจริญเติบโตรายปี</span>
-              <span class="text-xs font-normal px-2.5 py-1 rounded-lg bg-white/20 border border-white/25">TSPE Official Sheet</span>
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight">
+              กราฟติดตามการเจริญเติบโตรายปี
             </h1>
-            <p class="text-white/90 text-xs sm:text-sm font-normal leading-relaxed">
-              พล็อตค่าน้ำหนักและส่วนสูงจริงของนักเรียนลงบนแผ่นชาร์ตมาตรฐานสมาคมต่อมไร้ท่อเด็กและวัยรุ่นไทย (TSPE 2022)
-              อ้างอิงกรมอนามัย กระทรวงสาธารณสุข และ WHO 2006 สำหรับ ${esc(schoolName)}
+            <p class="text-blue-100/90 text-xs sm:text-sm font-medium leading-relaxed">
+              วิเคราะห์น้ำหนักและส่วนสูงของนักเรียนเพื่อติดตามทิศทางการเจริญเติบโตอย่างใกล้ชิด)
             </p>
           </div>
 
           <div class="relative z-10 flex flex-wrap items-center gap-3 w-full lg:w-auto justify-start lg:justify-end">
-            <div class="bg-white/15 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/25 text-left min-w-[130px]">
-              <div class="text-[10px] text-white/80 font-medium">นักเรียนในระบบ</div>
+            <div class="bg-white/12 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/25 text-left min-w-[130px] shadow-lg">
+              <div class="text-[10px] text-blue-100 font-medium">นักเรียนในระบบ</div>
               <div class="text-lg font-black text-white">${allSchoolStudents.length} คน</div>
             </div>
-            <button type="button" id="btn-open-add-measurement" class="px-4 py-2.5 rounded-2xl bg-white text-gray-900 font-bold text-xs sm:text-sm hover:bg-white/90 transition shadow-lg flex items-center gap-2 cursor-pointer active:scale-95">
-              <span class="text-base leading-none text-emerald-600">➕</span>
+            <button type="button" id="btn-open-add-measurement" class="px-4 py-2.5 rounded-2xl bg-white text-blue-900 font-bold text-xs sm:text-sm hover:bg-blue-50 transition shadow-lg flex items-center gap-2 cursor-pointer active:scale-95">
+              <svg class="w-4 h-4 text-blue-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
               <span>บันทึกการตรวจวัดประจำปี</span>
             </button>
           </div>
         </div>
 
         <!-- FILTER & STUDENT SELECTOR TOOLBAR -->
-        <div class="bg-white rounded-2xl border border-gray-200/80 p-5 shadow-xs space-y-4">
+        <div class="bg-white rounded-2xl border border-gray-200/90 p-5 shadow-xs space-y-4">
           <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
             
             <!-- Class Filters -->
-            <div class="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+            <div class="flex items-center gap-1.5 flex-wrap">
               <span class="text-xs font-bold text-gray-500 whitespace-nowrap mr-1">ระดับชั้น:</span>
               <button type="button" data-filter="all" class="growth-filter-chip px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${classFilter === 'all'
-        ? 'bg-purple-600 text-white shadow-xs'
-        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+        ? 'bg-blue-600 text-white shadow-xs'
+        : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
       }">ทั้งหมด (${allSchoolStudents.length})</button>
               ${classes.map(c => {
         const count = allSchoolStudents.filter(s => s.gradeGroup === c).length;
         const active = classFilter === c;
         return `<button type="button" data-filter="${esc(c)}" class="growth-filter-chip px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${active
-          ? 'bg-purple-600 text-white shadow-xs'
-          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+          ? 'bg-blue-600 text-white shadow-xs'
+          : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
           }">${esc(c)} (${count})</button>`;
       }).join('')}
             </div>
@@ -240,10 +240,10 @@
             <div class="flex items-center gap-3 min-w-[280px] max-w-md w-full md:w-auto">
               <label for="student-growth-select" class="text-xs font-bold text-gray-700 whitespace-nowrap">เลือกนักเรียน:</label>
               <div class="relative w-full">
-                <select id="student-growth-select" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-gray-800 outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition cursor-pointer">
+                <select id="student-growth-select" class="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-bold text-gray-800 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition cursor-pointer shadow-2xs">
                   ${students.map(s => `
                     <option value="${esc(s.id)}" ${s.id === currentStudentId ? 'selected' : ''}>
-                      ${s.gender === 'boy' ? '👦' : '👧'} ${esc(s.id)} - ${esc(s.name)} (${esc(s.gradeClass)})
+                      ${esc(s.id)} - ${esc(s.name)} (${esc(s.gradeClass)})
                     </option>
                   `).join('')}
                 </select>
@@ -278,212 +278,175 @@
     const isGirl = student.gender === 'girl';
     const records = student.records || [];
     const latest = records.length > 0 ? records[records.length - 1] : null;
-    const previous = records.length > 1 ? records[records.length - 2] : null;
 
     const mph = LhsGrowthData.calcMidParentalHeight(student.fatherHeight, student.motherHeight, student.gender);
     const heightAssess = latest ? LhsGrowthData.assessHeight(latest.height, latest.age, student.gender) : null;
     const weightAssess = latest ? LhsGrowthData.assessWeight(latest.weight, latest.age, student.gender) : null;
     const bmiAssess = latest ? LhsGrowthData.assessBmi(latest.height, latest.weight) : null;
 
-    // Growth velocity
-    let velocityText = '--';
-    let velocityBadge = '';
-    if (latest && previous) {
-      const yearDiff = latest.age - previous.age;
-      if (yearDiff > 0) {
-        const vel = (latest.height - previous.height) / yearDiff;
-        velocityText = `${vel >= 0 ? '+' : ''}${vel.toFixed(1)} ซม./ปี`;
-        velocityBadge = vel >= 4 ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700';
-      }
-    }
-
     return `
       <!-- CLINICAL ASSESSMENT & SUMMARY CARDS -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
         
         <!-- Profile Card (Left 4 cols) -->
-        <div class="lg:col-span-4 bg-white rounded-3xl border border-gray-200/90 p-5 sm:p-6 shadow-xs flex flex-col justify-between relative overflow-hidden">
+        <div class="lg:col-span-4 bg-white rounded-2xl border border-gray-200/90 p-5 shadow-xs hover:shadow-md transition flex flex-col justify-between relative overflow-hidden">
           <div class="space-y-4">
             
             <div class="flex items-start justify-between gap-3">
-              <div class="flex items-center gap-3.5">
-                <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-bold shadow-xs ${isGirl ? 'bg-pink-100 text-pink-700 border border-pink-200' : 'bg-sky-100 text-sky-700 border border-sky-200'
-      }">
-                  ${isGirl ? '👧' : '👦'}
+              <div class="min-w-0">
+                <div class="flex items-center gap-2 mb-1.5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold ${isGirl ? 'bg-pink-50 text-pink-700 border border-pink-200' : 'bg-blue-50 text-blue-700 border border-blue-200'}">
+                    ${isGirl ? 'นักเรียนหญิง' : 'นักเรียนชาย'}
+                  </span>
+                  <span class="text-xs text-gray-500 font-mono font-bold">รหัส ${esc(student.id)}</span>
                 </div>
-                <div>
-                  <div class="flex items-center gap-2">
-                    <span class="text-xs px-2 py-0.5 rounded-md font-bold uppercase ${isGirl ? 'bg-pink-50 text-pink-700 border border-pink-200' : 'bg-sky-50 text-sky-700 border border-sky-200'
-      }">${isGirl ? 'เด็กหญิง' : 'เด็กชาย'}</span>
-                    <span class="text-xs text-gray-400 font-mono">รหัส ${esc(student.id)}</span>
-                  </div>
-                  <h2 class="text-base sm:text-lg font-black text-gray-900 mt-1">${esc(student.name)}</h2>
-                  <p class="text-xs text-gray-500">ชั้น ${esc(student.gradeClass)} · ว.ด.ป. เกิด: ${esc(student.dob)}</p>
-                </div>
+                <h2 class="text-lg sm:text-xl font-black text-gray-900 tracking-tight truncate">${esc(student.name)}</h2>
+                <p class="text-xs text-gray-500 font-medium mt-0.5">ชั้น ${esc(student.gradeClass)} · ว.ด.ป. เกิด: ${esc(student.dob)}</p>
+              </div>
+              <div class="w-10 h-10 rounded-xl ${isGirl ? 'bg-pink-100 text-pink-600' : 'bg-blue-100 text-blue-600'} flex items-center justify-center shrink-0 shadow-2xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
               </div>
             </div>
 
             <!-- Key Metrics Grid -->
-            <div class="grid grid-cols-2 gap-2.5 pt-2">
-              <div class="bg-gray-50 rounded-2xl p-3 border border-gray-100">
-                <div class="text-[10px] text-gray-500 font-medium">อายุปัจจุบัน</div>
-                <div class="text-base font-black text-gray-900 mt-0.5">${latest ? `${latest.age} ปี` : '--'}</div>
-                <div class="text-[10px] text-gray-400">พ.ศ. ${latest?.yearBe || '--'}</div>
+            <div class="grid grid-cols-2 gap-2.5 pt-1">
+              <div class="bg-blue-50/40 rounded-xl p-3 border border-blue-200/70">
+                <div class="text-[11px] text-blue-900/80 font-bold">อายุปัจจุบัน</div>
+                <div class="text-lg font-black text-blue-900 mt-0.5 leading-tight">${latest ? `${latest.age} ปี` : '--'}</div>
+                <div class="text-[10px] text-blue-700/80 font-medium mt-0.5">พ.ศ. ${latest?.yearBe || '--'}</div>
               </div>
 
-              <div class="bg-gray-50 rounded-2xl p-3 border border-gray-100">
-                <div class="text-[10px] text-gray-500 font-medium">ความสูงเป้าหมาย (MPH)</div>
-                <div class="text-base font-black text-indigo-700 mt-0.5">${mph ? `${mph.target} ซม.` : '--'}</div>
-                <div class="text-[10px] text-gray-400">ช่วง ${mph ? `${mph.rangeMin}-${mph.rangeMax}` : '--'} ซม.</div>
+              <div class="bg-indigo-50/40 rounded-xl p-3 border border-indigo-200/70">
+                <div class="text-[11px] text-indigo-900/80 font-bold">ความสูงเป้าหมาย (MPH)</div>
+                <div class="text-base sm:text-lg font-black text-indigo-700 mt-0.5 leading-tight">${mph ? `${mph.rangeMin}–${mph.rangeMax} ซม.` : '--'}</div>
+                <div class="text-[10px] text-indigo-700/80 font-medium mt-0.5">ช่วงความสูงตามพันธุกรรม</div>
               </div>
 
-              <div class="bg-gray-50 rounded-2xl p-3 border border-gray-100">
-                <div class="text-[10px] text-gray-500 font-medium">ส่วนสูงบิดา</div>
+              <div class="bg-gray-50/80 rounded-xl p-3 border border-gray-200/80">
+                <div class="text-[11px] text-gray-500 font-bold">ส่วนสูงบิดา</div>
                 <div class="text-sm font-black text-gray-800 mt-0.5">${student.fatherHeight ? `${student.fatherHeight} ซม.` : 'ไม่ระบุ'}</div>
               </div>
 
-              <div class="bg-gray-50 rounded-2xl p-3 border border-gray-100">
-                <div class="text-[10px] text-gray-500 font-medium">ส่วนสูงมารดา</div>
+              <div class="bg-gray-50/80 rounded-xl p-3 border border-gray-200/80">
+                <div class="text-[11px] text-gray-500 font-bold">ส่วนสูงมารดา</div>
                 <div class="text-sm font-black text-gray-800 mt-0.5">${student.motherHeight ? `${student.motherHeight} ซม.` : 'ไม่ระบุ'}</div>
               </div>
             </div>
 
-            <!-- Pubertal reference -->
-            <div class="p-3 rounded-2xl bg-gradient-to-r ${isGirl ? 'from-pink-50 to-rose-50 border border-pink-100' : 'from-sky-50 to-blue-50 border border-sky-100'} text-xs space-y-1.5">
-              <div class="font-bold flex items-center justify-between text-gray-800">
-                <span>🌟 เกณฑ์วัยเจริญพันธุ์อ้างอิง TSPE</span>
-                <span class="text-[10px] text-gray-500">P3 - P97</span>
-              </div>
-              ${isGirl ? `
-                <div class="text-[11px] text-gray-600 flex justify-between">
-                  <span>เต้านมเจริญขั้น 2 (Breast Tanner II):</span>
-                  <span class="font-bold text-pink-700">8.5 - 12.0 ปี (P50: 10.0)</span>
-                </div>
-                <div class="text-[11px] text-gray-600 flex justify-between">
-                  <span>ประจำเดือนครั้งแรก (Menarche):</span>
-                  <span class="font-bold text-rose-700">9.5 - 14.5 ปี (P50: 12.0)</span>
-                </div>
-              ` : `
-                <div class="text-[11px] text-gray-600 flex justify-between">
-                  <span>อัณฑะเจริญขั้น 2 (Genital Tanner II):</span>
-                  <span class="font-bold text-sky-700">9.5 - 13.5 ปี (P50: 11.5)</span>
-                </div>
-                <div class="text-[11px] text-gray-600 flex justify-between">
-                  <span>ขนหัวหน่าวขั้น 2 (Pubic hair II):</span>
-                  <span class="font-bold text-blue-700">10.0 - 14.0 ปี (P50: 12.0)</span>
-                </div>
-              `}
-            </div>
-
           </div>
 
-          <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
-            <span>บันทึกสะสม: <strong class="text-gray-800">${records.length} ปีการศึกษา</strong></span>
-            <span class="font-mono text-[11px]">ตรวจล่าสุด: ${latest?.date || '--'}</span>
+          <div class="mt-4 pt-3.5 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+            <span>บันทึกสะสม: <strong class="text-gray-800 font-bold">${records.length} ปีการศึกษา</strong></span>
+            <span class="font-mono text-[11px] text-gray-600">ตรวจล่าสุด: ${latest?.date || '--'}</span>
           </div>
         </div>
 
         <!-- Clinical Indicator Cards (Right 8 cols) -->
-        <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
           
-          <!-- Height Assessment Card -->
-          <div class="bg-white rounded-3xl border border-gray-200/90 p-5 shadow-xs flex flex-col justify-between hover:border-sky-300 transition group">
-            <div class="space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-gray-500 flex items-center gap-1.5">
-                  <span class="text-base">📏</span> ส่วนสูงตามเกณฑ์อายุ
-                </span>
-                <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${heightAssess ? heightAssess.color : 'bg-gray-100 text-gray-600'}">
-                  ${heightAssess ? heightAssess.label : '--'}
-                </span>
-              </div>
-              <div>
-                <div class="text-3xl font-black text-gray-900 tracking-tight">
-                  ${latest ? `${latest.height} <span class="text-sm font-semibold text-gray-500">ซม.</span>` : '--'}
-                </div>
-                <div class="text-xs text-gray-500 mt-1 flex items-center gap-1">
-                  <span>เปอร์เซ็นไทล์:</span>
-                  <strong class="text-gray-800 font-bold">${heightAssess ? heightAssess.percentile : '--'}</strong>
-                </div>
+          <!-- Height Assessment Card (Blue style like ข้อมูลนักเรียน Card 1) -->
+          <div class="bg-blue-50/40 rounded-2xl p-5 border border-blue-200/80 shadow-xs hover:shadow-md transition flex flex-col justify-between h-full">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-bold text-blue-900 uppercase tracking-wider truncate">ส่วนสูงตามเกณฑ์อายุ</span>
+              <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 shadow-2xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M12 2v20"></path>
+                  <path d="m8 6 4-4 4 4"></path>
+                  <path d="m8 18 4 4 4-4"></path>
+                </svg>
               </div>
             </div>
 
-            <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs">
-              <span class="text-gray-500">อัตราเพิ่ม (Velocity):</span>
-              <span class="font-bold px-2 py-0.5 rounded-md ${velocityBadge || 'text-gray-700'}">${velocityText}</span>
+            <div class="my-4 flex items-baseline gap-1.5">
+              <span class="text-3xl font-black text-blue-900 tracking-tight leading-none">${latest ? latest.height : '--'}</span>
+              ${latest ? '<span class="text-xs font-bold text-blue-700/90">ซม.</span>' : ''}
+            </div>
+
+            <div class="pt-3 border-t border-blue-200/60 flex items-center justify-between gap-2 text-xs">
+              <span class="text-blue-800/80 font-medium">ผลการประเมิน:</span>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold whitespace-nowrap ${heightAssess ? heightAssess.color : 'bg-gray-100 text-gray-600'}">
+                ${heightAssess ? heightAssess.label : '--'}
+              </span>
             </div>
           </div>
 
-          <!-- Weight Assessment Card -->
-          <div class="bg-white rounded-3xl border border-gray-200/90 p-5 shadow-xs flex flex-col justify-between hover:border-emerald-300 transition group">
-            <div class="space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-gray-500 flex items-center gap-1.5">
-                  <span class="text-base">⚖️</span> น้ำหนักตามเกณฑ์อายุ
-                </span>
-                <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${weightAssess ? weightAssess.color : 'bg-gray-100 text-gray-600'}">
-                  ${weightAssess ? weightAssess.label : '--'}
-                </span>
-              </div>
-              <div>
-                <div class="text-3xl font-black text-gray-900 tracking-tight">
-                  ${latest ? `${latest.weight} <span class="text-sm font-semibold text-gray-500">กก.</span>` : '--'}
-                </div>
-                <div class="text-xs text-gray-500 mt-1 flex items-center gap-1">
-                  <span>เปอร์เซ็นไทล์:</span>
-                  <strong class="text-gray-800 font-bold">${weightAssess ? weightAssess.percentile : '--'}</strong>
-                </div>
+          <!-- Weight Assessment Card (Emerald style like ข้อมูลนักเรียน Card 2) -->
+          <div class="bg-emerald-50/40 rounded-2xl p-5 border border-emerald-200/80 shadow-xs hover:shadow-md transition flex flex-col justify-between h-full">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-bold text-emerald-900 uppercase tracking-wider truncate">น้ำหนักตามเกณฑ์อายุ</span>
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 shadow-2xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M6 20h12"></path>
+                  <path d="M12 3v17"></path>
+                  <path d="M5 8h14"></path>
+                  <path d="m5 8-2 5h4l-2-5Z"></path>
+                  <path d="m19 8-2 5h4l-2-5Z"></path>
+                </svg>
               </div>
             </div>
 
-            <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs">
-              <span class="text-gray-500">สถานะน้ำหนัก:</span>
-              <span class="font-semibold text-gray-700">${weightAssess ? weightAssess.label : '--'}</span>
+            <div class="my-4 flex items-baseline gap-1.5">
+              <span class="text-3xl font-black text-emerald-700 tracking-tight leading-none">${latest ? latest.weight : '--'}</span>
+              ${latest ? '<span class="text-xs font-bold text-emerald-700/90">กก.</span>' : ''}
+            </div>
+
+            <div class="pt-3 border-t border-emerald-200/60 flex items-center justify-between gap-2 text-xs">
+              <span class="text-emerald-800/80 font-medium">ผลการประเมิน:</span>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold whitespace-nowrap ${weightAssess ? weightAssess.color : 'bg-gray-100 text-gray-600'}">
+                ${weightAssess ? weightAssess.label : '--'}
+              </span>
             </div>
           </div>
 
-          <!-- BMI Assessment Card -->
-          <div class="bg-white rounded-3xl border border-gray-200/90 p-5 shadow-xs flex flex-col justify-between hover:border-purple-300 transition group">
-            <div class="space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-gray-500 flex items-center gap-1.5">
-                  <span class="text-base">🩺</span> ดัชนีมวลกาย (BMI)
-                </span>
-                <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${bmiAssess ? bmiAssess.color : 'bg-gray-100 text-gray-600'}">
-                  ${bmiAssess ? bmiAssess.label : '--'}
-                </span>
-              </div>
-              <div>
-                <div class="text-3xl font-black text-gray-900 tracking-tight">
-                  ${bmiAssess ? `${bmiAssess.bmi} <span class="text-sm font-semibold text-gray-500">กก./ม.²</span>` : '--'}
-                </div>
-                <div class="text-xs text-gray-500 mt-1 flex items-center gap-1">
-                  <span>แปลผลสุขภาพ:</span>
-                  <strong class="text-gray-800 font-bold">${bmiAssess ? bmiAssess.label : '--'}</strong>
-                </div>
+          <!-- BMI Assessment Card (Purple style like ข้อมูลนักเรียน Card 4) -->
+          <div class="bg-purple-50/40 rounded-2xl p-5 border border-purple-200/80 shadow-xs hover:shadow-md transition flex flex-col justify-between h-full">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-bold text-purple-900 uppercase tracking-wider truncate">ดัชนีมวลกาย (BMI)</span>
+              <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center shrink-0 shadow-2xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
               </div>
             </div>
 
-            <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs">
-              <span class="text-gray-500">เกณฑ์สมส่วน:</span>
-              <span class="font-semibold text-gray-700">18.5 - 22.9</span>
+            <div class="my-4 flex items-center justify-between gap-2">
+              <div class="flex items-baseline gap-1.5">
+                <span class="text-3xl font-black text-purple-700 tracking-tight leading-none">${bmiAssess ? bmiAssess.bmi : '--'}</span>
+                ${bmiAssess ? '<span class="text-xs font-bold text-purple-700/90">กก./ม.²</span>' : ''}
+              </div>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold whitespace-nowrap ${bmiAssess ? bmiAssess.color : 'bg-gray-100 text-gray-600'}">
+                ${bmiAssess ? bmiAssess.label : '--'}
+              </span>
+            </div>
+
+            <div class="pt-3 border-t border-purple-200/60 flex items-center justify-between text-xs">
+              <span class="text-purple-800/80 font-medium">เกณฑ์สมส่วน:</span>
+              <span class="font-bold text-purple-900 whitespace-nowrap">18.5 – 22.9</span>
             </div>
           </div>
 
           <!-- Bottom Long Card: Growth Trajectory Clinical Insight -->
-          <div class="sm:col-span-3 bg-gradient-to-r from-gray-50 to-slate-50 border border-gray-200 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
-            <div class="flex items-center gap-3">
-              <span class="text-xl">💡</span>
+          <div class="sm:col-span-3 bg-indigo-50/40 border border-indigo-200/80 rounded-2xl p-4 sm:px-5 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3.5 text-xs">
+            <div class="flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0 shadow-2xs">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                  <polyline points="17 6 23 6 23 12"></polyline>
+                </svg>
+              </div>
               <div>
-                <span class="font-bold text-gray-800">การประเมินทิศทางการเจริญเติบโต (Longitudinal Trajectory):</span>
-                <p class="text-gray-600 text-[11px] mt-0.5">
+                <span class="font-bold text-indigo-950 text-xs sm:text-sm block">การประเมินทิศทางการเจริญเติบโต</span>
+                <p class="text-indigo-900/80 text-xs mt-0.5 leading-relaxed">
                   ${records.length >= 2
-        ? `เส้นทางการเติบโตของนักเรียนไต่ระดับตามช่องเปอร์เซ็นไทล์อย่างต่อเนื่อง (เกาะแนว ${heightAssess?.percentile || 'P50'}) บ่งชี้ภาวะโภชนาการและการเจริญเติบโตที่สมดุล`
-        : 'มีบันทึกตรวจวัด 1 ครั้ง แนะนำติดตามผลการตรวจวัดต่อเนื่องในรอบปีถัดไปเพื่อวิเคราะห์ Velocity Curve'}
+        ? `แนวโน้มการเจริญเติบโตของนักเรียนอยู่ในเกณฑ์ "${heightAssess?.label || 'ส่วนสูงตามเกณฑ์'}" และ "${weightAssess?.label || 'น้ำหนักตามเกณฑ์'}" บ่งชี้ภาวะโภชนาการและการเจริญเติบโตที่สมดุลตามวัย`
+        : 'มีบันทึกตรวจวัด 1 ครั้ง แนะนำติดตามผลการตรวจวัดต่อเนื่องในรอบปีถัดไปเพื่อประเมินแนวโน้มการเจริญเติบโต'}
                 </p>
               </div>
             </div>
-            <button type="button" onclick="document.getElementById('growth-records-table-card').scrollIntoView({behavior: 'smooth'})" class="text-purple-700 font-bold hover:underline whitespace-nowrap text-xs flex items-center gap-1">
+            <button type="button" onclick="document.getElementById('growth-records-table-card').scrollIntoView({behavior: 'smooth'})" class="bg-white hover:bg-indigo-50 text-indigo-700 border border-indigo-200/90 font-bold px-3.5 py-2 rounded-xl shadow-2xs transition whitespace-nowrap text-xs flex items-center gap-1.5 cursor-pointer shrink-0">
               <span>ดูประวัติทั้งหมด</span>
               <span>↓</span>
             </button>
@@ -494,42 +457,39 @@
       </div>
 
       <!-- MAIN TSPE CHART CONTAINER (OFFICIAL SHEET IMAGE WITH PLOTTED POINTS) -->
-      <div class="bg-white rounded-3xl border border-gray-200/90 shadow-sm overflow-hidden">
+      <div class="bg-white rounded-2xl border border-gray-200/90 shadow-xs overflow-hidden">
         
         <!-- Toolbar -->
-        <div class="p-5 sm:p-6 border-b border-gray-100 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 bg-gradient-to-b from-gray-50/50 to-white">
+        <div class="p-5 sm:p-6 border-b border-gray-100 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
           <div>
             <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full ${isGirl ? 'bg-pink-500' : 'bg-sky-500'}"></span>
-              <h3 class="text-base sm:text-lg font-black text-gray-900">
-                ${isGirl ? 'แบบบันทึกการเจริญเติบโตเด็กหญิงอายุ 2–19 ปี (TSPE Official Growth Chart)' : 'แบบบันทึกการเจริญเติบโตเด็กชายอายุ 2–19 ปี (TSPE Official Growth Chart)'}
+              <span class="w-3 h-3 rounded-full ${isGirl ? 'bg-pink-500' : 'bg-blue-600'}"></span>
+              <h3 class="text-lg sm:text-xl font-black text-gray-900 tracking-tight">
+                ${isGirl ? 'แบบบันทึกการเจริญเติบโตเด็กหญิงอายุ 2–19 ปี' : 'แบบบันทึกการเจริญเติบโตเด็กชายอายุ 2–19 ปี'}
               </h3>
             </div>
-            <p class="text-xs text-gray-500 mt-1">
-              พล็อตค่าน้ำหนักและส่วนสูงจริงลงบนแผ่นชาร์ตต้นฉบับสมาคมต่อมไร้ท่อเด็กและวัยรุ่นไทย (TSPE 2022)
-            </p>
           </div>
 
           <!-- Controls & Toggles -->
           <div class="flex flex-wrap items-center gap-3">
             
-            <div class="bg-gray-100 p-1 rounded-2xl flex items-center text-xs font-bold">
-              <button type="button" id="btn-view-official" class="px-3 py-1.5 rounded-xl transition cursor-pointer ${viewMode === 'official' ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-600 hover:text-gray-900'
-      }">📋 แผ่นชาร์ต TSPE (ต้นฉบับ)</button>
+            <div class="bg-gray-100 p-1 rounded-xl flex items-center text-xs font-bold">
+              <button type="button" id="btn-view-official" class="px-3 py-1.5 rounded-lg transition cursor-pointer ${viewMode === 'official' ? 'bg-white text-blue-700 shadow-xs' : 'text-gray-600 hover:text-gray-900'
+      }">แผ่นชาร์ต TSPE</button>
               
-              <button type="button" id="btn-view-vector" class="px-3 py-1.5 rounded-xl transition cursor-pointer ${viewMode === 'vector' ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-600 hover:text-gray-900'
-      }">📈 กราฟเวกเตอร์ขยายได้</button>
+              <button type="button" id="btn-view-vector" class="px-3 py-1.5 rounded-lg transition cursor-pointer ${viewMode === 'vector' ? 'bg-white text-blue-700 shadow-xs' : 'text-gray-600 hover:text-gray-900'
+      }">กราฟเวกเตอร์ขยายได้</button>
             </div>
 
             <!-- Plot Feature Toggles -->
             <label class="inline-flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer select-none">
-              <input type="checkbox" id="chk-show-height" ${showHeight ? 'checked' : ''} class="rounded text-sky-600 focus:ring-sky-500">
-              <span class="font-medium">ส่วนสูง</span>
+              <input type="checkbox" id="chk-show-height" ${showHeight ? 'checked' : ''} class="rounded text-blue-600 focus:ring-blue-500">
+              <span class="font-bold">ส่วนสูง</span>
             </label>
 
             <label class="inline-flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer select-none">
               <input type="checkbox" id="chk-show-weight" ${showWeight ? 'checked' : ''} class="rounded text-emerald-600 focus:ring-emerald-500">
-              <span class="font-medium">น้ำหนัก</span>
+              <span class="font-bold">น้ำหนัก</span>
             </label>
 
           </div>
@@ -559,7 +519,7 @@
         </div>
 
         <!-- Chart Footnote & Actions -->
-        <div class="p-4 sm:p-6 bg-gray-50/80 border-t border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-gray-600">
+        <div class="p-4 sm:p-6 bg-gray-50 border-t border-gray-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-gray-600">
           <div class="space-y-1">
             <div class="flex items-center gap-4 flex-wrap">
               <span class="inline-flex items-center gap-1.5">
@@ -580,29 +540,36 @@
             </p>
           </div>
 
-          <button type="button" id="btn-export-official-sheet" class="px-4 py-2.5 rounded-xl bg-purple-600 text-white font-bold text-xs hover:bg-purple-700 transition shadow-xs flex items-center gap-2 whitespace-nowrap cursor-pointer">
-            <span>📷</span>
-            <span>บันทึกรูปชาร์ต TSPE (PNG)</span>
+          <button type="button" id="btn-export-official-sheet" class="px-4 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs hover:bg-blue-700 transition shadow-sm flex items-center gap-2 whitespace-nowrap cursor-pointer">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>บันทึกรูป</span>
           </button>
         </div>
 
       </div>
 
       <!-- LONGITUDINAL MEASUREMENTS TABLE -->
-      <div id="growth-records-table-card" class="bg-white rounded-3xl border border-gray-200/90 shadow-sm overflow-hidden">
+      <div id="growth-records-table-card" class="bg-white rounded-2xl border border-gray-200/90 shadow-xs overflow-hidden">
         <div class="p-5 sm:p-6 border-b border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
-            <h3 class="text-base sm:text-lg font-black text-gray-900 flex items-center gap-2">
-              <span>📋 บันทึกประวัติการตรวจวัดร่างกายรายปี</span>
-              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-700">Longitudinal Data</span>
+            <h3 class="text-lg sm:text-xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+              <span>📋</span>
+              <span>บันทึกประวัติการตรวจวัดร่างกายรายปี</span>
             </h3>
-            <p class="text-xs text-gray-500 mt-0.5">
-              ข้อมูลส่วนสูง น้ำหนัก และการประเมินทางคลินิกย้อนหลังของ ${esc(student.name)}
+            <p class="text-xs sm:text-sm text-gray-500 mt-0.5">
+              ข้อมูลส่วนสูง น้ำหนัก และการประเมินทางคลินิกย้อนหลังของ <strong class="text-gray-900 font-bold">${esc(student.name)}</strong>
             </p>
           </div>
 
-          <button type="button" id="btn-add-year-measurement" class="px-3.5 py-2 rounded-xl bg-purple-600 text-white font-bold text-xs hover:bg-purple-700 transition shadow-xs flex items-center gap-1.5 cursor-pointer">
-            <span>➕</span>
+          <button type="button" id="btn-add-year-measurement" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-sm hover:shadow-md transition flex items-center gap-2 cursor-pointer shrink-0">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
             <span>เพิ่มผลตรวจปีนี้</span>
           </button>
         </div>
@@ -620,29 +587,17 @@
                 <th class="px-4 py-3.5 whitespace-nowrap">น้ำหนัก (กก.)</th>
                 <th class="px-4 py-3.5 whitespace-nowrap">การประเมินน้ำหนัก</th>
                 <th class="px-4 py-3.5 whitespace-nowrap">BMI (กก./ม.²)</th>
-                <th class="px-4 py-3.5 whitespace-nowrap">อัตราเพิ่ม (Velocity)</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
               ${records.map((r, idx) => {
-        const prev = idx > 0 ? records[idx - 1] : null;
         const hEval = LhsGrowthData.assessHeight(r.height, r.age, student.gender);
         const wEval = LhsGrowthData.assessWeight(r.weight, r.age, student.gender);
         const bEval = LhsGrowthData.assessBmi(r.height, r.weight);
-
-        let vel = '--';
-        if (prev) {
-          const yDiff = r.age - prev.age;
-          if (yDiff > 0) {
-            const rate = (r.height - prev.height) / yDiff;
-            vel = `${rate >= 0 ? '+' : ''}${rate.toFixed(1)} ซม./ปี`;
-          }
-        }
-
         const isLatest = idx === records.length - 1;
 
         return `
-                  <tr class="hover:bg-purple-50/40 transition ${isLatest ? 'bg-purple-50/20 font-medium' : ''}">
+                  <tr class="hover:bg-blue-50/30 transition-colors duration-150 ${isLatest ? 'bg-blue-50/20 font-medium' : ''}">
                     <td class="px-4 py-3.5 whitespace-nowrap">
                       <span class="font-bold text-gray-900">พ.ศ. ${esc(r.yearBe)}</span>
                       ${isLatest ? '<span class="ml-1.5 text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">ล่าสุด</span>' : ''}
@@ -652,21 +607,18 @@
                     <td class="px-4 py-3.5 whitespace-nowrap font-bold text-gray-800">${r.age} ปี</td>
                     <td class="px-4 py-3.5 whitespace-nowrap font-black text-sky-700">${r.height}</td>
                     <td class="px-4 py-3.5 whitespace-nowrap">
-                      <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${hEval.color}">
-                        ${hEval.label} (${hEval.percentile})
+                      <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${hEval.color}">
+                        ${hEval.label}
                       </span>
                     </td>
                     <td class="px-4 py-3.5 whitespace-nowrap font-black text-emerald-700">${r.weight}</td>
                     <td class="px-4 py-3.5 whitespace-nowrap">
-                      <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${wEval.color}">
-                        ${wEval.label} (${wEval.percentile})
+                      <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${wEval.color}">
+                        ${wEval.label}
                       </span>
                     </td>
                     <td class="px-4 py-3.5 whitespace-nowrap font-bold text-gray-800">
                       ${bEval.bmi} <span class="text-[10px] text-gray-400 font-normal">(${bEval.label})</span>
-                    </td>
-                    <td class="px-4 py-3.5 whitespace-nowrap font-bold ${vel.startsWith('+') ? 'text-emerald-700' : 'text-gray-600'}">
-                      ${vel}
                     </td>
                   </tr>
                 `;
@@ -674,15 +626,19 @@
             </tbody>
           </table>
         </div>
+        <div class="px-6 py-3.5 border-t border-gray-200 bg-gray-50 text-xs text-gray-500 font-medium flex items-center justify-between">
+          <span>แสดงประวัติการตรวจวัดร่างกายรายปีของนักเรียนที่เลือก</span>
+          <span class="font-bold text-gray-700">แสดงทั้งหมด ${records.length} รายการ</span>
+        </div>
       </div>
 
       <!-- MODAL: ADD ANNUAL MEASUREMENT -->
       <div id="add-growth-modal" class="fixed inset-0 bg-gray-900/60 backdrop-blur-xs hidden flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 sm:p-7 border border-gray-100 max-h-[95vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-150">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 sm:p-7 border border-gray-100 max-h-[95vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-150">
           
           <div class="flex items-center justify-between pb-4 border-b border-gray-100">
             <div>
-              <span class="text-[10px] uppercase tracking-wider font-bold text-purple-600">บันทึกตรวจวัดทางกายภาพ</span>
+              <span class="text-[10px] uppercase tracking-wider font-bold text-blue-600">บันทึกตรวจวัดทางกายภาพ</span>
               <h3 class="text-lg font-black text-gray-900">บันทึกการตรวจวัดประจำปี</h3>
               <p class="text-xs text-gray-500 mt-0.5">${esc(student.name)} (${esc(student.id)})</p>
             </div>
@@ -694,24 +650,24 @@
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label for="growth-input-year" class="block text-xs font-bold text-gray-700 mb-1">ปีการศึกษา (พ.ศ.) *</label>
-                <input type="number" id="growth-input-year" required min="2560" max="2575" value="${(latest?.yearBe || 2568) + 1}" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-gray-800 outline-none focus:ring-2 focus:ring-purple-500">
+                <input type="number" id="growth-input-year" required min="2560" max="2575" value="${(latest?.yearBe || 2568) + 1}" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-gray-800 outline-none focus:ring-2 focus:ring-blue-500">
               </div>
 
               <div>
                 <label for="growth-input-grade" class="block text-xs font-bold text-gray-700 mb-1">ระดับชั้น *</label>
-                <input type="text" id="growth-input-grade" required value="${esc(student.gradeClass)}" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-gray-800 outline-none focus:ring-2 focus:ring-purple-500">
+                <input type="text" id="growth-input-grade" required value="${esc(student.gradeClass)}" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-gray-800 outline-none focus:ring-2 focus:ring-blue-500">
               </div>
             </div>
 
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label for="growth-input-date" class="block text-xs font-bold text-gray-700 mb-1">วันที่ตรวจวัด *</label>
-                <input type="date" id="growth-input-date" required value="${new Date().toISOString().split('T')[0]}" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-gray-800 outline-none focus:ring-2 focus:ring-purple-500">
+                <input type="date" id="growth-input-date" required value="${new Date().toISOString().split('T')[0]}" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-sm text-gray-800 outline-none focus:ring-2 focus:ring-blue-500">
               </div>
 
               <div>
                 <label for="growth-input-age" class="block text-xs font-bold text-gray-700 mb-1">อายุ ณ วันตรวจ (ปี) *</label>
-                <input type="number" step="0.1" id="growth-input-age" required min="2" max="19" value="${latest ? (latest.age + 1.0).toFixed(1) : '10.0'}" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-gray-800 outline-none focus:ring-2 focus:ring-purple-500">
+                <input type="number" step="0.1" id="growth-input-age" required min="2" max="19" value="${latest ? (latest.age + 1.0).toFixed(1) : '10.0'}" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-gray-800 outline-none focus:ring-2 focus:ring-blue-500">
               </div>
             </div>
 
@@ -727,7 +683,7 @@
               </div>
             </div>
 
-            <div id="growth-calc-preview" class="p-3 bg-purple-50 border border-purple-100 rounded-2xl text-xs space-y-1 text-purple-900 hidden">
+            <div id="growth-calc-preview" class="p-3 bg-blue-50 border border-blue-100 rounded-xl text-xs space-y-1 text-blue-900 hidden">
               <div class="font-bold">ผลประเมินคำนวณอัตโนมัติ:</div>
               <div class="flex justify-between text-[11px]">
                 <span>BMI: <strong id="preview-bmi">--</strong></span>
@@ -738,8 +694,8 @@
 
             <div class="pt-3 border-t border-gray-100 flex items-center justify-end gap-3">
               <button type="button" id="btn-cancel-growth-modal" class="px-4 py-2 text-xs font-bold text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-xl transition cursor-pointer">ยกเลิก</button>
-              <button type="submit" class="px-5 py-2 text-xs font-bold text-white bg-purple-600 hover:bg-purple-700 rounded-xl transition shadow-xs flex items-center gap-1.5 cursor-pointer">
-                <span>💾 บันทึกและพล็อตกราฟทันที</span>
+              <button type="submit" class="px-5 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition shadow-xs flex items-center gap-1.5 cursor-pointer">
+                <span>บันทึกและพล็อตกราฟทันที</span>
               </button>
             </div>
 
@@ -819,8 +775,8 @@
           const wAssess = LhsGrowthData.assessWeight(w, a, student.gender);
 
           $('preview-bmi').textContent = `${b.bmi} (${b.label})`;
-          $('preview-height-p').textContent = `${hAssess.percentile}`;
-          $('preview-weight-p').textContent = `${wAssess.percentile}`;
+          $('preview-height-p').textContent = `${hAssess.label}`;
+          $('preview-weight-p').textContent = `${wAssess.label}`;
           previewBox.classList.remove('hidden');
         } else {
           previewBox.classList.add('hidden');
@@ -867,7 +823,7 @@
               x: (x / scaleX),
               y: (yH / scaleY),
               title: `ปี พ.ศ. ${r.yearBe} (${r.grade}) · อายุ ${r.age} ปี`,
-              text: `📏 ส่วนสูง: <b>${r.height} ซม.</b> (${evalH.percentile} - ${evalH.label})<br>⚖️ น้ำหนัก: <b>${r.weight} กก.</b>`
+              text: `ส่วนสูง: <b>${r.height} ซม.</b> (${evalH.label})<br>น้ำหนัก: <b>${r.weight} กก.</b>`
             };
           }
         }
@@ -881,7 +837,7 @@
               x: (x / scaleX),
               y: (yW / scaleY),
               title: `ปี พ.ศ. ${r.yearBe} (${r.grade}) · อายุ ${r.age} ปี`,
-              text: `⚖️ น้ำหนัก: <b>${r.weight} กก.</b> (${evalW.percentile} - ${evalW.label})<br>🩺 BMI: <b>${b.bmi}</b> (${b.label})`
+              text: `น้ำหนัก: <b>${r.weight} กก.</b> (${evalW.label})<br>BMI: <b>${b.bmi}</b> (${b.label})`
             };
           }
         }
@@ -938,7 +894,7 @@
       if (student.motherHeight) ctx.fillText(`${student.motherHeight}`, cfg.header.mHeightX, cfg.header.mHeightY);
       // Mid-parental height
       const mph = LhsGrowthData.calcMidParentalHeight(student.fatherHeight, student.motherHeight, student.gender);
-      if (mph) ctx.fillText(`${mph.target}`, cfg.header.mphX, cfg.header.mphY);
+      if (mph) ctx.fillText(`${mph.rangeMin}–${mph.rangeMax}`, cfg.header.mphX, cfg.header.mphY);
 
       const records = student.records || [];
       if (records.length === 0) return;
@@ -1070,7 +1026,7 @@
         ctx.font = 'bold 9px Prompt, sans-serif';
         ctx.fillStyle = cfg.mphColor;
         ctx.textAlign = 'right';
-        ctx.fillText(`MPH ${mph.target}`, x - 15, yH + 3);
+        ctx.fillText(`MPH ${mph.rangeMin}–${mph.rangeMax}`, x - 15, yH + 3);
         ctx.restore();
       }
     };
