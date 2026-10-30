@@ -165,6 +165,7 @@
   // --- INITIAL STUDENT GROWTH RECORDS DATABASE ---
   const studentGrowthDb = {
     // === โรงเรียนสารภีพิทยาคม (usr_saraphi) ===
+    // Case 1: ภาวะการเจริญเติบโตด้านส่วนสูงชะลอตัวตัดข้ามเส้นเปอร์เซ็นไทล์ลง (< P3 เตี้ย) ร่วมกับน้ำหนักพุ่งสูง (โรคอ้วน)
     "SP-670184": {
       id: "SP-670184",
       name: "นาย ณัฐพงษ์ แซ่ลิ้ม",
@@ -176,14 +177,15 @@
       fatherHeight: 173.0,
       motherHeight: 159.0,
       records: [
-        { yearBe: 2564, grade: "ป.5", date: "2021-06-15", age: 11.3, height: 143.5, weight: 37.0 },
-        { yearBe: 2565, grade: "ป.6", date: "2022-06-18", age: 12.3, height: 150.0, weight: 42.5 },
-        { yearBe: 2566, grade: "ม.1", date: "2023-06-12", age: 13.3, height: 158.2, weight: 48.0 },
-        { yearBe: 2567, grade: "ม.2", date: "2024-06-14", age: 14.3, height: 165.0, weight: 54.0 },
-        { yearBe: 2568, grade: "ม.3", date: "2025-06-16", age: 15.3, height: 169.5, weight: 58.5 },
-        { yearBe: 2569, grade: "ม.4", date: "2026-06-20", age: 16.3, height: 172.5, weight: 62.0 }
+        { yearBe: 2564, grade: "ป.5", date: "2021-06-15", age: 11.3, height: 144.0, weight: 38.0 },
+        { yearBe: 2565, grade: "ป.6", date: "2022-06-18", age: 12.3, height: 150.0, weight: 46.5 },
+        { yearBe: 2566, grade: "ม.1", date: "2023-06-12", age: 13.3, height: 153.0, weight: 56.0 },
+        { yearBe: 2567, grade: "ม.2", date: "2024-06-14", age: 14.3, height: 154.5, weight: 65.5 },
+        { yearBe: 2568, grade: "ม.3", date: "2025-06-16", age: 15.3, height: 155.5, weight: 73.0 },
+        { yearBe: 2569, grade: "ม.4", date: "2026-06-20", age: 16.3, height: 156.0, weight: 79.5 }
       ]
     },
+    // Case 2: ภาวะส่วนสูงและน้ำหนักตกเกณฑ์เรื้อรัง (ค่อนข้างเตี้ย + น้ำหนักน้อยมาก < P3)
     "SP-670231": {
       id: "SP-670231",
       name: "น.ส. พิมพ์ชนก ขำดี",
@@ -195,14 +197,15 @@
       fatherHeight: 170.0,
       motherHeight: 156.0,
       records: [
-        { yearBe: 2564, grade: "ป.5", date: "2021-06-15", age: 11.0, height: 145.0, weight: 38.0 },
-        { yearBe: 2565, grade: "ป.6", date: "2022-06-18", age: 12.0, height: 151.5, weight: 43.5 },
-        { yearBe: 2566, grade: "ม.1", date: "2023-06-12", age: 13.0, height: 156.0, weight: 47.5 },
-        { yearBe: 2567, grade: "ม.2", date: "2024-06-14", age: 14.0, height: 158.5, weight: 50.0 },
-        { yearBe: 2568, grade: "ม.3", date: "2025-06-16", age: 15.0, height: 160.0, weight: 52.0 },
-        { yearBe: 2569, grade: "ม.4", date: "2026-06-20", age: 16.0, height: 160.5, weight: 53.2 }
+        { yearBe: 2564, grade: "ป.5", date: "2021-06-15", age: 11.0, height: 141.0, weight: 33.5 },
+        { yearBe: 2565, grade: "ป.6", date: "2022-06-18", age: 12.0, height: 144.5, weight: 36.0 },
+        { yearBe: 2566, grade: "ม.1", date: "2023-06-12", age: 13.0, height: 147.0, weight: 38.0 },
+        { yearBe: 2567, grade: "ม.2", date: "2024-06-14", age: 14.0, height: 148.5, weight: 39.0 },
+        { yearBe: 2568, grade: "ม.3", date: "2025-06-16", age: 15.0, height: 149.2, weight: 38.2 },
+        { yearBe: 2569, grade: "ม.4", date: "2026-06-20", age: 16.0, height: 149.5, weight: 37.5 }
       ]
     },
+    // Case 3: ภาวะอ้วนรุนแรงในวัยรุ่น น้ำหนักพุ่งทะลุเส้น P97 ต่อเนื่อง (อ้วน > P97)
     "SP-660097": {
       id: "SP-660097",
       name: "นาย ธนากร อินตา",
@@ -214,14 +217,15 @@
       fatherHeight: 175.0,
       motherHeight: 162.0,
       records: [
-        { yearBe: 2564, grade: "ป.6", date: "2021-06-15", age: 11.6, height: 146.0, weight: 39.5 },
-        { yearBe: 2565, grade: "ม.1", date: "2022-06-18", age: 12.6, height: 154.0, weight: 46.0 },
-        { yearBe: 2566, grade: "ม.2", date: "2023-06-12", age: 13.6, height: 162.5, weight: 53.0 },
-        { yearBe: 2567, grade: "ม.3", date: "2024-06-14", age: 14.6, height: 169.0, weight: 60.0 },
-        { yearBe: 2568, grade: "ม.4", date: "2025-06-16", age: 15.6, height: 173.0, weight: 64.5 },
-        { yearBe: 2569, grade: "ม.5", date: "2026-06-20", age: 16.6, height: 175.0, weight: 67.0 }
+        { yearBe: 2564, grade: "ป.6", date: "2021-06-15", age: 11.6, height: 147.0, weight: 45.0 },
+        { yearBe: 2565, grade: "ม.1", date: "2022-06-18", age: 12.6, height: 155.0, weight: 56.5 },
+        { yearBe: 2566, grade: "ม.2", date: "2023-06-12", age: 13.6, height: 163.0, weight: 69.0 },
+        { yearBe: 2567, grade: "ม.3", date: "2024-06-14", age: 14.6, height: 169.5, weight: 81.5 },
+        { yearBe: 2568, grade: "ม.4", date: "2025-06-16", age: 15.6, height: 173.0, weight: 91.0 },
+        { yearBe: 2569, grade: "ม.5", date: "2026-06-20", age: 16.6, height: 174.5, weight: 98.5 }
       ]
     },
+    // Case 4: น้ำหนักลดลงผิดปกติในช่วงมัธยมปลาย (น้ำหนักน้อยมาก < P3 / ผอม)
     "SP-650142": {
       id: "SP-650142",
       name: "น.ส. กัญญาณัฐ วงค์ษา",
@@ -234,12 +238,13 @@
       motherHeight: 155.0,
       records: [
         { yearBe: 2564, grade: "ม.2", date: "2021-06-15", age: 12.8, height: 152.0, weight: 44.5 },
-        { yearBe: 2565, grade: "ม.3", date: "2022-06-18", age: 13.8, height: 155.5, weight: 47.0 },
-        { yearBe: 2566, grade: "ม.4", date: "2023-06-12", age: 14.8, height: 157.0, weight: 49.0 },
-        { yearBe: 2567, grade: "ม.5", date: "2024-06-14", age: 15.8, height: 158.0, weight: 51.0 },
-        { yearBe: 2568, grade: "ม.6", date: "2025-06-16", age: 16.8, height: 158.5, weight: 52.0 }
+        { yearBe: 2565, grade: "ม.3", date: "2022-06-18", age: 13.8, height: 155.5, weight: 47.5 },
+        { yearBe: 2566, grade: "ม.4", date: "2023-06-12", age: 14.8, height: 157.5, weight: 48.5 },
+        { yearBe: 2567, grade: "ม.5", date: "2024-06-14", age: 15.8, height: 158.0, weight: 42.5 },
+        { yearBe: 2568, grade: "ม.6", date: "2025-06-16", age: 16.8, height: 158.5, weight: 38.5 }
       ]
     },
+    // Case 5: ภาวะเตี้ยเรื้อรังต่ำกว่าเกณฑ์พันธุกรรมบิดามารดา (< P3 เตี้ย + น้ำหนักน้อยมาก)
     "SP-680055": {
       id: "SP-680055",
       name: "ด.ช. ภูริณัฐ ไชยโย",
@@ -251,13 +256,14 @@
       fatherHeight: 171.0,
       motherHeight: 157.0,
       records: [
-        { yearBe: 2565, grade: "ป.5", date: "2022-06-18", age: 11.4, height: 140.0, weight: 34.0 },
-        { yearBe: 2566, grade: "ป.6", date: "2023-06-12", age: 12.4, height: 146.5, weight: 39.0 },
-        { yearBe: 2567, grade: "ม.1", date: "2024-06-14", age: 13.4, height: 153.5, weight: 44.5 },
-        { yearBe: 2568, grade: "ม.2", date: "2025-06-16", age: 14.4, height: 161.0, weight: 51.0 },
-        { yearBe: 2569, grade: "ม.3", date: "2026-06-20", age: 15.4, height: 166.0, weight: 56.0 }
+        { yearBe: 2565, grade: "ป.5", date: "2022-06-18", age: 11.4, height: 128.5, weight: 25.0 },
+        { yearBe: 2566, grade: "ป.6", date: "2023-06-12", age: 12.4, height: 133.0, weight: 28.0 },
+        { yearBe: 2567, grade: "ม.1", date: "2024-06-14", age: 13.4, height: 137.5, weight: 31.0 },
+        { yearBe: 2568, grade: "ม.2", date: "2025-06-16", age: 14.4, height: 142.0, weight: 34.5 },
+        { yearBe: 2569, grade: "ม.3", date: "2026-06-20", age: 15.4, height: 146.5, weight: 38.0 }
       ]
     },
+    // Case 6: เจริญเติบโตปกติตามเกณฑ์ (Normal Reference Case)
     "SP-670312": {
       id: "SP-670312",
       name: "น.ส. วรินทร ปัญญาวงศ์",
@@ -276,6 +282,7 @@
         { yearBe: 2569, grade: "ม.4", date: "2026-06-20", age: 15.8, height: 161.0, weight: 53.5 }
       ]
     },
+    // Case 7: ส่วนสูงหยุดเพิ่มก่อนวัยอันควร (ค่อนข้างเตี้ย)
     "SP-660420": {
       id: "SP-660420",
       name: "นาย ธนภัทร สุขสม",
@@ -287,13 +294,14 @@
       fatherHeight: 176.0,
       motherHeight: 163.0,
       records: [
-        { yearBe: 2565, grade: "ม.1", date: "2022-06-18", age: 12.5, height: 152.0, weight: 45.0 },
-        { yearBe: 2566, grade: "ม.2", date: "2023-06-12", age: 13.5, height: 160.5, weight: 52.0 },
-        { yearBe: 2567, grade: "ม.3", date: "2024-06-14", age: 14.5, height: 168.0, weight: 59.5 },
-        { yearBe: 2568, grade: "ม.4", date: "2025-06-16", age: 15.5, height: 172.5, weight: 64.0 },
-        { yearBe: 2569, grade: "ม.5", date: "2026-06-20", age: 16.5, height: 175.5, weight: 67.5 }
+        { yearBe: 2565, grade: "ม.1", date: "2022-06-18", age: 12.5, height: 149.0, weight: 42.0 },
+        { yearBe: 2566, grade: "ม.2", date: "2023-06-12", age: 13.5, height: 154.0, weight: 46.5 },
+        { yearBe: 2567, grade: "ม.3", date: "2024-06-14", age: 14.5, height: 157.0, weight: 50.0 },
+        { yearBe: 2568, grade: "ม.4", date: "2025-06-16", age: 15.5, height: 158.5, weight: 52.5 },
+        { yearBe: 2569, grade: "ม.5", date: "2026-06-20", age: 16.5, height: 159.0, weight: 54.0 }
       ]
     },
+    // Case 8: น้ำหนักเพิ่มขึ้นเร็วเข้าสู่ภาวะเริ่มอ้วน (เริ่มอ้วน P90-P97)
     "SP-680199": {
       id: "SP-680199",
       name: "ด.ญ. อมิตา ใจแก้ว",
@@ -305,13 +313,14 @@
       fatherHeight: 166.0,
       motherHeight: 154.0,
       records: [
-        { yearBe: 2565, grade: "ป.5", date: "2022-06-18", age: 11.1, height: 143.0, weight: 36.5 },
-        { yearBe: 2566, grade: "ป.6", date: "2023-06-12", age: 12.1, height: 150.0, weight: 42.0 },
-        { yearBe: 2567, grade: "ม.1", date: "2024-06-14", age: 13.1, height: 154.0, weight: 46.5 },
-        { yearBe: 2568, grade: "ม.2", date: "2025-06-16", age: 14.1, height: 156.5, weight: 49.0 },
-        { yearBe: 2569, grade: "ม.3", date: "2026-06-20", age: 15.1, height: 157.5, weight: 50.5 }
+        { yearBe: 2565, grade: "ป.5", date: "2022-06-18", age: 11.1, height: 143.0, weight: 42.0 },
+        { yearBe: 2566, grade: "ป.6", date: "2023-06-12", age: 12.1, height: 149.5, weight: 52.5 },
+        { yearBe: 2567, grade: "ม.1", date: "2024-06-14", age: 13.1, height: 153.5, weight: 62.0 },
+        { yearBe: 2568, grade: "ม.2", date: "2025-06-16", age: 14.1, height: 155.5, weight: 70.0 },
+        { yearBe: 2569, grade: "ม.3", date: "2026-06-20", age: 15.1, height: 156.5, weight: 76.5 }
       ]
     },
+    // Case 9: สูงกว่าเกณฑ์มาก (> P97) ร่วมกับภาวะเริ่มอ้วน
     "SP-670405": {
       id: "SP-670405",
       name: "นาย ภาคิน คำมา",
@@ -323,11 +332,11 @@
       fatherHeight: 172.0,
       motherHeight: 158.0,
       records: [
-        { yearBe: 2565, grade: "ป.6", date: "2022-06-18", age: 12.0, height: 148.0, weight: 41.5 },
-        { yearBe: 2566, grade: "ม.1", date: "2023-06-12", age: 13.0, height: 156.0, weight: 47.0 },
-        { yearBe: 2567, grade: "ม.2", date: "2024-06-14", age: 14.0, height: 163.5, weight: 54.0 },
-        { yearBe: 2568, grade: "ม.3", date: "2025-06-16", age: 15.0, height: 168.0, weight: 59.0 },
-        { yearBe: 2569, grade: "ม.4", date: "2026-06-20", age: 16.0, height: 171.0, weight: 62.5 }
+        { yearBe: 2565, grade: "ป.6", date: "2022-06-18", age: 12.0, height: 161.0, weight: 54.0 },
+        { yearBe: 2566, grade: "ม.1", date: "2023-06-12", age: 13.0, height: 170.5, weight: 64.5 },
+        { yearBe: 2567, grade: "ม.2", date: "2024-06-14", age: 14.0, height: 178.0, weight: 74.0 },
+        { yearBe: 2568, grade: "ม.3", date: "2025-06-16", age: 15.0, height: 183.5, weight: 82.5 },
+        { yearBe: 2569, grade: "ม.4", date: "2026-06-20", age: 16.0, height: 186.5, weight: 89.0 }
       ]
     },
     "SP-660288": {
@@ -386,6 +395,7 @@
     },
 
     // === โรงเรียนบ้านศาลาแม่ทา (usr_maetha) ===
+    // Case MT-1: การเจริญเติบโตชะลอตัวทั้งส่วนสูงและน้ำหนัก (< P3 เตี้ย + น้ำหนักน้อยมาก)
     "MT-670012": {
       id: "MT-670012",
       name: "ด.ช. ศิวกร ทาปินตา",
@@ -397,12 +407,13 @@
       fatherHeight: 169.0,
       motherHeight: 156.0,
       records: [
-        { yearBe: 2566, grade: "ป.3", date: "2023-06-15", age: 8.3, height: 126.0, weight: 26.5 },
-        { yearBe: 2567, grade: "ป.4", date: "2024-06-15", age: 9.3, height: 132.0, weight: 30.5 },
-        { yearBe: 2568, grade: "ป.5", date: "2025-06-15", age: 10.3, height: 137.5, weight: 34.5 },
-        { yearBe: 2569, grade: "ป.6", date: "2026-06-20", age: 11.3, height: 143.0, weight: 38.0 }
+        { yearBe: 2566, grade: "ป.3", date: "2023-06-15", age: 8.3, height: 124.0, weight: 23.5 },
+        { yearBe: 2567, grade: "ป.4", date: "2024-06-15", age: 9.3, height: 126.5, weight: 24.5 },
+        { yearBe: 2568, grade: "ป.5", date: "2025-06-15", age: 10.3, height: 128.0, weight: 25.2 },
+        { yearBe: 2569, grade: "ป.6", date: "2026-06-20", age: 11.3, height: 129.0, weight: 25.8 }
       ]
     },
+    // Case MT-2: น้ำหนักพุ่งสูงเกินเกณฑ์มาตรฐาน (เริ่มอ้วน / อ้วน)
     "MT-670045": {
       id: "MT-670045",
       name: "ด.ญ. ณิชาภัทร ขันคำ",
@@ -414,12 +425,13 @@
       fatherHeight: 167.0,
       motherHeight: 155.0,
       records: [
-        { yearBe: 2566, grade: "ป.3", date: "2023-06-15", age: 7.8, height: 124.5, weight: 24.5 },
-        { yearBe: 2567, grade: "ป.4", date: "2024-06-15", age: 8.8, height: 130.5, weight: 28.0 },
-        { yearBe: 2568, grade: "ป.5", date: "2025-06-15", age: 9.8, height: 136.5, weight: 32.5 },
-        { yearBe: 2569, grade: "ป.6", date: "2026-06-20", age: 10.8, height: 142.5, weight: 37.0 }
+        { yearBe: 2566, grade: "ป.3", date: "2023-06-15", age: 7.8, height: 125.0, weight: 28.5 },
+        { yearBe: 2567, grade: "ป.4", date: "2024-06-15", age: 8.8, height: 131.5, weight: 37.0 },
+        { yearBe: 2568, grade: "ป.5", date: "2025-06-15", age: 9.8, height: 137.5, weight: 47.0 },
+        { yearBe: 2569, grade: "ป.6", date: "2026-06-20", age: 10.8, height: 143.0, weight: 57.5 }
       ]
     },
+    // Case MT-3: ค่อนข้างเตี้ยและค่อนข้างผอมต่อเนื่อง (P3-P10)
     "MT-680018": {
       id: "MT-680018",
       name: "ด.ช. กิตติพงษ์ ใจมูล",
@@ -431,10 +443,10 @@
       fatherHeight: 170.0,
       motherHeight: 158.0,
       records: [
-        { yearBe: 2566, grade: "ป.2", date: "2023-06-15", age: 7.4, height: 121.0, weight: 23.5 },
-        { yearBe: 2567, grade: "ป.3", date: "2024-06-15", age: 8.4, height: 127.0, weight: 27.0 },
-        { yearBe: 2568, grade: "ป.4", date: "2025-06-15", age: 9.4, height: 133.0, weight: 31.0 },
-        { yearBe: 2569, grade: "ป.5", date: "2026-06-20", age: 10.4, height: 138.5, weight: 35.0 }
+        { yearBe: 2566, grade: "ป.2", date: "2023-06-15", age: 7.4, height: 115.5, weight: 19.5 },
+        { yearBe: 2567, grade: "ป.3", date: "2024-06-15", age: 8.4, height: 120.0, weight: 21.5 },
+        { yearBe: 2568, grade: "ป.4", date: "2025-06-15", age: 9.4, height: 124.5, weight: 23.8 },
+        { yearBe: 2569, grade: "ป.5", date: "2026-06-20", age: 10.4, height: 128.5, weight: 26.0 }
       ]
     },
     "MT-660089": {
@@ -473,6 +485,7 @@
         { yearBe: 2569, grade: "ม.1", date: "2026-06-20", age: 11.7, height: 146.5, weight: 41.0 }
       ]
     },
+    // Case MT-4: ส่วนสูงชะลอตัว (ค่อนข้างเตี้ย) ร่วมกับภาวะโรคอ้วน
     "MT-650015": {
       id: "MT-650015",
       name: "นาย อัครเดช หล้าคำ",
@@ -484,11 +497,11 @@
       fatherHeight: 174.0,
       motherHeight: 160.0,
       records: [
-        { yearBe: 2565, grade: "ป.6", date: "2022-06-18", age: 11.1, height: 142.0, weight: 36.0 },
-        { yearBe: 2566, grade: "ม.1", date: "2023-06-12", age: 12.1, height: 148.5, weight: 41.0 },
-        { yearBe: 2567, grade: "ม.2", date: "2024-06-14", age: 13.1, height: 156.0, weight: 47.0 },
-        { yearBe: 2568, grade: "ม.3", date: "2025-06-16", age: 14.1, height: 163.0, weight: 53.5 },
-        { yearBe: 2569, grade: "ม.4", date: "2026-06-20", age: 15.1, height: 168.0, weight: 58.0 }
+        { yearBe: 2565, grade: "ป.6", date: "2022-06-18", age: 11.1, height: 141.0, weight: 40.0 },
+        { yearBe: 2566, grade: "ม.1", date: "2023-06-12", age: 12.1, height: 145.5, weight: 50.0 },
+        { yearBe: 2567, grade: "ม.2", date: "2024-06-14", age: 13.1, height: 149.5, weight: 61.0 },
+        { yearBe: 2568, grade: "ม.3", date: "2025-06-16", age: 14.1, height: 152.5, weight: 71.0 },
+        { yearBe: 2569, grade: "ม.4", date: "2026-06-20", age: 15.1, height: 154.5, weight: 79.0 }
       ]
     },
     "MT-680072": {

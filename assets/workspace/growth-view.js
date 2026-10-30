@@ -237,15 +237,26 @@
             </div>
 
             <!-- Student Dropdown -->
-            <div class="flex items-center gap-3 min-w-[280px] max-w-md w-full md:w-auto">
+            <div class="flex items-center gap-3 min-w-[280px] max-w-lg w-full md:w-auto">
               <label for="student-growth-select" class="text-xs font-bold text-gray-700 whitespace-nowrap">เลือกนักเรียน:</label>
               <div class="relative w-full">
                 <select id="student-growth-select" class="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-bold text-gray-800 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition cursor-pointer shadow-2xs">
-                  ${students.map(s => `
+                  ${students.map(s => {
+        const recs = s.records || [];
+        const lastRec = recs.length > 0 ? recs[recs.length - 1] : null;
+        const hAss = lastRec ? LhsGrowthData.assessHeight(lastRec.height, lastRec.age, s.gender) : null;
+        const wAss = lastRec ? LhsGrowthData.assessWeight(lastRec.weight, lastRec.age, s.gender) : null;
+        const isNormalH = !hAss || hAss.level === 'normal';
+        const isNormalW = !wAss || wAss.level === 'normal';
+        const statusSummary = (isNormalH && isNormalW)
+          ? 'ตามเกณฑ์ปกติ'
+          : `${hAss?.label || '-'} / ${wAss?.label || '-'}`;
+        return `
                     <option value="${esc(s.id)}" ${s.id === currentStudentId ? 'selected' : ''}>
-                      ${esc(s.id)} - ${esc(s.name)} (${esc(s.gradeClass)})
+                      ${esc(s.id)} - ${esc(s.name)} (${esc(s.gradeClass)}) • [${esc(statusSummary)}]
                     </option>
-                  `).join('')}
+                  `;
+      }).join('')}
                 </select>
               </div>
             </div>
@@ -274,6 +285,85 @@
     }
   }
 
+  function buildGrowthTrajectoryInsight(student, heightAssess, weightAssess, bmiAssess, mph) {
+    const records = student.records || [];
+    if (records.length < 2) {
+      return {
+        isAlert: false,
+        title: 'การประเมินทิศทางการเจริญเติบโต',
+        message: 'มีบันทึกตรวจวัด 1 ครั้ง แนะนำติดตามผลการตรวจวัดต่อเนื่องในรอบปีถัดไปเพื่อประเมินแนวโน้มการเจริญเติบโต'
+      };
+    }
+
+    const first = records[0];
+    const prev = records[records.length - 2];
+    const latest = records[records.length - 1];
+    const firstH = LhsGrowthData.assessHeight(first.height, first.age, student.gender);
+    const weightDelta = Math.round((latest.weight - prev.weight) * 10) / 10;
+
+    const hLevel = heightAssess?.level || 'normal';
+    const wLevel = weightAssess?.level || 'normal';
+    const isShort = hLevel === 'short' || hLevel === 'fair-short';
+    const isTall = hLevel === 'very-tall';
+    const isUnderweight = wLevel === 'underweight' || wLevel === 'thin' || weightDelta < -1.0;
+    const isOverweight = wLevel === 'plump' || wLevel === 'overweight' || wLevel === 'obese';
+
+    if (isShort && isOverweight) {
+      return {
+        isAlert: true,
+        title: 'เฝ้าระวัง: ส่วนสูงชะลอตัวตัดข้ามเส้นเกณฑ์ลง ร่วมกับน้ำหนักเกินเกณฑ์',
+        message: `อัตราการเพิ่มส่วนสูงชะลอตัวลงจนอยู่ในเกณฑ์ "${heightAssess?.label}" (ต่ำกว่าช่วงความสูงเป้าหมายตามพันธุกรรม ${mph ? `${mph.rangeMin}–${mph.rangeMax} ซม.` : ''}) ขณะที่น้ำหนักเพิ่มขึ้นต่อเนื่องอยู่ในเกณฑ์ "${weightAssess?.label}" (${bmiAssess?.label || ''}) ควรส่งต่อปรึกษาแพทย์เพื่อประเมินภาวะต่อมไร้ท่อและโภชนาการ`
+      };
+    }
+
+    if (isShort && isUnderweight) {
+      return {
+        isAlert: true,
+        title: 'เฝ้าระวัง: ภาวะการเจริญเติบโตและน้ำหนักต่ำกว่าเกณฑ์มาตรฐาน',
+        message: `เส้นกราฟทั้งส่วนสูง ("${heightAssess?.label}") และน้ำหนัก ("${weightAssess?.label}") ต่ำกว่าเกณฑ์มาตรฐานตามวัย และต่ำกว่าศักยภาพทางพันธุกรรม (${mph ? `${mph.rangeMin}–${mph.rangeMax} ซม.` : ''}) แนะนำประเมินภาวะโภชนาการและติดตามการเจริญเติบโตอย่างใกล้ชิด`
+      };
+    }
+
+    if (weightDelta < -1.0 || (wLevel === 'underweight' && !isShort)) {
+      return {
+        isAlert: true,
+        title: 'เฝ้าระวัง: น้ำหนักตัวลดลงตัดข้ามเส้นเกณฑ์มาตรฐานลง',
+        message: `ส่วนสูงอยู่ในเกณฑ์ "${heightAssess?.label}" แต่พบแนวโน้มน้ำหนักตัวลดลงในช่วงปีหลังสุดจนอยู่ในเกณฑ์ "${weightAssess?.label}" (BMI ${bmiAssess?.bmi || '--'} กก./ม.² · ${bmiAssess?.label || ''}) แนะนำคัดกรองสาเหตุทางสุขภาพและภาวะโภชนาการ`
+      };
+    }
+
+    if (isShort) {
+      const crossedDown = firstH && firstH.level === 'normal';
+      return {
+        isAlert: true,
+        title: 'เฝ้าระวัง: อัตราการเพิ่มส่วนสูงชะลอตัวกว่าเกณฑ์ตามวัย',
+        message: `${crossedDown ? 'เส้นส่วนสูงชะลอตัวตัดข้ามเส้นมาตรฐานลงมาอยู่ที่' : 'ส่วนสูงอยู่ในเกณฑ์'} "${heightAssess?.label}" ซึ่งต่ำกว่าช่วงความสูงเป้าหมายตามพันธุกรรมบิดามารดา (${mph ? `${mph.rangeMin}–${mph.rangeMax} ซม.` : ''}) แนะนำติดตามการเข้าสู่วัยหนุ่มสาวและปรึกษาแพทย์เฉพาะทาง`
+      };
+    }
+
+    if (isOverweight) {
+      return {
+        isAlert: true,
+        title: `เฝ้าระวัง: น้ำหนักเพิ่มขึ้นเร็วเกินเกณฑ์ (${weightAssess?.label || ''})`,
+        message: `ส่วนสูงอยู่ในเกณฑ์ "${heightAssess?.label}" แต่น้ำหนักตัวพุ่งสูงตัดขึ้นเหนือเส้นมาตรฐานอยู่ในเกณฑ์ "${weightAssess?.label}" (BMI ${bmiAssess?.bmi || '--'} กก./ม.² · ${bmiAssess?.label || ''}) แนะนำปรับสมดุลอาหารและเพิ่มกิจกรรมทางกาย`
+      };
+    }
+
+    if (isTall) {
+      return {
+        isAlert: false,
+        title: 'การประเมินทิศทางการเจริญเติบโต: สูงกว่าเกณฑ์มาตรฐาน',
+        message: `แนวโน้มส่วนสูงอยู่ในเกณฑ์ "${heightAssess?.label}" และน้ำหนักอยู่ในเกณฑ์ "${weightAssess?.label}" เติบโตสูงเด่นกว่าค่าเฉลี่ยตามวัย`
+      };
+    }
+
+    return {
+      isAlert: false,
+      title: 'การประเมินทิศทางการเจริญเติบโต: ปกติตามเกณฑ์',
+      message: `แนวโน้มการเจริญเติบโตของนักเรียนอยู่ในเกณฑ์ "${heightAssess?.label || 'ส่วนสูงตามเกณฑ์'}" และ "${weightAssess?.label || 'น้ำหนักตามเกณฑ์'}" บ่งชี้ภาวะโภชนาการและการเจริญเติบโตที่สมดุลตามวัย`
+    };
+  }
+
   function renderStudentSection(student) {
     const isGirl = student.gender === 'girl';
     const records = student.records || [];
@@ -283,6 +373,7 @@
     const heightAssess = latest ? LhsGrowthData.assessHeight(latest.height, latest.age, student.gender) : null;
     const weightAssess = latest ? LhsGrowthData.assessWeight(latest.weight, latest.age, student.gender) : null;
     const bmiAssess = latest ? LhsGrowthData.assessBmi(latest.height, latest.weight) : null;
+    const trajectoryInsight = buildGrowthTrajectoryInsight(student, heightAssess, weightAssess, bmiAssess, mph);
 
     return `
       <!-- CLINICAL ASSESSMENT & SUMMARY CARDS -->
@@ -429,24 +520,30 @@
           </div>
 
           <!-- Bottom Long Card: Growth Trajectory Clinical Insight -->
-          <div class="sm:col-span-3 bg-indigo-50/40 border border-indigo-200/80 rounded-2xl p-4 sm:px-5 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3.5 text-xs">
+          <div class="sm:col-span-3 ${trajectoryInsight.isAlert ? 'bg-amber-50/50 border-amber-200/90' : 'bg-indigo-50/40 border-indigo-200/80'} border rounded-2xl p-4 sm:px-5 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3.5 text-xs">
             <div class="flex items-center gap-3.5">
-              <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0 shadow-2xs">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                  <polyline points="17 6 23 6 23 12"></polyline>
-                </svg>
+              <div class="w-10 h-10 rounded-xl ${trajectoryInsight.isAlert ? 'bg-amber-100 text-amber-700' : 'bg-indigo-100 text-indigo-700'} flex items-center justify-center shrink-0 shadow-2xs">
+                ${trajectoryInsight.isAlert ? `
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                  </svg>
+                ` : `
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                    <polyline points="17 6 23 6 23 12"></polyline>
+                  </svg>
+                `}
               </div>
               <div>
-                <span class="font-bold text-indigo-950 text-xs sm:text-sm block">การประเมินทิศทางการเจริญเติบโต</span>
-                <p class="text-indigo-900/80 text-xs mt-0.5 leading-relaxed">
-                  ${records.length >= 2
-        ? `แนวโน้มการเจริญเติบโตของนักเรียนอยู่ในเกณฑ์ "${heightAssess?.label || 'ส่วนสูงตามเกณฑ์'}" และ "${weightAssess?.label || 'น้ำหนักตามเกณฑ์'}" บ่งชี้ภาวะโภชนาการและการเจริญเติบโตที่สมดุลตามวัย`
-        : 'มีบันทึกตรวจวัด 1 ครั้ง แนะนำติดตามผลการตรวจวัดต่อเนื่องในรอบปีถัดไปเพื่อประเมินแนวโน้มการเจริญเติบโต'}
+                <span class="font-bold ${trajectoryInsight.isAlert ? 'text-amber-950' : 'text-indigo-950'} text-xs sm:text-sm block">${esc(trajectoryInsight.title)}</span>
+                <p class="${trajectoryInsight.isAlert ? 'text-amber-900/90' : 'text-indigo-900/80'} text-xs mt-0.5 leading-relaxed">
+                  ${esc(trajectoryInsight.message)}
                 </p>
               </div>
             </div>
-            <button type="button" onclick="document.getElementById('growth-records-table-card').scrollIntoView({behavior: 'smooth'})" class="bg-white hover:bg-indigo-50 text-indigo-700 border border-indigo-200/90 font-bold px-3.5 py-2 rounded-xl shadow-2xs transition whitespace-nowrap text-xs flex items-center gap-1.5 cursor-pointer shrink-0">
+            <button type="button" onclick="document.getElementById('growth-records-table-card').scrollIntoView({behavior: 'smooth'})" class="bg-white ${trajectoryInsight.isAlert ? 'hover:bg-amber-50 text-amber-800 border-amber-200/90' : 'hover:bg-indigo-50 text-indigo-700 border-indigo-200/90'} border font-bold px-3.5 py-2 rounded-xl shadow-2xs transition whitespace-nowrap text-xs flex items-center gap-1.5 cursor-pointer shrink-0">
               <span>ดูประวัติทั้งหมด</span>
               <span>↓</span>
             </button>
