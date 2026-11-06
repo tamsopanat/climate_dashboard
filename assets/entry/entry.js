@@ -58,9 +58,20 @@
   const prefixes = [['','ไม่ระบุ'],'ด.ช.','ด.ญ.','นาย','นาง','น.ส.'];
   const genderOptions = [['','เลือกเพศ'],['M','ชาย'],['F','หญิง'],['X','ไม่ระบุ']];
   const groups = [
-    ['กลุ่มอายุและสรีรวิทยา',['newborn','child_5','athlete','obesity','underweight']],
-    ['โรคประจำตัวและประวัติสุขภาพ',['bpd','rti','asthma','ar','chd','kidney','neuro']],
-    ['ประวัติการใช้ยา',['beta_blocker','antihistamine','diuretic']],
+    ['กลุ่มอายุและสรีรวิทยา',['newborn','child_5','athlete','obesity']],
+    ['โรคประจำตัวและประวัติสุขภาพ',['bpd','uri','asthma','ar','kidney','epilepsy','migraine','depression']],
+    ['ประวัติการใช้ยา',[
+      'antidepressant',
+      'anticonvulsant',
+      'antipsychotic',
+      'anticholinergic',
+      'diuretic',
+      'antihypertensive',
+      'benzodiazepine',
+      'opioid',
+      'antihistamine',
+      'central_acting'
+    ]],
   ];
   function clinicalSection(n) {
     return section(n, 'การประเมินปัจจัยเปราะบางทางคลินิก', `<p class="entry-muted" style="font-size:12px;margin:-4px 0 14px">เลือกรายการตามข้อมูลที่ได้รับ ใช้เกณฑ์เดียวกับหน้ากลุ่มเสี่ยง</p><fieldset><legend class="entry-label" style="font-size:12px;font-weight:600;margin-bottom:9px">ผลการซักประวัติ <em style="color:#b64155">*</em></legend><div class="entry-factor-options"><label class="entry-check"><input type="radio" name="assessment" value="none" required>ไม่พบปัจจัยตามรายการ</label><label class="entry-check"><input type="radio" name="assessment" value="has" required>พบปัจจัยเปราะบาง</label></div></fieldset><div id="entry-factor-fields" hidden>${groups.map(([name, keys]) => `<fieldset class="entry-factor-group"><legend><h4>${name}</h4></legend><div class="entry-check-grid">${keys.map(k => `<label class="entry-check"><input type="checkbox" name="factors" value="${k}">${esc(VULNERABILITY_DEF[k].th)}</label>`).join('')}</div></fieldset>`).join('')}</div><div style="margin-top:18px">${grid(field('medicalNote','ประวัติสุขภาพเพิ่มเติม',{area:true,wide:true,placeholder:'เช่น โรคประจำตัว ยาที่ใช้ หรือรายละเอียดประกอบการประเมิน',maxlength:1500})+field('allergies','ประวัติแพ้ยา / อาหาร',{placeholder:'ระบุรายการที่แพ้ หรือไม่ทราบ'})+field('medicines','ยาที่ใช้ประจำ',{placeholder:'ชื่อยาและข้อมูลที่ได้รับ'}))}</div>`);

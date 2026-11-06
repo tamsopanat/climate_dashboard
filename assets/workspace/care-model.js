@@ -19,10 +19,10 @@
     const villageBuildings=villages.map(v=>buildings.filter(b=>b.sampleVillage===v.number));
     const firstNames=[['มาลี','ประเสริฐ','พิมพ์ใจ','ธนกฤต','กานดา','นที'],['สมพร','บุญส่ง','นภา','ปุณณ์','อรุณี','วีระ'],['สายฝน','วิชัย','รัตนา','ภูผา','จินตนา','ณรงค์'],['ศรีนวล','สมชาย','ลลิตา','ต้นกล้า','พัชรี','อานนท์'],['คำปัน','สุรชัย','อรทัย','น้องขวัญ','ธิดา','ทวี'],['บัวแก้ว','มนตรี','วารุณี','อชิระ','ปาริชาติ','วสันต์'],['อำไพ','สินชัย','สุภาพร','ณัฐ','ดารา','ชาญ'],['เพ็ญศรี','อุดม','นิตยา','ก้องภพ','อรพิน','สันติ'],['จันทร์เพ็ญ','อำนาจ','มธุรส','ปันปัน','สุนิสา','พิเชษฐ์'],['ละออง','เกรียงไกร','พรทิพย์','ภาคิน','กมล','สถาพร'],['ประภา','ถาวร','สุชาดา','ภีม','นวลจันทร์','ปรีชา'],['ดวงใจ','สมบัติ','ชุติมา','ข้าวหอม','อารีย์','ยุทธนา']];
     const surnames=['ใจอารี','แสงเดือน','พูนสุข','ร่มเย็น','สุขสม','บุญเกื้อ','งามใจ','แสงแก้ว','มีสุข','ใจงาม','พงษ์ไพร','ศรีธาร'];
-    const air=[['ar'],['rti'],['bpd']];
-    const heat=[['kidney','diuretic'],['neuro'],['beta_blocker']];
-    const both=[['asthma'],['chd'],['newborn','child_5']];
-    const extra=[['athlete'],['obesity'],['underweight','antihistamine']];
+    const air=[['ar'],['uri'],['bpd']];
+    const heat=[['kidney','diuretic'],['epilepsy'],['antihypertensive']];
+    const both=[['asthma'],['migraine'],['newborn','child_5']];
+    const extra=[['athlete'],['obesity'],['depression','antihistamine']];
     const original=villages.flatMap((village,i)=>Array.from({length:6},(_,j)=>{
       const house=j===4?0:j===5?4:j,id=`DEMO-KK-${String(i+1).padStart(2,'0')}-${j+1}`;
       const building=villageBuildings[i][house];
@@ -37,7 +37,7 @@
     const additional=Array.from({length:600},(_,h)=>{
       const i=Math.floor(h/50),number=61+h,building=villageBuildings[i][5+h%50],members=2+h%4,pattern=h%6;
       return Array.from({length:members},(_,j)=>{
-        const factors=pattern===1&&j===0?['kidney','diuretic']:pattern===2&&j===Math.min(2,members-1)?['asthma']:pattern===3&&j===1?['ar']:pattern===4&&j===0?['athlete']:pattern===5&&j===0?['neuro']:pattern===5&&j===1?['asthma']:[];
+        const factors=pattern===1&&j===0?['kidney','diuretic']:pattern===2&&j===Math.min(2,members-1)?['asthma']:pattern===3&&j===1?['ar']:pattern===4&&j===0?['athlete']:pattern===5&&j===0?['epilepsy']:pattern===5&&j===1?['asthma']:[];
         const age=(pattern===1||pattern===5)&&j===0?63+h%25:j===0?28+h%31:j===1?26+h%29:4+(h*3+j*7)%18;
         const gender=(h+j)%2?'F':'M',prefix=age<=15?(gender==='M'?'ด.ช.':'ด.ญ.'):gender==='M'?'นาย':'นาง';
         const id=`DEMO-ADD-${String(h+1).padStart(4,'0')}-${j+1}`;

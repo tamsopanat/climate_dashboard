@@ -769,14 +769,17 @@
 
                             <!-- PM2.5 Display Mode / Layer Selector (Pin View vs Area View) -->
                             <div class="flex items-center gap-1.5">
-                                <span class="text-[11px] font-bold text-gray-600 whitespace-nowrap mr-0.5">รูปแบบการแสดงผล:</span>
-                                <div class="inline-flex items-center bg-gray-100 p-0.5 rounded-lg border border-gray-200">
+                                <span
+                                    class="text-[11px] font-bold text-gray-600 whitespace-nowrap mr-0.5">รูปแบบการแสดงผล:</span>
+                                <div
+                                    class="inline-flex items-center bg-gray-100 p-0.5 rounded-lg border border-gray-200">
                                     <button type="button" id="btn-pm25-pin-view" onclick="setPm25MapDisplayMode('pin')"
                                         class="px-2.5 py-1 rounded-md bg-white text-blue-700 font-bold text-[11px] shadow-2xs transition cursor-pointer"
                                         title="แสดงค่าฝุ่นแบบหมุดสถานีตรวจวัด (Pin View)">
                                         หมุดสถานี
                                     </button>
-                                    <button type="button" id="btn-pm25-area-view" onclick="setPm25MapDisplayMode('area')"
+                                    <button type="button" id="btn-pm25-area-view"
+                                        onclick="setPm25MapDisplayMode('area')"
                                         class="px-2.5 py-1 rounded-md text-gray-600 hover:text-gray-900 font-semibold text-[11px] transition cursor-pointer"
                                         title="แสดงพื้นที่ฝุ่นและค่าฝุ่นรายพื้นที่ (Area View)">
                                         พื้นที่ฝุ่น
@@ -787,7 +790,8 @@
 
                         <div class="flex items-center gap-1.5 text-gray-500 text-[11px]" id="pin-status-text">
                             <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-                            <span>💡 เลือก "พื้นที่ฝุ่น" หรือเปิดจากเมนูชั้นข้อมูลมุมซ้ายบนเพื่อดูค่าฝุ่นเชิงพื้นที่แทนหมุดสถานี</span>
+                            <span>💡 เลือก "พื้นที่ฝุ่น"
+                                หรือเปิดจากเมนูชั้นข้อมูลมุมซ้ายบนเพื่อดูค่าฝุ่นเชิงพื้นที่แทนหมุดสถานี</span>
                         </div>
                     </div>
 
@@ -980,8 +984,8 @@
                                 การประเมินปัจจัยเปราะบางทางคลินิก
                             </h2>
                             <p class="text-sm text-gray-500 mt-1">
-                                กำหนดและเลือกเกณฑ์ปัจจัยความเปราะบางทางสุขภาพ (กลุ่มอายุและสรีรวิทยา, ประวัติการใช้ยา,
-                                และโรคประจำตัว) พร้อมช่วงเวลาประเมิน
+                                กำหนดและเลือกเกณฑ์ปัจจัยความเปราะบางทางสุขภาพ (กลุ่มอายุและสรีรวิทยา, โรคประจำตัว,
+                                และประวัติการใช้ยา) พร้อมช่วงเวลาประเมิน
                                 เพื่อค้นหากลุ่มผู้ป่วยที่มีความเสี่ยงสูงได้อย่างแม่นยำ
                             </p>
                         </div>
@@ -1013,11 +1017,11 @@
                                     </button>
                                     <button type="button" onclick="selectFilterPreset('air')"
                                         class="text-xs font-semibold text-sky-800 hover:text-sky-950 bg-sky-50 hover:bg-sky-100 px-3 py-1.5 rounded-lg border border-sky-300 transition flex items-center gap-1 shadow-2xs">
-                                        <span>🌫️</span> เฉพาะเสี่ยงฝุ่น PM2.5 (7 เกณฑ์)
+                                        <span>🌫️</span> เฉพาะเสี่ยงฝุ่น PM2.5 (6 เกณฑ์)
                                     </button>
                                     <button type="button" onclick="selectFilterPreset('temp')"
                                         class="text-xs font-semibold text-amber-900 hover:text-amber-950 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-lg border border-amber-300 transition flex items-center gap-1 shadow-2xs">
-                                        <span>🌡️</span> เฉพาะเสี่ยงความร้อน (11 เกณฑ์)
+                                        <span>🌡️</span> เฉพาะเสี่ยงความร้อน (18 เกณฑ์)
                                     </button>
                                     <button type="button" onclick="selectAllFilters(false)"
                                         class="text-xs font-semibold text-gray-600 hover:text-gray-800 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg border border-gray-200 transition">
@@ -1038,14 +1042,15 @@
                                         <span
                                             class="inline-flex items-center gap-1 text-[11px] font-bold text-sky-800 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-200">
                                             <span>🌫️</span> เสี่ยงฝุ่น PM2.5: ทารก, เด็กเล็ก, BPD,
-                                            ติดเชื้อทางเดินหายใจซ้ำ,
-                                            หอบหืด, ภูมิแพ้โพรงจมูก, หัวใจพิการแต่กำเนิด
+                                             ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน,
+                                            หอบหืด, ภูมิแพ้โพรงจมูก
                                         </span>
                                         <span
                                             class="inline-flex items-center gap-1 text-[11px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
-                                            <span>🌡️</span> เสี่ยงความร้อน: ทารก, ทำงานกลางแจ้ง, ไตเรื้อรัง,
-                                            ประสาท/สมอง, อ้วน, ผอม, หอบหืด, เบต้าบล็อกเกอร์, แก้แพ้, ขับปัสสาวะ,
-                                            หัวใจพิการฯ
+                                            <span>🌡️</span> เสี่ยงความร้อน (18 เกณฑ์): ทารก, ทำงานกลางแจ้ง, ไตเรื้อรัง,
+                                            อ้วน, หอบหืด, ลมชัก, ไมเกรน, ซึมเศร้า,
+                                            ยา 10 กลุ่มเสี่ยง (ต้านเศร้า, กันชัก, ต้านโรคจิต, Anticholinergic,
+                                            ขับปัสสาวะ, ลดความดัน, Benzodiazepine, Opioids, แก้แพ้, Central-acting)
                                         </span>
                                     </div>
                                     <!-- Normal Patient Toggle -->
@@ -1060,7 +1065,7 @@
                                 </div>
 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <!-- Column 1: Demographics & Medications -->
+                                    <!-- Column 1: Demographics & Clinical Conditions -->
                                     <div class="space-y-6">
                                         <!-- Demographics -->
                                         <div>
@@ -1135,89 +1140,10 @@
                                                             ระบายความร้อนยาก เสี่ยงเหนื่อยง่าย</div>
                                                     </div>
                                                 </label>
-                                                <label
-                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                                    <input type="checkbox" id="chk-underweight"
-                                                        onchange="filterPatients()"
-                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                                    <div class="leading-snug min-w-0">
-                                                        <div class="flex items-center gap-1.5 flex-wrap">
-                                                            <span
-                                                                class="text-xs sm:text-sm font-bold text-gray-900">น้ำหนักต่ำกว่าเกณฑ์</span>
-                                                            <span
-                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
-                                                                เสี่ยงความร้อน</span>
-                                                        </div>
-                                                        <div class="text-[11px] text-gray-500 font-normal">
-                                                            เสี่ยงทุพโภชนาการและภูมิคุ้มกันต่ำ</div>
-                                                    </div>
-                                                </label>
                                             </div>
                                         </div>
-
-                                        <!-- Medication Use -->
+                                        <!-- Underlying Conditions -->
                                         <div>
-                                            <h4
-                                                class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                                                <span>💊</span> ยาประจำตัวที่มีความเสี่ยงต่อสภาพอากาศ
-                                            </h4>
-                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                                                <label
-                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                                    <input type="checkbox" id="chk-beta-blocker"
-                                                        onchange="filterPatients()"
-                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                                    <div class="leading-snug min-w-0">
-                                                        <div class="flex items-center gap-1.5 flex-wrap">
-                                                            <span
-                                                                class="text-xs sm:text-sm font-bold text-gray-900">ยาเบต้าบล็อกเกอร์</span>
-                                                            <span
-                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
-                                                                เสี่ยงความร้อน</span>
-                                                        </div>
-                                                        <div class="text-[11px] text-gray-500 font-normal">
-                                                            ยาลดความดันหรือหัวใจ ขัดขวางการคลายร้อน</div>
-                                                    </div>
-                                                </label>
-                                                <label
-                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                                    <input type="checkbox" id="chk-antihistamine"
-                                                        onchange="filterPatients()"
-                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                                    <div class="leading-snug min-w-0">
-                                                        <div class="flex items-center gap-1.5 flex-wrap">
-                                                            <span
-                                                                class="text-xs sm:text-sm font-bold text-gray-900">ยาแก้แพ้</span>
-                                                            <span
-                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
-                                                                เสี่ยงความร้อน</span>
-                                                        </div>
-                                                        <div class="text-[11px] text-gray-500 font-normal">ยาลดน้ำมูก
-                                                            ลดการหลั่งเหงื่อสะสมความร้อน</div>
-                                                    </div>
-                                                </label>
-                                                <label
-                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                                    <input type="checkbox" id="chk-diuretic" onchange="filterPatients()"
-                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                                    <div class="leading-snug min-w-0">
-                                                        <div class="flex items-center gap-1.5 flex-wrap">
-                                                            <span
-                                                                class="text-xs sm:text-sm font-bold text-gray-900">ยาขับปัสสาวะ</span>
-                                                            <span
-                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
-                                                                เสี่ยงความร้อน</span>
-                                                        </div>
-                                                        <div class="text-[11px] text-gray-500 font-normal">
-                                                            ยาลดบวมหรือความดัน เสี่ยงขาดน้ำเมื่อร้อนจัด</div>
-                                                    </div>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Column 2: Underlying Conditions -->
-                                    <div>
                                         <h4
                                             class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
                                             <span>🩺</span> โรคประจำตัวและภาวะทางคลินิก
@@ -1242,18 +1168,18 @@
                                             </label>
                                             <label
                                                 class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                                <input type="checkbox" id="chk-rti" onchange="filterPatients()"
+                                                <input type="checkbox" id="chk-uri" onchange="filterPatients()"
                                                     class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
                                                 <div class="leading-snug min-w-0">
                                                     <div class="flex items-center gap-1.5 flex-wrap">
                                                         <span
-                                                            class="text-xs sm:text-sm font-bold text-gray-900">ติดเชื้อทางเดินหายใจซ้ำ</span>
+                                                            class="text-xs sm:text-sm font-bold text-gray-900">ติดเชื้อทางเดินหายใจเฉียบพลัน</span>
                                                         <span
                                                             class="text-[10px] font-bold text-sky-800 bg-sky-100 px-1.5 py-0.2 rounded">🌫️
                                                             เสี่ยงฝุ่น</span>
                                                     </div>
-                                                    <div class="text-[11px] text-gray-500 font-normal">เป็นซ้ำตั้งแต่ 3
-                                                        ครั้งขึ้นไปในรอบ 6 เดือน</div>
+                                                    <div class="text-[11px] text-gray-500 font-normal">
+                                                        การติดเชื้อเฉียบพลันของระบบทางเดินหายใจ</div>
                                                 </div>
                                             </label>
                                             <label
@@ -1289,22 +1215,6 @@
                                                 </div>
                                             </label>
                                             <label
-                                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-purple-50/50 border border-purple-200 hover:border-purple-400 hover:shadow-2xs cursor-pointer transition">
-                                                <input type="checkbox" id="chk-chd" onchange="filterPatients()"
-                                                    class="form-checkbox h-4 w-4 text-purple-600 rounded mt-0.5 shrink-0">
-                                                <div class="leading-snug min-w-0">
-                                                    <div class="flex items-center gap-1.5 flex-wrap">
-                                                        <span
-                                                            class="text-xs sm:text-sm font-bold text-gray-900">โรคหัวใจพิการแต่กำเนิด</span>
-                                                        <span
-                                                            class="text-[10px] font-bold text-purple-800 bg-purple-100 px-1.5 py-0.2 rounded">⚡
-                                                            เสี่ยงฝุ่น + ความร้อน</span>
-                                                    </div>
-                                                    <div class="text-[11px] text-gray-500 font-normal">
-                                                        เสี่ยงภาวะหัวใจทำงานหนัก เหนื่อยหอบง่าย</div>
-                                                </div>
-                                            </label>
-                                            <label
                                                 class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
                                                 <input type="checkbox" id="chk-kidney" onchange="filterPatients()"
                                                     class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
@@ -1322,20 +1232,392 @@
                                             </label>
                                             <label
                                                 class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                                <input type="checkbox" id="chk-neuro" onchange="filterPatients()"
+                                                <input type="checkbox" id="chk-epilepsy" onchange="filterPatients()"
                                                     class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
                                                 <div class="leading-snug min-w-0">
                                                     <div class="flex items-center gap-1.5 flex-wrap">
                                                         <span
-                                                            class="text-xs sm:text-sm font-bold text-gray-900">โรคระบบประสาทและสมอง</span>
+                                                            class="text-xs sm:text-sm font-bold text-gray-900">กลุ่มโรคลมชัก</span>
                                                         <span
                                                             class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
                                                             เสี่ยงความร้อน</span>
                                                     </div>
-                                                    <div class="text-[11px] text-gray-500 font-normal">หลอดเลือดสมอง
-                                                        ลมชัก หรือการดูแลตนเองจำกัด</div>
+                                                    <div class="text-[11px] text-gray-500 font-normal">มีประวัติโรคลมชัก
+                                                        ไวต่ออุณหภูมิร่างกายสูงและสิ่งแวดล้อมร้อนจัด</div>
                                                 </div>
                                             </label>
+                                            <label
+                                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                <input type="checkbox" id="chk-migraine" onchange="filterPatients()"
+                                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                <div class="leading-snug min-w-0">
+                                                    <div class="flex items-center gap-1.5 flex-wrap">
+                                                        <span
+                                                            class="text-xs sm:text-sm font-bold text-gray-900">ภาวะไมเกรน</span>
+                                                        <span
+                                                            class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                            เสี่ยงความร้อน</span>
+                                                    </div>
+                                                    <div class="text-[11px] text-gray-500 font-normal">ปวดศีรษะไมเกรน
+                                                        ไวต่อแสงแดด อากาศร้อน และสภาพอากาศแปรปรวน</div>
+                                                </div>
+                                            </label>
+                                            <label
+                                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                <input type="checkbox" id="chk-depression" onchange="filterPatients()"
+                                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                <div class="leading-snug min-w-0">
+                                                    <div class="flex items-center gap-1.5 flex-wrap">
+                                                        <span
+                                                            class="text-xs sm:text-sm font-bold text-gray-900">ภาวะซึมเศร้า</span>
+                                                        <span
+                                                            class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                            เสี่ยงความร้อน</span>
+                                                    </div>
+                                                    <div class="text-[11px] text-gray-500 font-normal">
+                                                        โรคซึมเศร้า/ภาวะทางอารมณ์
+                                                        ไวต่อความเครียดจากคลื่นความร้อนและอากาศร้อนจัด</div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Column 2: Weather & Heat-Sensitive Medications -->
+                                    <div>
+                                        <!-- Medication Use -->
+                                        <div>
+                                            <div class="flex items-center justify-between mb-2">
+                                                <h4
+                                                    class="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
+                                                    <span>💊</span> ยาประจำตัวที่มีความเสี่ยงต่อสภาพอากาศ
+                                                </h4>
+                                            </div>
+
+                                            <!-- Collapsible Reference List for Clinicians & Users -->
+                                            <details
+                                                class="mb-3 text-xs bg-amber-50/70 border border-amber-200 rounded-xl p-2.5 transition group">
+                                                <summary
+                                                    class="font-bold text-amber-900 cursor-pointer flex items-center justify-between outline-none select-none hover:text-amber-950">
+                                                    <span class="flex items-center gap-1.5">
+                                                        <span>📖</span> รายการชื่อยาและกลุ่มย่อยทั้งหมด (เสี่ยงความร้อน)
+                                                    </span>
+                                                    <span
+                                                        class="text-[11px] font-semibold text-amber-700 bg-amber-100 group-open:bg-amber-200 px-2 py-0.5 rounded-md">
+                                                        <span class="group-open:hidden">คลิกดูรายชื่อยา</span>
+                                                        <span class="hidden group-open:inline">ย่อเก็บ</span>
+                                                    </span>
+                                                </summary>
+                                                <div
+                                                    class="mt-2.5 pt-2.5 border-t border-amber-200/80 space-y-2 text-[11px] text-gray-700 max-h-64 overflow-y-auto pr-1">
+                                                    <div>
+                                                        <b class="text-amber-900">1. Antidepressant (ยาต้านเศร้า):</b>
+                                                        <ul class="list-disc ml-4 text-gray-600 space-y-0.5 mt-0.5">
+                                                            <li><b>TCAs:</b> Amitriptyline, Nortriptyline, Imipramine,
+                                                                Desipramine, Doxepin, Clomipramine</li>
+                                                            <li><b>SSRIs:</b> Fluoxetine, Sertraline, Escitalopram,
+                                                                Citalopram, Paroxetine, Fluvoxamine</li>
+                                                            <li><b>SNRI:</b> Venlafaxine, Duloxetine, Desvenlafaxine,
+                                                                Levomilnacipran, Milnacipran</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <b class="text-amber-900">2. Anticonvulsant (ยากันชัก):</b>
+                                                        <p class="text-gray-600 ml-2">Levetiracetam, Lamotrigine,
+                                                            Gabapentin, Carbamazepine, Phenytoin, Valproate, Topiramate
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <b class="text-amber-900">3. Antipsychotic (ยาต้านโรคจิต):</b>
+                                                        <ul class="list-disc ml-4 text-gray-600 space-y-0.5 mt-0.5">
+                                                            <li><b>Typical:</b> Chlorpromazine, Haloperidol,
+                                                                Fluphenazine, Perphenazine, Trifluperazine, Thioridazine
+                                                            </li>
+                                                            <li><b>Atypical:</b> Aripiprazole, Asenapine, Brexpiprazole,
+                                                                Cariprazine, Clozapine, Iloperidone, Lumateperone,
+                                                                Lurasidone, Olanzapine, Paliperidone, Quetiapine,
+                                                                Risperidone, Ziprasidone</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <b class="text-amber-900">4. Medicine with anticholinergic
+                                                            effects:</b>
+                                                        <p class="text-gray-600 ml-2">Atropine, Benztropine,
+                                                            Diphenhydramine, Oxybutynin, Ipratropium, Amitriptyline,
+                                                            Scopolamine</p>
+                                                    </div>
+                                                    <div>
+                                                        <b class="text-amber-900">5. Diuretics (ยาขับปัสสาวะ):</b>
+                                                        <ul class="list-disc ml-4 text-gray-600 space-y-0.5 mt-0.5">
+                                                            <li><b>Thiazide diuretic:</b> Hydrochlorothiazide,
+                                                                Bendroflumethiazide</li>
+                                                            <li><b>Thiazide-like diuretic:</b> Metolazone,
+                                                                Chlorthalidone, Indapamide</li>
+                                                            <li><b>Loop diuretic:</b> Furosemide, Bumetanide, Torasemide
+                                                            </li>
+                                                            <li><b>K-sparing diuretic (Aldosterone antagonist):</b>
+                                                                Spironolactone, Eplerenone</li>
+                                                            <li><b>Sodium channel blocker:</b> Amiloride, Triamterene
+                                                            </li>
+                                                            <li><b>Osmotic diuretic:</b> Mannitol</li>
+                                                            <li><b>Carbonic anhydrase inhibitor:</b> Acetazolamide,
+                                                                Dorzolamide</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <b class="text-amber-900">6. Antihypertensive drug
+                                                            (ยาลดความดันโลหิต):</b>
+                                                        <ul class="list-disc ml-4 text-gray-600 space-y-0.5 mt-0.5">
+                                                            <li><b>Beta-blocker:</b> Metoprolol, Atenolol, Bisoprolol,
+                                                                Nebivolol, Acebutolol, Betaxolol, Propranolol, Nadolol,
+                                                                Timolol, Pindolol, Sotalol, Carvedilol, Labetalol</li>
+                                                            <li><b>Calcium Channel Blockers (CCBs):</b> Amlodipine,
+                                                                Nifedipine, Felodipine, Nicardipine, Nimodipine,
+                                                                Clevidipine, Manidipine, Verapamil, Diltiazem</li>
+                                                            <li><b>ACE Inhibitors:</b> Captopril, Enalapril, Lisinopril,
+                                                                Ramipril, Perindopril</li>
+                                                            <li><b>Angiotensin II Receptor Blockers (ARBs):</b>
+                                                                Losartan, Valsartan, Telmisartan, Irbesartan,
+                                                                Candesartan, Olmesartan, Azilsartan, Eprosartan</li>
+                                                            <li><b>Alpha-Blockers:</b> Tamsulosin, Doxazosin, Terazosin,
+                                                                Alfuzosin, Silodosin, Prazosin, Phenoxybenzamine,
+                                                                Phentolamine</li>
+                                                            <li><b>Vasodilator:</b> Hydralazine, Minoxidil,
+                                                                Nitroglycerin, Sodium nitroprusside</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <b class="text-amber-900">7. Benzodiazepine
+                                                            (ยากลุ่มเบนโซไดอะซีปีน):</b>
+                                                        <p class="text-gray-600 ml-2">Alprazolam, Clonazepam, Diazepam,
+                                                            Lorazepam, Temazepam, Midazolam</p>
+                                                    </div>
+                                                    <div>
+                                                        <b class="text-amber-900">8. Opioids (ยากลุ่มโอปิออยด์):</b>
+                                                        <p class="text-gray-600 ml-2">Morphine, Oxycodone, Hydrocodone,
+                                                            Fentanyl, Codeine, Tramadol</p>
+                                                    </div>
+                                                    <div>
+                                                        <b class="text-amber-900">9. Antihistamine (ยาแก้แพ้):</b>
+                                                        <p class="text-gray-600 ml-2">Diphenhydramine, Chlorpheniramine,
+                                                            Hydroxyzine, Clemastine, Doxylamine, Promethazine,
+                                                            Cetirizine, Loratadine, Fexofenadine, Levocetirizine,
+                                                            Desloratadine, Bilastine</p>
+                                                    </div>
+                                                    <div>
+                                                        <b class="text-amber-900">10. Central-acting agents:</b>
+                                                        <p class="text-gray-600 ml-2">Clonidine, Guanfacine, Methyldopa,
+                                                            Lofexidine, Moxonidine, Dexmedetomidine, Tizanidine</p>
+                                                    </div>
+                                                </div>
+                                            </details>
+
+                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                                <!-- 1. Antidepressant -->
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-antidepressant"
+                                                        onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">ยาต้านเศร้า
+                                                                (Antidepressants)</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                                เสี่ยงความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal mt-0.5">TCAs,
+                                                            SSRIs, SNRI (เช่น Amitriptyline, Fluoxetine, Sertraline)
+                                                        </div>
+                                                    </div>
+                                                </label>
+
+                                                <!-- 2. Anticonvulsant -->
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-anticonvulsant"
+                                                        onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">ยากันชัก
+                                                                (Anticonvulsants)</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                                เสี่ยงความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal mt-0.5">เช่น
+                                                            Levetiracetam, Gabapentin, Carbamazepine, Valproate</div>
+                                                    </div>
+                                                </label>
+
+                                                <!-- 3. Antipsychotic -->
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-antipsychotic"
+                                                        onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">ยาต้านโรคจิต
+                                                                (Antipsychotics)</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                                เสี่ยงความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal mt-0.5">
+                                                            Typical & Atypical (เช่น Haloperidol, Risperidone,
+                                                            Olanzapine, Clozapine)</div>
+                                                    </div>
+                                                </label>
+
+                                                <!-- 4. Medicine with anticholinergic effects -->
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-anticholinergic"
+                                                        onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">ยากลุ่ม
+                                                                Anticholinergic</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                                เสี่ยงความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal mt-0.5">เช่น
+                                                            Atropine, Benztropine, Oxybutynin, Ipratropium, Scopolamine
+                                                        </div>
+                                                    </div>
+                                                </label>
+
+                                                <!-- 5. Diuretics -->
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-diuretic" onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">ยาขับปัสสาวะ
+                                                                (Diuretics)</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                                เสี่ยงความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal mt-0.5">
+                                                            Thiazides, Loop (Furosemide), K-sparing, Osmotic,
+                                                            Acetazolamide</div>
+                                                    </div>
+                                                </label>
+
+                                                <!-- 6. Antihypertensive drug -->
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-antihypertensive"
+                                                        onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">ยาลดความดันโลหิต
+                                                                (Antihypertensives)</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                                เสี่ยงความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal mt-0.5">
+                                                            Beta-blockers, CCBs (Amlodipine), ACEIs, ARBs,
+                                                            Alpha-blockers, Vasodilators</div>
+                                                    </div>
+                                                </label>
+
+                                                <!-- 7. Benzodiazepine -->
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-benzodiazepine"
+                                                        onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">ยากลุ่ม
+                                                                Benzodiazepines</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                                เสี่ยงความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal mt-0.5">เช่น
+                                                            Alprazolam, Clonazepam, Diazepam, Lorazepam, Midazolam</div>
+                                                    </div>
+                                                </label>
+
+                                                <!-- 8. Opioids -->
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-opioid" onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">ยากลุ่ม
+                                                                Opioids</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                                เสี่ยงความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal mt-0.5">เช่น
+                                                            Morphine, Tramadol, Fentanyl, Codeine, Oxycodone</div>
+                                                    </div>
+                                                </label>
+
+                                                <!-- 9. Antihistamine -->
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-antihistamine"
+                                                        onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">ยาแก้แพ้
+                                                                (Antihistamines)</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                                เสี่ยงความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal mt-0.5">เช่น
+                                                            Chlorpheniramine, Diphenhydramine, Hydroxyzine, Cetirizine,
+                                                            Loratadine</div>
+                                                    </div>
+                                                </label>
+
+                                                <!-- 10. Central-acting agents -->
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-central-acting"
+                                                        onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">ยากลุ่ม
+                                                                Central-acting agents</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                                เสี่ยงความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal mt-0.5">เช่น
+                                                            Clonidine, Guanfacine, Methyldopa, Lofexidine, Tizanidine
+                                                        </div>
+                                                    </div>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -4124,32 +4406,40 @@
         }
 
         // Criteria for Risk Patients (as explicitly defined by clinical guidance):
-        // Air Risk Conditions (7 conditions):
+        // Air Risk Conditions (6 conditions):
         // 1. ทารก (newborn)
         // 2. เด็กเล็ก (child_5)
         // 3. มีประวัติโรคหลอดลมและเนื้อเยื่อปอดเปราะบาง (bpd)
-        // 4. ติดเชื้อทางเดินหายใจซ้ำ (rti)
+        // 4. ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน (uri)
         // 5. โรคหอบหืด (asthma)
         // 6. โรคภูมิแพ้โพรงจมูก (ar)
-        // 7. โรคหัวใจพิการแต่กำเนิด (chd)
-        const AIR_RISK_FACTORS = ['newborn', 'child_5', 'bpd', 'rti', 'asthma', 'ar', 'chd'];
+        const AIR_RISK_FACTORS = ['newborn', 'child_5', 'bpd', 'uri', 'rti', 'asthma', 'ar'];
 
-        // Temp Risk Conditions (11 conditions):
+        // Temp Risk Conditions (18 conditions):
         // 1. ทารก (newborn)
         // 2. ผู้ออกกำลังหรือทำงานกลางแจ้ง (athlete)
         // 3. โรคไตเรื้อรัง (kidney)
-        // 4. โรคระบบประสาทและสมอง (neuro)
-        // 5. ภาวะอ้วน (obesity)
-        // 6. น้ำหนักต่ำกว่าเกณฑ์ (underweight)
-        // 7. โรคหอบหืด (asthma)
-        // 8. ยาเบต้าบล็อกเกอร์ (beta_blocker)
-        // 9. ยาแก้แพ้ (antihistamine)
-        // 10. ยาขับปัสสาวะ (diuretic)
-        // 11. โรคหัวใจพิการแต่กำเนิด (chd)
+        // 4. กลุ่มโรคลมชัก (epilepsy)
+        // 5. ภาวะไมเกรน (migraine)
+        // 6. ภาวะซึมเศร้า (depression)
+        // 7. ภาวะอ้วน (obesity)
+        // 8. โรคหอบหืด (asthma)
+        // 9. ยาต้านเศร้า (antidepressant)
+        // 10. ยากันชัก (anticonvulsant)
+        // 11. ยาต้านโรคจิต (antipsychotic)
+        // 12. ยากลุ่ม Anticholinergic (anticholinergic)
+        // 13. ยาขับปัสสาวะ (diuretic)
+        // 14. ยาลดความดันโลหิต (antihypertensive)
+        // 15. ยากลุ่ม Benzodiazepines (benzodiazepine)
+        // 16. ยากลุ่ม Opioids (opioid)
+        // 17. ยาแก้แพ้ (antihistamine)
+        // 18. ยากลุ่ม Central-acting agents (central_acting)
         const TEMP_RISK_FACTORS = [
-            'newborn', 'athlete', 'kidney', 'neuro',
-            'obesity', 'underweight', 'asthma', 'beta_blocker',
-            'antihistamine', 'diuretic', 'chd'
+            'newborn', 'athlete', 'kidney', 'epilepsy', 'migraine', 'depression', 'neuro',
+            'obesity', 'asthma',
+            'antidepressant', 'anticonvulsant', 'antipsychotic', 'anticholinergic',
+            'diuretic', 'antihypertensive', 'beta_blocker', 'benzodiazepine',
+            'opioid', 'antihistamine', 'central_acting'
         ];
 
         function isAirRiskPatient(p) {
@@ -4173,9 +4463,15 @@
 
             // Clinical Vulnerability Score
             const weights = {
-                newborn: 3, bpd: 3, chd: 3,
-                child_5: 2, asthma: 2, kidney: 2, neuro: 2, rti: 2,
-                beta_blocker: 1, diuretic: 1, antihistamine: 1, athlete: 1, obesity: 1, underweight: 1, ar: 1
+                newborn: 3, bpd: 3,
+                child_5: 2, asthma: 2, kidney: 2, epilepsy: 2, uri: 2, rti: 2, neuro: 2,
+                migraine: 1, depression: 1,
+                athlete: 1, obesity: 1, ar: 1,
+                // Medications (All heat-sensitive):
+                antidepressant: 1, anticonvulsant: 1, antipsychotic: 1,
+                anticholinergic: 1, diuretic: 1, antihypertensive: 1,
+                beta_blocker: 1, benzodiazepine: 1, opioid: 1,
+                antihistamine: 1, central_acting: 1
             };
 
             let vulnPoints = 0;
@@ -4225,7 +4521,7 @@
                 score = Math.max(score, 3.65);
             } else if (pmScore === 5 && vulnScore >= 3) {
                 score = Math.max(score, 4.30);
-            } else if (tempScore >= 4 && (factors.includes('newborn') || factors.includes('chd'))) {
+            } else if (tempScore >= 4 && factors.includes('newborn')) {
                 score = Math.max(score, 4.30);
             }
 
@@ -4536,8 +4832,8 @@
                 tambon: "ต.กองแขก (Kong Khaek, Mae Chaem)",
                 pm25: 70.5,
                 temp: 36.0,
-                conditions: "Congenital Heart Dis., Beta Blocker",
-                factors: ["chd", "beta_blocker"],
+                conditions: "Epilepsy, Anticonvulsant, Antihypertensive",
+                factors: ["epilepsy", "anticonvulsant", "antihypertensive"],
                 lat: 18.5252,
                 lng: 98.4241,
                 station_name: "เซนเซอร์ รพ.สต.กองแขก",
@@ -4601,8 +4897,8 @@
                 tambon: "ต.กองแขก (Kong Khaek, Mae Chaem)",
                 pm25: 105.0,
                 temp: 43.5,
-                conditions: "Congenital Heart Dis., Asthma, Beta Blocker (Dual Risk)",
-                factors: ["chd", "asthma", "beta_blocker"],
+                conditions: "Asthma, Depression, Antidepressant (Dual Risk)",
+                factors: ["asthma", "depression", "antidepressant"],
                 lat: 18.5098,
                 lng: 98.4108,
                 station_name: "สถานีตรวจแปลงเกษตรบ้านโม่งหลวง",
@@ -4700,8 +4996,8 @@
                 tambon: "ต.กองแขก (Kong Khaek, Mae Chaem)",
                 pm25: 68.0,
                 temp: 35.0,
-                conditions: "Children <= 5 yrs, Recurrent RTI (>=3/6mo), Allergic Rhinitis",
-                factors: ["child_5", "rti", "ar"],
+                conditions: "Children <= 5 yrs, Acute Upper Respiratory Infection, Allergic Rhinitis",
+                factors: ["child_5", "uri", "ar"],
                 lat: 18.5182,
                 lng: 98.4258,
                 station_name: "เซนเซอร์ รร.บ้านกองแขก",
@@ -4760,8 +5056,8 @@
                 tambon: "ต.สันทราย (San Sai, Mae Chan)",
                 pm25: 82.4,
                 temp: 45.2,
-                conditions: "Recurrent RTI (>=3/6mo), Beta Blocker, Neurologic Disease",
-                factors: ["rti", "beta_blocker", "neuro"],
+                conditions: "Acute Upper Respiratory Infection, Anticonvulsant, Antihypertensive",
+                factors: ["uri", "anticonvulsant", "antihypertensive"],
                 assessment_date: "2026-03-30"
             },
             {
@@ -4786,8 +5082,8 @@
                 tambon: "ต.สันทราย (San Sai, Mae Chan)",
                 pm25: 82.4,
                 temp: 45.2,
-                conditions: "Children <= 5 yrs, Underweight",
-                factors: ["child_5", "underweight"],
+                conditions: "Children <= 5 yrs, Acute Upper Respiratory Infection",
+                factors: ["child_5", "uri"],
                 assessment_date: "2026-02-14"
             },
             {
@@ -4799,8 +5095,8 @@
                 tambon: "ต.สันทราย (San Sai, Mae Chan)",
                 pm25: 82.4,
                 temp: 45.2,
-                conditions: "Antihistamine",
-                factors: ["antihistamine"],
+                conditions: "Antihistamine, Anticholinergic",
+                factors: ["antihistamine", "anticholinergic"],
                 assessment_date: "2026-03-15"
             },
             {
@@ -4866,8 +5162,8 @@
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
                 pm25: 48.5,
                 temp: 36.8,
-                conditions: "Beta Blocker, Diuretic, Congenital Heart Dis.",
-                factors: ["beta_blocker", "diuretic", "chd"],
+                conditions: "Antihypertensive, Diuretic, Migraine",
+                factors: ["antihypertensive", "diuretic", "migraine"],
                 assessment_date: "2026-02-20"
             },
             {
@@ -4892,8 +5188,8 @@
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
                 pm25: 48.5,
                 temp: 36.8,
-                conditions: "Obesity, Diuretic, Kidney Disease",
-                factors: ["obesity", "diuretic", "kidney"],
+                conditions: "Obesity, Diuretic, Central-acting Agent",
+                factors: ["obesity", "diuretic", "central_acting"],
                 assessment_date: "2026-01-18"
             },
             {
@@ -4918,8 +5214,8 @@
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
                 pm25: 48.5,
                 temp: 36.8,
-                conditions: "Children <= 5 yrs, Underweight",
-                factors: ["child_5", "underweight"],
+                conditions: "Children <= 5 yrs, Acute Upper Respiratory Infection",
+                factors: ["child_5", "uri"],
                 assessment_date: "2026-03-01"
             },
             {
@@ -4931,8 +5227,8 @@
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
                 pm25: 48.5,
                 temp: 36.8,
-                conditions: "Antihistamine",
-                factors: ["antihistamine"],
+                conditions: "Opioid, Antihistamine",
+                factors: ["opioid", "antihistamine"],
                 assessment_date: "2026-02-10"
             },
             {
@@ -4998,8 +5294,8 @@
                 tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
                 pm25: 95.0,
                 temp: 52.4,
-                conditions: "Children <= 5 yrs, Congenital Heart Dis., BPD (Active/History)",
-                factors: ["child_5", "chd", "bpd"],
+                conditions: "Children <= 5 yrs, BPD (Active/History), Epilepsy",
+                factors: ["child_5", "bpd", "epilepsy"],
                 assessment_date: "2026-03-01"
             },
             {
@@ -5011,8 +5307,8 @@
                 tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
                 pm25: 95.0,
                 temp: 52.4,
-                conditions: "Beta Blocker, Diuretic, Neurologic Disease",
-                factors: ["beta_blocker", "diuretic", "neuro"],
+                conditions: "Antidepressant, Benzodiazepine, Depression",
+                factors: ["antidepressant", "benzodiazepine", "depression"],
                 assessment_date: "2026-04-10"
             },
             {
@@ -5024,8 +5320,8 @@
                 tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
                 pm25: 95.0,
                 temp: 52.4,
-                conditions: "Asthma, Allergic Rhinitis, Antihistamine",
-                factors: ["asthma", "ar", "antihistamine"],
+                conditions: "Asthma, Allergic Rhinitis, Antipsychotic",
+                factors: ["asthma", "ar", "antipsychotic"],
                 assessment_date: "2026-02-28"
             },
             {
@@ -5236,8 +5532,8 @@
                 tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
                 pm25: 20.0,
                 temp: 29.5,
-                conditions: "Children <= 5 yrs, Recurrent RTI (>=3/6mo)",
-                factors: ["child_5", "rti"],
+                conditions: "Children <= 5 yrs, Acute Upper Respiratory Infection",
+                factors: ["child_5", "uri"],
                 assessment_date: "2026-04-06"
             },
             {
@@ -5327,8 +5623,8 @@
                 tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
                 pm25: 20.0,
                 temp: 29.5,
-                conditions: "Recurrent RTI (>=3/6mo)",
-                factors: ["rti"],
+                conditions: "Acute Upper Respiratory Infection",
+                factors: ["uri"],
                 assessment_date: "2026-03-27"
             },
             // --- usr_saraphi: โรงเรียนสารภีพิทยาคม (ต.ยางเนิ้ง อ.สารภี จ.เชียงใหม่) | PM2.5: 42.0 µg/m³ (ส้ม), Temp: 34.5 °C (เตือนภัย) ---
@@ -5357,8 +5653,8 @@
                 tambon: "ต.ยางเนิ้ง (Yang Noeng, Saraphi)",
                 pm25: 42.0,
                 temp: 34.5,
-                conditions: "Congenital Heart Disease (Active), Beta Blocker",
-                factors: ["chd", "beta_blocker"],
+                conditions: "Migraine, Antihypertensive",
+                factors: ["migraine", "antihypertensive"],
                 assessment_date: "2026-04-08",
                 isStudent: true
             },
@@ -5417,8 +5713,8 @@
                 tambon: "ต.ยางเนิ้ง (Yang Noeng, Saraphi)",
                 pm25: 42.0,
                 temp: 34.5,
-                conditions: "Recurrent RTI (>=3/6mo)",
-                factors: ["rti"],
+                conditions: "Acute Upper Respiratory Infection",
+                factors: ["uri"],
                 assessment_date: "2026-04-07",
                 isStudent: true
             },
@@ -5478,8 +5774,8 @@
                 tambon: "ต.ทาสบเส้า (Tha Sob Sao, Mae Tha)",
                 pm25: 28.5,
                 temp: 31.5,
-                conditions: "Congenital Heart Disease (Active)",
-                factors: ["chd"],
+                conditions: "Epilepsy / Seizure Disorders",
+                factors: ["epilepsy"],
                 assessment_date: "2026-04-06",
                 isStudent: true
             },
@@ -5493,8 +5789,8 @@
                 tambon: "ต.ทาสบเส้า (Tha Sob Sao, Mae Tha)",
                 pm25: 28.5,
                 temp: 31.5,
-                conditions: "Recurrent RTI (>=3/6mo), Underweight",
-                factors: ["rti", "underweight"],
+                conditions: "Acute Upper Respiratory Infection",
+                factors: ["uri"],
                 assessment_date: "2026-04-08",
                 isStudent: true
             },
@@ -5579,17 +5875,29 @@
             newborn: { id: "chk-newborn", th: "ทารก (อายุ ≤ 1 ปี)", en: "Newborn (<= 1 yr)", badgeClass: "bg-purple-50 text-purple-800 border-purple-200" },
             athlete: { id: "chk-athlete", th: "ผู้ออกกำลังหรือทำงานกลางแจ้ง", en: "Outdoor Active / Athlete", badgeClass: "bg-emerald-50 text-emerald-800 border-emerald-200" },
             obesity: { id: "chk-obesity", th: "ภาวะอ้วน", en: "Obesity", badgeClass: "bg-amber-50 text-amber-900 border-amber-200" },
-            underweight: { id: "chk-underweight", th: "น้ำหนักต่ำกว่าเกณฑ์", en: "Underweight", badgeClass: "bg-stone-50 text-stone-800 border-stone-200" },
-            beta_blocker: { id: "chk-beta-blocker", th: "ยาเบต้าบล็อกเกอร์", en: "Beta Blocker", badgeClass: "bg-indigo-50 text-indigo-800 border-indigo-200" },
-            antihistamine: { id: "chk-antihistamine", th: "ยาแก้แพ้", en: "Antihistamine", badgeClass: "bg-teal-50 text-teal-800 border-teal-200" },
-            diuretic: { id: "chk-diuretic", th: "ยาขับปัสสาวะ", en: "Diuretic", badgeClass: "bg-cyan-50 text-cyan-800 border-cyan-200" },
+            // Medications with weather & heat risks:
+            antidepressant: { id: "chk-antidepressant", th: "ยาต้านเศร้า (Antidepressants)", en: "Antidepressants", badgeClass: "bg-indigo-50 text-indigo-800 border-indigo-200", drugs: "Amitriptyline, Nortriptyline, Imipramine, Desipramine, Doxepin, Clomipramine, Fluoxetine, Sertraline, Escitalopram, Citalopram, Paroxetine, Fluvoxamine, Venlafaxine, Duloxetine, Desvenlafaxine, Levomilnacipran, Milnacipran" },
+            anticonvulsant: { id: "chk-anticonvulsant", th: "ยากันชัก (Anticonvulsants)", en: "Anticonvulsants", badgeClass: "bg-indigo-50 text-indigo-800 border-indigo-200", drugs: "Levetiracetam, Lamotrigine, Gabapentin, Carbamazepine, Phenytoin, Valproate, Topiramate" },
+            antipsychotic: { id: "chk-antipsychotic", th: "ยาต้านโรคจิต (Antipsychotics)", en: "Antipsychotics", badgeClass: "bg-indigo-50 text-indigo-800 border-indigo-200", drugs: "Chlorpromazine, Haloperidol, Fluphenazine, Perphenazine, Trifluperazine, Thioridazine, Aripiprazole, Asenapine, Brexpiprazole, Cariprazine, Clozapine, Iloperidone, Lumateperone, Lurasidone, Olanzapine, Paliperidone, Quetiapine, Risperidone, Ziprasidone" },
+            anticholinergic: { id: "chk-anticholinergic", th: "ยากลุ่ม Anticholinergic", en: "Anticholinergics", badgeClass: "bg-indigo-50 text-indigo-800 border-indigo-200", drugs: "Atropine, Benztropine, Diphenhydramine, Oxybutynin, Ipratropium, Amitriptyline, Scopolamine" },
+            diuretic: { id: "chk-diuretic", th: "ยาขับปัสสาวะ (Diuretics)", en: "Diuretics", badgeClass: "bg-cyan-50 text-cyan-800 border-cyan-200", drugs: "Hydrochlorothiazide, Bendroflumethiazide, Metolazone, Chlorthalidone, Indapamide, Furosemide, Bumetanide, Torasemide, Spironolactone, Eplerenone, Amiloride, Triamterene, Mannitol, Acetazolamide, Dorzolamide" },
+            antihypertensive: { id: "chk-antihypertensive", th: "ยาลดความดันโลหิต (Antihypertensives)", en: "Antihypertensives", badgeClass: "bg-indigo-50 text-indigo-800 border-indigo-200", drugs: "Metoprolol, Atenolol, Bisoprolol, Nebivolol, Acebutolol, Betaxolol, Propranolol, Nadolol, Timolol, Pindolol, Sotalol, Carvedilol, Labetalol, Amlodipine, Nifedipine, Felodipine, Nicardipine, Nimodipine, Clevidipine, Manidipine, Verapamil, Diltiazem, Captopril, Enalapril, Lisinopril, Ramipril, Perindopril, Losartan, Valsartan, Telmisartan, Irbesartan, Candesartan, Olmesartan, Azilsartan, Eprosartan, Tamsulosin, Doxazosin, Terazosin, Alfuzosin, Silodosin, Prazosin, Phenoxybenzamine, Phentolamine, Hydralazine, Minoxidil, Nitroglycerin, Sodium nitroprusside" },
+            beta_blocker: { id: "chk-antihypertensive", th: "ยาลดความดัน (Beta-blocker)", en: "Beta Blocker", badgeClass: "bg-indigo-50 text-indigo-800 border-indigo-200", drugs: "Metoprolol, Atenolol, Bisoprolol, Propranolol, Carvedilol" },
+            benzodiazepine: { id: "chk-benzodiazepine", th: "ยากลุ่ม Benzodiazepines", en: "Benzodiazepines", badgeClass: "bg-indigo-50 text-indigo-800 border-indigo-200", drugs: "Alprazolam, Clonazepam, Diazepam, Lorazepam, Temazepam, Midazolam" },
+            opioid: { id: "chk-opioid", th: "ยากลุ่ม Opioids", en: "Opioids", badgeClass: "bg-indigo-50 text-indigo-800 border-indigo-200", drugs: "Morphine, Oxycodone, Hydrocodone, Fentanyl, Codeine, Tramadol" },
+            antihistamine: { id: "chk-antihistamine", th: "ยาแก้แพ้ (Antihistamines)", en: "Antihistamines", badgeClass: "bg-teal-50 text-teal-800 border-teal-200", drugs: "Diphenhydramine, Chlorpheniramine, Hydroxyzine, Clemastine, Doxylamine, Promethazine, Cetirizine, Loratadine, Fexofenadine, Levocetirizine, Desloratadine, Bilastine" },
+            central_acting: { id: "chk-central-acting", th: "ยากลุ่ม Central-acting agents", en: "Central-acting Agents", badgeClass: "bg-indigo-50 text-indigo-800 border-indigo-200", drugs: "Clonidine, Guanfacine, Methyldopa, Lofexidine, Moxonidine, Dexmedetomidine, Tizanidine" },
+            // Underlying clinical conditions:
             bpd: { id: "chk-bpd", th: "โรคปอดเรื้อรังในเด็ก", en: "BPD (Active/History)", badgeClass: "bg-rose-50 text-rose-800 border-rose-200" },
-            rti: { id: "chk-rti", th: "ติดเชื้อทางเดินหายใจซ้ำ", en: "Recurrent RTI (>=3/6mo)", badgeClass: "bg-red-50 text-red-800 border-red-200" },
+            uri: { id: "chk-uri", th: "ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน", en: "Acute Upper Respiratory Infection", badgeClass: "bg-sky-50 text-sky-800 border-sky-200" },
+            rti: { id: "chk-uri", th: "ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน", en: "Acute Upper Respiratory Infection", badgeClass: "bg-sky-50 text-sky-800 border-sky-200" },
             asthma: { id: "chk-asthma", th: "โรคหอบหืด", en: "Asthma", badgeClass: "bg-orange-50 text-orange-800 border-orange-200" },
             ar: { id: "chk-ar", th: "โรคภูมิแพ้โพรงจมูก", en: "Allergic Rhinitis", badgeClass: "bg-sky-50 text-sky-800 border-sky-200" },
-            chd: { id: "chk-chd", th: "โรคหัวใจพิการแต่กำเนิด", en: "Congenital Heart Dis.", badgeClass: "bg-red-50 text-red-800 border-red-200" },
             kidney: { id: "chk-kidney", th: "โรคไตเรื้อรัง", en: "Kidney Disease", badgeClass: "bg-violet-50 text-violet-800 border-violet-200" },
-            neuro: { id: "chk-neuro", th: "โรคระบบประสาทและสมอง", en: "Neurologic Disease", badgeClass: "bg-slate-50 text-slate-800 border-slate-200" }
+            epilepsy: { id: "chk-epilepsy", th: "กลุ่มโรคลมชัก", en: "Epilepsy / Seizure Disorders", badgeClass: "bg-amber-50 text-amber-800 border-amber-200" },
+            migraine: { id: "chk-migraine", th: "ภาวะไมเกรน", en: "Migraine", badgeClass: "bg-amber-50 text-amber-800 border-amber-200" },
+            depression: { id: "chk-depression", th: "ภาวะซึมเศร้า", en: "Depression", badgeClass: "bg-amber-50 text-amber-800 border-amber-200" },
+            neuro: { id: "chk-epilepsy", th: "กลุ่มโรคลมชัก", en: "Epilepsy / Seizure Disorders", badgeClass: "bg-slate-50 text-slate-800 border-slate-200" }
         };
 
         function getPatientConditionsThai(patient) {
@@ -5605,18 +5913,30 @@
             const factorGroups = [
                 {
                     key: "demographic",
-                    keys: ["child_5", "newborn", "athlete", "obesity", "underweight"],
+                    keys: ["child_5", "newborn", "athlete", "obesity"],
                     badgeClass: "bg-blue-50 text-blue-900 border-blue-200"
                 },
                 {
-                    key: "medication",
-                    keys: ["beta_blocker", "antihistamine", "diuretic"],
-                    badgeClass: "bg-teal-50 text-teal-900 border-teal-200"
+                    key: "condition",
+                    keys: ["bpd", "uri", "rti", "asthma", "ar", "kidney", "epilepsy", "migraine", "depression", "neuro"],
+                    badgeClass: "bg-rose-50 text-rose-900 border-rose-200"
                 },
                 {
-                    key: "condition",
-                    keys: ["bpd", "rti", "asthma", "ar", "chd", "kidney", "neuro"],
-                    badgeClass: "bg-rose-50 text-rose-900 border-rose-200"
+                    key: "medication",
+                    keys: [
+                        "antidepressant",
+                        "anticonvulsant",
+                        "antipsychotic",
+                        "anticholinergic",
+                        "diuretic",
+                        "antihypertensive",
+                        "beta_blocker",
+                        "benzodiazepine",
+                        "opioid",
+                        "antihistamine",
+                        "central_acting"
+                    ],
+                    badgeClass: "bg-teal-50 text-teal-900 border-teal-200"
                 }
             ];
 
@@ -5649,21 +5969,31 @@
         }
 
         const filterCheckboxes = [
+            // Demographic:
             { id: "chk-child-5", key: "child_5" },
             { id: "chk-newborn", key: "newborn" },
             { id: "chk-athlete", key: "athlete" },
             { id: "chk-obesity", key: "obesity" },
-            { id: "chk-underweight", key: "underweight" },
-            { id: "chk-beta-blocker", key: "beta_blocker" },
-            { id: "chk-antihistamine", key: "antihistamine" },
-            { id: "chk-diuretic", key: "diuretic" },
+            // Conditions (โรคประจำตัวและภาวะทางคลินิก):
             { id: "chk-bpd", key: "bpd" },
-            { id: "chk-rti", key: "rti" },
+            { id: "chk-uri", key: "uri" },
             { id: "chk-asthma", key: "asthma" },
             { id: "chk-ar", key: "ar" },
-            { id: "chk-chd", key: "chd" },
             { id: "chk-kidney", key: "kidney" },
-            { id: "chk-neuro", key: "neuro" }
+            { id: "chk-epilepsy", key: "epilepsy" },
+            { id: "chk-migraine", key: "migraine" },
+            { id: "chk-depression", key: "depression" },
+            // Medications (ยาประจำตัวที่มีความเสี่ยงต่อสภาพอากาศ 10 กลุ่ม):
+            { id: "chk-antidepressant", key: "antidepressant" },
+            { id: "chk-anticonvulsant", key: "anticonvulsant" },
+            { id: "chk-antipsychotic", key: "antipsychotic" },
+            { id: "chk-anticholinergic", key: "anticholinergic" },
+            { id: "chk-diuretic", key: "diuretic" },
+            { id: "chk-antihypertensive", key: "antihypertensive" },
+            { id: "chk-benzodiazepine", key: "benzodiazepine" },
+            { id: "chk-opioid", key: "opioid" },
+            { id: "chk-antihistamine", key: "antihistamine" },
+            { id: "chk-central-acting", key: "central_acting" }
         ];
 
         function selectAllFilters(selectState) {
@@ -6410,9 +6740,10 @@
                     let matchesSearch = true;
                     if (searchInput) {
                         const thFactors = (p.factors || []).map(f => VULNERABILITY_DEF[f]?.th || "").join(' ');
+                        const medSearch = (p.factors || []).map(f => VULNERABILITY_DEF[f]?.drugs || "").join(' ');
                         const risk = p._risk;
                         const stName = p._nearestStation ? p._nearestStation.name : "";
-                        const text = `${p.cid} ${p.name} ${p.classroom || ''} ${p.gender_age} ${p.hosp} ${p.hosp_name} ${risk.air.name} ${risk.air.colorName} ${risk.temp.name} ${p.pm25} ${p.temp} ${p.conditions} ${thFactors} ${p.tambon} ${stName}`.toLowerCase();
+                        const text = `${p.cid} ${p.name} ${p.classroom || ''} ${p.gender_age} ${p.hosp} ${p.hosp_name} ${risk.air.name} ${risk.air.colorName} ${risk.temp.name} ${p.pm25} ${p.temp} ${p.conditions} ${thFactors} ${medSearch} ${p.tambon} ${stName}`.toLowerCase();
                         matchesSearch = text.includes(searchInput);
                     }
                     return matchesSearch;
@@ -6434,7 +6765,7 @@
                         if (isNormal) {
                             matchesFactor = false;
                         } else {
-                            matchesFactor = activeKeys.every(k => p.factors && p.factors.includes(k));
+                            matchesFactor = activeKeys.every(k => p.factors && (p.factors.includes(k) || (k === 'uri' && p.factors.includes('rti')) || (k === 'epilepsy' && p.factors.includes('neuro')) || (k === 'antihypertensive' && p.factors.includes('beta_blocker'))));
                         }
                     }
 
@@ -6443,8 +6774,9 @@
                     let matchesSearch = true;
                     if (searchInput) {
                         const thFactors = (p.factors || []).map(f => VULNERABILITY_DEF[f]?.th || "").join(' ');
+                        const medSearch = (p.factors || []).map(f => VULNERABILITY_DEF[f]?.drugs || "").join(' ');
                         const stName = (!isHospitalMode && p._nearestStation) ? p._nearestStation.name : "";
-                        const text = `${p.cid} ${p.name} ${p.classroom || ''} ${p.gender_age} ${p.hosp} ${p.hosp_name} ${risk.air.name} ${risk.air.colorName} ${risk.temp.name} ${p.pm25} ${p.temp} ${p.conditions} ${thFactors} ${p.tambon} ${stName}`.toLowerCase();
+                        const text = `${p.cid} ${p.name} ${p.classroom || ''} ${p.gender_age} ${p.hosp} ${p.hosp_name} ${risk.air.name} ${risk.air.colorName} ${risk.temp.name} ${p.pm25} ${p.temp} ${p.conditions} ${thFactors} ${medSearch} ${p.tambon} ${stName}`.toLowerCase();
                         matchesSearch = text.includes(searchInput);
                     }
 
