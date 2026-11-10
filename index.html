@@ -1042,7 +1042,7 @@
                                         <span
                                             class="inline-flex items-center gap-1 text-[11px] font-bold text-sky-800 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-200">
                                             <span>🌫️</span> เสี่ยงฝุ่น PM2.5: ทารก, เด็กเล็ก, BPD,
-                                             ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน,
+                                            ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน,
                                             หอบหืด, ภูมิแพ้โพรงจมูก
                                         </span>
                                         <span
@@ -1144,142 +1144,145 @@
                                         </div>
                                         <!-- Underlying Conditions -->
                                         <div>
-                                        <h4
-                                            class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                                            <span>🩺</span> โรคประจำตัวและภาวะทางคลินิก
-                                        </h4>
-                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                                            <label
-                                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                                <input type="checkbox" id="chk-bpd" onchange="filterPatients()"
-                                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                                <div class="leading-snug min-w-0">
-                                                    <div class="flex items-center gap-1.5 flex-wrap">
-                                                        <span
-                                                            class="text-xs sm:text-sm font-bold text-gray-900">โรคหลอดลม/เนื้อเยื่อปอดเปราะบาง
-                                                            (BPD)</span>
-                                                        <span
-                                                            class="text-[10px] font-bold text-sky-800 bg-sky-100 px-1.5 py-0.2 rounded">🌫️
-                                                            เสี่ยงฝุ่น</span>
+                                            <h4
+                                                class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                                                <span>🩺</span> โรคประจำตัวและภาวะทางคลินิก
+                                            </h4>
+                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-bpd" onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">โรคหลอดลม/เนื้อเยื่อปอดเปราะบาง
+                                                                (BPD)</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-sky-800 bg-sky-100 px-1.5 py-0.2 rounded">🌫️
+                                                                เสี่ยงฝุ่น</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal">
+                                                            มีประวัติโรคหลอดลมและเนื้อเยื่อปอดเปราะบาง</div>
                                                     </div>
-                                                    <div class="text-[11px] text-gray-500 font-normal">
-                                                        มีประวัติโรคหลอดลมและเนื้อเยื่อปอดเปราะบาง</div>
-                                                </div>
-                                            </label>
-                                            <label
-                                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                                <input type="checkbox" id="chk-uri" onchange="filterPatients()"
-                                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                                <div class="leading-snug min-w-0">
-                                                    <div class="flex items-center gap-1.5 flex-wrap">
-                                                        <span
-                                                            class="text-xs sm:text-sm font-bold text-gray-900">ติดเชื้อทางเดินหายใจเฉียบพลัน</span>
-                                                        <span
-                                                            class="text-[10px] font-bold text-sky-800 bg-sky-100 px-1.5 py-0.2 rounded">🌫️
-                                                            เสี่ยงฝุ่น</span>
+                                                </label>
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-uri" onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">ติดเชื้อทางเดินหายใจเฉียบพลัน</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-sky-800 bg-sky-100 px-1.5 py-0.2 rounded">🌫️
+                                                                เสี่ยงฝุ่น</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal">
+                                                            การติดเชื้อเฉียบพลันของระบบทางเดินหายใจ</div>
                                                     </div>
-                                                    <div class="text-[11px] text-gray-500 font-normal">
-                                                        การติดเชื้อเฉียบพลันของระบบทางเดินหายใจ</div>
-                                                </div>
-                                            </label>
-                                            <label
-                                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-purple-50/50 border border-purple-200 hover:border-purple-400 hover:shadow-2xs cursor-pointer transition">
-                                                <input type="checkbox" id="chk-asthma" onchange="filterPatients()"
-                                                    class="form-checkbox h-4 w-4 text-purple-600 rounded mt-0.5 shrink-0">
-                                                <div class="leading-snug min-w-0">
-                                                    <div class="flex items-center gap-1.5 flex-wrap">
-                                                        <span
-                                                            class="text-xs sm:text-sm font-bold text-gray-900">โรคหอบหืด</span>
-                                                        <span
-                                                            class="text-[10px] font-bold text-purple-800 bg-purple-100 px-1.5 py-0.2 rounded">⚡
-                                                            เสี่ยงฝุ่น + ความร้อน</span>
+                                                </label>
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-purple-50/50 border border-purple-200 hover:border-purple-400 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-asthma" onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-purple-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">โรคหอบหืด</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-purple-800 bg-purple-100 px-1.5 py-0.2 rounded">⚡
+                                                                เสี่ยงฝุ่น + ความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal">
+                                                            หลอดลมตีบเฉียบพลัน ไวต่อฝุ่นและอากาศเปลี่ยน</div>
                                                     </div>
-                                                    <div class="text-[11px] text-gray-500 font-normal">
-                                                        หลอดลมตีบเฉียบพลัน ไวต่อฝุ่นและอากาศเปลี่ยน</div>
-                                                </div>
-                                            </label>
-                                            <label
-                                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                                <input type="checkbox" id="chk-ar" onchange="filterPatients()"
-                                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                                <div class="leading-snug min-w-0">
-                                                    <div class="flex items-center gap-1.5 flex-wrap">
-                                                        <span
-                                                            class="text-xs sm:text-sm font-bold text-gray-900">โรคภูมิแพ้โพรงจมูก</span>
-                                                        <span
-                                                            class="text-[10px] font-bold text-sky-800 bg-sky-100 px-1.5 py-0.2 rounded">🌫️
-                                                            เสี่ยงฝุ่น</span>
+                                                </label>
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-ar" onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">โรคภูมิแพ้โพรงจมูก</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-sky-800 bg-sky-100 px-1.5 py-0.2 rounded">🌫️
+                                                                เสี่ยงฝุ่น</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal">
+                                                            เยื่อบุจมูกอักเสบจากภูมิแพ้ จาม คัดจมูกง่าย</div>
                                                     </div>
-                                                    <div class="text-[11px] text-gray-500 font-normal">
-                                                        เยื่อบุจมูกอักเสบจากภูมิแพ้ จาม คัดจมูกง่าย</div>
-                                                </div>
-                                            </label>
-                                            <label
-                                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                                <input type="checkbox" id="chk-kidney" onchange="filterPatients()"
-                                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                                <div class="leading-snug min-w-0">
-                                                    <div class="flex items-center gap-1.5 flex-wrap">
-                                                        <span
-                                                            class="text-xs sm:text-sm font-bold text-gray-900">โรคไตเรื้อรัง</span>
-                                                        <span
-                                                            class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
-                                                            เสี่ยงความร้อน</span>
+                                                </label>
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-kidney" onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">กลุ่มโรคไต</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                                เสี่ยงความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal">
+                                                            การทำงานของไตบกพร่อง ไวต่อภาวะขาดน้ำ</div>
                                                     </div>
-                                                    <div class="text-[11px] text-gray-500 font-normal">
-                                                        การทำงานของไตบกพร่อง ไวต่อภาวะขาดน้ำ</div>
-                                                </div>
-                                            </label>
-                                            <label
-                                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                                <input type="checkbox" id="chk-epilepsy" onchange="filterPatients()"
-                                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                                <div class="leading-snug min-w-0">
-                                                    <div class="flex items-center gap-1.5 flex-wrap">
-                                                        <span
-                                                            class="text-xs sm:text-sm font-bold text-gray-900">กลุ่มโรคลมชัก</span>
-                                                        <span
-                                                            class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
-                                                            เสี่ยงความร้อน</span>
+                                                </label>
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-epilepsy" onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">กลุ่มโรคลมชัก</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                                เสี่ยงความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal">
+                                                            มีประวัติโรคลมชัก
+                                                            ไวต่ออุณหภูมิร่างกายสูงและสิ่งแวดล้อมร้อนจัด</div>
                                                     </div>
-                                                    <div class="text-[11px] text-gray-500 font-normal">มีประวัติโรคลมชัก
-                                                        ไวต่ออุณหภูมิร่างกายสูงและสิ่งแวดล้อมร้อนจัด</div>
-                                                </div>
-                                            </label>
-                                            <label
-                                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                                <input type="checkbox" id="chk-migraine" onchange="filterPatients()"
-                                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                                <div class="leading-snug min-w-0">
-                                                    <div class="flex items-center gap-1.5 flex-wrap">
-                                                        <span
-                                                            class="text-xs sm:text-sm font-bold text-gray-900">ภาวะไมเกรน</span>
-                                                        <span
-                                                            class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
-                                                            เสี่ยงความร้อน</span>
+                                                </label>
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-migraine" onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">ภาวะไมเกรน</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                                เสี่ยงความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal">
+                                                            ปวดศีรษะไมเกรน
+                                                            ไวต่อแสงแดด อากาศร้อน และสภาพอากาศแปรปรวน</div>
                                                     </div>
-                                                    <div class="text-[11px] text-gray-500 font-normal">ปวดศีรษะไมเกรน
-                                                        ไวต่อแสงแดด อากาศร้อน และสภาพอากาศแปรปรวน</div>
-                                                </div>
-                                            </label>
-                                            <label
-                                                class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                                <input type="checkbox" id="chk-depression" onchange="filterPatients()"
-                                                    class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                                <div class="leading-snug min-w-0">
-                                                    <div class="flex items-center gap-1.5 flex-wrap">
-                                                        <span
-                                                            class="text-xs sm:text-sm font-bold text-gray-900">ภาวะซึมเศร้า</span>
-                                                        <span
-                                                            class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
-                                                            เสี่ยงความร้อน</span>
+                                                </label>
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-depression"
+                                                        onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">ภาวะซึมเศร้า</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
+                                                                เสี่ยงความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal">
+                                                            โรคซึมเศร้า/ภาวะทางอารมณ์
+                                                            ไวต่อความเครียดจากคลื่นความร้อนและอากาศร้อนจัด</div>
                                                     </div>
-                                                    <div class="text-[11px] text-gray-500 font-normal">
-                                                        โรคซึมเศร้า/ภาวะทางอารมณ์
-                                                        ไวต่อความเครียดจากคลื่นความร้อนและอากาศร้อนจัด</div>
-                                                </div>
-                                            </label>
-                                        </div>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -1328,7 +1331,8 @@
                                                         </p>
                                                     </div>
                                                     <div>
-                                                        <b class="text-amber-900">3. Antipsychotic (ยาต้านโรคจิต):</b>
+                                                        <b class="text-amber-900">3. Antipsychotic
+                                                            (ยาต้านอาการทางจิต):</b>
                                                         <ul class="list-disc ml-4 text-gray-600 space-y-0.5 mt-0.5">
                                                             <li><b>Typical:</b> Chlorpromazine, Haloperidol,
                                                                 Fluphenazine, Perphenazine, Trifluperazine, Thioridazine
@@ -1463,7 +1467,7 @@
                                                     <div class="leading-snug min-w-0">
                                                         <div class="flex items-center gap-1.5 flex-wrap">
                                                             <span
-                                                                class="text-xs sm:text-sm font-bold text-gray-900">ยาต้านโรคจิต
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">ยาต้านอาการทางจิต
                                                                 (Antipsychotics)</span>
                                                             <span
                                                                 class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
@@ -4426,7 +4430,7 @@
         // 8. โรคหอบหืด (asthma)
         // 9. ยาต้านเศร้า (antidepressant)
         // 10. ยากันชัก (anticonvulsant)
-        // 11. ยาต้านโรคจิต (antipsychotic)
+        // 11. ยาต้านอาการทางจิต (antipsychotic)
         // 12. ยากลุ่ม Anticholinergic (anticholinergic)
         // 13. ยาขับปัสสาวะ (diuretic)
         // 14. ยาลดความดันโลหิต (antihypertensive)
