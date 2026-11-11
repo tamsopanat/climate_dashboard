@@ -1017,11 +1017,11 @@
                                     </button>
                                     <button type="button" onclick="selectFilterPreset('air')"
                                         class="text-xs font-semibold text-sky-800 hover:text-sky-950 bg-sky-50 hover:bg-sky-100 px-3 py-1.5 rounded-lg border border-sky-300 transition flex items-center gap-1 shadow-2xs">
-                                        <span>🌫️</span> เฉพาะเสี่ยงฝุ่น PM2.5 (7 เกณฑ์)
+                                        <span>🌫️</span> เฉพาะเสี่ยงฝุ่น PM2.5 (6 เกณฑ์)
                                     </button>
                                     <button type="button" onclick="selectFilterPreset('temp')"
                                         class="text-xs font-semibold text-amber-900 hover:text-amber-950 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-lg border border-amber-300 transition flex items-center gap-1 shadow-2xs">
-                                        <span>🌡️</span> เฉพาะเสี่ยงความร้อน (19 เกณฑ์)
+                                        <span>🌡️</span> เฉพาะเสี่ยงความร้อน (18 เกณฑ์)
                                     </button>
                                     <button type="button" onclick="selectAllFilters(false)"
                                         class="text-xs font-semibold text-gray-600 hover:text-gray-800 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg border border-gray-200 transition">
@@ -1041,14 +1041,14 @@
                                         </span>
                                         <span
                                             class="inline-flex items-center gap-1 text-[11px] font-bold text-sky-800 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-200">
-                                            <span>🌫️</span> เสี่ยงฝุ่น PM2.5 (7 เกณฑ์): ทารก, เด็กเล็ก, BPD,
+                                            <span>🌫️</span> เสี่ยงฝุ่น PM2.5 (6 เกณฑ์): ทารก, เด็กเล็ก, BPD,
                                             ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน,
-                                            หอบหืด, ภูมิแพ้โพรงจมูก, โรคหัวใจ
+                                            หอบหืด, ภูมิแพ้โพรงจมูก
                                         </span>
                                         <span
                                             class="inline-flex items-center gap-1 text-[11px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
-                                            <span>🌡️</span> เสี่ยงความร้อน (19 เกณฑ์): ทารก, ทำงานกลางแจ้ง, ไตเรื้อรัง,
-                                            อ้วน, หอบหืด, โรคหัวใจ, ลมชัก, ไมเกรน, ซึมเศร้า,
+                                            <span>🌡️</span> เสี่ยงความร้อน (18 เกณฑ์): ทารก, ทำงานกลางแจ้ง, ไตเรื้อรัง,
+                                            อ้วน, หอบหืด, ลมชัก, ไมเกรน, ซึมเศร้า,
                                             ยา 10 กลุ่มเสี่ยง (ต้านเศร้า, กันชัก, ต้านอาการทางจิต, Anticholinergic,
                                             ขับปัสสาวะ, ลดความดัน, Benzodiazepine, Opioids, แก้แพ้, Central-acting)
                                         </span>
@@ -1212,22 +1212,6 @@
                                                         </div>
                                                         <div class="text-[11px] text-gray-500 font-normal">
                                                             เยื่อบุจมูกอักเสบจากภูมิแพ้ จาม คัดจมูกง่าย</div>
-                                                    </div>
-                                                </label>
-                                                <label
-                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-purple-50/50 border border-purple-200 hover:border-purple-400 hover:shadow-2xs cursor-pointer transition">
-                                                    <input type="checkbox" id="chk-heart" onchange="filterPatients()"
-                                                        class="form-checkbox h-4 w-4 text-purple-600 rounded mt-0.5 shrink-0">
-                                                    <div class="leading-snug min-w-0">
-                                                        <div class="flex items-center gap-1.5 flex-wrap">
-                                                            <span
-                                                                class="text-xs sm:text-sm font-bold text-gray-900">โรคหัวใจ</span>
-                                                            <span
-                                                                class="text-[10px] font-bold text-purple-800 bg-purple-100 px-1.5 py-0.2 rounded">⚡
-                                                                เสี่ยงฝุ่น + ความร้อน</span>
-                                                        </div>
-                                                        <div class="text-[11px] text-gray-500 font-normal">
-                                                            โรคหัวใจและหลอดเลือด ไวต่อฝุ่น PM2.5 และความร้อน</div>
                                                     </div>
                                                 </label>
                                                 <label
@@ -4426,39 +4410,37 @@
         }
 
         // Criteria for Risk Patients (as explicitly defined by clinical guidance):
-        // Air Risk Conditions (7 conditions):
+        // Air Risk Conditions (6 conditions):
         // 1. ทารก (newborn)
         // 2. เด็กเล็ก (child_5)
         // 3. มีประวัติโรคหลอดลมและเนื้อเยื่อปอดเปราะบาง (bpd)
         // 4. ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน (uri)
         // 5. โรคหอบหืด (asthma)
         // 6. โรคภูมิแพ้โพรงจมูก (ar)
-        // 7. โรคหัวใจ (heart)
-        const AIR_RISK_FACTORS = ['newborn', 'child_5', 'bpd', 'uri', 'rti', 'asthma', 'ar', 'heart'];
+        const AIR_RISK_FACTORS = ['newborn', 'child_5', 'bpd', 'uri', 'rti', 'asthma', 'ar'];
 
-        // Temp Risk Conditions (19 conditions):
+        // Temp Risk Conditions (18 conditions):
         // 1. ทารก (newborn)
         // 2. ผู้ออกกำลังหรือทำงานกลางแจ้ง (athlete)
-        // 3. ภาวะอ้วน (obesity)
-        // 4. โรคหอบหืด (asthma)
-        // 5. โรคหัวใจ (heart)
-        // 6. โรคไตเรื้อรัง (kidney)
-        // 7. กลุ่มโรคลมชัก (epilepsy)
-        // 8. ภาวะไมเกรน (migraine)
-        // 9. ภาวะซึมเศร้า (depression)
-        // 10. ยาต้านเศร้า (antidepressant)
-        // 11. ยากันชัก (anticonvulsant)
-        // 12. ยาต้านอาการทางจิต (antipsychotic)
-        // 13. ยากลุ่ม Anticholinergic (anticholinergic)
-        // 14. ยาขับปัสสาวะ (diuretic)
-        // 15. ยาลดความดันโลหิต (antihypertensive)
-        // 16. ยากลุ่ม Benzodiazepines (benzodiazepine)
-        // 17. ยากลุ่ม Opioids (opioid)
-        // 18. ยาแก้แพ้ (antihistamine)
-        // 19. ยากลุ่ม Central-acting agents (central_acting)
+        // 3. โรคไตเรื้อรัง (kidney)
+        // 4. กลุ่มโรคลมชัก (epilepsy)
+        // 5. ภาวะไมเกรน (migraine)
+        // 6. ภาวะซึมเศร้า (depression)
+        // 7. ภาวะอ้วน (obesity)
+        // 8. โรคหอบหืด (asthma)
+        // 9. ยาต้านเศร้า (antidepressant)
+        // 10. ยากันชัก (anticonvulsant)
+        // 11. ยาต้านอาการทางจิต (antipsychotic)
+        // 12. ยากลุ่ม Anticholinergic (anticholinergic)
+        // 13. ยาขับปัสสาวะ (diuretic)
+        // 14. ยาลดความดันโลหิต (antihypertensive)
+        // 15. ยากลุ่ม Benzodiazepines (benzodiazepine)
+        // 16. ยากลุ่ม Opioids (opioid)
+        // 17. ยาแก้แพ้ (antihistamine)
+        // 18. ยากลุ่ม Central-acting agents (central_acting)
         const TEMP_RISK_FACTORS = [
             'newborn', 'athlete', 'kidney', 'epilepsy', 'migraine', 'depression', 'neuro',
-            'obesity', 'asthma', 'heart',
+            'obesity', 'asthma',
             'antidepressant', 'anticonvulsant', 'antipsychotic', 'anticholinergic',
             'diuretic', 'antihypertensive', 'beta_blocker', 'benzodiazepine',
             'opioid', 'antihistamine', 'central_acting'
@@ -4486,8 +4468,7 @@
             // Clinical Vulnerability Score
             const weights = {
                 newborn: 3, bpd: 3,
-                child_5: 2, heart: 2,
-                asthma: 2, kidney: 2, epilepsy: 2, uri: 2, rti: 2, neuro: 2,
+                child_5: 2, asthma: 2, kidney: 2, epilepsy: 2, uri: 2, rti: 2, neuro: 2,
                 migraine: 1, depression: 1,
                 athlete: 1, obesity: 1, ar: 1,
                 // Medications (All heat-sensitive):
@@ -4871,8 +4852,8 @@
                 tambon: "ต.กองแขก (Kong Khaek, Mae Chaem)",
                 pm25: 70.5,
                 temp: 36.0,
-                conditions: "Heart Disease, Kidney Disease, Diuretic",
-                factors: ["heart", "kidney", "diuretic"],
+                conditions: "Kidney Disease, Diuretic",
+                factors: ["kidney", "diuretic"],
                 lat: 18.5249,
                 lng: 98.4238,
                 station_name: "เซนเซอร์ รพ.สต.กองแขก",
@@ -5185,8 +5166,8 @@
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
                 pm25: 48.5,
                 temp: 36.8,
-                conditions: "Heart Disease, Antihypertensive, Diuretic, Migraine",
-                factors: ["heart", "antihypertensive", "diuretic", "migraine"],
+                conditions: "Antihypertensive, Diuretic, Migraine",
+                factors: ["antihypertensive", "diuretic", "migraine"],
                 assessment_date: "2026-02-20"
             },
             {
@@ -5369,8 +5350,8 @@
                 tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
                 pm25: 95.0,
                 temp: 52.4,
-                conditions: "Heart Disease, Obesity, Diuretic",
-                factors: ["heart", "obesity", "diuretic"],
+                conditions: "Obesity, Diuretic",
+                factors: ["obesity", "diuretic"],
                 assessment_date: "2026-03-05"
             },
             {
@@ -5423,8 +5404,8 @@
                 tambon: "ต.ช่อแล (Cho Lae, Mae Taeng)",
                 pm25: 32.5,
                 temp: 31.0,
-                conditions: "Heart Disease, Kidney Disease, Diuretic, Beta Blocker",
-                factors: ["heart", "kidney", "diuretic", "beta_blocker"],
+                conditions: "Kidney Disease, Diuretic, Beta Blocker",
+                factors: ["kidney", "diuretic", "beta_blocker"],
                 assessment_date: "2026-03-18"
             },
             {
@@ -5542,8 +5523,8 @@
                 tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
                 pm25: 20.0,
                 temp: 29.5,
-                conditions: "Heart Disease, Asthma, Beta Blocker",
-                factors: ["heart", "asthma", "beta_blocker"],
+                conditions: "BPD (Active/History), Asthma, Beta Blocker",
+                factors: ["bpd", "asthma", "beta_blocker"],
                 assessment_date: "2026-03-28"
             },
             {
@@ -5916,7 +5897,6 @@
             rti: { id: "chk-uri", th: "ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน", en: "Acute Upper Respiratory Infection", badgeClass: "bg-sky-50 text-sky-800 border-sky-200" },
             asthma: { id: "chk-asthma", th: "โรคหอบหืด", en: "Asthma", badgeClass: "bg-orange-50 text-orange-800 border-orange-200" },
             ar: { id: "chk-ar", th: "โรคภูมิแพ้โพรงจมูก", en: "Allergic Rhinitis", badgeClass: "bg-sky-50 text-sky-800 border-sky-200" },
-            heart: { id: "chk-heart", th: "โรคหัวใจ", en: "Heart Disease", badgeClass: "bg-rose-50 text-rose-800 border-rose-200" },
             kidney: { id: "chk-kidney", th: "โรคไตเรื้อรัง", en: "Kidney Disease", badgeClass: "bg-violet-50 text-violet-800 border-violet-200" },
             epilepsy: { id: "chk-epilepsy", th: "กลุ่มโรคลมชัก", en: "Epilepsy / Seizure Disorders", badgeClass: "bg-amber-50 text-amber-800 border-amber-200" },
             migraine: { id: "chk-migraine", th: "ภาวะไมเกรน", en: "Migraine", badgeClass: "bg-amber-50 text-amber-800 border-amber-200" },
@@ -5942,7 +5922,7 @@
                 },
                 {
                     key: "condition",
-                    keys: ["bpd", "uri", "rti", "asthma", "ar", "heart", "kidney", "epilepsy", "migraine", "depression", "neuro"],
+                    keys: ["bpd", "uri", "rti", "asthma", "ar", "kidney", "epilepsy", "migraine", "depression", "neuro"],
                     badgeClass: "bg-rose-50 text-rose-900 border-rose-200"
                 },
                 {
@@ -6003,7 +5983,6 @@
             { id: "chk-uri", key: "uri" },
             { id: "chk-asthma", key: "asthma" },
             { id: "chk-ar", key: "ar" },
-            { id: "chk-heart", key: "heart" },
             { id: "chk-kidney", key: "kidney" },
             { id: "chk-epilepsy", key: "epilepsy" },
             { id: "chk-migraine", key: "migraine" },

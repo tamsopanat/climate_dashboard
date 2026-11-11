@@ -20,7 +20,7 @@
     const firstNames=[['มาลี','ประเสริฐ','พิมพ์ใจ','ธนกฤต','กานดา','นที'],['สมพร','บุญส่ง','นภา','ปุณณ์','อรุณี','วีระ'],['สายฝน','วิชัย','รัตนา','ภูผา','จินตนา','ณรงค์'],['ศรีนวล','สมชาย','ลลิตา','ต้นกล้า','พัชรี','อานนท์'],['คำปัน','สุรชัย','อรทัย','น้องขวัญ','ธิดา','ทวี'],['บัวแก้ว','มนตรี','วารุณี','อชิระ','ปาริชาติ','วสันต์'],['อำไพ','สินชัย','สุภาพร','ณัฐ','ดารา','ชาญ'],['เพ็ญศรี','อุดม','นิตยา','ก้องภพ','อรพิน','สันติ'],['จันทร์เพ็ญ','อำนาจ','มธุรส','ปันปัน','สุนิสา','พิเชษฐ์'],['ละออง','เกรียงไกร','พรทิพย์','ภาคิน','กมล','สถาพร'],['ประภา','ถาวร','สุชาดา','ภีม','นวลจันทร์','ปรีชา'],['ดวงใจ','สมบัติ','ชุติมา','ข้าวหอม','อารีย์','ยุทธนา']];
     const surnames=['ใจอารี','แสงเดือน','พูนสุข','ร่มเย็น','สุขสม','บุญเกื้อ','งามใจ','แสงแก้ว','มีสุข','ใจงาม','พงษ์ไพร','ศรีธาร'];
     const air=[['ar'],['uri'],['bpd']];
-    const heat=[['kidney','diuretic'],['epilepsy'],['heart','antihypertensive']];
+    const heat=[['kidney','diuretic'],['epilepsy'],['antihypertensive']];
     const both=[['asthma'],['migraine'],['newborn','child_5']];
     const extra=[['athlete'],['obesity'],['depression','antihistamine']];
     const original=villages.flatMap((village,i)=>Array.from({length:6},(_,j)=>{
@@ -39,7 +39,7 @@
       return Array.from({length:members},(_,j)=>{
         const age=(pattern===1||pattern===5)&&j===0?63+h%25:j===0?28+h%31:j===1?26+h%29:4+(h*3+j*7)%18;
         const gender=(h+j)%2?'F':'M',prefix=age<=15?(gender==='M'?'ด.ช.':'ด.ญ.'):gender==='M'?'นาย':'นาง';
-        const factors=pattern===1&&j===0?['kidney','diuretic']:pattern===2&&j===Math.min(2,members-1)?['asthma']:pattern===3&&j===1?['ar']:pattern===4&&j===0?['athlete']:pattern===5&&j===0?(h%12===5?['heart','epilepsy']:['epilepsy']):pattern===5&&j===1?['asthma']:[];
+        const factors=pattern===1&&j===0?['kidney','diuretic']:pattern===2&&j===Math.min(2,members-1)?['asthma']:pattern===3&&j===1?['ar']:pattern===4&&j===0?['athlete']:pattern===5&&j===0?['epilepsy']:pattern===5&&j===1?['asthma']:[];
         const id=`DEMO-ADD-${String(h+1).padStart(4,'0')}-${j+1}`;
         return {id,code:id,siteId,prefix,firstName:firstNames[(i+j)%12][(h%3)*2+(gender==='M'?1:0)],lastName:roots[h%24]+endings[Math.floor(h/24)],gender,age,
           houseNo:`${121+h%50}`,moo:String(i+1),villageName:villages[i].name,tambon:'กองแขก',amphoe:'แม่แจ่ม',province:'เชียงใหม่',
