@@ -1021,7 +1021,7 @@
                                     </button>
                                     <button type="button" onclick="selectFilterPreset('temp')"
                                         class="text-xs font-semibold text-amber-900 hover:text-amber-950 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-lg border border-amber-300 transition flex items-center gap-1 shadow-2xs">
-                                        <span>🌡️</span> เฉพาะเสี่ยงความร้อน (18 เกณฑ์)
+                                        <span>🌡️</span> เฉพาะเสี่ยงความร้อน (17 เกณฑ์)
                                     </button>
                                     <button type="button" onclick="selectAllFilters(false)"
                                         class="text-xs font-semibold text-gray-600 hover:text-gray-800 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg border border-gray-200 transition">
@@ -1047,7 +1047,7 @@
                                         </span>
                                         <span
                                             class="inline-flex items-center gap-1 text-[11px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
-                                            <span>🌡️</span> เสี่ยงความร้อน (18 เกณฑ์): ทารก, ทำงานกลางแจ้ง, ไตเรื้อรัง,
+                                            <span>🌡️</span> เสี่ยงความร้อน (17 เกณฑ์): ทารก, ไตเรื้อรัง,
                                             อ้วน, หอบหืด, ลมชัก, ไมเกรน, ซึมเศร้า,
                                             ยา 10 กลุ่มเสี่ยง (ต้านเศร้า, กันชัก, ต้านอาการทางจิต, Anticholinergic,
                                             ขับปัสสาวะ, ลดความดัน, Benzodiazepine, Opioids, แก้แพ้, Central-acting)
@@ -1106,22 +1106,6 @@
                                                         </div>
                                                         <div class="text-[11px] text-gray-500 font-normal">
                                                             ระบบคุมอุณหภูมิยังไม่สมบูรณ์ ไวต่อมลพิษฝุ่น</div>
-                                                    </div>
-                                                </label>
-                                                <label
-                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                                    <input type="checkbox" id="chk-athlete" onchange="filterPatients()"
-                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                                    <div class="leading-snug min-w-0">
-                                                        <div class="flex items-center gap-1.5 flex-wrap">
-                                                            <span
-                                                                class="text-xs sm:text-sm font-bold text-gray-900">ผู้ออกกำลังหรือทำงานกลางแจ้ง</span>
-                                                            <span
-                                                                class="text-[10px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">🌡️
-                                                                เสี่ยงความร้อน</span>
-                                                        </div>
-                                                        <div class="text-[11px] text-gray-500 font-normal">
-                                                            สูดอากาศปริมาณมาก สัมผัสฝุ่นและแดดจัด</div>
                                                     </div>
                                                 </label>
                                                 <label
@@ -4419,27 +4403,26 @@
         // 6. โรคภูมิแพ้โพรงจมูก (ar)
         const AIR_RISK_FACTORS = ['newborn', 'child_5', 'bpd', 'uri', 'rti', 'asthma', 'ar'];
 
-        // Temp Risk Conditions (18 conditions):
+        // Temp Risk Conditions (17 conditions):
         // 1. ทารก (newborn)
-        // 2. ผู้ออกกำลังหรือทำงานกลางแจ้ง (athlete)
-        // 3. โรคไตเรื้อรัง (kidney)
-        // 4. กลุ่มโรคลมชัก (epilepsy)
-        // 5. ภาวะไมเกรน (migraine)
-        // 6. ภาวะซึมเศร้า (depression)
-        // 7. ภาวะอ้วน (obesity)
-        // 8. โรคหอบหืด (asthma)
-        // 9. ยาต้านเศร้า (antidepressant)
-        // 10. ยากันชัก (anticonvulsant)
-        // 11. ยาต้านอาการทางจิต (antipsychotic)
-        // 12. ยากลุ่ม Anticholinergic (anticholinergic)
-        // 13. ยาขับปัสสาวะ (diuretic)
-        // 14. ยาลดความดันโลหิต (antihypertensive)
-        // 15. ยากลุ่ม Benzodiazepines (benzodiazepine)
-        // 16. ยากลุ่ม Opioids (opioid)
-        // 17. ยาแก้แพ้ (antihistamine)
-        // 18. ยากลุ่ม Central-acting agents (central_acting)
+        // 2. โรคไตเรื้อรัง (kidney)
+        // 3. กลุ่มโรคลมชัก (epilepsy)
+        // 4. ภาวะไมเกรน (migraine)
+        // 5. ภาวะซึมเศร้า (depression)
+        // 6. ภาวะอ้วน (obesity)
+        // 7. โรคหอบหืด (asthma)
+        // 8. ยาต้านเศร้า (antidepressant)
+        // 9. ยากันชัก (anticonvulsant)
+        // 10. ยาต้านอาการทางจิต (antipsychotic)
+        // 11. ยากลุ่ม Anticholinergic (anticholinergic)
+        // 12. ยาขับปัสสาวะ (diuretic)
+        // 13. ยาลดความดันโลหิต (antihypertensive)
+        // 14. ยากลุ่ม Benzodiazepines (benzodiazepine)
+        // 15. ยากลุ่ม Opioids (opioid)
+        // 16. ยาแก้แพ้ (antihistamine)
+        // 17. ยากลุ่ม Central-acting agents (central_acting)
         const TEMP_RISK_FACTORS = [
-            'newborn', 'athlete', 'kidney', 'epilepsy', 'migraine', 'depression', 'neuro',
+            'newborn', 'kidney', 'epilepsy', 'migraine', 'depression', 'neuro',
             'obesity', 'asthma',
             'antidepressant', 'anticonvulsant', 'antipsychotic', 'anticholinergic',
             'diuretic', 'antihypertensive', 'beta_blocker', 'benzodiazepine',
@@ -4470,7 +4453,7 @@
                 newborn: 3, bpd: 3,
                 child_5: 2, asthma: 2, kidney: 2, epilepsy: 2, uri: 2, rti: 2, neuro: 2,
                 migraine: 1, depression: 1,
-                athlete: 1, obesity: 1, ar: 1,
+                obesity: 1, ar: 1,
                 // Medications (All heat-sensitive):
                 antidepressant: 1, anticonvulsant: 1, antipsychotic: 1,
                 anticholinergic: 1, diuretic: 1, antihypertensive: 1,
@@ -4885,8 +4868,8 @@
                 tambon: "ต.กองแขก (Kong Khaek, Mae Chaem)",
                 pm25: 105.0,
                 temp: 43.5,
-                conditions: "Outdoor Active / Athlete, Allergic Rhinitis",
-                factors: ["athlete", "ar"],
+                conditions: "Allergic Rhinitis",
+                factors: ["ar"],
                 lat: 18.5102,
                 lng: 98.4112,
                 station_name: "สถานีตรวจแปลงเกษตรบ้านโม่งหลวง",
@@ -4967,8 +4950,8 @@
                 tambon: "ต.กองแขก (Kong Khaek, Mae Chaem)",
                 pm25: 92.0,
                 temp: 42.0,
-                conditions: "BPD (Active/History), Outdoor Active / Athlete (Dual Risk)",
-                factors: ["bpd", "athlete"],
+                conditions: "BPD (Active/History)",
+                factors: ["bpd"],
                 lat: 18.5482,
                 lng: 98.4178,
                 station_name: "จุดเฝ้าระวังไฟป่าผาต้อ ต.กองแขก",
@@ -5073,8 +5056,8 @@
                 tambon: "ต.สันทราย (San Sai, Mae Chan)",
                 pm25: 82.4,
                 temp: 45.2,
-                conditions: "Outdoor Athlete, Allergic Rhinitis",
-                factors: ["athlete", "ar"],
+                conditions: "Allergic Rhinitis",
+                factors: ["ar"],
                 assessment_date: "2026-03-18"
             },
             {
@@ -5205,8 +5188,8 @@
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
                 pm25: 48.5,
                 temp: 36.8,
-                conditions: "Outdoor Athlete, Asthma",
-                factors: ["athlete", "asthma"],
+                conditions: "Asthma",
+                factors: ["asthma"],
                 assessment_date: "2026-03-25"
             },
             {
@@ -5285,8 +5268,8 @@
                 tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
                 pm25: 95.0,
                 temp: 52.4,
-                conditions: "Outdoor Athlete, Asthma, Allergic Rhinitis",
-                factors: ["athlete", "asthma", "ar"],
+                conditions: "Asthma, Allergic Rhinitis",
+                factors: ["asthma", "ar"],
                 assessment_date: "2026-03-25"
             },
             {
@@ -5456,8 +5439,8 @@
                 tambon: "ต.ช่อแล (Cho Lae, Mae Taeng)",
                 pm25: 32.5,
                 temp: 31.0,
-                conditions: "Outdoor Athlete, Allergic Rhinitis",
-                factors: ["athlete", "ar"],
+                conditions: "Allergic Rhinitis",
+                factors: ["ar"],
                 assessment_date: "2026-02-25"
             },
             {
@@ -5562,8 +5545,8 @@
                 tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
                 pm25: 20.0,
                 temp: 29.5,
-                conditions: "Outdoor Athlete, Allergic Rhinitis",
-                factors: ["athlete", "ar"],
+                conditions: "Allergic Rhinitis",
+                factors: ["ar"],
                 assessment_date: "2026-03-12"
             },
             {
@@ -5672,8 +5655,8 @@
                 tambon: "ต.ยางเนิ้ง (Yang Noeng, Saraphi)",
                 pm25: 42.0,
                 temp: 34.5,
-                conditions: "Outdoor Active / Athlete, Allergic Rhinitis",
-                factors: ["athlete", "ar"],
+                conditions: "Allergic Rhinitis",
+                factors: ["ar"],
                 assessment_date: "2026-04-11",
                 isStudent: true
             },
@@ -5877,7 +5860,6 @@
         const VULNERABILITY_DEF = {
             child_5: { id: "chk-child-5", th: "เด็กเล็ก (อายุ ≤ 5 ปี)", en: "Children <= 5 yrs", badgeClass: "bg-blue-50 text-blue-800 border-blue-200" },
             newborn: { id: "chk-newborn", th: "ทารก (อายุ ≤ 1 ปี)", en: "Newborn (<= 1 yr)", badgeClass: "bg-purple-50 text-purple-800 border-purple-200" },
-            athlete: { id: "chk-athlete", th: "ผู้ออกกำลังหรือทำงานกลางแจ้ง", en: "Outdoor Active / Athlete", badgeClass: "bg-emerald-50 text-emerald-800 border-emerald-200" },
             obesity: { id: "chk-obesity", th: "ภาวะอ้วน", en: "Obesity", badgeClass: "bg-amber-50 text-amber-900 border-amber-200" },
             // Medications with weather & heat risks:
             antidepressant: { id: "chk-antidepressant", th: "ยาต้านเศร้า (Antidepressants)", en: "Antidepressants", badgeClass: "bg-indigo-50 text-indigo-800 border-indigo-200", drugs: "Amitriptyline, Nortriptyline, Imipramine, Desipramine, Doxepin, Clomipramine, Fluoxetine, Sertraline, Escitalopram, Citalopram, Paroxetine, Fluvoxamine, Venlafaxine, Duloxetine, Desvenlafaxine, Levomilnacipran, Milnacipran" },
@@ -5917,7 +5899,7 @@
             const factorGroups = [
                 {
                     key: "demographic",
-                    keys: ["child_5", "newborn", "athlete", "obesity"],
+                    keys: ["child_5", "newborn", "obesity"],
                     badgeClass: "bg-blue-50 text-blue-900 border-blue-200"
                 },
                 {
@@ -5976,7 +5958,6 @@
             // Demographic:
             { id: "chk-child-5", key: "child_5" },
             { id: "chk-newborn", key: "newborn" },
-            { id: "chk-athlete", key: "athlete" },
             { id: "chk-obesity", key: "obesity" },
             // Conditions (โรคประจำตัวและภาวะทางคลินิก):
             { id: "chk-bpd", key: "bpd" },

@@ -58,7 +58,7 @@
   const prefixes = [['','ไม่ระบุ'],'ด.ช.','ด.ญ.','นาย','นาง','น.ส.'];
   const genderOptions = [['','เลือกเพศ'],['M','ชาย'],['F','หญิง'],['X','ไม่ระบุ']];
   const groups = [
-    ['กลุ่มอายุและสรีรวิทยา',['newborn','child_5','athlete','obesity']],
+    ['กลุ่มอายุและสรีรวิทยา',['newborn','child_5','obesity']],
     ['โรคประจำตัวและประวัติสุขภาพ',['bpd','uri','asthma','ar','kidney','epilepsy','migraine','depression']],
     ['ประวัติการใช้ยา',[
       'antidepressant',
