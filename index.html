@@ -1017,7 +1017,7 @@
                                     </button>
                                     <button type="button" onclick="selectFilterPreset('air')"
                                         class="text-xs font-semibold text-sky-800 hover:text-sky-950 bg-sky-50 hover:bg-sky-100 px-3 py-1.5 rounded-lg border border-sky-300 transition flex items-center gap-1 shadow-2xs">
-                                        <span>🌫️</span> เฉพาะเสี่ยงฝุ่น PM2.5 (10 เกณฑ์)
+                                        <span>🌫️</span> เฉพาะเสี่ยงฝุ่น PM2.5 (9 เกณฑ์)
                                     </button>
                                     <button type="button" onclick="selectFilterPreset('temp')"
                                         class="text-xs font-semibold text-amber-900 hover:text-amber-950 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-lg border border-amber-300 transition flex items-center gap-1 shadow-2xs">
@@ -1041,8 +1041,8 @@
                                         </span>
                                         <span
                                             class="inline-flex items-center gap-1 text-[11px] font-bold text-sky-800 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-200">
-                                            <span>🌫️</span> เสี่ยงฝุ่น PM2.5 (10 เกณฑ์): ทารก, เด็กเล็ก, หญิงตั้งครรภ์,
-                                            ผู้สูงอายุ (&gt; 60 ปี), BPD, COPD, ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน,
+                                            <span>🌫️</span> เสี่ยงฝุ่น PM2.5 (9 เกณฑ์): ทารก, เด็กเล็ก, หญิงตั้งครรภ์,
+                                            ผู้สูงอายุ (&gt; 60 ปี), BPD, ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน,
                                             หอบหืด, ภูมิแพ้โพรงจมูก, โรคหัวใจ
                                         </span>
                                         <span
@@ -1198,23 +1198,6 @@
                                                         </div>
                                                         <div class="text-[11px] text-gray-500 font-normal">
                                                             มีประวัติโรคหลอดลมและเนื้อเยื่อปอดเปราะบาง</div>
-                                                    </div>
-                                                </label>
-                                                <label
-                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
-                                                    <input type="checkbox" id="chk-copd" onchange="filterPatients()"
-                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
-                                                    <div class="leading-snug min-w-0">
-                                                        <div class="flex items-center gap-1.5 flex-wrap">
-                                                            <span
-                                                                class="text-xs sm:text-sm font-bold text-gray-900">โรคปอดอุดกั้นเรื้อรัง
-                                                                (COPD)</span>
-                                                            <span
-                                                                class="text-[10px] font-bold text-sky-800 bg-sky-100 px-1.5 py-0.2 rounded">🌫️
-                                                                เสี่ยงฝุ่น</span>
-                                                        </div>
-                                                        <div class="text-[11px] text-gray-500 font-normal">
-                                                            ทางเดินหายใจอุดกั้นเรื้อรัง ไวต่อฝุ่น PM2.5</div>
                                                     </div>
                                                 </label>
                                                 <label
@@ -4477,18 +4460,17 @@
         }
 
         // Criteria for Risk Patients (as explicitly defined by clinical guidance):
-        // Air Risk Conditions (10 conditions):
+        // Air Risk Conditions (9 conditions):
         // 1. เด็กเล็ก (child_5)
         // 2. ทารก (newborn)
         // 3. หญิงตั้งครรภ์ (pregnant)
         // 4. ผู้สูงอายุ อายุ > 60 ปี (elderly)
         // 5. มีประวัติโรคหลอดลมและเนื้อเยื่อปอดเปราะบาง (bpd)
-        // 6. โรคปอดอุดกั้นเรื้อรัง (copd)
-        // 7. ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน (uri)
-        // 8. โรคหอบหืด (asthma)
-        // 9. โรคภูมิแพ้โพรงจมูก (ar)
-        // 10. โรคหัวใจ (heart)
-        const AIR_RISK_FACTORS = ['newborn', 'child_5', 'pregnant', 'elderly', 'bpd', 'copd', 'uri', 'rti', 'asthma', 'ar', 'heart'];
+        // 6. ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน (uri)
+        // 7. โรคหอบหืด (asthma)
+        // 8. โรคภูมิแพ้โพรงจมูก (ar)
+        // 9. โรคหัวใจ (heart)
+        const AIR_RISK_FACTORS = ['newborn', 'child_5', 'pregnant', 'elderly', 'bpd', 'uri', 'rti', 'asthma', 'ar', 'heart'];
 
         // Temp Risk Conditions (21 conditions):
         // 1. ทารก (newborn)
@@ -4542,7 +4524,7 @@
             // Clinical Vulnerability Score
             const weights = {
                 newborn: 3, bpd: 3,
-                child_5: 2, pregnant: 2, elderly: 2, copd: 2, heart: 2,
+                child_5: 2, pregnant: 2, elderly: 2, heart: 2,
                 asthma: 2, kidney: 2, epilepsy: 2, uri: 2, rti: 2, neuro: 2,
                 migraine: 1, depression: 1,
                 athlete: 1, obesity: 1, ar: 1,
@@ -4976,8 +4958,8 @@
                 tambon: "ต.กองแขก (Kong Khaek, Mae Chaem)",
                 pm25: 105.0,
                 temp: 43.5,
-                conditions: "Elderly (Age > 60), COPD, Asthma, Depression, Antidepressant (Dual Risk)",
-                factors: ["elderly", "copd", "asthma", "depression", "antidepressant"],
+                conditions: "Elderly (Age > 60), Asthma, Depression, Antidepressant (Dual Risk)",
+                factors: ["elderly", "asthma", "depression", "antidepressant"],
                 lat: 18.5098,
                 lng: 98.4108,
                 station_name: "สถานีตรวจแปลงเกษตรบ้านโม่งหลวง",
@@ -5174,8 +5156,8 @@
                 tambon: "ต.สันทราย (San Sai, Mae Chan)",
                 pm25: 82.4,
                 temp: 45.2,
-                conditions: "Elderly (Age > 60), COPD, Antihistamine, Anticholinergic",
-                factors: ["elderly", "copd", "antihistamine", "anticholinergic"],
+                conditions: "Elderly (Age > 60), Antihistamine, Anticholinergic",
+                factors: ["elderly", "antihistamine", "anticholinergic"],
                 assessment_date: "2026-03-15"
             },
             {
@@ -5518,8 +5500,8 @@
                 tambon: "ต.ช่อแล (Cho Lae, Mae Taeng)",
                 pm25: 32.5,
                 temp: 31.0,
-                conditions: "Elderly (Age > 60), COPD, Obesity, Diuretic",
-                factors: ["elderly", "copd", "obesity", "diuretic"],
+                conditions: "Elderly (Age > 60), Obesity, Diuretic",
+                factors: ["elderly", "obesity", "diuretic"],
                 assessment_date: "2026-01-22"
             },
             {
@@ -5598,8 +5580,8 @@
                 tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
                 pm25: 20.0,
                 temp: 29.5,
-                conditions: "Elderly (Age > 60), COPD, Heart Disease, Asthma, Beta Blocker",
-                factors: ["elderly", "copd", "heart", "asthma", "beta_blocker"],
+                conditions: "Elderly (Age > 60), Heart Disease, Asthma, Beta Blocker",
+                factors: ["elderly", "heart", "asthma", "beta_blocker"],
                 assessment_date: "2026-03-28"
             },
             {
@@ -5970,7 +5952,6 @@
             central_acting: { id: "chk-central-acting", th: "ยากลุ่ม Central-acting agents", en: "Central-acting Agents", badgeClass: "bg-indigo-50 text-indigo-800 border-indigo-200", drugs: "Clonidine, Guanfacine, Methyldopa, Lofexidine, Moxonidine, Dexmedetomidine, Tizanidine" },
             // Underlying clinical conditions:
             bpd: { id: "chk-bpd", th: "โรคปอดเรื้อรังในเด็ก", en: "BPD (Active/History)", badgeClass: "bg-rose-50 text-rose-800 border-rose-200" },
-            copd: { id: "chk-copd", th: "โรคปอดอุดกั้นเรื้อรัง (COPD)", en: "COPD", badgeClass: "bg-rose-50 text-rose-800 border-rose-200" },
             uri: { id: "chk-uri", th: "ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน", en: "Acute Upper Respiratory Infection", badgeClass: "bg-sky-50 text-sky-800 border-sky-200" },
             rti: { id: "chk-uri", th: "ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน", en: "Acute Upper Respiratory Infection", badgeClass: "bg-sky-50 text-sky-800 border-sky-200" },
             asthma: { id: "chk-asthma", th: "โรคหอบหืด", en: "Asthma", badgeClass: "bg-orange-50 text-orange-800 border-orange-200" },
@@ -6001,7 +5982,7 @@
                 },
                 {
                     key: "condition",
-                    keys: ["bpd", "copd", "uri", "rti", "asthma", "ar", "heart", "kidney", "epilepsy", "migraine", "depression", "neuro"],
+                    keys: ["bpd", "uri", "rti", "asthma", "ar", "heart", "kidney", "epilepsy", "migraine", "depression", "neuro"],
                     badgeClass: "bg-rose-50 text-rose-900 border-rose-200"
                 },
                 {
@@ -6061,7 +6042,6 @@
             { id: "chk-obesity", key: "obesity" },
             // Conditions (โรคประจำตัวและภาวะทางคลินิก):
             { id: "chk-bpd", key: "bpd" },
-            { id: "chk-copd", key: "copd" },
             { id: "chk-uri", key: "uri" },
             { id: "chk-asthma", key: "asthma" },
             { id: "chk-ar", key: "ar" },

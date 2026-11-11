@@ -59,7 +59,7 @@
   const genderOptions = [['','เลือกเพศ'],['M','ชาย'],['F','หญิง'],['X','ไม่ระบุ']];
   const groups = [
     ['กลุ่มอายุและสรีรวิทยา',['child_5','newborn','pregnant','elderly','athlete','obesity']],
-    ['โรคประจำตัวและประวัติสุขภาพ',['bpd','copd','uri','asthma','ar','heart','kidney','epilepsy','migraine','depression']],
+    ['โรคประจำตัวและประวัติสุขภาพ',['bpd','uri','asthma','ar','heart','kidney','epilepsy','migraine','depression']],
     ['ประวัติการใช้ยา',[
       'antidepressant',
       'anticonvulsant',
