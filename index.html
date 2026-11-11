@@ -1017,11 +1017,11 @@
                                     </button>
                                     <button type="button" onclick="selectFilterPreset('air')"
                                         class="text-xs font-semibold text-sky-800 hover:text-sky-950 bg-sky-50 hover:bg-sky-100 px-3 py-1.5 rounded-lg border border-sky-300 transition flex items-center gap-1 shadow-2xs">
-                                        <span>🌫️</span> เฉพาะเสี่ยงฝุ่น PM2.5 (6 เกณฑ์)
+                                        <span>🌫️</span> เฉพาะเสี่ยงฝุ่น PM2.5 (10 เกณฑ์)
                                     </button>
                                     <button type="button" onclick="selectFilterPreset('temp')"
                                         class="text-xs font-semibold text-amber-900 hover:text-amber-950 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-lg border border-amber-300 transition flex items-center gap-1 shadow-2xs">
-                                        <span>🌡️</span> เฉพาะเสี่ยงความร้อน (18 เกณฑ์)
+                                        <span>🌡️</span> เฉพาะเสี่ยงความร้อน (21 เกณฑ์)
                                     </button>
                                     <button type="button" onclick="selectAllFilters(false)"
                                         class="text-xs font-semibold text-gray-600 hover:text-gray-800 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg border border-gray-200 transition">
@@ -1041,15 +1041,16 @@
                                         </span>
                                         <span
                                             class="inline-flex items-center gap-1 text-[11px] font-bold text-sky-800 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-200">
-                                            <span>🌫️</span> เสี่ยงฝุ่น PM2.5: ทารก, เด็กเล็ก, BPD,
-                                            ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน,
-                                            หอบหืด, ภูมิแพ้โพรงจมูก
+                                            <span>🌫️</span> เสี่ยงฝุ่น PM2.5 (10 เกณฑ์): ทารก, เด็กเล็ก, หญิงตั้งครรภ์,
+                                            ผู้สูงอายุ (&gt; 60 ปี), BPD, COPD, ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน,
+                                            หอบหืด, ภูมิแพ้โพรงจมูก, โรคหัวใจ
                                         </span>
                                         <span
                                             class="inline-flex items-center gap-1 text-[11px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
-                                            <span>🌡️</span> เสี่ยงความร้อน (18 เกณฑ์): ทารก, ทำงานกลางแจ้ง, ไตเรื้อรัง,
-                                            อ้วน, หอบหืด, ลมชัก, ไมเกรน, ซึมเศร้า,
-                                            ยา 10 กลุ่มเสี่ยง (ต้านเศร้า, กันชัก, ต้านโรคจิต, Anticholinergic,
+                                            <span>🌡️</span> เสี่ยงความร้อน (21 เกณฑ์): ทารก, หญิงตั้งครรภ์,
+                                            ผู้สูงอายุ (&gt; 60 ปี), ทำงานกลางแจ้ง, ไตเรื้อรัง,
+                                            อ้วน, หอบหืด, โรคหัวใจ, ลมชัก, ไมเกรน, ซึมเศร้า,
+                                            ยา 10 กลุ่มเสี่ยง (ต้านเศร้า, กันชัก, ต้านอาการทางจิต, Anticholinergic,
                                             ขับปัสสาวะ, ลดความดัน, Benzodiazepine, Opioids, แก้แพ้, Central-acting)
                                         </span>
                                     </div>
@@ -1106,6 +1107,39 @@
                                                         </div>
                                                         <div class="text-[11px] text-gray-500 font-normal">
                                                             ระบบคุมอุณหภูมิยังไม่สมบูรณ์ ไวต่อมลพิษฝุ่น</div>
+                                                    </div>
+                                                </label>
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-purple-50/50 border border-purple-200 hover:border-purple-400 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-pregnant" onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-purple-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">หญิงตั้งครรภ์</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-purple-800 bg-purple-100 px-1.5 py-0.2 rounded">⚡
+                                                                เสี่ยงฝุ่น + ความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal">
+                                                            ไวต่อฝุ่น PM2.5 และความเครียดจากความร้อน</div>
+                                                    </div>
+                                                </label>
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-purple-50/50 border border-purple-200 hover:border-purple-400 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-elderly" onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-purple-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">ผู้สูงอายุ
+                                                                (อายุ &gt; 60 ปี)</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-purple-800 bg-purple-100 px-1.5 py-0.2 rounded">⚡
+                                                                เสี่ยงฝุ่น + ความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal">
+                                                            ภูมิต้านทานและระบบคุมอุณหภูมิลดลง</div>
                                                     </div>
                                                 </label>
                                                 <label
@@ -1168,6 +1202,23 @@
                                                 </label>
                                                 <label
                                                     class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-copd" onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">โรคปอดอุดกั้นเรื้อรัง
+                                                                (COPD)</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-sky-800 bg-sky-100 px-1.5 py-0.2 rounded">🌫️
+                                                                เสี่ยงฝุ่น</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal">
+                                                            ทางเดินหายใจอุดกั้นเรื้อรัง ไวต่อฝุ่น PM2.5</div>
+                                                    </div>
+                                                </label>
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition">
                                                     <input type="checkbox" id="chk-uri" onchange="filterPatients()"
                                                         class="form-checkbox h-4 w-4 text-blue-600 rounded mt-0.5 shrink-0">
                                                     <div class="leading-snug min-w-0">
@@ -1212,6 +1263,22 @@
                                                         </div>
                                                         <div class="text-[11px] text-gray-500 font-normal">
                                                             เยื่อบุจมูกอักเสบจากภูมิแพ้ จาม คัดจมูกง่าย</div>
+                                                    </div>
+                                                </label>
+                                                <label
+                                                    class="flex items-start space-x-2.5 p-2.5 rounded-xl bg-purple-50/50 border border-purple-200 hover:border-purple-400 hover:shadow-2xs cursor-pointer transition">
+                                                    <input type="checkbox" id="chk-heart" onchange="filterPatients()"
+                                                        class="form-checkbox h-4 w-4 text-purple-600 rounded mt-0.5 shrink-0">
+                                                    <div class="leading-snug min-w-0">
+                                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                                            <span
+                                                                class="text-xs sm:text-sm font-bold text-gray-900">โรคหัวใจ</span>
+                                                            <span
+                                                                class="text-[10px] font-bold text-purple-800 bg-purple-100 px-1.5 py-0.2 rounded">⚡
+                                                                เสี่ยงฝุ่น + ความร้อน</span>
+                                                        </div>
+                                                        <div class="text-[11px] text-gray-500 font-normal">
+                                                            โรคหัวใจและหลอดเลือด ไวต่อฝุ่น PM2.5 และความร้อน</div>
                                                     </div>
                                                 </label>
                                                 <label
@@ -4410,37 +4477,44 @@
         }
 
         // Criteria for Risk Patients (as explicitly defined by clinical guidance):
-        // Air Risk Conditions (6 conditions):
-        // 1. ทารก (newborn)
-        // 2. เด็กเล็ก (child_5)
-        // 3. มีประวัติโรคหลอดลมและเนื้อเยื่อปอดเปราะบาง (bpd)
-        // 4. ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน (uri)
-        // 5. โรคหอบหืด (asthma)
-        // 6. โรคภูมิแพ้โพรงจมูก (ar)
-        const AIR_RISK_FACTORS = ['newborn', 'child_5', 'bpd', 'uri', 'rti', 'asthma', 'ar'];
-
-        // Temp Risk Conditions (18 conditions):
-        // 1. ทารก (newborn)
-        // 2. ผู้ออกกำลังหรือทำงานกลางแจ้ง (athlete)
-        // 3. โรคไตเรื้อรัง (kidney)
-        // 4. กลุ่มโรคลมชัก (epilepsy)
-        // 5. ภาวะไมเกรน (migraine)
-        // 6. ภาวะซึมเศร้า (depression)
-        // 7. ภาวะอ้วน (obesity)
+        // Air Risk Conditions (10 conditions):
+        // 1. เด็กเล็ก (child_5)
+        // 2. ทารก (newborn)
+        // 3. หญิงตั้งครรภ์ (pregnant)
+        // 4. ผู้สูงอายุ อายุ > 60 ปี (elderly)
+        // 5. มีประวัติโรคหลอดลมและเนื้อเยื่อปอดเปราะบาง (bpd)
+        // 6. โรคปอดอุดกั้นเรื้อรัง (copd)
+        // 7. ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน (uri)
         // 8. โรคหอบหืด (asthma)
-        // 9. ยาต้านเศร้า (antidepressant)
-        // 10. ยากันชัก (anticonvulsant)
-        // 11. ยาต้านอาการทางจิต (antipsychotic)
-        // 12. ยากลุ่ม Anticholinergic (anticholinergic)
-        // 13. ยาขับปัสสาวะ (diuretic)
-        // 14. ยาลดความดันโลหิต (antihypertensive)
-        // 15. ยากลุ่ม Benzodiazepines (benzodiazepine)
-        // 16. ยากลุ่ม Opioids (opioid)
-        // 17. ยาแก้แพ้ (antihistamine)
-        // 18. ยากลุ่ม Central-acting agents (central_acting)
+        // 9. โรคภูมิแพ้โพรงจมูก (ar)
+        // 10. โรคหัวใจ (heart)
+        const AIR_RISK_FACTORS = ['newborn', 'child_5', 'pregnant', 'elderly', 'bpd', 'copd', 'uri', 'rti', 'asthma', 'ar', 'heart'];
+
+        // Temp Risk Conditions (21 conditions):
+        // 1. ทารก (newborn)
+        // 2. หญิงตั้งครรภ์ (pregnant)
+        // 3. ผู้สูงอายุ อายุ > 60 ปี (elderly)
+        // 4. ผู้ออกกำลังหรือทำงานกลางแจ้ง (athlete)
+        // 5. ภาวะอ้วน (obesity)
+        // 6. โรคหอบหืด (asthma)
+        // 7. โรคหัวใจ (heart)
+        // 8. โรคไตเรื้อรัง (kidney)
+        // 9. กลุ่มโรคลมชัก (epilepsy)
+        // 10. ภาวะไมเกรน (migraine)
+        // 11. ภาวะซึมเศร้า (depression)
+        // 12. ยาต้านเศร้า (antidepressant)
+        // 13. ยากันชัก (anticonvulsant)
+        // 14. ยาต้านอาการทางจิต (antipsychotic)
+        // 15. ยากลุ่ม Anticholinergic (anticholinergic)
+        // 16. ยาขับปัสสาวะ (diuretic)
+        // 17. ยาลดความดันโลหิต (antihypertensive)
+        // 18. ยากลุ่ม Benzodiazepines (benzodiazepine)
+        // 19. ยากลุ่ม Opioids (opioid)
+        // 20. ยาแก้แพ้ (antihistamine)
+        // 21. ยากลุ่ม Central-acting agents (central_acting)
         const TEMP_RISK_FACTORS = [
-            'newborn', 'athlete', 'kidney', 'epilepsy', 'migraine', 'depression', 'neuro',
-            'obesity', 'asthma',
+            'newborn', 'pregnant', 'elderly', 'athlete', 'kidney', 'epilepsy', 'migraine', 'depression', 'neuro',
+            'obesity', 'asthma', 'heart',
             'antidepressant', 'anticonvulsant', 'antipsychotic', 'anticholinergic',
             'diuretic', 'antihypertensive', 'beta_blocker', 'benzodiazepine',
             'opioid', 'antihistamine', 'central_acting'
@@ -4468,7 +4542,8 @@
             // Clinical Vulnerability Score
             const weights = {
                 newborn: 3, bpd: 3,
-                child_5: 2, asthma: 2, kidney: 2, epilepsy: 2, uri: 2, rti: 2, neuro: 2,
+                child_5: 2, pregnant: 2, elderly: 2, copd: 2, heart: 2,
+                asthma: 2, kidney: 2, epilepsy: 2, uri: 2, rti: 2, neuro: 2,
                 migraine: 1, depression: 1,
                 athlete: 1, obesity: 1, ar: 1,
                 // Medications (All heat-sensitive):
@@ -4484,11 +4559,11 @@
                 vulnPoints += (weights[f] || 1);
             });
 
-            if (patient.gender_age) {
+            if (patient.gender_age && !factors.includes('elderly')) {
                 const ageMatch = patient.gender_age.match(/\/(\d+(\.\d+)?)/);
                 if (ageMatch) {
                     const age = parseFloat(ageMatch[1]);
-                    if (age >= 65) vulnPoints += 2;
+                    if (age > 60) vulnPoints += 2;
                 }
             }
 
@@ -4836,8 +4911,8 @@
                 tambon: "ต.กองแขก (Kong Khaek, Mae Chaem)",
                 pm25: 70.5,
                 temp: 36.0,
-                conditions: "Epilepsy, Anticonvulsant, Antihypertensive",
-                factors: ["epilepsy", "anticonvulsant", "antihypertensive"],
+                conditions: "Elderly (Age > 60), Epilepsy, Anticonvulsant, Antihypertensive",
+                factors: ["elderly", "epilepsy", "anticonvulsant", "antihypertensive"],
                 lat: 18.5252,
                 lng: 98.4241,
                 station_name: "เซนเซอร์ รพ.สต.กองแขก",
@@ -4852,8 +4927,8 @@
                 tambon: "ต.กองแขก (Kong Khaek, Mae Chaem)",
                 pm25: 70.5,
                 temp: 36.0,
-                conditions: "Kidney Disease, Diuretic",
-                factors: ["kidney", "diuretic"],
+                conditions: "Elderly (Age > 60), Heart Disease, Kidney Disease, Diuretic",
+                factors: ["elderly", "heart", "kidney", "diuretic"],
                 lat: 18.5249,
                 lng: 98.4238,
                 station_name: "เซนเซอร์ รพ.สต.กองแขก",
@@ -4901,8 +4976,8 @@
                 tambon: "ต.กองแขก (Kong Khaek, Mae Chaem)",
                 pm25: 105.0,
                 temp: 43.5,
-                conditions: "Asthma, Depression, Antidepressant (Dual Risk)",
-                factors: ["asthma", "depression", "antidepressant"],
+                conditions: "Elderly (Age > 60), COPD, Asthma, Depression, Antidepressant (Dual Risk)",
+                factors: ["elderly", "copd", "asthma", "depression", "antidepressant"],
                 lat: 18.5098,
                 lng: 98.4108,
                 station_name: "สถานีตรวจแปลงเกษตรบ้านโม่งหลวง",
@@ -5099,8 +5174,8 @@
                 tambon: "ต.สันทราย (San Sai, Mae Chan)",
                 pm25: 82.4,
                 temp: 45.2,
-                conditions: "Antihistamine, Anticholinergic",
-                factors: ["antihistamine", "anticholinergic"],
+                conditions: "Elderly (Age > 60), COPD, Antihistamine, Anticholinergic",
+                factors: ["elderly", "copd", "antihistamine", "anticholinergic"],
                 assessment_date: "2026-03-15"
             },
             {
@@ -5166,8 +5241,8 @@
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
                 pm25: 48.5,
                 temp: 36.8,
-                conditions: "Antihypertensive, Diuretic, Migraine",
-                factors: ["antihypertensive", "diuretic", "migraine"],
+                conditions: "Elderly (Age > 60), Heart Disease, Antihypertensive, Diuretic, Migraine",
+                factors: ["elderly", "heart", "antihypertensive", "diuretic", "migraine"],
                 assessment_date: "2026-02-20"
             },
             {
@@ -5192,8 +5267,8 @@
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
                 pm25: 48.5,
                 temp: 36.8,
-                conditions: "Obesity, Diuretic, Central-acting Agent",
-                factors: ["obesity", "diuretic", "central_acting"],
+                conditions: "Elderly (Age > 60), Obesity, Diuretic, Central-acting Agent",
+                factors: ["elderly", "obesity", "diuretic", "central_acting"],
                 assessment_date: "2026-01-18"
             },
             {
@@ -5244,8 +5319,8 @@
                 tambon: "ต.ยางเปียง (Yang Piang, Omkoi)",
                 pm25: 48.5,
                 temp: 36.8,
-                conditions: "ตรวจครรภ์ปกติและให้คำปรึกษา",
-                factors: [],
+                conditions: "Pregnant Women (ตรวจครรภ์)",
+                factors: ["pregnant"],
                 assessment_date: "2026-04-03"
             },
             {
@@ -5311,8 +5386,8 @@
                 tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
                 pm25: 95.0,
                 temp: 52.4,
-                conditions: "Antidepressant, Benzodiazepine, Depression",
-                factors: ["antidepressant", "benzodiazepine", "depression"],
+                conditions: "Elderly (Age > 60), Antidepressant, Benzodiazepine, Depression",
+                factors: ["elderly", "antidepressant", "benzodiazepine", "depression"],
                 assessment_date: "2026-04-10"
             },
             {
@@ -5350,8 +5425,8 @@
                 tambon: "ต.แม่นะ (Mae Na, Chiang Dao)",
                 pm25: 95.0,
                 temp: 52.4,
-                conditions: "Obesity, Diuretic",
-                factors: ["obesity", "diuretic"],
+                conditions: "Elderly (Age > 60), Heart Disease, Obesity, Diuretic",
+                factors: ["elderly", "heart", "obesity", "diuretic"],
                 assessment_date: "2026-03-05"
             },
             {
@@ -5404,8 +5479,8 @@
                 tambon: "ต.ช่อแล (Cho Lae, Mae Taeng)",
                 pm25: 32.5,
                 temp: 31.0,
-                conditions: "Kidney Disease, Diuretic, Beta Blocker",
-                factors: ["kidney", "diuretic", "beta_blocker"],
+                conditions: "Elderly (Age > 60), Heart Disease, Kidney Disease, Diuretic, Beta Blocker",
+                factors: ["elderly", "heart", "kidney", "diuretic", "beta_blocker"],
                 assessment_date: "2026-03-18"
             },
             {
@@ -5443,8 +5518,8 @@
                 tambon: "ต.ช่อแล (Cho Lae, Mae Taeng)",
                 pm25: 32.5,
                 temp: 31.0,
-                conditions: "Obesity, Diuretic",
-                factors: ["obesity", "diuretic"],
+                conditions: "Elderly (Age > 60), COPD, Obesity, Diuretic",
+                factors: ["elderly", "copd", "obesity", "diuretic"],
                 assessment_date: "2026-01-22"
             },
             {
@@ -5523,8 +5598,8 @@
                 tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
                 pm25: 20.0,
                 temp: 29.5,
-                conditions: "BPD (Active/History), Asthma, Beta Blocker",
-                factors: ["bpd", "asthma", "beta_blocker"],
+                conditions: "Elderly (Age > 60), COPD, Heart Disease, Asthma, Beta Blocker",
+                factors: ["elderly", "copd", "heart", "asthma", "beta_blocker"],
                 assessment_date: "2026-03-28"
             },
             {
@@ -5601,8 +5676,8 @@
                 tambon: "ต.สบเปิง (Sop Poeng, Mae Taeng)",
                 pm25: 20.0,
                 temp: 29.5,
-                conditions: "วัดความดันโลหิตปกติ ตรวจทั่วไป",
-                factors: [],
+                conditions: "Elderly (Age > 60)",
+                factors: ["elderly"],
                 assessment_date: "2026-04-02"
             },
             {
@@ -5877,6 +5952,8 @@
         const VULNERABILITY_DEF = {
             child_5: { id: "chk-child-5", th: "เด็กเล็ก (อายุ ≤ 5 ปี)", en: "Children <= 5 yrs", badgeClass: "bg-blue-50 text-blue-800 border-blue-200" },
             newborn: { id: "chk-newborn", th: "ทารก (อายุ ≤ 1 ปี)", en: "Newborn (<= 1 yr)", badgeClass: "bg-purple-50 text-purple-800 border-purple-200" },
+            pregnant: { id: "chk-pregnant", th: "หญิงตั้งครรภ์", en: "Pregnant Women", badgeClass: "bg-purple-50 text-purple-800 border-purple-200" },
+            elderly: { id: "chk-elderly", th: "ผู้สูงอายุ (อายุ > 60 ปี)", en: "Elderly (Age > 60)", badgeClass: "bg-purple-50 text-purple-800 border-purple-200" },
             athlete: { id: "chk-athlete", th: "ผู้ออกกำลังหรือทำงานกลางแจ้ง", en: "Outdoor Active / Athlete", badgeClass: "bg-emerald-50 text-emerald-800 border-emerald-200" },
             obesity: { id: "chk-obesity", th: "ภาวะอ้วน", en: "Obesity", badgeClass: "bg-amber-50 text-amber-900 border-amber-200" },
             // Medications with weather & heat risks:
@@ -5893,10 +5970,12 @@
             central_acting: { id: "chk-central-acting", th: "ยากลุ่ม Central-acting agents", en: "Central-acting Agents", badgeClass: "bg-indigo-50 text-indigo-800 border-indigo-200", drugs: "Clonidine, Guanfacine, Methyldopa, Lofexidine, Moxonidine, Dexmedetomidine, Tizanidine" },
             // Underlying clinical conditions:
             bpd: { id: "chk-bpd", th: "โรคปอดเรื้อรังในเด็ก", en: "BPD (Active/History)", badgeClass: "bg-rose-50 text-rose-800 border-rose-200" },
+            copd: { id: "chk-copd", th: "โรคปอดอุดกั้นเรื้อรัง (COPD)", en: "COPD", badgeClass: "bg-rose-50 text-rose-800 border-rose-200" },
             uri: { id: "chk-uri", th: "ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน", en: "Acute Upper Respiratory Infection", badgeClass: "bg-sky-50 text-sky-800 border-sky-200" },
             rti: { id: "chk-uri", th: "ติดเชื้อทางเดินหายใจส่วนบนเฉียบพลัน", en: "Acute Upper Respiratory Infection", badgeClass: "bg-sky-50 text-sky-800 border-sky-200" },
             asthma: { id: "chk-asthma", th: "โรคหอบหืด", en: "Asthma", badgeClass: "bg-orange-50 text-orange-800 border-orange-200" },
             ar: { id: "chk-ar", th: "โรคภูมิแพ้โพรงจมูก", en: "Allergic Rhinitis", badgeClass: "bg-sky-50 text-sky-800 border-sky-200" },
+            heart: { id: "chk-heart", th: "โรคหัวใจ", en: "Heart Disease", badgeClass: "bg-rose-50 text-rose-800 border-rose-200" },
             kidney: { id: "chk-kidney", th: "โรคไตเรื้อรัง", en: "Kidney Disease", badgeClass: "bg-violet-50 text-violet-800 border-violet-200" },
             epilepsy: { id: "chk-epilepsy", th: "กลุ่มโรคลมชัก", en: "Epilepsy / Seizure Disorders", badgeClass: "bg-amber-50 text-amber-800 border-amber-200" },
             migraine: { id: "chk-migraine", th: "ภาวะไมเกรน", en: "Migraine", badgeClass: "bg-amber-50 text-amber-800 border-amber-200" },
@@ -5917,12 +5996,12 @@
             const factorGroups = [
                 {
                     key: "demographic",
-                    keys: ["child_5", "newborn", "athlete", "obesity"],
+                    keys: ["child_5", "newborn", "pregnant", "elderly", "athlete", "obesity"],
                     badgeClass: "bg-blue-50 text-blue-900 border-blue-200"
                 },
                 {
                     key: "condition",
-                    keys: ["bpd", "uri", "rti", "asthma", "ar", "kidney", "epilepsy", "migraine", "depression", "neuro"],
+                    keys: ["bpd", "copd", "uri", "rti", "asthma", "ar", "heart", "kidney", "epilepsy", "migraine", "depression", "neuro"],
                     badgeClass: "bg-rose-50 text-rose-900 border-rose-200"
                 },
                 {
@@ -5976,13 +6055,17 @@
             // Demographic:
             { id: "chk-child-5", key: "child_5" },
             { id: "chk-newborn", key: "newborn" },
+            { id: "chk-pregnant", key: "pregnant" },
+            { id: "chk-elderly", key: "elderly" },
             { id: "chk-athlete", key: "athlete" },
             { id: "chk-obesity", key: "obesity" },
             // Conditions (โรคประจำตัวและภาวะทางคลินิก):
             { id: "chk-bpd", key: "bpd" },
+            { id: "chk-copd", key: "copd" },
             { id: "chk-uri", key: "uri" },
             { id: "chk-asthma", key: "asthma" },
             { id: "chk-ar", key: "ar" },
+            { id: "chk-heart", key: "heart" },
             { id: "chk-kidney", key: "kidney" },
             { id: "chk-epilepsy", key: "epilepsy" },
             { id: "chk-migraine", key: "migraine" },
