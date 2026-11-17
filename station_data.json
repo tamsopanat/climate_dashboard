@@ -1,0 +1,4190 @@
+[
+    {
+        "id": "4",
+        "dustboy_id": "DustBoy CC005",
+        "dustboy_uri": "nightbazaar",
+        "dustboy_name": "ไนท์บาร์ซาร์ ต.ช้างม่อย อ.เมือง จ. เชียงใหม่",
+        "dustboy_name_en": "Night Bazaar, Chiang Mai",
+        "dustboy_lat": "18.7854765",
+        "dustboy_lon": "98.9996602",
+        "address": {
+            "amenity": "Favola",
+            "house_number": "108",
+            "road": "ถนน ท่าแพ ซอย 1",
+            "suburb": "แขวงเม็งราย",
+            "city_district": "ตำบลช้างคลาน",
+            "city": "เทศบาลนครเชียงใหม่",
+            "municipality": "ฟ้าฮ่าม",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "55520",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "12",
+        "dustboy_id": "DustBoy CC002",
+        "dustboy_uri": "DustBoy012",
+        "dustboy_name": "Bear Hug Cafe‚ ต.ช้างคลาน อ.เมือง จ.เชียงใหม่",
+        "dustboy_name_en": "Bear Hug Cafe‚, Chiang Mai",
+        "dustboy_lat": "18.7828996",
+        "dustboy_lon": "98.9933469",
+        "address": {
+            "amenity": "Bear Hug Cafe",
+            "road": "ถนนคชสาร",
+            "suburb": "แขวงเม็งราย",
+            "city_district": "ตำบลพระสิงห์",
+            "city": "เทศบาลนครเชียงใหม่",
+            "municipality": "ฟ้าฮ่าม",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "55520",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "13",
+        "dustboy_id": "DustBoy H018",
+        "dustboy_uri": "cmu3",
+        "dustboy_name": "มช. แคมปัสแม่เหียะ ต.สุเทพ อ.เมือง จ.เชียงใหม่",
+        "dustboy_name_en": "Chiang Mai University (Mae Hia Campus), Chiang Mai",
+        "dustboy_lat": "18.761371",
+        "dustboy_lon": "98.931855",
+        "address": {
+            "road": "อุโบสถ ซอย 9",
+            "hamlet": "บ้านป่าจี้",
+            "city_district": "ตำบลแม่เฮียะ",
+            "town": "เทศบาลเมืองแม่เหียะ",
+            "municipality": "ป่าแดด",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50230",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "14",
+        "dustboy_id": "DustBoy H023",
+        "dustboy_uri": "fang",
+        "dustboy_name": "รพ.ฝาง ต.เวียง อ.ฝาง จ.เชียงใหม่",
+        "dustboy_name_en": "Fang Hospital, Chiang Mai",
+        "dustboy_lat": "19.913293",
+        "dustboy_lon": "99.206827",
+        "address": {
+            "amenity": "โรงพยาบาลฝาง",
+            "road": "ถนนโชตนา",
+            "town": "ฝาง",
+            "municipality": "สันทราย",
+            "county": "อำเภอฝาง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50110",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "16",
+        "dustboy_id": "DustBoy H013",
+        "dustboy_uri": "pro16",
+        "dustboy_name": "โรงพยาบาลร้องกวาง ต.ร้องเข็ม อ.ร้องกวาง จ.แพร่",
+        "dustboy_name_en": "Rong Kwang Hospital, Rong Khem Subdistrict, Rong Kwang District, Phrae ",
+        "dustboy_lat": "18.307634262860546",
+        "dustboy_lon": "100.29124223068229",
+        "address": {
+            "amenity": "โรงพยาบาลร้องกวาง",
+            "road": "ถนนยันตรกิจโกศล",
+            "hamlet": "บ้านดอนมูล",
+            "village": "บ้านแม่ยางกาด",
+            "municipality": "แม่ยางฮ่อ",
+            "county": "อำเภอร้องกวาง",
+            "province": "จังหวัดแพร่",
+            "ISO3166-2-lvl4": "TH-54",
+            "postcode": "54140",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "19",
+        "dustboy_id": "DustBoy H006",
+        "dustboy_uri": "sarapee",
+        "dustboy_name": "รพ.สารภี ต.สารภี อ.สารภี จ.เชียงใหม่",
+        "dustboy_name_en": "Sarapee Hospital, Tambon Saraphi Subdistrict, Amphur Saraphi, Chiang Mai",
+        "dustboy_lat": "18.680982",
+        "dustboy_lon": "99.043118",
+        "address": {
+            "amenity": "โรงพยาบาลสารภี",
+            "road": "ซอย 11 ปากกอง",
+            "town": "สารภี",
+            "municipality": "หนองแฝก",
+            "district": "อำเภอสารภี",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "23",
+        "dustboy_id": "DustBoy H004",
+        "dustboy_uri": "pro023",
+        "dustboy_name": "รพ.สต.บ้านนากลาง ต.ลี้ อ.ลี้ จ.ลำพูน",
+        "dustboy_name_en": "Ban Naklang Subdistrict Health Center, Li Subdistrict, Li District, Lamphun Province",
+        "dustboy_lat": "17.7932",
+        "dustboy_lon": "99.0196",
+        "address": {
+            "amenity": "โรงพยาบาลส่งเสริมสุขภาพตำบล",
+            "road": "ลพ.3049",
+            "village": "บ้านปู",
+            "city": "ตำบลลี้",
+            "municipality": "เทศบาลตำบลลี้",
+            "county": "อำเภอลี้",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "33",
+        "dustboy_id": "DustBoy H020",
+        "dustboy_uri": "chiangdao",
+        "dustboy_name": "สสอ.เชียงดาว ต.เชียงดาว อ.เชียงดาว จ. เชียงใหม่",
+        "dustboy_name_en": "Chiang Dao Public Heath Office, Chiang Mai",
+        "dustboy_lat": "19.366273",
+        "dustboy_lon": "98.964704",
+        "address": {
+            "road": "ถนนโชตนา",
+            "residential": "เชียงดาว",
+            "hamlet": "บ้านแม่ก๊ะ",
+            "town": "เชียงดาว",
+            "municipality": "แม่นะ",
+            "county": "อำเภอเชียงดาว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "37",
+        "dustboy_id": "DustBoy H025",
+        "dustboy_uri": "hph1",
+        "dustboy_name": "รพ.ส่งเสริมสุขภาพ เขต1 ต.ช้างคลาน อ.เมืองเชียงใหม่ จ.เชียงใหม่",
+        "dustboy_name_en": "Health Promoting Hospital 1, Chiang Mai",
+        "dustboy_lat": "18.772478",
+        "dustboy_lon": "98.995551",
+        "address": {
+            "amenity": "โรงพยาบาลส่งเสริมสุขภาพเชียงใหม่",
+            "road": "ถนนเวียงพิงค์",
+            "suburb": "แขวงเม็งราย",
+            "city_district": "ตำบลช้างคลาน",
+            "city": "เทศบาลนครเชียงใหม่",
+            "municipality": "ป่าแดด",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50100",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "38",
+        "dustboy_id": "DustBoy H001",
+        "dustboy_uri": "pai2",
+        "dustboy_name": "รพ.ปาย ต.เวียงใต้ อ.ปาย จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Pai Hospital, Tambon Wiang Tai, Amphur Pai, Mae Hong Son",
+        "dustboy_lat": "19.36219202482525",
+        "dustboy_lon": "98.43767628981094",
+        "address": {
+            "road": "มส.5151",
+            "hamlet": "บ้านน้ำฮู",
+            "village": "บ้านใหม่สหสัมพันธ์",
+            "county": "อำเภอปาย",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "postcode": "58130",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "75",
+        "dustboy_id": "DustBoy075",
+        "dustboy_uri": "DustBoy075",
+        "dustboy_name": "สสจ.เชียงราย ต.ท่าสาย อ.เมือง จ.เชียงราย",
+        "dustboy_name_en": "Chiang Rai Public Health Office, Tambon Tha Sai, Amphur Mueang, Chiang Rai",
+        "dustboy_lat": "19.8487748",
+        "dustboy_lon": "99.8604805",
+        "address": {
+            "road": "1020",
+            "village": "บ้านหนองยาว",
+            "municipality": "ท่าสาย",
+            "county": "อำเภอเมืองเชียงราย",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "85",
+        "dustboy_id": "DustBoy085",
+        "dustboy_uri": "kohchanghos",
+        "dustboy_name": "รพ.สต.เกาะช้าง ต.เกาะช้าง อ.แม่สาย จ.เชียงราย",
+        "dustboy_name_en": "Koh Chang (Sub-district Health Promoting Hospital), Tambon Koh Chang, Amphur Mae Sai, Chiang Rai",
+        "dustboy_lat": "20.421067",
+        "dustboy_lon": "99.982670",
+        "address": {
+            "road": "ถนนเหมืองแดง",
+            "village": "บ้านสันนา",
+            "town": "อำเภอแม่สาย",
+            "municipality": "แม่สายมิตรภาพ",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "89",
+        "dustboy_id": "DustBoy089",
+        "dustboy_uri": "phrao",
+        "dustboy_name": "รพ.พร้าว ต.เวียง อ.พร้าว จ.เชียงใหม่",
+        "dustboy_name_en": "Phrao Hospital, Tambon Wiang, Amphur Phrao, Chiang Mai",
+        "dustboy_lat": "19.367391",
+        "dustboy_lon": "99.200064",
+        "address": {
+            "amenity": "โรงพยาบาลพร้าว",
+            "road": "เขื่อนเพชร ซอย 2",
+            "neighbourhood": "บ้านแจ่งกู่เรือง",
+            "town": "พร้าว",
+            "municipality": "บ้านโป่ง",
+            "county": "อำเภอพร้าว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "199",
+        "dustboy_id": " Pro199 ",
+        "dustboy_uri": "pro199",
+        "dustboy_name": "รพ.ป่าแดด ต.ป่าแดด อ.ป่าแดด จ. เชียงราย",
+        "dustboy_name_en": "Pa Daet Hospital, Chiang Rai",
+        "dustboy_lat": "19.508281732459178",
+        "dustboy_lon": "99.99097574602811",
+        "address": {
+            "road": "1126",
+            "neighbourhood": "บ้านป่าแดด",
+            "town": "ป่าแดด",
+            "municipality": "สันมะค่า",
+            "county": "อำเภอป่าแดด",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "postcode": "57190",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2110",
+        "dustboy_id": "DB-BLack_210",
+        "dustboy_uri": "DBBlack210",
+        "dustboy_name": "อาคารอเนกประสงค์ของหมู่บ้านคุรุสภา หมู่ที่ 10 ตำบลสันนาเม็ง อ.สันทราย จ.เชียงใหม่ ",
+        "dustboy_name_en": "San Na Meng, San Sai District, Chiang Mai ",
+        "dustboy_lat": "18.83383039",
+        "dustboy_lon": "99.0643065",
+        "address": {
+            "residential": "บ้านคุรุสภา",
+            "hamlet": "บ้านร้องบอนใต้",
+            "village": "บ้านหลักปัน",
+            "municipality": "สันนาเม็ง",
+            "county": "อำเภอสันทราย",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50210",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2131",
+        "dustboy_id": "DB-BLack_231",
+        "dustboy_uri": "sribuaban",
+        "dustboy_name": "เทศบาลตำบลศรีบัวบาน ต.ศรีบัวบาน อ.เมืองลำพูน จ.ลำพูน",
+        "dustboy_name_en": "Sribuaban Subdistrict Municipality, Lamphune",
+        "dustboy_lat": "18.519563",
+        "dustboy_lon": "99.082056",
+        "address": {
+            "village": "บ้านจำบอน",
+            "municipality": "ศรีบัวบาน",
+            "county": "อำเภอเมืองลำพูน",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "postcode": "51000",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2138",
+        "dustboy_id": "DB-BLack_238",
+        "dustboy_uri": "black238",
+        "dustboy_name": "รพ.เชียงรายประชานุเคราะห์ ต.รอบเวียง อ.เมือง จ.เชียงราย",
+        "dustboy_name_en": "Chiang Rai Prachanukroh Hospital, Tambon Wiang, Amphur Mueang, Chiang Rai",
+        "dustboy_lat": "19.9009819",
+        "dustboy_lon": "99.8289068",
+        "address": {
+            "amenity": "โรงพยาบาล เชียงรายประชานุเคราะห์",
+            "house_number": "1039",
+            "road": "ถนนสถานพยาบาล",
+            "neighbourhood": "สันสุด",
+            "suburb": "ราชโยธา",
+            "village": "เวียง",
+            "city": "เทศบาลนครเชียงราย",
+            "municipality": "ท่าสาย",
+            "county": "อำเภอเมืองเชียงราย",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "postcode": "57000",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2208",
+        "dustboy_id": "DB-BLack-308",
+        "dustboy_uri": "DB-BLack-308",
+        "dustboy_name": "ศูนย์พัฒนาการจัดสวัสดิการสังคมผู้สูงอายุจังหวัดลำปาง ต.นิคมพัฒนา อ.เมืองลำปาง จ.ลำปาง",
+        "dustboy_name_en": "Lampang Provincial Elderly Social Welfare Development Center, Nikhom Phatthana Subdistrict, Mueang Lampang District, Lampang Province",
+        "dustboy_lat": "18.418525",
+        "dustboy_lon": "99.543508",
+        "address": {
+            "road": "1035",
+            "municipality": "ต้นธงชัย",
+            "county": "อำเภอเมืองลำปาง",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2209",
+        "dustboy_id": "DB-BLack-309",
+        "dustboy_uri": "DB-BLack-309",
+        "dustboy_name": "รร.อนุบาลแม่เมาะ (Outdoor) ต.แม่เมาะ อ.แม่เมาะ จ.ลำปาง",
+        "dustboy_name_en": "Mae Moh Kindergarten School (Outdoor), Mae Moh Subdistrict, Mae Moh District, Lampang Province",
+        "dustboy_lat": "18.2763",
+        "dustboy_lon": "99.64604",
+        "address": {
+            "amenity": "โรงเรียนอนุบาลแม่เมาะ",
+            "road": "ถนนลำปาง-แม่เมาะ",
+            "neighbourhood": "แม่เมาะพัฒนา",
+            "town": "แม่เมาะ",
+            "municipality": "แม่เมาะ",
+            "county": "อำเภอแม่เมาะ",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2210",
+        "dustboy_id": "DB-BLack-310",
+        "dustboy_uri": "DB-BLack-310",
+        "dustboy_name": "ศูนย์พัฒนาเด็กเล็ก (Outdoor) อบต.นาสัก ต.นาสัก อ.แม่เมาะ จ.ลำปาง",
+        "dustboy_name_en": "Child Development Center, Na Sak Subdistrict Administrative Organization (Outdoor), Na Sak Subdistrict, Mae Mo District, Lampang Province",
+        "dustboy_lat": "18.31890769287115",
+        "dustboy_lon": "99.85434136190965",
+        "address": {
+            "village": "Ban Na Sak",
+            "county": "อำเภอแม่เมาะ",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2211",
+        "dustboy_id": "DB-BLack-311",
+        "dustboy_uri": "DB-BLack-311",
+        "dustboy_name": "ศูนย์พัฒนาเด็กเล็ก อบต.สบป้าด ต.สบป้าด อ.แม่เมาะ จ.ลำปาง",
+        "dustboy_name_en": "Child Development Center, Sop Pad Subdistrict Administrative Organization, Sop Pad Subdistrict, Mae Mo District, Lampang Province",
+        "dustboy_lat": "18.26502476177248",
+        "dustboy_lon": "99.76277230128883",
+        "address": {
+            "office": "อบต.สบป้าด",
+            "road": "1348",
+            "municipality": "แม่เมาะ",
+            "county": "อำเภอแม่เมาะ",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2212",
+        "dustboy_id": "DB-BLack-312",
+        "dustboy_uri": "DB-BLack-312",
+        "dustboy_name": "โรงเรียนแม่เมาะวิทยา ต.แม่เมาะ อ.แม่เมาะ จ.ลำปาง",
+        "dustboy_name_en": "Mae Mo Wittaya School, Mae Mo Subdistrict, Mae Mo District, Lampang Province",
+        "dustboy_lat": "18.278701",
+        "dustboy_lon": "99.654477",
+        "address": {
+            "amenity": "โรงเรียนแม่เมาะวิทยา",
+            "road": "ถนนลำปาง-แม่เมาะ",
+            "neighbourhood": "แม่เมาะพัฒนา",
+            "town": "แม่เมาะ",
+            "municipality": "แม่เมาะ",
+            "county": "อำเภอแม่เมาะ",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2214",
+        "dustboy_id": "DB-BLack_314",
+        "dustboy_uri": "DB-BLack_314",
+        "dustboy_name": "CR001 ต.บ้านแหวน (Outdoor) อ.หางดง จ.เชียงใหม่",
+        "dustboy_name_en": "CR001 Baan Waen (Outdoor), Hang Dong District, Chiang Mai Province",
+        "dustboy_lat": "18.691161",
+        "dustboy_lon": "98.9536681",
+        "address": {
+            "hamlet": "บ้านกลาง หมุ่ 9",
+            "village": "บ้านต้นไฮ",
+            "municipality": "บ้านแหวน",
+            "county": "อำเภอหางดง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50230",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2217",
+        "dustboy_id": "DB-BLack_317",
+        "dustboy_uri": "DB-BLack_317",
+        "dustboy_name": "CR002 ต.บ้านตลาดใหญ่ (Outdoor) อ.ดอยสะเก็ด จ.เชียงใหม่",
+        "dustboy_name_en": "CR002 Baan Talat Yai (Outdoor), Doi Saket District, Chiang Mai Province",
+        "dustboy_lat": "18.81074",
+        "dustboy_lon": "99.1215571",
+        "address": {
+            "hamlet": "บ้านเเม่ก๊ะ",
+            "village": "บ้านแม่จองใต้",
+            "municipality": "ตลาดใหญ่",
+            "county": "อำเภอดอยสะเก็ด",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50220",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2221",
+        "dustboy_id": "DB-Black-321",
+        "dustboy_uri": "black321",
+        "dustboy_name": "โรงเรียนบ้านฮ่อมต้อ (Outdoor) ต.ลี้ อ.ลี้ จ. ลำพูน",
+        "dustboy_name_en": "Ban Hom To School, Li Subdistrict, Li District, Lamphun Province",
+        "dustboy_lat": "17.8029",
+        "dustboy_lon": "98.9618",
+        "address": {
+            "village": "บ้านใหม่ศิวิไล",
+            "city": "ตำบลลี้",
+            "municipality": "เทศบาลตำบลลี้",
+            "county": "อำเภอลี้",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2223",
+        "dustboy_id": "DB-BLack_323",
+        "dustboy_uri": "DB-BLack_323",
+        "dustboy_name": "CR005 (Outdoor)  ต.แม่ปูคา อ.สันกำแพง จ.เชียงใหม่ ",
+        "dustboy_name_en": "CR005  (Outdoor) Mae Puka Subdistrict, San Kamphaeng District, Chiang Mai Province",
+        "dustboy_lat": "18.779235",
+        "dustboy_lon": "99.12995",
+        "address": {
+            "road": "บ้านปงป่าเอื้อง ซอย 8",
+            "village": "บ้านปงป่าเอื้อง",
+            "municipality": "แม่ปูคา",
+            "county": "อำเภอสันกำแพง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50220",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2224",
+        "dustboy_id": "DB-BLack_324",
+        "dustboy_uri": "DB-BLack_324",
+        "dustboy_name": "CR004 (Outdoor) ต.แม่ปูคา อ.สันกำแพง จ.เชียงใหม่",
+        "dustboy_name_en": "CR004 (Outdoor) Mae Puka Subdistrict, San Kamphaeng District, Chiang Mai Province",
+        "dustboy_lat": "18.782373",
+        "dustboy_lon": "99.130623",
+        "address": {
+            "house_number": "201",
+            "road": "บ้านปงป่าเอื้อง ซอย 15",
+            "hamlet": "บ้านป่าสักยาว",
+            "village": "บ้านปงป่าเอื้อง",
+            "municipality": "แม่ปูคา",
+            "county": "อำเภอสันกำแพง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50220",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2225",
+        "dustboy_id": "DB-BLack_325",
+        "dustboy_uri": "DB-BLack_325",
+        "dustboy_name": "CR008 (Outdoor) ต.สันกำแพง อ.สันกำแพง จ.เชียงใหม่ ",
+        "dustboy_name_en": "CR008 (Outdoor) San Kamphaeng Subdistrict, San Kamphaeng District, Chiang Mai Province ",
+        "dustboy_lat": "18.745304",
+        "dustboy_lon": "99.096687",
+        "address": {
+            "amenity": "Brewology 89 Coffee",
+            "house_number": "1/12 moo12",
+            "road": "สันต้นบง ซอย 3",
+            "hamlet": "บ้านปูคาหน่อส้ม",
+            "village": "บ้านสันต้นบง",
+            "municipality": "อำเภอสันกำแพง",
+            "county": "อำเภอสันกำแพง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50130",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2226",
+        "dustboy_id": "DB-BLack_326",
+        "dustboy_uri": "black326",
+        "dustboy_name": "CR018 (Outdoor)  ต.หนองหาร อ.สันทราย จ.เชียงใหม่",
+        "dustboy_name_en": "CR018 (Outdoor), Nong Han Subdistrict, San Sai District, Chiang Mai Province",
+        "dustboy_lat": "18.9260684648323",
+        "dustboy_lon": "98.9939103245365",
+        "address": {
+            "hamlet": "บ้านดอยน้อย",
+            "town": "แม่โจ้",
+            "municipality": "เทศบาลเมืองแม่โจ้",
+            "county": "อำเภอสันทราย",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50290",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2229",
+        "dustboy_id": "DB-BLack_329",
+        "dustboy_uri": "DB-BLack_329",
+        "dustboy_name": "CR015 (Outdoor) ต.สันกำแพง อ.สันกำแพง จ.เชียงใหม่ ",
+        "dustboy_name_en": "CR015 (Outdoor) San Kamphaeng Subdistrict, San Kamphaeng District, Chiang Mai Province ",
+        "dustboy_lat": "18.755857",
+        "dustboy_lon": "99.084925",
+        "address": {
+            "road": "ซอย 12",
+            "hamlet": "บ้านแม่โฮม",
+            "village": "บ้านสันมะฮกฟ้า",
+            "municipality": "ต้นเปา",
+            "county": "อำเภอสันกำแพง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50130",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2232",
+        "dustboy_id": "DB-BLack_332",
+        "dustboy_uri": "DB-BLack_332",
+        "dustboy_name": "CR006 (Outdoor)ต.บวกค้าง อ.สันกำแพง จ.เชียงใหม่ ",
+        "dustboy_name_en": "CR006 (Outdoor) Buak Khang Subdistrict, San Kamphaeng District, Chiang Mai Province ",
+        "dustboy_lat": "18.670503",
+        "dustboy_lon": "99.094027",
+        "address": {
+            "village": "บ้านร้องกองข้าว",
+            "municipality": "บ้านธิ",
+            "county": "อำเภอบ้านธิ",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "postcode": "51180",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2233",
+        "dustboy_id": "DB-BLack_333",
+        "dustboy_uri": "DB-BLack_333",
+        "dustboy_name": "CR019 (Outdoor)  ต.สันทรายน้อย อ.สันทราย จ.เชียงใหม่",
+        "dustboy_name_en": "CR019 (Outdoor)   San Sai Noi Subdistrict, San Sai District, Chiang Mai Province ",
+        "dustboy_lat": "18.83377111",
+        "dustboy_lon": "99.03058965",
+        "address": {
+            "house_number": "18/66",
+            "road": "ซอย 7",
+            "residential": "หมู่บ้านสันทรายสิริ",
+            "town": "สันทรายหลวง",
+            "municipality": "เทศบาลตำบลสันทรายหลวง",
+            "county": "อำเภอสันทราย",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50210",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "2236",
+        "dustboy_id": "DB-BLack_336",
+        "dustboy_uri": "DB-BLack_336",
+        "dustboy_name": "CR017 (Outdoor)  ต.สันกลาง อ.สันกำแพง จ.เชียงใหม่ ",
+        "dustboy_name_en": "CR017 (Outdoor)  San Klang Subdistrict, San Kamphaeng District, Chiang Mai Province (Outdoor)",
+        "dustboy_lat": "18.766949",
+        "dustboy_lon": "99.056724",
+        "address": {
+            "road": "บ้านสันกลางใต้ หมู่ 5 ซอย 3",
+            "neighbourhood": "บ้านสันกลางใต้",
+            "town": "สันกลาง",
+            "municipality": "ต้นเปา",
+            "county": "อำเภอสันกำแพง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50130",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3111",
+        "dustboy_id": "NC-011",
+        "dustboy_uri": "ssw1",
+        "dustboy_name": "หน้าห้องกลุ่มงานอาชีวเวชกรรม รพ.ศรีสังวาลย์ อ.เมือง จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Occupational Medicine department Srisangwan Hospital, Maehongson",
+        "dustboy_lat": "19.298647",
+        "dustboy_lon": "97.971341",
+        "address": {
+            "town": "แม่ฮ่องสอน",
+            "county": "อำเภอเมืองแม่ฮ่องสอน",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "postcode": "58000",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3112",
+        "dustboy_id": "NC-012",
+        "dustboy_uri": "NC-012",
+        "dustboy_name": "บริษัท ฮาร์ท ทู เอิร์ธ จำกัด ต.บ้านแหวน อ.หางดง จ.เชียงใหม่",
+        "dustboy_name_en": "Heart to Earth Co., Ltd., Ban Waen Subdistrict, Hang Dong District, Chiang Mai Province.",
+        "dustboy_lat": "18.698035246404757",
+        "dustboy_lon": "98.94241849592191",
+        "address": {
+            "residential": "ธารประดับดอยวิลล่า",
+            "village": "บ้านต้นไฮ",
+            "municipality": "บ้านแหวน",
+            "county": "อำเภอหางดง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50230",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3115",
+        "dustboy_id": "NC-015",
+        "dustboy_uri": "NC-015",
+        "dustboy_name": "ห้างหุ้นส่วนจำกัด ต.ดริ๊งค์ ต.สันกลาง อ.สันกำแพง จ.เชียงใหม่",
+        "dustboy_name_en": "T.Drink Limited Partnership San Klang Subdistrict, San Kamphaeng District, Chiang Mai Province",
+        "dustboy_lat": "18.781936056940363",
+        "dustboy_lon": "99.05067278650584",
+        "address": {
+            "road": "บ้านมอญ หมู2 ซอย 3",
+            "town": "สันกลาง",
+            "municipality": "ต้นเปา",
+            "county": "อำเภอสันกำแพง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50000",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3116",
+        "dustboy_id": "NC-016",
+        "dustboy_uri": "Wianghaenghos",
+        "dustboy_name": "โรงพยาบาลเวียงแหง อ.เวียงแหง จ.เชียงใหม่",
+        "dustboy_name_en": "Wiang Haeng Hospital, Chiang Mai",
+        "dustboy_lat": "19.560701870696757",
+        "dustboy_lon": "98.63519183068554",
+        "address": {
+            "road": "1322",
+            "residential": "เวียงแหง",
+            "village": "Ban Pa Phai",
+            "municipality": "แสนไห",
+            "district": "อำเภอเวียงแหง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50350",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3119",
+        "dustboy_id": "NC-019",
+        "dustboy_uri": "NC-019",
+        "dustboy_name": "โรงเรียนนาสัก หมู่บ้านนาสัก ต.นาสัก อ.แม่เมาะ จ.ลำปาง",
+        "dustboy_name_en": "Nasak School, Nasak Village, Tambon Nasak, Amphur Maemoh, Lampang",
+        "dustboy_lat": "18.34913",
+        "dustboy_lon": "99.85689",
+        "address": {
+            "village": "Ban Na Sak",
+            "county": "อำเภอแม่เมาะ",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3131",
+        "dustboy_id": "NC-031",
+        "dustboy_uri": "NC-031",
+        "dustboy_name": "โรงเรียนบ้านแม่ส้าน หมู่บ้านบ้านแม่ส้าน ต.บ้านดง อ.แม่เมาะ จ.ลำปาง",
+        "dustboy_name_en": "Banmaesarn School, Banmaesarn Village, Tambon Bamdong, Amphur Maemoh, Lampang",
+        "dustboy_lat": "18.626830590080573",
+        "dustboy_lon": "99.77390286858741",
+        "address": {
+            "county": "อำเภอแจ้ห่ม",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3145",
+        "dustboy_id": "NC-045",
+        "dustboy_uri": "NC-045",
+        "dustboy_name": "จุดบริการตำรวจท่องเทียว ต.ศรีภูมิ อ.เมืองเชียงใหม่ จ.เชียงใหม่",
+        "dustboy_name_en": "Tourist Information Center (tha pae), Phitsanulok",
+        "dustboy_lat": "18.78813359300625",
+        "dustboy_lon": "98.98596912525548",
+        "address": {
+            "road": "ถนนราชดำเนิน",
+            "suburb": "แขวงศรีวิชัย",
+            "city_district": "ตำบลศรีภูมิ",
+            "city": "เทศบาลนครเชียงใหม่",
+            "municipality": "ฟ้าฮ่าม",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "55520",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3168",
+        "dustboy_id": "NC-068",
+        "dustboy_uri": "NC-068",
+        "dustboy_name": "ศูนย์ฟื้นฟูสมรรถภาพผู้มีภาวะพึ่งพิงตำบลร้องวัวแดง อ.สันกำแพง จ.เชียงใหม่",
+        "dustboy_name_en": "Rehabilitation Center for Dependents, Rong Wua Daeng Subdistrict, San Kamphaeng District, Chiang Mai Province",
+        "dustboy_lat": "18.7421001",
+        "dustboy_lon": "99.169332",
+        "address": {
+            "road": "1006",
+            "hamlet": "ร้องวัวแดง",
+            "village": "บ้านใหม่พัฒนา",
+            "municipality": "อำเภอสันกำแพง",
+            "county": "อำเภอสันกำแพง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3176",
+        "dustboy_id": "NC-076",
+        "dustboy_uri": "NC-076",
+        "dustboy_name": "บริษัท เชอวาล เทคโนโลยี่ จำกัด ต.แช่ช้าง อ.สันกำแพง จ.เชียงใหม่",
+        "dustboy_name_en": "Cheval Technology Co., Ltd. Chaechang, San Kamphaeng District, Chiang Mai",
+        "dustboy_lat": "18.71722014798745",
+        "dustboy_lon": "99.14964624417642",
+        "address": {
+            "hamlet": "บ้านบวกแหย่ง",
+            "village": "บ้านดงขี้เหล็ก",
+            "municipality": "อำเภอสันกำแพง",
+            "county": "อำเภอสันกำแพง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3178",
+        "dustboy_id": "NC-078",
+        "dustboy_uri": "NC-078",
+        "dustboy_name": "บริษัท ไบโอ ครีโนเวชั่น จำกัด ต.สันกลาง อ.สันป่าตอง จ.เชียงใหม่",
+        "dustboy_name_en": "Bio Crenovation Co., Ltd. San Klang Subdistrict, San Pa Tong District, Chiang Mai Province",
+        "dustboy_lat": "18.672205344185564",
+        "dustboy_lon": "98.88099005769877",
+        "address": {
+            "village": "บัานห้วยส้ม",
+            "municipality": "บ้านแม",
+            "county": "อำเภอสันป่าตอง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50120",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3237",
+        "dustboy_id": "NC-137",
+        "dustboy_uri": "NC-137",
+        "dustboy_name": "โรงพยาบาลแม่ตื่น ต.แม่ตื่น อ.อมก๋อย จ.เชียงใหม่",
+        "dustboy_name_en": "Maetuen Hospital, Omkoi, Chiang Mai",
+        "dustboy_lat": "17.40323192",
+        "dustboy_lon": "98.45616854",
+        "address": {
+            "road": "1099",
+            "hamlet": "บ้านใหม่ปางเดิม",
+            "village": "แม่ตื่น",
+            "municipality": "แม่ตื่น",
+            "county": "อำเภออมก๋อย",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3252",
+        "dustboy_id": "NC-152",
+        "dustboy_uri": "NC-152",
+        "dustboy_name": "รพ.สต.แม่ลาว อ.เชียงคำ จ.พะเยา",
+        "dustboy_name_en": "Mae lao subdistrict heatth promoting hospital",
+        "dustboy_lat": "19.45484",
+        "dustboy_lon": "100.34713",
+        "address": {
+            "road": "1148",
+            "village": "Ban Pha Lad",
+            "municipality": "ฝายกวาง",
+            "county": "อำเภอเชียงคำ",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3254",
+        "dustboy_id": "NC-154",
+        "dustboy_uri": "NC-154",
+        "dustboy_name": "รพ.สต.บ้านหนองป่าแพะ ต.ร่มเย็น อ.เชียงคำ จ.พะเยา",
+        "dustboy_name_en": "Ban Nong Pa Phae Subdistrict Health Promoting Hospital, Rom Yen Subdistrict, Chiang Kham District, Phayao Province",
+        "dustboy_lat": "19.56215610878421",
+        "dustboy_lon": "100.36477274602342",
+        "address": {
+            "road": "1210",
+            "municipality": "เวียง",
+            "county": "อำเภอเชียงคำ",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "postcode": "56110",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3256",
+        "dustboy_id": "NC-156",
+        "dustboy_uri": "NC-156",
+        "dustboy_name": "รพ.สต.ท่าวังทอง  อ.มือง จ.พะเยา",
+        "dustboy_name_en": "Tha Wang Thong subdistrict Health Promotion Hospital, Phayao",
+        "dustboy_lat": "19.196881",
+        "dustboy_lon": "99.941231",
+        "address": {
+            "village": "บ้านศาลา",
+            "city": "ตำบลท่าวังทอง",
+            "municipality": "เทศบาลตำบลท่าวังทอง",
+            "county": "อำเภอเมืองพะเยา",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3258",
+        "dustboy_id": "NC-158",
+        "dustboy_uri": "NC-158",
+        "dustboy_name": "รพ.สต.ดอกคำใต้ ต.ดอกคำใต้ อ.ดอกคำใต้ จ.พะเยา",
+        "dustboy_name_en": "Dok Khamtai Subdistrict Health Promoting Hospital, Dok Khamtai Subdistrict, Dok Khamtai District, Phayao Province",
+        "dustboy_lat": "19.163597204671166",
+        "dustboy_lon": "99.98369462154012",
+        "address": {
+            "town": "ดอกคำใต้",
+            "municipality": "หนองหล่ม",
+            "county": "อำเภอดอกคำใต้",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "postcode": "56120",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3260",
+        "dustboy_id": "NC-160",
+        "dustboy_uri": "NC-160",
+        "dustboy_name": "รพ.สต.ดงสุวรรณ อ.ดอกคำใต้ จ.พะเยา",
+        "dustboy_name_en": "Dong Suwan Health Promoting Hospital",
+        "dustboy_lat": "19.24152",
+        "dustboy_lon": "100.04922",
+        "address": {
+            "village": "บ้านดง",
+            "municipality": "ห้วยลาน",
+            "county": "อำเภอดอกคำใต้",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3261",
+        "dustboy_id": "NC-161",
+        "dustboy_uri": "NC-161",
+        "dustboy_name": "เทศบาลตำบลสันป่าม่วง  อ.เมืองพะเยา จ.พะเยา",
+        "dustboy_name_en": "San Pa Muang Sub District Administration Organization , Mueang Phayao District, Phayao",
+        "dustboy_lat": "19.177165",
+        "dustboy_lon": "99.834642",
+        "address": {
+            "office": "เทศบาลตบลสันป่าม่วง",
+            "house_number": "129",
+            "locality": "หมู่ 6",
+            "city": "ตำบลสันป่าม่วง",
+            "municipality": "สันป่าม่วง",
+            "county": "อำเภอเมืองพะเยา",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "postcode": "56000",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3264",
+        "dustboy_id": "NC-164",
+        "dustboy_uri": "NC-164",
+        "dustboy_name": "เทศบาลเมืองพะเยา  อ.เมือง จ.พะเยา",
+        "dustboy_name_en": "Phayao Town Municipality Office, Phayao",
+        "dustboy_lat": "19.1651",
+        "dustboy_lon": "99.903276",
+        "address": {
+            "town": "พะเยา",
+            "city": "ตำบลเวียง",
+            "municipality": "เทศบาลเมืองพะเยา",
+            "county": "อำเภอเมืองพะเยา",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "postcode": "56000",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3265",
+        "dustboy_id": "NC-165",
+        "dustboy_uri": "NC-165",
+        "dustboy_name": "เทศบาลตำบลงิม อ.ปง จ.พะเยา",
+        "dustboy_name_en": "Ngim Subdistrict Municipality, Phayao",
+        "dustboy_lat": "19.26654",
+        "dustboy_lon": "100.36773",
+        "address": {
+            "village": "Ban Kao Ngao Mai",
+            "municipality": "งิม",
+            "county": "อำเภอปง",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3267",
+        "dustboy_id": "NC-167",
+        "dustboy_uri": "NC-167",
+        "dustboy_name": "รพ.สต.บ้านฮวก ต.ภูซาง อ.ภูซาง จ.พะเยา",
+        "dustboy_name_en": "Ban Huak Subdistrict Health promoting Hospital, Phayao",
+        "dustboy_lat": "19.684366",
+        "dustboy_lon": "100.413912",
+        "address": {
+            "village": "บ้านฮวก",
+            "county": "อำเภอภูซาง",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3268",
+        "dustboy_id": "NC-168",
+        "dustboy_uri": "NC-168",
+        "dustboy_name": "รพ.สต.บ้านฝายกวาง  อ.เชียงคำ จ.พะเยา",
+        "dustboy_name_en": "Ban Fai Kwang Tambon Health Promotion Hospital, Phayao",
+        "dustboy_lat": "19.476923",
+        "dustboy_lon": "100.332072",
+        "address": {
+            "village": "บ้านฝายกวาง",
+            "municipality": "ฝายกวาง",
+            "county": "อำเภอเชียงคำ",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3270",
+        "dustboy_id": "NC-170",
+        "dustboy_uri": "NC-170",
+        "dustboy_name": "โรงพยาบาลภูซาง อ.ภูซาง จ.พะเยา",
+        "dustboy_name_en": "Phu Sang Hospital, Phayao",
+        "dustboy_lat": "19.6101513",
+        "dustboy_lon": "100.3369081",
+        "address": {
+            "road": "พย.4010",
+            "town": "สบบง",
+            "county": "อำเภอภูซาง",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3272",
+        "dustboy_id": "NC-172",
+        "dustboy_uri": "NC-172",
+        "dustboy_name": "โรงพยาบาลส่งเสริมสุขภาพตำบลควร อ.ปง จ.พะเยา",
+        "dustboy_name_en": " Khuan Health health promoting hospital, Phayao",
+        "dustboy_lat": "19.1591794779116",
+        "dustboy_lon": "100.32152642318447",
+        "address": {
+            "village": "Ban Pa Kha",
+            "municipality": "แม่ยม",
+            "county": "อำเภอปง",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "postcode": "56140",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3274",
+        "dustboy_id": "NC-174",
+        "dustboy_uri": "NC-174",
+        "dustboy_name": "รพ.สต.บ้านสักลอ อ.จุน จ.พะเยา",
+        "dustboy_name_en": "Ban Sak Lo subdistrict health promoting hospital, Phayao",
+        "dustboy_lat": "19.521310741423473",
+        "dustboy_lon": "100.10119565397656",
+        "address": {
+            "village": "บ้านสักลอ",
+            "municipality": "หงส์หิน",
+            "county": "อำเภอจุน",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3276",
+        "dustboy_id": "NC-176",
+        "dustboy_uri": "NC-176",
+        "dustboy_name": "รพ.สต.ทุ่งกล้วย  อ.ภูซาง จ.พะเยา",
+        "dustboy_name_en": "Thung Kluai Subdistrict  health Promoting Hostpital",
+        "dustboy_lat": "19.5892366867428",
+        "dustboy_lon": "100.374089721886",
+        "address": {
+            "county": "อำเภอภูซาง",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3278",
+        "dustboy_id": "NC-178",
+        "dustboy_uri": "NC-178",
+        "dustboy_name": "รพ.สต.บ้านบ่อเบี้ย อ.เชียงม่วน จ.พะเยา",
+        "dustboy_name_en": "Ban Bo Bia Subdisrict Health Promoting Hospital",
+        "dustboy_lat": "18.84875141739056",
+        "dustboy_lon": "100.16952775397657",
+        "address": {
+            "village": "บ้านบ่อเบี้ย",
+            "municipality": "เชียงม่วน",
+            "county": "อำเภอเชียงม่วน",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3279",
+        "dustboy_id": "NC-179",
+        "dustboy_uri": "NC-179",
+        "dustboy_name": "สำนักงานสาธารณสุขจังหวัดแม่ฮ่องสอน ต.จองคำ อ.เมือง จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Mae Hong Son Provincial Public Health Office, Chong Kham Subdistrict, Mueang District, Mae Hong Son Province",
+        "dustboy_lat": "19.2871508722744",
+        "dustboy_lon": "97.9630168536774",
+        "address": {
+            "road": "ถนนขุนลุมประพาส",
+            "town": "แม่ฮ่องสอน",
+            "county": "อำเภอเมืองแม่ฮ่องสอน",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "postcode": "58000",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3281",
+        "dustboy_id": "NC-181",
+        "dustboy_uri": "NC-181",
+        "dustboy_name": " ศพด.บ้านกลาง เทศบาลตำบลลี้ อ.ลี้  จ.ลำพูน  ",
+        "dustboy_name_en": "Ban Klang Child Development Center, Li Subdistrict Municipality, Li District, Lamphun Province",
+        "dustboy_lat": "17.7663",
+        "dustboy_lon": "98.9972",
+        "address": {
+            "amenity": "วัดบ้านกลาง",
+            "road": "106",
+            "city": "ตำบลลี้",
+            "municipality": "เทศบาลตำบลลี้",
+            "county": "อำเภอลี้",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3282",
+        "dustboy_id": "NC-182",
+        "dustboy_uri": "NC-182",
+        "dustboy_name": "เทศบาลตำบลทากาศ ต.ทากาศ อ.แม่ทา จ.ลำพูน",
+        "dustboy_name_en": "Thakat Subdistrict Municipality, Thakat Subdistrict, Mae Tha District, Lamphun.",
+        "dustboy_lat": "18.4161025",
+        "dustboy_lon": "99.0033274",
+        "address": {
+            "village": "บ้านทากาศ",
+            "municipality": "ทากาศ",
+            "county": "อำเภอแม่ทา",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3293",
+        "dustboy_id": "NC-193",
+        "dustboy_uri": "NC-193",
+        "dustboy_name": "รพ.สต.ตําบลหนองปลาสะวาย อ.บ้านโฮ่ง จ.ลำพูน",
+        "dustboy_name_en": "Nong Pla Sawai Subdistrict Health Promoting Hospital, Ban Hong District, Lamphun Province",
+        "dustboy_lat": "18.33706",
+        "dustboy_lon": "98.70776",
+        "address": {
+            "road": "ลพ.3004",
+            "village": "บ้านหนองปลาสะวาย",
+            "municipality": "ศรีเตี้ย",
+            "county": "อำเภอบ้านโฮ่ง",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3304",
+        "dustboy_id": "NC-204",
+        "dustboy_uri": "NC-204",
+        "dustboy_name": "รพ.เชียงแสน  อ.เชียงแสน  จ.เชียงราย",
+        "dustboy_name_en": "Chiang Saen hospital, Chiang Rai",
+        "dustboy_lat": "20.272101",
+        "dustboy_lon": "100.077606",
+        "address": {
+            "amenity": "โรงพยาบาลเชียงแสน",
+            "house_number": "104",
+            "road": "ถนนพหลโยธิน",
+            "neighbourhood": "เจดีย์หลวง",
+            "village": "บ้านสันต้นเปา",
+            "town": "อำเภอเชียงแสน",
+            "municipality": "เวียง",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "postcode": "57150",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3305",
+        "dustboy_id": "NC-205",
+        "dustboy_uri": "NC-205",
+        "dustboy_name": "รพ.สต.สถาน อ.เชียงของ จ.เชียงราย",
+        "dustboy_name_en": "Sathan Tambon Health Promotion Hospital, Chiang rai",
+        "dustboy_lat": "20.21665",
+        "dustboy_lon": "100.37964",
+        "address": {
+            "village": "สถาน",
+            "municipality": "สถาน",
+            "county": "อำเภอเชียงของ",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "postcode": "57140",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3307",
+        "dustboy_id": "NC-207",
+        "dustboy_uri": "NC-207",
+        "dustboy_name": "ห้องประชุม รพ.สต. ห้วยซ้อ อ.เชียงของ จ.เชียงราย",
+        "dustboy_name_en": "Huai so Health Center, Chiang Rai",
+        "dustboy_lat": "20.04643",
+        "dustboy_lon": "100.29502",
+        "address": {
+            "village": "บ้านแก่น",
+            "municipality": "ห้วยซ้อ",
+            "county": "อำเภอเชียงของ",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3308",
+        "dustboy_id": "NC-208",
+        "dustboy_uri": "NC-208",
+        "dustboy_name": "องค์การบริหารส่วนตำบลทานตะวัน อ.พาน จ.เชียงราย",
+        "dustboy_name_en": "Thantawan subdistrict administrative organization, Chiang rai",
+        "dustboy_lat": "19.487",
+        "dustboy_lon": "99.794",
+        "address": {
+            "road": "ถนนบ้านท่าล่ม-หนองฮ่าง",
+            "village": "บ้านโปร่งเจริญ",
+            "municipality": "สันมะเค็ด",
+            "county": "อำเภอพาน",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3312",
+        "dustboy_id": "NC-212",
+        "dustboy_uri": "NC-212",
+        "dustboy_name": "รพ.เวียงเชียงรุ้ง อ.เวียงเชียงรุ้ง จ.เชียงราย",
+        "dustboy_name_en": "Wiang Chiang Rung Hospital, Chiang Rai",
+        "dustboy_lat": "20.01148",
+        "dustboy_lon": "100.05973",
+        "address": {
+            "town": "เวียงเชียงรุ้ง",
+            "county": "อำเภอเวียงเชียงรุ้ง",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3314",
+        "dustboy_id": "NC-214",
+        "dustboy_uri": "NC-214",
+        "dustboy_name": "ศูนย์บริการสาธารณสุขที่ 2 เทศบาลตำบลท่าข้าวเปลือก อ.แม่จัน  จ.เชียงราย",
+        "dustboy_name_en": "Tha Khao Plueak health service,2 Chiang rai",
+        "dustboy_lat": "20.1818179",
+        "dustboy_lon": "100.0616439",
+        "address": {
+            "village": "ผาเรือ",
+            "town": "อำเภอแม่จัน",
+            "municipality": "ท่าข้าวเปลือก",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3316",
+        "dustboy_id": "NC-216",
+        "dustboy_uri": "NC-216",
+        "dustboy_name": "องค์การบริหารส่วนตำบลเกาะช้าง  อ.แม่สาย จ.เชียงราย",
+        "dustboy_name_en": "Ko Chang Subdistrict Administrative Organization, Mae Sai District, Chiang Rai",
+        "dustboy_lat": "20.41623066327428",
+        "dustboy_lon": "99.9905355306823",
+        "address": {
+            "road": "ถนนเหมืองแดง",
+            "village": "บ้านสันนา",
+            "town": "อำเภอแม่สาย",
+            "municipality": "แม่สายมิตรภาพ",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3320",
+        "dustboy_id": "NC-220",
+        "dustboy_uri": "NC-220",
+        "dustboy_name": "โรงพยาบาลแม่จัน อ.แม่จัน จ.เชียงราย",
+        "dustboy_name_en": "Mae Chan Hospital, Chiang Rai",
+        "dustboy_lat": "20.13575",
+        "dustboy_lon": "99.86316",
+        "address": {
+            "village": "Ban Huai Wiang Wai",
+            "town": "อำเภอแม่จัน",
+            "municipality": "ป่าซาง",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3321",
+        "dustboy_id": "NC-221",
+        "dustboy_uri": "khuntan",
+        "dustboy_name": "รพ.ขุนตาล อ.ขุนตาล จ.เชียงราย",
+        "dustboy_name_en": "Khun Tan Hospital, Chiang Rai ",
+        "dustboy_lat": "19.911817925597",
+        "dustboy_lon": "100.29802263",
+        "address": {
+            "amenity": "โรงพยาบาลขุนตาล",
+            "road": "1020",
+            "village": "บ้านยางฮอมใหม่",
+            "municipality": "ยางฮอม",
+            "county": "อำเภอขุนตาล",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "postcode": "57340",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3322",
+        "dustboy_id": "NC-222",
+        "dustboy_uri": "NC-222",
+        "dustboy_name": "รพ.สต.ทานตะวัน อ.พาน จ.เชียงราย",
+        "dustboy_name_en": "Tambon Than Tawan Health Center, Chiang Rai",
+        "dustboy_lat": "19.4864809",
+        "dustboy_lon": "99.8209396",
+        "address": {
+            "road": "ชร.2009",
+            "village": "บ้านห้วยบง",
+            "municipality": "สันมะเค็ด",
+            "county": "อำเภอพาน",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3323",
+        "dustboy_id": "NC-223",
+        "dustboy_uri": "NC-223",
+        "dustboy_name": "โรงพยาบาลแม่ลาว อ.แม่ลาว  จ.เชียงราย",
+        "dustboy_name_en": "แม่ลาว Mae Lao Hospital, Chiang Rai",
+        "dustboy_lat": "19.76583",
+        "dustboy_lon": "99.73855",
+        "address": {
+            "amenity": "โรงพยาบาลแม่ลาว",
+            "road": "ซอย 4/2",
+            "town": "ป่าก่อดำ",
+            "municipality": "ดงมะดะ",
+            "county": "อำเภอแม่ลาว",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "postcode": "57250",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3324",
+        "dustboy_id": "NC-224",
+        "dustboy_uri": "NC-224",
+        "dustboy_name": "รพ.สต.บ้านโป่งพระบาท  อ.เมือง   จ.เชียงราย",
+        "dustboy_name_en": "Ban Pong Phra Bath health promoting hospital, Chiang Rai",
+        "dustboy_lat": "19.97833",
+        "dustboy_lon": "99.83619",
+        "address": {
+            "town": "บ้านดู่",
+            "municipality": "นางแล",
+            "county": "อำเภอเมืองเชียงราย",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "postcode": "57100",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3325",
+        "dustboy_id": "NC-225",
+        "dustboy_uri": "NC-225",
+        "dustboy_name": "รพ.สต.บ้านจะคือ อ.เมือง จ.เชียงราย",
+        "dustboy_name_en": "Ban Cha Khue health promoting hospital, Chiang Rai",
+        "dustboy_lat": "20.0318963085876",
+        "dustboy_lon": "99.5357517618664",
+        "address": {
+            "village": "บ้านจะคือ",
+            "county": "อำเภอเมืองเชียงราย",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3326",
+        "dustboy_id": "NC-226",
+        "dustboy_uri": "NC-226",
+        "dustboy_name": "อาคารระเบียงชมฟ้า รพ.แม่ฟ้าหลวง อ.แม่ฟ้าหลวง จ.เชียงราย",
+        "dustboy_name_en": "Mae Fa Luang Hospital, Chiang rai",
+        "dustboy_lat": "20.25078269970505",
+        "dustboy_lon": "99.65105508465886",
+        "address": {
+            "residential": "บ้านเทอดไทย",
+            "village": "บ้านหินแตก",
+            "county": "อำเภอแม่ฟ้าหลวง",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3327",
+        "dustboy_id": "NC-227",
+        "dustboy_uri": "NC-227",
+        "dustboy_name": "เทศบาลนครเชียงราย อ.เมือง จ.เชียงราย",
+        "dustboy_name_en": "Chiang Rai Municipality",
+        "dustboy_lat": "19.9097578",
+        "dustboy_lon": "99.8265627",
+        "address": {
+            "road": "ถนนอุตรกิจ",
+            "suburb": "ราชโยธา",
+            "village": "เวียง",
+            "city": "เทศบาลนครเชียงราย",
+            "municipality": "ท่าสาย",
+            "county": "อำเภอเมืองเชียงราย",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "postcode": "57000",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3330",
+        "dustboy_id": "NC-230",
+        "dustboy_uri": "NC-230",
+        "dustboy_name": "รพ.สต.บ้านป่าบง อ.พาน จ.เชียงราย",
+        "dustboy_name_en": "Ban PA Pong Health Center, Chiang Rai",
+        "dustboy_lat": "19.666392609117576",
+        "dustboy_lon": "99.7787649544552",
+        "address": {
+            "village": "บ้านดงตะเคียน",
+            "municipality": "สันมะเค็ด",
+            "county": "อำเภอพาน",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3331",
+        "dustboy_id": "NC-231",
+        "dustboy_uri": "NC-231",
+        "dustboy_name": "โรงพยาบาลสมเด็จพระญาณสังวร  อ.เวียงชัย จ.เชียงราย",
+        "dustboy_name_en": "Somdej Phra Yanasangwon Hospital, Chiang Rai",
+        "dustboy_lat": "19.86236",
+        "dustboy_lon": "99.90589",
+        "address": {
+            "road": "ถนนศรีเวียง",
+            "neighbourhood": "บ้านชัยนิเวศน์",
+            "village": "บ้านศรีเวียง",
+            "municipality": "สิริเวียงชัย",
+            "county": "อำเภอเวียงชัย",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3332",
+        "dustboy_id": "NC-232",
+        "dustboy_uri": "NC-232",
+        "dustboy_name": "รพ.สต.บ้านด้าย ต.บ้านด้าย อ.แม่สาย จ.เชียงราย",
+        "dustboy_name_en": "ฺBan dai health promoting hospital",
+        "dustboy_lat": "20.29396414631162",
+        "dustboy_lon": "99.94437159204688",
+        "address": {
+            "town": "อำเภอแม่สาย",
+            "municipality": "สายน้ำคำ",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3335",
+        "dustboy_id": "NC-235",
+        "dustboy_uri": "NC-235",
+        "dustboy_name": "เทศบาลตำบลเวียงพางคำ อ.แม่สาย จ.เชียงราย",
+        "dustboy_name_en": "Wiang Phang Kham Subdistrict Municipal Office",
+        "dustboy_lat": "20.403658078920937",
+        "dustboy_lon": "99.88555686872006",
+        "address": {
+            "amenity": "สำนักงานเทศบาลตำบลเวียงพางคำ",
+            "road": "ถนนพหลโยธิน",
+            "village": "บ้านน้ำจำ",
+            "town": "อำเภอแม่สาย",
+            "municipality": "เวียงพางคำ",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "postcode": "57130",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3338",
+        "dustboy_id": "NC-238",
+        "dustboy_uri": "NC-238",
+        "dustboy_name": "รพ.สต.ห้วยไคร้  อ.แม่สาย จ.เชียงราย",
+        "dustboy_name_en": "Huai Khrai Tambon Health Promotion Hospital, Chiangrai",
+        "dustboy_lat": "20.277176378151438",
+        "dustboy_lon": "99.8645098209929",
+        "address": {
+            "road": "ถนนพหลโยธิน",
+            "neighbourhood": "บ้านห้วยไคร้หลวง",
+            "village": "ห้วยไคร้",
+            "town": "อำเภอแม่สาย",
+            "municipality": "แม่ไร่",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "postcode": "57220",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3340",
+        "dustboy_id": "NC-240",
+        "dustboy_uri": "NC-240",
+        "dustboy_name": "ศูนย์พัฒนาเด็กเล็กเทศบาลตำบลแม่สายมิตรภาพ ต.แม่สาย อ.แม่สาย จ.เชียงราย",
+        "dustboy_name_en": "Mae Sai Mittraphap Subdistrict Municipality Child Development Center",
+        "dustboy_lat": "20.440056274420744",
+        "dustboy_lon": "99.90958683619175",
+        "address": {
+            "town": "อำเภอแม่สาย",
+            "municipality": "แม่สายมิตรภาพ",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "postcode": "57130",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3341",
+        "dustboy_id": "NC-241",
+        "dustboy_uri": "NC-241",
+        "dustboy_name": "โรงพยาบาลดอยหลวง อ.ดอยหลวง. จ.เชียงราย",
+        "dustboy_name_en": "Doi Luang Hospital, Chiang Rai ",
+        "dustboy_lat": "20.11713",
+        "dustboy_lon": "100.10946",
+        "address": {
+            "village": "ปงน้อย",
+            "county": "อำเภอดอยหลวง",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3342",
+        "dustboy_id": "NC-242",
+        "dustboy_uri": "NC-242",
+        "dustboy_name": "รพ.สต.บ้านทุ่งงิ้ว   อ.เชียงของ  จ.เชียงราย",
+        "dustboy_name_en": "Ban Thung Ngio Tambon Health Promotion Hospital, Chiang Rai",
+        "dustboy_lat": "20.209542",
+        "dustboy_lon": "100.403526",
+        "address": {
+            "road": "ถนนเชียงของ-เทิง",
+            "hamlet": "บ้านศรีดอนมูล",
+            "village": "บ้านศรีดอนชัย",
+            "municipality": "ศรีดอนชัย",
+            "county": "อำเภอเชียงของ",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "postcode": "57140",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3527",
+        "dustboy_id": "NC-427",
+        "dustboy_uri": "NC-427",
+        "dustboy_name": "สสอ.สบเมย  จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Sop Moei District Public Health Office, Mae Hong Son",
+        "dustboy_lat": "17.9642",
+        "dustboy_lon": "97.93048",
+        "address": {
+            "amenity": "โรงพยาบาลสบเมย",
+            "house_number": "248",
+            "locality": "3",
+            "district": "อำเภอสบเมย",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "postcode": "58110",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3680",
+        "dustboy_id": "NC-580",
+        "dustboy_uri": "NC-580",
+        "dustboy_name": "โรงพยาบาลแม่วาง ต.บ้านกาด อ.แม่วาง จ.เชียงใหม่",
+        "dustboy_name_en": "Mae Wang Hospital, Chiang Mai Province",
+        "dustboy_lat": "18.61577",
+        "dustboy_lon": "98.77391",
+        "address": {
+            "amenity": "โรงพยาบาลแม่วาง",
+            "road": "ชม.4016",
+            "residential": "บ้านใหม่ปางเติม",
+            "hamlet": "บ้านใหม่ปางเติม",
+            "village": "บ้านใหม่ปางเดิม",
+            "county": "อำเภอแม่วาง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3686",
+        "dustboy_id": "NC-586",
+        "dustboy_uri": "NC-586",
+        "dustboy_name": "สสอ.ดอกคำใต้ ต.ดอนศรีชุม อ.ดอกคำใต้ จ.พะเยา",
+        "dustboy_name_en": "Dok Kham Tai Subdistrict Health Office, Don Sri Chum Subdistrict, Dok Kham Tai District, Phayao Province",
+        "dustboy_lat": "19.161529224242063",
+        "dustboy_lon": "99.99322760129976",
+        "address": {
+            "town": "ดอกคำใต้",
+            "municipality": "หนองหล่ม",
+            "county": "อำเภอดอกคำใต้",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "postcode": "56120",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3753",
+        "dustboy_id": "NC-653",
+        "dustboy_uri": "NC-653",
+        "dustboy_name": "ศูนย์บริการสาธารณสุขบ้านกล้วยแพะ ต.กล้วยแพะ อ.เมือง จ.ลำปาง",
+        "dustboy_name_en": "Ban Kluai Phae Public Health Center, Kluai Phae Subdistrict, Mueang District, Lampang Province",
+        "dustboy_lat": "18.201369",
+        "dustboy_lon": "99.492656",
+        "address": {
+            "village": "บ้านกล้วยหลวง",
+            "city": "ตำบลกล้วยแพะ",
+            "municipality": "เทศบาลเมืองเขลางค์นคร",
+            "county": "อำเภอเมืองลำปาง",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3755",
+        "dustboy_id": "NC-655",
+        "dustboy_uri": "NC-655",
+        "dustboy_name": "ศูนย์บริการสาธารณสุขบ้านฟ่อน   ต.ชมพู อ.มือง จ.ลำปาง ",
+        "dustboy_name_en": "Ban Phon Public Health Center, Chomphu Subdistrict, Mueang District, Lampang Province",
+        "dustboy_lat": "18.241416",
+        "dustboy_lon": "99.436368",
+        "address": {
+            "amenity": "ศูนย์บริการสาธารณสุขบ้านฟ่อน",
+            "road": "บ้านฟ่อน ซอย 6",
+            "suburb": "หมู่ 2",
+            "village": "บ้านชมพู",
+            "city": "ตำบลชมพู",
+            "municipality": "เทศบาลเมืองเขลางค์นคร",
+            "county": "อำเภอเมืองลำปาง",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3756",
+        "dustboy_id": "NC-656",
+        "dustboy_uri": "NC-656",
+        "dustboy_name": "บ้านแสนสราญ ต.หนองควาย อ.หางดง จ.เชียงใหม่",
+        "dustboy_name_en": "Baan Saensaran, Nong Kwai Subdistrict, Hang Dong District, Chiang Mai Province",
+        "dustboy_lat": "18.722077",
+        "dustboy_lon": "98.918565",
+        "address": {
+            "road": "แสนสราญ ซอย3",
+            "residential": "Ban Sansaran 1",
+            "village": "บ้านหนองควาย",
+            "municipality": "หนองควาย",
+            "county": "อำเภอหางดง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50230",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3757",
+        "dustboy_id": "NC-657",
+        "dustboy_uri": "NC-567",
+        "dustboy_name": "บริษัท วินเซนต์ ออโตเมชั่น จำกัด อ.หางดง จ.เชียงใหม่",
+        "dustboy_name_en": "Vincent Automation Co., Ltd., Hang Dong District, Chiang Mai",
+        "dustboy_lat": "18.69638979630119",
+        "dustboy_lon": "98.92628157115784",
+        "address": {
+            "village": "บ้านช้างคำน้อย",
+            "municipality": "บ้านแหวน",
+            "county": "อำเภอหางดง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50230",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3765",
+        "dustboy_id": "NC-665",
+        "dustboy_uri": "NC-665",
+        "dustboy_name": "บ้านปอน ต.ปอน อ.ทุ่งช้าง จ.น่าน",
+        "dustboy_name_en": "Ban Pon, Pon, Thung Chang, Nan",
+        "dustboy_lat": "19.5206378",
+        "dustboy_lon": "100.9249478",
+        "address": {
+            "hamlet": "Ban Mai",
+            "village": "บ้านปอน",
+            "municipality": "งอบ",
+            "county": "อำเภอทุ่งช้าง",
+            "province": "จังหวัดน่าน",
+            "ISO3166-2-lvl4": "TH-55",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3766",
+        "dustboy_id": "NC-666",
+        "dustboy_uri": "NC-666",
+        "dustboy_name": "อาคารสาละวินบ้านแม่สามแลบ ต.แม่สามแลบ อ.สบเมย จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Salaween Ban Mae Sam Laep, Sob Moei, Mae Hong Son",
+        "dustboy_lat": "17.979531",
+        "dustboy_lon": "97.738781",
+        "address": {
+            "village": "แม่สามแลบ",
+            "district": "อำเภอสบเมย",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3781",
+        "dustboy_id": "NC-681",
+        "dustboy_uri": "NC-681",
+        "dustboy_name": "ศูนย์ส่งเสริมพฤฒพลังผู้สูงอายุ มช. ต.ช้างคลาน อ.เมือง จ.เชียงใหม่ (outdoor)",
+        "dustboy_name_en": "Senior Wellness Center, Chiang Mai",
+        "dustboy_lat": "18.762817",
+        "dustboy_lon": "99.002805",
+        "address": {
+            "road": "ถนนช้างคลาน",
+            "suburb": "แขวงเม็งราย",
+            "village": "บ้านป่าแดดเหนือ",
+            "city": "เทศบาลนครเชียงใหม่",
+            "municipality": "ป่าแดด",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50100",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3786",
+        "dustboy_id": "NC-686",
+        "dustboy_uri": "NC-686",
+        "dustboy_name": "โรงพยาบาลนาน้อย ต.ศรีษะเกษ อ.นาน้อย จ.น่าน",
+        "dustboy_name_en": "Nan Noi Hospital, Si Sa Ket Subdistrict, Nan Noi District, Nan Province",
+        "dustboy_lat": "18.3400774",
+        "dustboy_lon": "100.7131756",
+        "address": {
+            "amenity": "โรงพยาบาลนาน้อย",
+            "road": "1026",
+            "neighbourhood": "บ้านนาราบ",
+            "town": "นาน้อย",
+            "municipality": "ศรีษะเกษ",
+            "county": "อำเภอนาน้อย",
+            "province": "จังหวัดน่าน",
+            "ISO3166-2-lvl4": "TH-55",
+            "postcode": "55150",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3793",
+        "dustboy_id": "NC-693",
+        "dustboy_uri": "NC-693",
+        "dustboy_name": "เทศบาลตำบลทุ่งต้อม หมู่ 11 ตำบลทุ่งต้อม อำเภอสันป่าตอง จังหวัดเชียงใหม่",
+        "dustboy_name_en": "Thung Tom Subdistrict Municipality, Moo 11, Thung Tom Subdistrict, San Pa Tong District, Chiang Mai Province.",
+        "dustboy_lat": "18.609269642435837",
+        "dustboy_lon": "98.91734148432616",
+        "address": {
+            "village": "บ้านแม่กุ้งหลวง",
+            "municipality": "ทุ่งต้อม",
+            "county": "อำเภอสันป่าตอง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50340",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3794",
+        "dustboy_id": "NC-694",
+        "dustboy_uri": "NC-694",
+        "dustboy_name": "เทศบาลตำบลยุหว่า หมู่ 9 อ.สันป่าตอง จ.เชียงใหม่",
+        "dustboy_name_en": "Yuwa Subdistrict Municipality, Moo 9, San Pa Tong District, Chiang Mai Province",
+        "dustboy_lat": "18.607785164732917",
+        "dustboy_lon": "98.88682992860807",
+        "address": {
+            "village": "บ้านหนองสะเรียม",
+            "municipality": "ยุหว่า",
+            "county": "อำเภอสันป่าตอง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50120",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3796",
+        "dustboy_id": "NC-696",
+        "dustboy_uri": "NC-696",
+        "dustboy_name": "เชียงใหม่ศิลาดล ต.ป่าป้อง อ.ดอยสะเก็ด จ.เชียงใหม่",
+        "dustboy_name_en": "Chiang Mai Celadon, Doi Saket District, Chiang Mai Province",
+        "dustboy_lat": "18.8525353767405",
+        "dustboy_lon": "99.1311767845024",
+        "address": {
+            "road": "ถนนบ่อสร้าง",
+            "neighbourhood": "บ้านเชิงดอย",
+            "hamlet": "บ้านป่าคา",
+            "town": "ดอยสะเก็ด",
+            "municipality": "ลวงเหนือ",
+            "county": "อำเภอดอยสะเก็ด",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50220",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3799",
+        "dustboy_id": "NC-699",
+        "dustboy_uri": "NC-699",
+        "dustboy_name": "บริษัท วุฒิชัยเซรามิคส์ จำกัด (1) ต.น้ำโจ้ อ.แม่ทะ จ.ลำปาง",
+        "dustboy_name_en": "Wutthichai Ceramics Co., Ltd. (1) Mae Tha District, Lampang Province",
+        "dustboy_lat": "18.171077580638844",
+        "dustboy_lon": "99.4320884749645",
+        "address": {
+            "municipality": "น้ำโจ้",
+            "county": "อำเภอแม่ทะ",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3800",
+        "dustboy_id": "NC-700",
+        "dustboy_uri": "NC-700",
+        "dustboy_name": "บริษัท วุฒิชัยเซรามิคส์ จำกัด (2) ต.น้ำโจ้ อ.แม่ทะ จ.ลำปาง",
+        "dustboy_name_en": "Wutthichai Ceramics Co., Ltd. (2) Mae Tha District, Lampang Province",
+        "dustboy_lat": "18.17064961032981",
+        "dustboy_lon": "99.4320777537437",
+        "address": {
+            "municipality": "น้ำโจ้",
+            "county": "อำเภอแม่ทะ",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3801",
+        "dustboy_id": "NC-701",
+        "dustboy_uri": "NC-701",
+        "dustboy_name": "โรงเรียนวัดท่าต้นกวาว อ.สารภี จ.เชียงใหม่",
+        "dustboy_name_en": "Wat Tha Ton Kwao School,  Chiang mai",
+        "dustboy_lat": "18.71998935000932",
+        "dustboy_lon": "99.07129767006937",
+        "address": {
+            "road": "ชม.4090",
+            "hamlet": "บ้านต้นโชค",
+            "village": "บ้านท่าต้นกวาว",
+            "municipality": "ชมภู",
+            "district": "อำเภอสารภี",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50140",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3809",
+        "dustboy_id": "NC-709",
+        "dustboy_uri": "NC-709",
+        "dustboy_name": "ศพด.เทศบาลตำบลแม่จั๊วะ (Outdoor) อ.เด่นชัย จ.แพร่ ",
+        "dustboy_name_en": "Mae Chuwa Subdistrict Municipality Child Development Center (Outdoor), Den Chai District, Phrae Province",
+        "dustboy_lat": "17.97370271093139",
+        "dustboy_lon": "100.050577565450",
+        "address": {
+            "road": "1419",
+            "neighbourhood": "ชุมชนหมู่ที่ 1",
+            "town": "เด่นชัย",
+            "municipality": "แม่จั๊วะ",
+            "county": "อำเภอเด่นชัย",
+            "province": "จังหวัดแพร่",
+            "ISO3166-2-lvl4": "TH-54",
+            "postcode": "54110",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3818",
+        "dustboy_id": "NC-718",
+        "dustboy_uri": "NC-718",
+        "dustboy_name": "ศพด.บ้านจะเด้อ (Outdoor) ต.แม่ยาว อ.เมือง จ.เชียงราย",
+        "dustboy_name_en": "Ban Cha Doe Child Development Center (Outdoor), Doi Hang Subdistrict, Mueang District, Chiang Rai Province",
+        "dustboy_lat": "19.97389867503446",
+        "dustboy_lon": "99.66491654512247",
+        "address": {
+            "village": "บ้านผามูบ",
+            "municipality": "ดอยฮาง",
+            "county": "อำเภอเมืองเชียงราย",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3820",
+        "dustboy_id": "NC-720",
+        "dustboy_uri": "NC-720",
+        "dustboy_name": "ศพด.ตำบลตับเต่า (Outdoor) อ.เทิง จ.เชียงราย",
+        "dustboy_name_en": "Child Development Center, Tambon Tab Tao (Outdoor), Thoeng District, Chiang Rai Province",
+        "dustboy_lat": "19.758771028649516",
+        "dustboy_lon": "100.309046735285",
+        "address": {
+            "municipality": "หงาว",
+            "county": "อำเภอเทิง",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3825",
+        "dustboy_id": "NC-725",
+        "dustboy_uri": "NC-725",
+        "dustboy_name": "ศพด.แม่ลาว (Outdoor) ต.แม่ลาว อ.เชียงคำ จ.พะเยา",
+        "dustboy_name_en": "Mae Lao Child Development Center (Outdoor), Mae Lao Subdistrict, Chiang Kham District, Phayao Province",
+        "dustboy_lat": "19.441685895848085",
+        "dustboy_lon": "100.35514873106347",
+        "address": {
+            "village": "Ban Pha Lad",
+            "municipality": "ฝายกวาง",
+            "county": "อำเภอเชียงคำ",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3840",
+        "dustboy_id": "NC-740",
+        "dustboy_uri": "NC-740",
+        "dustboy_name": "ศูนย์พัฒนาเด็กเล็กตำบลสันโป่ง (Outdoor) ต.สันโป่ง อ.แม่ริม จ.เชียงใหม่",
+        "dustboy_name_en": "San Pong Subdistrict Child Development Center (Outdoor), San Pong Subdistrict, Mae Rim District, Chiang Mai Province",
+        "dustboy_lat": "18.969862016007777",
+        "dustboy_lon": "98.95559519999779",
+        "address": {
+            "village": "บ้านหนองอาบช้าง",
+            "municipality": "สันโป่ง",
+            "county": "อำเภอแม่ริม",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3859",
+        "dustboy_id": "NC-759",
+        "dustboy_uri": "NC-759",
+        "dustboy_name": "ศูนย์พัฒนาเด็กเล็กเทศบาลตำบลวังชิ้น (Outdoor) อ.วังชิ้น จ.แพร่",
+        "dustboy_name_en": "Wang Chin Subdistrict Municipality Child Development Center (Outdoor), Wang Chin District, Phrae Province",
+        "dustboy_lat": "17.895135144925966",
+        "dustboy_lon": "99.59776895766014",
+        "address": {
+            "office": "เทศบาลตำบลวังชิ้ง",
+            "house_number": "1",
+            "locality": "10",
+            "county": "อำเภอวังชิ้น",
+            "province": "จังหวัดแพร่",
+            "ISO3166-2-lvl4": "TH-54",
+            "postcode": "54160",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3865",
+        "dustboy_id": "NC-765",
+        "dustboy_uri": "NC-765",
+        "dustboy_name": "ศพด.บ้านห้วยโก๋น (Outdoor) ต.ห้วยโก๋น อ.เฉลิมพระเกียรติ จ.น่าน",
+        "dustboy_name_en": "Huai Koen Child Development Center (Outdoor), Huai Koen Subdistrict, Chalerm Phra Kiat District, Nan Province",
+        "dustboy_lat": "19.596372505714726",
+        "dustboy_lon": "101.08408217957081",
+        "address": {
+            "road": "101",
+            "hamlet": "บ้านห้วยโก๋น",
+            "village": "เฉลิมพระเกียรติ",
+            "county": "อำเภอเฉลิมพระเกียรติ",
+            "province": "จังหวัดน่าน",
+            "ISO3166-2-lvl4": "TH-55",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3867",
+        "dustboy_id": "NC-767",
+        "dustboy_uri": "NC-767",
+        "dustboy_name": "ศพด.บ้านปันง้าว (Outdoor) ต.ห้างฉัตร อ.ห้างฉัตร จ.ลำปาง",
+        "dustboy_name_en": "Ban Pan Ngao Child Development Center (Outdoor), Hang Chat Subdistrict, Hang Chat District, Lampang Province",
+        "dustboy_lat": "18.31464",
+        "dustboy_lon": "99.365573",
+        "address": {
+            "road": "ซอย 3",
+            "town": "ห้างฉัตร",
+            "municipality": "ห้างฉัตรแม่ตาล",
+            "county": "อำเภอห้างฉัตร",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "postcode": "52190",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3869",
+        "dustboy_id": "NC-769",
+        "dustboy_uri": "NC-769",
+        "dustboy_name": "ศพด.เทศบาลเวียงตาล (Outdoor) ต.เวียงตาล อ.ห้างฉัตร จ.ลำปาง",
+        "dustboy_name_en": "Wiang Tan Municipality Child Development Center (Outdoor), Wiang Tan Subdistrict, Hang Chat District, Lampang Province",
+        "dustboy_lat": "18.312112757952402",
+        "dustboy_lon": "99.35210951112239",
+        "address": {
+            "town": "ห้างฉัตร",
+            "municipality": "เวียงตาล",
+            "county": "อำเภอห้างฉัตร",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "postcode": "52190",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3893",
+        "dustboy_id": "NC-793",
+        "dustboy_uri": "NC-793",
+        "dustboy_name": "ศพด.บ้านนาปู่ป้อม (outdoor) ต.นาปู่ป้อม อ.ปางมะผ้า จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Ban Na Phu Pom Child Development Center (outdoor), Na Phu Pom Subdistrict, Pang Mapha District, Mae Hong Son Province",
+        "dustboy_lat": "19.536908665616675",
+        "dustboy_lon": "98.1111621815502",
+        "address": {
+            "road": "มส.4015",
+            "county": "อำเภอปางมะผ้า",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "3897",
+        "dustboy_id": "NC-797",
+        "dustboy_uri": "NC-797",
+        "dustboy_name": "สวนออมสุข ต.เจดีย์หลวง อ. แม่สรวย จ. เชียงราย",
+        "dustboy_name_en": "Aomsuk Garden, Chedi Luang Subdistrict, Mae Suai District, Chiang Rai Province",
+        "dustboy_lat": "19.57223483196006",
+        "dustboy_lon": "99.48711304613974",
+        "address": {
+            "village": "บ้านร้องหมอหงษ์",
+            "municipality": "เจดีย์หลวง",
+            "county": "อำเภอแม่สรวย",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "4042",
+        "dustboy_id": "DBP20190042",
+        "dustboy_uri": "maesuaihospital",
+        "dustboy_name": "รพ.แม่สรวย ต.แม่พริก อ.แม่สรวย จ.เชียงราย",
+        "dustboy_name_en": "Mae Suai Hospital, Chiang Rai",
+        "dustboy_lat": "19.642196",
+        "dustboy_lon": "99.525286",
+        "address": {
+            "office": "สำนักงานสาธารณสุข อำเภอแม่สรวย",
+            "road": "118",
+            "village": "บ้านแม่พริก",
+            "municipality": "เวียงสรวย",
+            "county": "อำเภอแม่สรวย",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "4043",
+        "dustboy_id": "DBP20190043",
+        "dustboy_uri": "wpp",
+        "dustboy_name": "รพ.เวียงป่าเป้า ต.เวียง อ.เวียงป่าเป้า จ.เชียงราย",
+        "dustboy_name_en": "Wiang Pa Pao Hospital, Chiang Rai",
+        "dustboy_lat": "19.3527379",
+        "dustboy_lon": "99.5099052",
+        "address": {
+            "amenity": "โรงพยาบาลเวียงป่าเป้า",
+            "road": "ซอย เทศบาล 7",
+            "town": "เวียงป่าเป้า",
+            "municipality": "ป่างิ้ว",
+            "county": "อำเภอเวียงป่าเป้า",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "4421",
+        "dustboy_id": "dbp20220001",
+        "dustboy_uri": "LED20220001",
+        "dustboy_name": "อาคาร 30 ปี คณะวิทยาศาสตร์ ม.เชียงใหม่ (ตึก SCB1 CMU)",
+        "dustboy_name_en": "30 years (SCB1) Faculty of Science Chiang Mai University ",
+        "dustboy_lat": "18.801686",
+        "dustboy_lon": "98.953549",
+        "address": {
+            "amenity": "Kopi Gusto",
+            "road": "ทางเชื่อมอาคาร",
+            "suburb": "แขวงศรีวิชัย",
+            "city_district": "ตำบลสุเทพ",
+            "city": "เทศบาลนครเชียงใหม่",
+            "municipality": "ฟ้าฮ่าม",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50030",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "4426",
+        "dustboy_id": "dbp20220006",
+        "dustboy_uri": "dbp20220006",
+        "dustboy_name": "สถาบันวิจัยพหุศาสตร์ มช. ต.สุเทพ อ.เมือง จ.เชียงใหม่",
+        "dustboy_name_en": "Multidisciplinary Research Institute, Chiang Mai University, Tambon Suthep, Amphur Mueang, Chiang Mai",
+        "dustboy_lat": "18.794816546986155",
+        "dustboy_lon": "98.95757312001507",
+        "address": {
+            "amenity": "CMU Language Institute",
+            "road": "ซอยเชียงราย 2",
+            "suburb": "แขวงศรีวิชัย",
+            "city_district": "ตำบลสุเทพ",
+            "city": "เทศบาลนครเชียงใหม่",
+            "municipality": "ฟ้าฮ่าม",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50200",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "4427",
+        "dustboy_id": "dbp20220007",
+        "dustboy_uri": "dbp20220007",
+        "dustboy_name": "โรงอาหารคณะวิศวกรรมศาสตร์ มช. ต.สุเทพ อ.เมือง จ.เชียงใหม่",
+        "dustboy_name_en": "Canteen, Faculty of Engineering, Chiang Mai University, Tambon Suthep, Amphur Mueang, Chiang Mai",
+        "dustboy_lat": "18.795325038620216",
+        "dustboy_lon": "98.95094496860655",
+        "address": {
+            "amenity": "ร้านส้มตำไก่ย่าง",
+            "road": "ประตูไฟ",
+            "suburb": "แขวงศรีวิชัย",
+            "city_district": "ตำบลสุเทพ",
+            "city": "เทศบาลนครเชียงใหม่",
+            "municipality": "ป่าแดด",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50200",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "4437",
+        "dustboy_id": "DBP20220017",
+        "dustboy_uri": "phanhospital2",
+        "dustboy_name": "รพ.พาน ต.ม่วงคำ อ.พาน จ.เชียงราย",
+        "dustboy_name_en": "Phan Hospital, Tambon Mueangpan, Amphur Pan, Chiang Rai",
+        "dustboy_lat": "19.521356",
+        "dustboy_lon": "99.744233",
+        "address": {
+            "amenity": "โรงพยาบาลพาน",
+            "road": "ถนนพหลโยธิน",
+            "town": "พาน",
+            "municipality": "สันมะเค็ด",
+            "county": "อำเภอพาน",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "4438",
+        "dustboy_id": "DBP20220018",
+        "dustboy_uri": "BanpaoCDC",
+        "dustboy_name": "ศูนย์พัฒนาเด็กเล็กบ้านเป้า อ.แม่แตง จ. เชียงใหม่",
+        "dustboy_name_en": "Ban Pao Child Development Center, Mae Taeng District, Chiang Mai ",
+        "dustboy_lat": "19.192952",
+        "dustboy_lon": "99.0046843",
+        "address": {
+            "village": "บ้านป่าจี้",
+            "municipality": "บ้านเป้า",
+            "county": "อำเภอแม่แตง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "4439",
+        "dustboy_id": "dbp20220019",
+        "dustboy_uri": "uniserv",
+        "dustboy_name": "สำนักบริการวิชาการ มหาวิทยาลัยเชียงใหม่",
+        "dustboy_name_en": "UNISERV Chiangmai university",
+        "dustboy_lat": "18.794037294157402",
+        "dustboy_lon": "98.9668342789135",
+        "address": {
+            "road": "ถนนสาย 26",
+            "suburb": "แขวงศรีวิชัย",
+            "city_district": "ตำบลสุเทพ",
+            "city": "เทศบาลนครเชียงใหม่",
+            "municipality": "ฟ้าฮ่าม",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50200",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "4442",
+        "dustboy_id": "dbp20240002",
+        "dustboy_uri": "dbp20240002",
+        "dustboy_name": "สนามกีฬากลาง 60 ปี ม.เชียงใหม่",
+        "dustboy_name_en": "Chiang Mai University 60th Anniversary Central Stadium",
+        "dustboy_lat": "18.79747626697297",
+        "dustboy_lon": "98.95655201349535",
+        "address": {
+            "leisure": "สนามฟุตบอล",
+            "road": "ซอย ๔๐๑ วังเหนึอ",
+            "suburb": "แขวงศรีวิชัย",
+            "city_district": "ตำบลสุเทพ",
+            "city": "เทศบาลนครเชียงใหม่",
+            "municipality": "ฟ้าฮ่าม",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50200",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "4443",
+        "dustboy_id": "DBP20240003",
+        "dustboy_uri": "Phukamyao2",
+        "dustboy_name": "โรงพยาบาลภูกามยาว  ต.ห้วยแก้ว อ.ภูกามยาว จ.พะเยา",
+        "dustboy_name_en": "Phukamyao Hospital, Huai Kaew Subdistrict, Phukamyao District, Phayao Province",
+        "dustboy_lat": "19.290079",
+        "dustboy_lon": "99.984179",
+        "address": {
+            "amenity": "Ban Pafang Hospital",
+            "road": "1202",
+            "village": "บ้านป่าฝาง",
+            "municipality": "ดงเจน",
+            "county": "อำเภอภูกามยาว",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "4445",
+        "dustboy_id": "dbp20240005",
+        "dustboy_uri": "dbp20240005",
+        "dustboy_name": "ศูนย์พัฒนาการจัดสวัสดิการสังคมผู้สูงอายุบ้านธรรมปกรณ์ (เชียงใหม่) เลขที่ 1 ถ.มูลเมือง อ.เมือง จ.เชียงใหม่",
+        "dustboy_name_en": "Ban Thamphakon Elderly Social Welfare Development Center (Chiang Mai), No. 1, Moon Muang Road, Muang District, Chiang Mai Province",
+        "dustboy_lat": "18.782122",
+        "dustboy_lon": "98.992557",
+        "address": {
+            "road": "ถนนมูลเมือง",
+            "suburb": "แขวงเม็งราย",
+            "city_district": "ตำบลพระสิงห์",
+            "city": "เทศบาลนครเชียงใหม่",
+            "municipality": "ป่าแดด",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "55520",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5016",
+        "dustboy_id": "18A65ABF713C",
+        "dustboy_uri": "phraehospital",
+        "dustboy_name": "รพ.แพร่ ต.ในเวียง อ.เมือง จ.แพร่",
+        "dustboy_name_en": "Phrae Hospital, Tambon Nai Wiang, Amphur Mueang, Phrae ",
+        "dustboy_lat": "18.1331585",
+        "dustboy_lon": "100.1545941",
+        "address": {
+            "amenity": "โรงพยาบาลแพร่",
+            "house_number": "144",
+            "road": "ถนนช่อแฮ",
+            "residential": "แพร่",
+            "town": "แพร่",
+            "municipality": "ป่าแมต",
+            "county": "อำเภอเมืองแพร่",
+            "province": "จังหวัดแพร่",
+            "ISO3166-2-lvl4": "TH-54",
+            "postcode": "54000",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5020",
+        "dustboy_id": "353511334FC4",
+        "dustboy_uri": "song",
+        "dustboy_name": "รพ.สอง ต.บ้านหนุน อ.สอง จ.แพร่",
+        "dustboy_name_en": "Song Hospital, Tambon Ban Nun, Amphur Song, Phrae",
+        "dustboy_lat": "18.460248",
+        "dustboy_lon": "100.1823043",
+        "address": {
+            "town": "สอง",
+            "municipality": "เตาปูน",
+            "county": "อำเภอสอง",
+            "province": "จังหวัดแพร่",
+            "ISO3166-2-lvl4": "TH-54",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5021",
+        "dustboy_id": "FCA55ABF713C",
+        "dustboy_uri": "longhospital",
+        "dustboy_name": "รพ.ลอง ต.ห้วยอ้อ อ.ลอง จ.แพร่",
+        "dustboy_name_en": "Long Hospital, Phare",
+        "dustboy_lat": "18.0896667",
+        "dustboy_lon": "99.8438863",
+        "address": {
+            "amenity": "Long Hospital",
+            "road": "ถนนเหมืองหิต",
+            "town": "บ้านปิน",
+            "municipality": "แม่ลานนา",
+            "district": "อำเภอลอง",
+            "province": "จังหวัดแพร่",
+            "ISO3166-2-lvl4": "TH-54",
+            "postcode": "54150",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5024",
+        "dustboy_id": "70A25ABF713C",
+        "dustboy_uri": "maelanoihospital",
+        "dustboy_name": "รพ.แม่ลาน้อย ต.แม่ลาน้อย อ.แม่ลาน้อย จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Mae La Noi Hospital,Tambon Mae La Noi, Amkphur Mae La NoiMaehongson",
+        "dustboy_lat": "18.379953",
+        "dustboy_lon": "97.943007",
+        "address": {
+            "amenity": "โรงพยาบาลแม่ลาน้อย",
+            "road": "108",
+            "hamlet": "บ้านทุ่งสารภี",
+            "town": "แม่ลาน้อย",
+            "county": "อำเภอแม่ลาน้อย",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "postcode": "58120",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5049",
+        "dustboy_id": "B8A45ABF713C",
+        "dustboy_uri": "ponghos",
+        "dustboy_name": "รพ.ปง ต.นาปรัง อ.ปง จ.พะเยา ",
+        "dustboy_name_en": "Pong Hospital, Tambon Naprang, Amphur Pong, Phayao",
+        "dustboy_lat": "19.172891",
+        "dustboy_lon": "100.2858163",
+        "address": {
+            "neighbourhood": "บ้านนาปรัง",
+            "village": "บ้านหมุน",
+            "municipality": "แม่ยม",
+            "county": "อำเภอปง",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "postcode": "56140",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5054",
+        "dustboy_id": "94A35ABF713C",
+        "dustboy_uri": "maetang2",
+        "dustboy_name": "รพ.แม่แตง ต.สันมหาพน อ.แม่แตง จ.เชียงใหม่",
+        "dustboy_name_en": "Maetang Hospital, Chiang Mai",
+        "dustboy_lat": "19.137406",
+        "dustboy_lon": "98.959848",
+        "address": {
+            "amenity": "โรงพยาบาล แม่แตง",
+            "road": "ชม.3038",
+            "village": "บ้านเด่น",
+            "municipality": "แม่แตง",
+            "county": "อำเภอแม่แตง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50150",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5075",
+        "dustboy_id": "BCA15ABF713C",
+        "dustboy_uri": "maelaloung",
+        "dustboy_name": "รพ.สต.แม่ลาหลวง ต.แม่ลาหลวง อ.แม่ลาน้อย จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Maelaloung Health Promoting Hospital, Mae Hong Son",
+        "dustboy_lat": "18.531887",
+        "dustboy_lon": "97.934792",
+        "address": {
+            "village": "บ้านแม่ลาหลวง",
+            "county": "อำเภอแม่ลาน้อย",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5248",
+        "dustboy_id": "N-098",
+        "dustboy_uri": "maeai2",
+        "dustboy_name": "รพ.แม่อาย ต.แม่อาย อ.แม่อาย จ.เชียงใหม่ ",
+        "dustboy_name_en": "Mae Ai Hospital , Chiang Mai",
+        "dustboy_lat": "20.040",
+        "dustboy_lon": "99.3024",
+        "address": {
+            "neighbourhood": "บ้านสันต้นม่วง",
+            "town": "แม่อาย",
+            "municipality": "ดอยลาง",
+            "county": "อำเภอแม่อาย",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50280",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5263",
+        "dustboy_id": "N-113",
+        "dustboy_uri": "N-113",
+        "dustboy_name": "ประตูหน้า มช. ต.สุเทพ อ.เมือง จ.เชียงใหม่",
+        "dustboy_name_en": "The Main Gate of Chiang Mai University, Chiang Mai",
+        "dustboy_lat": "18.808056",
+        "dustboy_lon": "98.954797",
+        "address": {
+            "road": "ถนนห้วยแก้ว",
+            "suburb": "แขวงศรีวิชัย",
+            "city_district": "ตำบลสุเทพ",
+            "city": "เทศบาลนครเชียงใหม่",
+            "municipality": "ฟ้าฮ่าม",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50300",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5264",
+        "dustboy_id": "N-114",
+        "dustboy_uri": "N-114",
+        "dustboy_name": "คณะมนุษยศาสตร์ มช. (HB5) ต.สุเทพ อ.เมือง จ.เชียงใหม่",
+        "dustboy_name_en": "Faculty of Humanities (CMU), Chiang Mai",
+        "dustboy_lat": "18.804263",
+        "dustboy_lon": "98.950252",
+        "address": {
+            "amenity": "คณะมนุษยศาสตร์",
+            "road": "Route 13",
+            "suburb": "แขวงศรีวิชัย",
+            "city_district": "ตำบลสุเทพ",
+            "city": "เทศบาลนครเชียงใหม่",
+            "municipality": "ฟ้าฮ่าม",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50030",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5265",
+        "dustboy_id": "N-115",
+        "dustboy_uri": "N-115",
+        "dustboy_name": "อาคาร 40 ปี คณะวิทยาศาสตร์ มช. ต.สุเทพ อ.เมือง จ.เชียงใหม่",
+        "dustboy_name_en": "SCB2, Faculty of Science (CMU), Chiang Mai",
+        "dustboy_lat": "18.801472",
+        "dustboy_lon": "98.956191",
+        "address": {
+            "road": "ถนนห้วยแก้ว ซอย3",
+            "suburb": "แขวงศรีวิชัย",
+            "city_district": "ตำบลสุเทพ",
+            "city": "เทศบาลนครเชียงใหม่",
+            "municipality": "ฟ้าฮ่าม",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50030",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5269",
+        "dustboy_id": "N-119",
+        "dustboy_uri": "N-119",
+        "dustboy_name": "รพ.สูงเม่น ต.พระหลวง อ.สูงเม่น จ.แพร่",
+        "dustboy_name_en": "Sung Men Hospital, Tambon Pra Luang, Amphur Sungmen, Prae",
+        "dustboy_lat": "18.074608070829743",
+        "dustboy_lon": "100.11718445332015",
+        "address": {
+            "village": "บ้านพระหลวง",
+            "county": "อำเภอสูงเม่น",
+            "province": "จังหวัดแพร่",
+            "ISO3166-2-lvl4": "TH-54",
+            "postcode": "54130",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5281",
+        "dustboy_id": "N-131",
+        "dustboy_uri": "N-131",
+        "dustboy_name": "คณะสังคมศาสตร์ มช. ต.สุเทพ อ.เมือง จ.เชียงใหม่",
+        "dustboy_name_en": "Faculty of Social Sciences (CMU), Chiang Mai",
+        "dustboy_lat": "18.802947",
+        "dustboy_lon": "98.949526",
+        "address": {
+            "amenity": "กาแฟสดสังคม",
+            "road": "ซอย ๕๐ต สรีนคร",
+            "suburb": "แขวงศรีวิชัย",
+            "city_district": "ตำบลสุเทพ",
+            "city": "เทศบาลนครเชียงใหม่",
+            "municipality": "ฟ้าฮ่าม",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50200",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5288",
+        "dustboy_id": "N-138",
+        "dustboy_uri": "fangmin1",
+        "dustboy_name": "จุดเฝ้าระวังฝุ่น PM ต.เหมืองจี้ อ.เมือง บ้านฝั่งหมิ่น จ.ลำพูน",
+        "dustboy_name_en": "Fangmin Watching PM Point, Lamphun",
+        "dustboy_lat": "18.436577",
+        "dustboy_lon": "98.955827",
+        "address": {
+            "road": "ลพ.4010",
+            "hamlet": "บ้าน อพป. ห้วยส้ม",
+            "village": "บ้านงฝั่งหมิ่น",
+            "municipality": "เหมืองจี้",
+            "county": "อำเภอเมืองลำพูน",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5299",
+        "dustboy_id": "N-149",
+        "dustboy_uri": "dongmatuen3",
+        "dustboy_name": "บ้านทุ่งยั้ง ต.ผางาม อ.เวียงชัย จ.เชียงราย",
+        "dustboy_name_en": "Ban DongMaTuen Health Promoting Hospital, Chiang Rai",
+        "dustboy_lat": "19.912501",
+        "dustboy_lon": "100.073169",
+        "address": {
+            "road": "1326",
+            "village": "บ้านดงมะตื๋น",
+            "municipality": "เมืองชุม",
+            "county": "อำเภอเวียงชัย",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "postcode": "57210",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5301",
+        "dustboy_id": "N-151",
+        "dustboy_uri": "dongmatuen1",
+        "dustboy_name": "รพ.สต.บ้านดงมะตื๋น ต.ผางาม อ.เวียงชัย จ.เชียงราย",
+        "dustboy_name_en": "Ban DongMaTuen Tambon Health Promoting Hospital, Chiang Rai",
+        "dustboy_lat": "19.91158898",
+        "dustboy_lon": "100.0569695",
+        "address": {
+            "road": "1326",
+            "village": "บ้านดงมะตื๋น",
+            "municipality": "เมืองชุม",
+            "county": "อำเภอเวียงชัย",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "postcode": "57210",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5320",
+        "dustboy_id": "N-010-NB",
+        "dustboy_uri": "N-010-NB",
+        "dustboy_name": "องค์การบริหารส่วนจังหวัดแพร่ ต.ในเวียง อ.เมืองแพร่ จ.แพร่",
+        "dustboy_name_en": "Phrae Provincial Administrative Organization, Nai Wiang Subdistrict, Mueang Phrae District, Phrae Province",
+        "dustboy_lat": "18.150909",
+        "dustboy_lon": "100.157705",
+        "address": {
+            "office": "องค์การบริหารส่วนจังหวัดแพร่",
+            "road": "ราษฎร์อุทิศ 3",
+            "town": "ทุ่งกวาว",
+            "municipality": "ป่าแมต",
+            "county": "อำเภอเมืองแพร่",
+            "province": "จังหวัดแพร่",
+            "ISO3166-2-lvl4": "TH-54",
+            "postcode": "54000",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5327",
+        "dustboy_id": "N-017-NB",
+        "dustboy_uri": "N-017-NB",
+        "dustboy_name": "โรงพยาบาลอมก๋อย ต.อมก๋อย อ.อมก๋อย จ.เชียงใหม่",
+        "dustboy_name_en": "Omkoi hospital, Omkoi Subdistrict, Omkoi District, Chiang Mai Province",
+        "dustboy_lat": "17.802110204220725",
+        "dustboy_lon": "98.36122052884491",
+        "address": {
+            "amenity": "โรงพยาบาลอมก่อย",
+            "road": "1099",
+            "hamlet": "บ้านดง",
+            "town": "อมก๋อย",
+            "county": "อำเภออมก๋อย",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50310",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5337",
+        "dustboy_id": "N-027-NB",
+        "dustboy_uri": "N-027-NB",
+        "dustboy_name": "CR014 (Outdoor) ต.ห้วยทราย อ.สันกำแพง จ.เชียงใหม่ ",
+        "dustboy_name_en": "CR014 (Outdoor)  Huai Sai Subdistrict, San Kamphaeng District, Chiang Mai Province (Outdoor)",
+        "dustboy_lat": "18.8012997",
+        "dustboy_lon": "99.1714686",
+        "address": {
+            "hamlet": "บ้านต้นผึ้ง",
+            "village": "บ้านแม่ฮ้อยเงินเหนือ",
+            "municipality": "Chill cheers",
+            "county": "อำเภอสันกำแพง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5338",
+        "dustboy_id": "N-028-NB",
+        "dustboy_uri": "N-028-NB",
+        "dustboy_name": "CR012 (Outdoor) ต.ห้วยทราย อ.สันกำแพง จ.เชียงใหม่ (Outdoor)",
+        "dustboy_name_en": "CR012 (Outdoor)  Huai Sai Subdistrict, San Kamphaeng District, Chiang Mai Province (Outdoor)",
+        "dustboy_lat": "18.7866714",
+        "dustboy_lon": "99.162726",
+        "address": {
+            "road": "บ้านสันข้าวแคบกลาง ซอย8",
+            "village": "บ้านสันเบาแคบกลาง",
+            "municipality": "ห้วยทราย",
+            "county": "อำเภอสันกำแพง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5340",
+        "dustboy_id": "N-030-NB",
+        "dustboy_uri": "N-030-NB",
+        "dustboy_name": "CR013  (Outdoor) ต.ห้วยทราย อ.สันกำแพง จ.เชียงใหม่",
+        "dustboy_name_en": "CR013  (Outdoor) Huai Sai Subdistrict, San Kamphaeng District, Chiang Mai Province (Outdoor)",
+        "dustboy_lat": "18.7802736",
+        "dustboy_lon": "99.1601957",
+        "address": {
+            "village": "บ้านหม้อ",
+            "municipality": "ห้วยทราย",
+            "county": "อำเภอสันกำแพง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50220",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5342",
+        "dustboy_id": "N-032-NB",
+        "dustboy_uri": "N-032-NB",
+        "dustboy_name": "อาคาร HPB4 ศูนย์การศึกษามหาวิทยาลัยเชียงใหม่ หริภุญไชย ต.ศรีบัวบาน อ.เมือง จ.ลำพูน",
+        "dustboy_name_en": "HPB4 Building, Chiang Mai University Hariphunchai Education Center, Sri Buaban Subdistrict, Mueang District, Lamphun Province.",
+        "dustboy_lat": "18.50866231",
+        "dustboy_lon": "99.11610468",
+        "address": {
+            "village": "บ้านจำขี้มด",
+            "municipality": "ศรีบัวบาน",
+            "county": "อำเภอเมืองลำพูน",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5379",
+        "dustboy_id": "N-069-NB",
+        "dustboy_uri": "N-069-NB",
+        "dustboy_name": "สระว่ายน้ำ สนามกีฬา 700 ปี ต.ดอนแก้ว อ.แม่ริม จ.เชียงใหม่",
+        "dustboy_name_en": "700th Anniversary Chiangmai Stadium, Chiangmai",
+        "dustboy_lat": "18.841364",
+        "dustboy_lon": "98.963876",
+        "address": {
+            "leisure": "700 Year Stadium Pool",
+            "road": "ถนนเลียบคลองชลประทาน",
+            "town": "ดอนแก้ว",
+            "municipality": "แม่สา",
+            "county": "อำเภอแม่ริม",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50300",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5401",
+        "dustboy_id": "N-091-NB",
+        "dustboy_uri": "ISOC-Chiangrai2",
+        "dustboy_name": "อบต.ศรีถ้อย ต.ศรีถ้อย อ.แม่สรวย จ.เชียงราย (กอ.รมน. เชียงราย)",
+        "dustboy_name_en": "Si Tho Subdistrict Administrative Organization, Chiang Rai (ISOC Chiang Rai)",
+        "dustboy_lat": "19.614124",
+        "dustboy_lon": "99.478223",
+        "address": {
+            "road": "ชร.2019",
+            "hamlet": "บ้านสันก้างปลา",
+            "village": "บ้านสันก้างปลา",
+            "municipality": "เจดีย์หลวง",
+            "county": "อำเภอแม่สรวย",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5413",
+        "dustboy_id": "N-103-NB",
+        "dustboy_uri": "bankarnkanok",
+        "dustboy_name": "บ้านกาญจน์กนก 2 เฟส 3   ต.สันปูเลย อ.ดอยสะเก็ด จ.เชียงใหม่",
+        "dustboy_name_en": "Baan Karnkanok 2 Phase 3, Doi saket district, Chiangmai Province",
+        "dustboy_lat": "18.7976227",
+        "dustboy_lon": "99.0688055",
+        "address": {
+            "residential": "บ้านกาญจน์กนก 2",
+            "hamlet": "บ้านสันทราย",
+            "village": "บ้านป่าเสร้าน้อย",
+            "municipality": "สำราญราษฎร์",
+            "county": "อำเภอดอยสะเก็ด",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50130",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5454",
+        "dustboy_id": "N-144-NB",
+        "dustboy_uri": "N-144-NB",
+        "dustboy_name": "ศูนย์บริการสาธารณสุขบ้านกาด ต.ปงแสน อ.เมือง จ.ลำปาง",
+        "dustboy_name_en": "Bangad Public Health Service Center, Lampang ",
+        "dustboy_lat": "18.27235386296293",
+        "dustboy_lon": "99.409150681999",
+        "address": {
+            "amenity": "ศูนย์บริการสาธารณสุขบ้านกาด",
+            "road": "1034",
+            "village": "บ้านนางเหลียว",
+            "city": "ตำบลลำปางหลวง",
+            "municipality": "เทศบาลตำบลลำปางหลวง",
+            "county": "อำเภอเมืองลำปาง",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5456",
+        "dustboy_id": "N-146-NB",
+        "dustboy_uri": "opdc_laihin",
+        "dustboy_name": "ทต.ไหล่หิน ต.ไหล่หิน อ.เกาะคา จ.ลำปาง ",
+        "dustboy_name_en": "Lai Hin Sub-district Municipality, Lampang",
+        "dustboy_lat": "18.21688215",
+        "dustboy_lon": "99.34114796",
+        "address": {
+            "road": "ลป.2027",
+            "city": "ตำบลไหล่หิน",
+            "municipality": "เทศบาลตำบลไหล่หิน",
+            "county": "อำเภอเกาะคา",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "postcode": "52130",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5511",
+        "dustboy_id": "NH-011",
+        "dustboy_uri": "NH-011",
+        "dustboy_name": "รพ.สันป่าตอง(2) ต.ยุหว่า อ.สันป่าตอง จ.เชียงใหม่",
+        "dustboy_name_en": "Sanpatong Hospital, Tambon Yuwa, Amphur San Pa Tong, Chiang Mai",
+        "dustboy_lat": "18.5958576234368",
+        "dustboy_lon": "98.8853748473382",
+        "address": {
+            "amenity": "โรงพยาบาล สันป่าตอง",
+            "road": "108",
+            "hamlet": "บ้านข่วงมื่น",
+            "village": "บ้านหนองสะเรียม",
+            "municipality": "บ้านกลาง",
+            "county": "อำเภอสันป่าตอง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50120",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5518",
+        "dustboy_id": "NH-018",
+        "dustboy_uri": "NH-018",
+        "dustboy_name": "บ้านหัวโท ม. 6 ต.ปิงโค้ง อ.เชียงดาว จ.เชียงใหม่",
+        "dustboy_name_en": "Ban Hua Tho, Chiang Mai",
+        "dustboy_lat": "19.574319",
+        "dustboy_lon": "99.089211",
+        "address": {
+            "road": "ถนนโชตนา",
+            "hamlet": "บ้านผาหงส์",
+            "village": "บ้านถ้ำตับเต่า",
+            "municipality": "หนองบัว",
+            "county": "อำเภอเชียงดาว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5521",
+        "dustboy_id": "NH-021",
+        "dustboy_uri": "NH-021",
+        "dustboy_name": "รร.บ้านออน ต.ปิงโค้ง อ.เชียงดาว จ.เชียงใหม่",
+        "dustboy_name_en": "Ban On School, Ping Khong Subdistrict, Chiang Dao District, Chiang Mai Province",
+        "dustboy_lat": "19.511793",
+        "dustboy_lon": "99.09037",
+        "address": {
+            "residential": "บ้านออนนอก",
+            "hamlet": "บ้านออนนอก",
+            "village": "บ้านออนใน",
+            "municipality": "ปิงโค้ง",
+            "county": "อำเภอเชียงดาว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5522",
+        "dustboy_id": "NH-022",
+        "dustboy_uri": "chiangdaohos",
+        "dustboy_name": "รพ.เชียงดาว ต.เชียงดาว อ.เชียงดาว จ.เชียงใหม่",
+        "dustboy_name_en": "Chiang Dao Hospital, Chiang Mai",
+        "dustboy_lat": "19.4030282",
+        "dustboy_lon": "98.9738984",
+        "address": {
+            "amenity": "Chiang Dao Hospital",
+            "road": "ถนนโชตนา",
+            "village": "บ้านดอน",
+            "municipality": "ปิงโค้ง",
+            "county": "อำเภอเชียงดาว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5525",
+        "dustboy_id": "NH-025",
+        "dustboy_uri": "NH-025",
+        "dustboy_name": "รพ.สต.บ้านเมืองงาย ต.เมืองงาย อ.เชียงดาว จ.เชียงใหม่",
+        "dustboy_name_en": "Baan Mueang Ngai Health Promoting Hospital, Chiang Mai",
+        "dustboy_lat": "19.4520146",
+        "dustboy_lon": "98.9585034",
+        "address": {
+            "village": "บ้านใหม่",
+            "municipality": "เมืองงาย",
+            "county": "อำเภอเชียงดาว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5529",
+        "dustboy_id": "NH-029",
+        "dustboy_uri": "banpangmayao",
+        "dustboy_name": "รพ.สต.บ้านปางมะเยา ต.ปิงโค้ง อ.เชียงดาว จ.เชียงใหม่",
+        "dustboy_name_en": "Banpangmayao Health Promoting Hospital, Chiang Mai",
+        "dustboy_lat": "19.43414",
+        "dustboy_lon": "99.0747413",
+        "address": {
+            "amenity": "โรงพยาบาลส่งเสริมสุขภาพตำบลบ้านปางมะเยา",
+            "road": "1150",
+            "hamlet": "บ้านปางมะยาว",
+            "village": "บ้านแม่มะกู้",
+            "municipality": "เมืองงาย",
+            "county": "อำเภอเชียงดาว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50170",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5531",
+        "dustboy_id": "NH-031",
+        "dustboy_uri": "NH-031",
+        "dustboy_name": "รพ.สต.บ้านทุ่งข้าวพวง ต.ทุ่งข้าวพวง อ.เชียงดาว จ.เชียงใหม่",
+        "dustboy_name_en": "Ban Thung Khao Phuang Sub-district Health Center, Thung Khao Phuang Subdistrict, Chiang Dao District, Chiang Mai Province",
+        "dustboy_lat": "19.5530432",
+        "dustboy_lon": "98.9559166",
+        "address": {
+            "road": "1178",
+            "hamlet": "บ้านห้วยทินถัง",
+            "village": "บ้านทุ่งข้าวพวง",
+            "municipality": "ทุ่งข้าวพวง",
+            "county": "อำเภอเชียงดาว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5534",
+        "dustboy_id": "NH-034",
+        "dustboy_uri": "NH-034",
+        "dustboy_name": "สถานบริการสาธารณสุขชุมชนบ้านเมืองนะ ต.เมืองนะ อ.เชียงดาว จ.เชียงใหม่",
+        "dustboy_name_en": " Ban Muang Na Community Health Service Center, Chiang Mai",
+        "dustboy_lat": "19.7293091",
+        "dustboy_lon": "98.8905793",
+        "address": {
+            "road": "1322",
+            "residential": "บ้านเจียจันทร์",
+            "village": "บ้านเมืองนะ",
+            "municipality": "เมืองนะ",
+            "county": "อำเภอเชียงดาว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5582",
+        "dustboy_id": "NH-082",
+        "dustboy_uri": "NH-082",
+        "dustboy_name": "รพ.สต.บ้านปงตำ ต.ปงตำ อ.ไชยปราการ จ.เชียงใหม่",
+        "dustboy_name_en": "Ban Pong Tam Health Promoting Hospital, Chiang Mai",
+        "dustboy_lat": "19.74707",
+        "dustboy_lon": "99.143485",
+        "address": {
+            "quarter": "บ้านปงตำ",
+            "village": "บ้านป่ารวก",
+            "municipality": "หนองบัว",
+            "county": "อำเภอไชยปราการ",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5620",
+        "dustboy_id": "NH-120",
+        "dustboy_uri": "maelanoi",
+        "dustboy_name": "สำนักงานสาธารณสุขอำเภอแม่ลาน้อย จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Mae La Noi District Public Health Office, Mae Hong Son",
+        "dustboy_lat": "18.383758",
+        "dustboy_lon": "97.93692",
+        "address": {
+            "neighbourhood": "บ้านแม่ลาน้อย",
+            "hamlet": "บ้านทุ่งสารภี",
+            "town": "แม่ลาน้อย",
+            "county": "อำเภอแม่ลาน้อย",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "postcode": "58120",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5621",
+        "dustboy_id": "NH-121",
+        "dustboy_uri": "maehi",
+        "dustboy_name": "รพ.สต.แม่ฮี้ ต.แม่ฮี้ อ.ปาย จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Mae Hi Health Promoting Hospital, Mae Hong Son",
+        "dustboy_lat": "19.342379",
+        "dustboy_lon": "98.449871",
+        "address": {
+            "hamlet": "บ้านทุ่งโป่ง",
+            "town": "ปาย",
+            "county": "อำเภอปาย",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "postcode": "58130",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5660",
+        "dustboy_id": "NH-160",
+        "dustboy_uri": "mayureekinder",
+        "dustboy_name": "รร.อนุบาลมยุรี ต.แม่เหียะ อ.เมือง จ.เชียงใหม่",
+        "dustboy_name_en": "Mayuree Kindergarten, Chiang Mai",
+        "dustboy_lat": "18.7518481",
+        "dustboy_lon": "98.968845",
+        "address": {
+            "road": "บ้านใหม่สามัคคี ซอย 7",
+            "residential": "บ้านร้องเรือคำ",
+            "hamlet": "บ้านเกาะกลาง หมู่ 8",
+            "city_district": "ตำบลแม่เฮียะ",
+            "town": "เทศบาลเมืองแม่เหียะ",
+            "municipality": "เทศบาลตำบลป่าแดด",
+            "county": "อำเภอเมืองเชียงใหม่",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50100",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5683",
+        "dustboy_id": "NH-183",
+        "dustboy_uri": "Bannamhoo1",
+        "dustboy_name": "รร.บ้านน้ำฮู ต.เวียงใต้ อ.ปาย จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Mae Hong Son Bannamhoo school, Mae Hong Son",
+        "dustboy_lat": "19.3638118597",
+        "dustboy_lon": "98.4121274816546",
+        "address": {
+            "amenity": "โรงเรียนบ้านน้ำฮู",
+            "road": "มส.5151",
+            "hamlet": "บ้านน้ำฮู",
+            "village": "บ้านใหม่สหสัมพันธ์",
+            "county": "อำเภอปาย",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "postcode": "58130",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5687",
+        "dustboy_id": "NH-187",
+        "dustboy_uri": "mjoffice1",
+        "dustboy_name": "จุดเฝ้าระวังฝุ่น PM ทต.เหมืองจี้ อ.เมือง จ.ลำพูน",
+        "dustboy_name_en": "Mueang chi watching PM Point Lamphun",
+        "dustboy_lat": "18.468568",
+        "dustboy_lon": "98.967791",
+        "address": {
+            "hamlet": "บ้านใหม่",
+            "village": "บ้านเชตวัน",
+            "municipality": "เหมืองจี้",
+            "county": "อำเภอเมืองลำพูน",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5692",
+        "dustboy_id": "NH-192",
+        "dustboy_uri": "NH-192",
+        "dustboy_name": "รพ.บ้านหลวง ต.สวด อ.บ้านหลวง จ.น่าน",
+        "dustboy_name_en": "Ban Luang Hospital, Nan",
+        "dustboy_lat": "18.851955",
+        "dustboy_lon": "100.436006",
+        "address": {
+            "amenity": "โรงพยาบาลอำเภอบ้านหลวง",
+            "road": "1091",
+            "village": "บ้านนาหวาย",
+            "county": "อำเภอบ้านหลวง",
+            "province": "จังหวัดน่าน",
+            "ISO3166-2-lvl4": "TH-55",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5696",
+        "dustboy_id": "NH-196",
+        "dustboy_uri": "bankunmaeschool2",
+        "dustboy_name": "รร.บ้านคุณแม่ ต.หนองควาย อ.หางดง จ.เชียงใหม่",
+        "dustboy_name_en": "Bankunmae School, Hang Dong, Chiang Mai",
+        "dustboy_lat": "18.7304001",
+        "dustboy_lon": "98.9287885",
+        "address": {
+            "village": "บ้านหนองควาย",
+            "municipality": "หนองควาย",
+            "county": "อำเภอหางดง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50230",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5698",
+        "dustboy_id": "NH-198",
+        "dustboy_uri": "pangmapha",
+        "dustboy_name": "รพ.ปางมะผ้า ต.สบป่อง อ.ปางมะผ้า จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Pang Mapha Hospital, Pang Mapha, Mae Hong Son",
+        "dustboy_lat": "19.5245954",
+        "dustboy_lon": "98.2427676",
+        "address": {
+            "amenity": "โรงพยาบาลปางมะผ้า",
+            "house_number": "240",
+            "road": "1095",
+            "village": "Ban Ta Krai",
+            "county": "อำเภอปางมะผ้า",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "postcode": "58150",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5702",
+        "dustboy_id": "N-162",
+        "dustboy_uri": "N-162",
+        "dustboy_name": "เทศบาลตำบลทุ่งหัวช้าง จ.ลำพูน",
+        "dustboy_name_en": "Thung Hua Chang Subdistrict Municipality, Lamphun",
+        "dustboy_lat": "18.0022666",
+        "dustboy_lon": "99.0276129",
+        "address": {
+            "village": "บ้านทุ่งหัวช้าง",
+            "municipality": "ทุ่งหัวช้าง",
+            "county": "อำเภอทุ่งหัวช้าง",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5709",
+        "dustboy_id": "N-169",
+        "dustboy_uri": "N-169",
+        "dustboy_name": "สสอ.จอมทอง ต.ดอยแก้ว อ.จอมทอง จ.เชียงใหม่",
+        "dustboy_name_en": "Chom Thong Public Health Office, Chiang mai",
+        "dustboy_lat": "18.41788057876232",
+        "dustboy_lon": "98.67689516137081",
+        "address": {
+            "neighbourhood": "บ้านจอมทอง",
+            "town": "จอมทอง",
+            "municipality": "ดอยแก้ว",
+            "county": "อำเภอจอมทอง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5711",
+        "dustboy_id": "N-171",
+        "dustboy_uri": "N-171",
+        "dustboy_name": "รพ.วังชิ้น ต.วังชิ้น อ.วังชิ้น จ.แพร่",
+        "dustboy_name_en": "Wang Chin Hospital, Tambon Wang Chin, Amphur Wang Chin, Phrae",
+        "dustboy_lat": "17.8892929",
+        "dustboy_lon": "99.5984095",
+        "address": {
+            "amenity": "โรงพยาบาลวังชิ้น",
+            "road": "1124",
+            "neighbourhood": "บ้านใหม่",
+            "town": "วังชิ้น",
+            "municipality": "เทศบาลตำบลวังชิ้น",
+            "county": "อำเภอวังชิ้น",
+            "province": "จังหวัดแพร่",
+            "ISO3166-2-lvl4": "TH-54",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5713",
+        "dustboy_id": "N-173",
+        "dustboy_uri": "N-173",
+        "dustboy_name": "รพ.สต.บ้านอรุโณทัย อ.เชียงดาว จ.เชียงใหม่",
+        "dustboy_name_en": "Banarunothai Health Promoting Hospital, Chiang Dao, Chiang Mai",
+        "dustboy_lat": "19.745513",
+        "dustboy_lon": "98.9644923",
+        "address": {
+            "village": "บ้านอรุโณทัย",
+            "municipality": "เมืองนะ",
+            "county": "อำเภอเชียงดาว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5720",
+        "dustboy_id": "N-180",
+        "dustboy_uri": "N-180",
+        "dustboy_name": "ต.เวียงเหนือ อ.ปาย จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Wieng Neua, Pai, Mae Hong Son",
+        "dustboy_lat": "19.377124287012155",
+        "dustboy_lon": "98.4441810520884",
+        "address": {
+            "village": "บ้านเวียงเหนือ",
+            "county": "อำเภอปาย",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "postcode": "58130",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5726",
+        "dustboy_id": "N-186",
+        "dustboy_uri": "N-186",
+        "dustboy_name": "รร.วัดศรีโพธาราม ต.สารภี อ.สารภี จ.เชียงใหม่",
+        "dustboy_name_en": "Sri Potharam School, Chiang Mai",
+        "dustboy_lat": "18.70573113326647",
+        "dustboy_lon": "99.04038711992995",
+        "address": {
+            "amenity": "โรงเรียนวัดสรีโพธาราม",
+            "road": "ถนนเชียงใหม่-ลำพูน",
+            "neighbourhood": "บ้านเชียงยืน",
+            "hamlet": "บ้านดงสวรรค์",
+            "town": "ยางเนิ้ง",
+            "municipality": "ชมภู",
+            "district": "อำเภอสารภี",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50140",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "5733",
+        "dustboy_id": "N-193",
+        "dustboy_uri": "N-193",
+        "dustboy_name": "โรงพยาบาลธัญญารักษ์แม่ฮ่องสอน ต.ปางหมู อ.เมือง จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Thanyarak Mae Hong Son Hospital, Pang Mu Subdistrict, Mueang District, Mae Hong Son Province",
+        "dustboy_lat": "19.313395138446182",
+        "dustboy_lon": "97.98737882883529",
+        "address": {
+            "town": "แม่ฮ่องสอน",
+            "county": "อำเภอเมืองแม่ฮ่องสอน",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "postcode": "58000",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6159",
+        "dustboy_id": "TPlus059",
+        "dustboy_uri": "tplus059",
+        "dustboy_name": "รพ.สต.ห้วยสิงห์ อ.แม่สะเรียง จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Huai Sng Health Promoting Hospital, Maehongson",
+        "dustboy_lat": "18.062980084502897",
+        "dustboy_lon": "97.91765149380238",
+        "address": {
+            "road": "1194",
+            "hamlet": "บ้านห้วยสิงห์ใต้",
+            "municipality": "แม่ยวม",
+            "county": "อำเภอแม่สะเรียง",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6305",
+        "dustboy_id": "TPlus205",
+        "dustboy_uri": "tplus205",
+        "dustboy_name": "รพ.ทองแสนขัน ต.บ่อทอง อ.ทองแสนขัน จ.อุตรดิตถ์",
+        "dustboy_name_en": "Thong Saen Khan Hospital, Tambon Bho Thong, amphur Thong Saen Khan, Uttaradit",
+        "dustboy_lat": "17.468114",
+        "dustboy_lon": "100.33743",
+        "address": {
+            "road": "1214",
+            "village": "บ้านบ่อทอง",
+            "municipality": "ทองแสนขัน",
+            "county": "อำเภอทองแสนขัน",
+            "province": "จังหวัดอุตรดิตถ์",
+            "ISO3166-2-lvl4": "TH-53",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6334",
+        "dustboy_id": "TPlus234",
+        "dustboy_uri": "tplus234",
+        "dustboy_name": "รพ.สต.บ้านร่องบัวทอง ต.ทุ่งก่อ อ.เวียงเชียงรุ้ง จ.เชียงราย ",
+        "dustboy_name_en": "Ban Rong Bua Thong Health Promoting Hospital, Tambon Thung Kor, Amphur Wiang Chiang Rung, Chiang Rai",
+        "dustboy_lat": "19.926713",
+        "dustboy_lon": "99.99725",
+        "address": {
+            "village": "บ้านร่องบัวทอง",
+            "municipality": "ดงมหาวัน",
+            "county": "อำเภอเวียงเชียงรุ้ง",
+            "province": "จังหวัดเชียงราย",
+            "ISO3166-2-lvl4": "TH-57",
+            "postcode": "57210",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6353",
+        "dustboy_id": "TPlus253",
+        "dustboy_uri": "tplus253",
+        "dustboy_name": "รพ.สต.บ้านขามสุ่มป่า จ.เชียงใหม่",
+        "dustboy_name_en": "Ban Kham Sum Pa Health Promoting Hospital, Chiang Mai",
+        "dustboy_lat": "19.4115661",
+        "dustboy_lon": "99.1934428",
+        "address": {
+            "hamlet": "บ้านสันผักไฮ",
+            "village": "บ้านสันพงษ์",
+            "municipality": "ป่าไหน่",
+            "county": "อำเภอพร้าว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6361",
+        "dustboy_id": "TPlus261",
+        "dustboy_uri": "bansoppun",
+        "dustboy_name": "สสช.บ้านสบปืน ต.ห้วยโก๋น อ.เฉลิมพระเกียรติ จ.น่าน",
+        "dustboy_name_en": "Ban Sop Pun Community Health Service Center, Nan",
+        "dustboy_lat": "19.571391",
+        "dustboy_lon": "101.01572",
+        "address": {
+            "hamlet": "บ้านห้วยดง",
+            "county": "อำเภอเฉลิมพระเกียรติ",
+            "province": "จังหวัดน่าน",
+            "ISO3166-2-lvl4": "TH-55",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6366",
+        "dustboy_id": "TPlus266",
+        "dustboy_uri": "tplus266",
+        "dustboy_name": "รพ.เชียงคำ อ.เชียงคำ จ.พะเยา",
+        "dustboy_name_en": "Chiangkam Hospital, Chiang Kham, Phayao",
+        "dustboy_lat": "19.518383794438453",
+        "dustboy_lon": "100.29619735320777",
+        "address": {
+            "amenity": "โรงพยาบาลเชียงคำ",
+            "road": "Sitthipracharatch Road",
+            "neighbourhood": "บ้านมาง",
+            "town": "เชียงคำ",
+            "municipality": "หย่วน",
+            "county": "อำเภอเชียงคำ",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "postcode": "56110",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6385",
+        "dustboy_id": "TPlus285",
+        "dustboy_uri": "tplus285",
+        "dustboy_name": "รพ.สต.เหมืองจี้ ต.เหมืองจี้ อ.เมือง จ.ลำพูน",
+        "dustboy_name_en": "Muangjee Health Promoting Hospital, Lamphun",
+        "dustboy_lat": "18.49372",
+        "dustboy_lon": "98.95817",
+        "address": {
+            "road": "1033",
+            "hamlet": "บ้านรั้วทุ่ง",
+            "village": "บ้านบูชา",
+            "municipality": "บ้านแป้น",
+            "county": "อำเภอเมืองลำพูน",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "postcode": "51120",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6390",
+        "dustboy_id": "TPlus290",
+        "dustboy_uri": "tplus290",
+        "dustboy_name": "รพ.สต.หนองหล่ม ต.ศรีบัวบาน อ.เมืองลำพูน จ.ลำพูน",
+        "dustboy_name_en": "Nonglom Health Promoting Hospital, Lamphun",
+        "dustboy_lat": "18.48580295",
+        "dustboy_lon": "99.05636298",
+        "address": {
+            "hamlet": "บ้านป่าป๋วย",
+            "village": "หนองหล่ม",
+            "municipality": "ศรีบัวบาน",
+            "county": "อำเภอเมืองลำพูน",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "postcode": "51000",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6398",
+        "dustboy_id": "TPlus298",
+        "dustboy_uri": "tplus298",
+        "dustboy_name": "รพ.สต.บ้านม้า ต.ศรีบัวบาน อ.เมือง จ.ลำพูน ",
+        "dustboy_name_en": "Banma Health Promoting Hospital, Lamphun",
+        "dustboy_lat": "18.546122644400086",
+        "dustboy_lon": "99.06588558465886",
+        "address": {
+            "village": "บ้านม้าใต้",
+            "municipality": "ป่าสัก",
+            "county": "อำเภอเมืองลำพูน",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6400",
+        "dustboy_id": "TPlus300",
+        "dustboy_uri": "tplus300",
+        "dustboy_name": "รพ.ลำพูน ต.ต้นธง อ.เมือง จ.ลำพูน",
+        "dustboy_name_en": "Lamphun Hospital, Tambon Ton Thong, Amphur Mueang, Lamphun",
+        "dustboy_lat": "18.5820422",
+        "dustboy_lon": "98.9943625",
+        "address": {
+            "amenity": "โรงพยาบาลลำพูน",
+            "road": "ลพ.4035",
+            "hamlet": "บ้านสันมหาพน",
+            "city": "ลำพูน",
+            "municipality": "ต้นธง",
+            "county": "อำเภอเมืองลำพูน",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6401",
+        "dustboy_id": "TPlus301",
+        "dustboy_uri": "tplus301",
+        "dustboy_name": "รพ.ลำพูน (สาขาเวียงยอง) ต.เวียงยอง อ.เมือง จ.ลำพูน",
+        "dustboy_name_en": "Lamphun Hospital-Wiangyong, Tambon Wiang Yong, Amphur Mueang, Lamphun",
+        "dustboy_lat": "18.580211216400794",
+        "dustboy_lon": "99.02125894521055",
+        "address": {
+            "city": "ลำพูน",
+            "municipality": "เหมืองง่า",
+            "county": "อำเภอเมืองลำพูน",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6478",
+        "dustboy_id": "TPlus378",
+        "dustboy_uri": "tplus378",
+        "dustboy_name": "สสอ.ดอยเต่า ต.ดอยเต่า อ.ดอยเต่า จ.เชียงใหม่",
+        "dustboy_name_en": "Doi Tao District Public Health Office, Chiang Mai",
+        "dustboy_lat": "17.954082621913535",
+        "dustboy_lon": "98.68502870160678",
+        "address": {
+            "amenity": "Doi Tao Police Station",
+            "road": "1103",
+            "village": "บ้านวังหลวง",
+            "municipality": "ท่าเดื่อ–มืดกา",
+            "county": "อำเภอดอยเต่า",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6704",
+        "dustboy_id": "GQ-004",
+        "dustboy_uri": "GQ-004",
+        "dustboy_name": "รพ.สต.ละอูบ ต.ห้วยห้อม อ.แม่ลาน้อย จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "La-oob Sub-district Health Center, Huai Hom Subdistrict, Mae Lan Noi District, Mae Hong Son Province",
+        "dustboy_lat": "18.343801",
+        "dustboy_lon": "98.054805",
+        "address": {
+            "hamlet": "บ้านละอูบ",
+            "county": "อำเภอแม่ลาน้อย",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6712",
+        "dustboy_id": "GQ-012",
+        "dustboy_uri": "GQ-012",
+        "dustboy_name": "รพ.สต.แม่ปาง ต.สันติคีรี อ.แม่ลาน้อย จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Mae Pang Subdistrict Health Promotion Hospital, Santikiri Subdistrict, Mae Lan Noi District, Mae Hong Son Province",
+        "dustboy_lat": "18.4628954216507",
+        "dustboy_lon": "97.9477869719266",
+        "address": {
+            "village": "บ้านแม่ปาง",
+            "county": "อำเภอแม่ลาน้อย",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6719",
+        "dustboy_id": "GQ-019",
+        "dustboy_uri": "GQ-019",
+        "dustboy_name": "องค์การบริหารส่วนตำบลแสนทอง  อ.ท่าวังผา จ.น่าน",
+        "dustboy_name_en": "Saen Thong Subdistrict Administrative Organization, Tha Wang Pha District, Nan Province",
+        "dustboy_lat": "19.13539",
+        "dustboy_lon": "100.78569",
+        "address": {
+            "village": "บ้านปูคา",
+            "county": "อำเภอท่าวังผา",
+            "province": "จังหวัดน่าน",
+            "ISO3166-2-lvl4": "TH-55",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6720",
+        "dustboy_id": "GQ-020",
+        "dustboy_uri": "GQ-020",
+        "dustboy_name": "องค์การบริหารส่วนตำบลร่องเคาะ อ.วังเหนือ จ.ลำปาง",
+        "dustboy_name_en": "Rongkho Subdistrict Administrative Organization",
+        "dustboy_lat": "18.9820744",
+        "dustboy_lon": "99.528252",
+        "address": {
+            "hamlet": "บ้านขาม",
+            "county": "อำเภอเมืองปาน",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6725",
+        "dustboy_id": "GQ-025",
+        "dustboy_uri": "GQ-025",
+        "dustboy_name": "อบต.สบเปิง อ.แม่แตง จ.เชียงใหม่",
+        "dustboy_name_en": "Sop Ping Subdistrict Administrative Organization, Mae Taeng District, Chiang Mai Province",
+        "dustboy_lat": "19.096763",
+        "dustboy_lon": "98.848482",
+        "address": {
+            "hamlet": "บ้านไร่",
+            "village": "บ้านล้อง",
+            "municipality": "แม่แตง",
+            "county": "อำเภอแม่แตง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50330",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6726",
+        "dustboy_id": "GQ-026",
+        "dustboy_uri": "GQ-026",
+        "dustboy_name": "องค์การบริหารส่วนตำบลทาเหนือ อ.แม่ออน จ.เชียงใหม่",
+        "dustboy_name_en": "Tha Nuea Subdistrict Administrative Organization",
+        "dustboy_lat": "18.664556",
+        "dustboy_lon": "99.292083",
+        "address": {
+            "road": "ลพ.2031",
+            "residential": "บ้านห้วยบงเหนือ",
+            "hamlet": "บ้านห้วยยาบ",
+            "village": "บ้านห้วยทราย",
+            "county": "อำเภอแม่ออน",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6729",
+        "dustboy_id": "GQ-029",
+        "dustboy_uri": "GQ-029",
+        "dustboy_name": "เทศบาลตำบลออนใต้ อ.สันกำแพง จ.เชียงใหม่",
+        "dustboy_name_en": "On Tai Subdistrict Municipality, San Kamphaeng District, Chiang Mai Province",
+        "dustboy_lat": "18.734851",
+        "dustboy_lon": "99.20742",
+        "address": {
+            "hamlet": "บ้านแม่ผาแหน",
+            "village": "บ้านริมออนใต้",
+            "municipality": "ออนใต้",
+            "county": "อำเภอสันกำแพง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6740",
+        "dustboy_id": "GQ-040",
+        "dustboy_uri": "GQ-040",
+        "dustboy_name": "รพ.สบปราบ ต.สบปราบ อ.สบปราบ จ.ลำปาง",
+        "dustboy_name_en": "Sop Prap Hospital, Sop Prap Subdistrict, Sop Prap District, Lampang Province",
+        "dustboy_lat": "17.879619758624656",
+        "dustboy_lon": "99.34006093260246",
+        "address": {
+            "amenity": "โรงพยาบาลสบปราบ",
+            "road": "ถนนสมัยนิลดำริ",
+            "suburb": "หมู่ 14",
+            "village": "บ้านทุ่ง",
+            "city": "ตำบลสบปราบ",
+            "municipality": "องค์การบริหารส่วนตำบลสบปราบ",
+            "county": "อำเภอสบปราบ",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "postcode": "52170",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6751",
+        "dustboy_id": "GQ-051",
+        "dustboy_uri": "",
+        "dustboy_name": "โรงพยาบาลเชียงดาว ต.เชียงดาว อ.เชียงดาว จ.เชียงใหม่",
+        "dustboy_name_en": "Chiang Dao Hospital, Chiang Dao Subdistrict, Chiang Dao District, Chiang Mai Province.",
+        "dustboy_lat": "19.403928",
+        "dustboy_lon": "98.973821",
+        "address": {
+            "office": "โรงพยาบาลเชียงดาว",
+            "road": "ถนนโชตนา",
+            "village": "บ้านดอน",
+            "municipality": "ปิงโค้ง",
+            "county": "อำเภอเชียงดาว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6760",
+        "dustboy_id": "GQ-060",
+        "dustboy_uri": "GQ-060",
+        "dustboy_name": "สำนักงานสาธารณสุขจังหวัดพะเยา ต.บ้านต๋อม อ.เมือง จ.พะเยา",
+        "dustboy_name_en": "Phayao Provincial Public Health Office,  Phayao Province",
+        "dustboy_lat": "19.1925497590461",
+        "dustboy_lon": "99.8796059110476",
+        "address": {
+            "village": "บ้านร่องห้า",
+            "city": "ตำบลบ้านต๋อม",
+            "municipality": "เทศบาลตำบลบ้านต๋อม",
+            "county": "อำเภอเมืองพะเยา",
+            "province": "จังหวัดพะเยา",
+            "ISO3166-2-lvl4": "TH-56",
+            "postcode": "56000",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6767",
+        "dustboy_id": "GQ-067",
+        "dustboy_uri": "GQ-067",
+        "dustboy_name": "รพ.สต.บ้านน้ำฮูผาเสื่อ ต.นาปู่ป้อม อ.ปางมะผ้า จ. แม่ฮ่องสอน ",
+        "dustboy_name_en": "Ban Nam Hu Pha Suea Subdistrict Health Promotion Hospital, Na Pu Pom Subdistrict, Pang Mapha District, Mae Hong Son Province",
+        "dustboy_lat": "19.6105194",
+        "dustboy_lon": "98.1447804",
+        "address": {
+            "hamlet": "บ้านน้ำฮูผาเสื่อ",
+            "county": "อำเภอปางมะผ้า",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6768",
+        "dustboy_id": "GQ-068",
+        "dustboy_uri": "GQ-068",
+        "dustboy_name": "สสอ.ปางมะผ้า ต.สบป่อง อ.ปางมะผ้า จ.แม่ฮ่องสอน",
+        "dustboy_name_en": "Pang Mapha Subdistrict Health Office, Sop Pong Subdistrict, Pang Mapha District, Mae Hong Son Province",
+        "dustboy_lat": "19.51908",
+        "dustboy_lon": "98.25993",
+        "address": {
+            "amenity": "สาธารณสุขอำเภอปางมะผ้า",
+            "road": "มส.4014",
+            "village": "สอบปอง",
+            "county": "อำเภอปางมะผ้า",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "postcode": "58150",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6769",
+        "dustboy_id": "GQ-069",
+        "dustboy_uri": "GQ-069",
+        "dustboy_name": "สำนักงานสาธารณสุขอำเภอปาย ต.เวียงใต้ อ.ปาย จังหวัดแม่ฮ่องสอน",
+        "dustboy_name_en": "Pai District Public Health Office, Wiang Tai Subdistrict, Pai District, Mae Hong Son Province",
+        "dustboy_lat": "19.36483",
+        "dustboy_lon": "98.43067",
+        "address": {
+            "tourism": "Mountain Blues Cottage",
+            "house_number": "174 Moo 1",
+            "road": "มส.5151",
+            "hamlet": "บ้านน้ำฮู",
+            "town": "ปาย",
+            "county": "อำเภอปาย",
+            "province": "จังหวัดแม่ฮ่องสอน",
+            "ISO3166-2-lvl4": "TH-58",
+            "postcode": "58130",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6780",
+        "dustboy_id": "GQ-080",
+        "dustboy_uri": "GQ-080",
+        "dustboy_name": "รพ.ดอยสะเก็ด ต.เชิงดอย อ.ดอยสะเก็ด จ. เชียงใหม่",
+        "dustboy_name_en": "Doi Saket Hospital, Chiang Mai",
+        "dustboy_lat": "18.869024",
+        "dustboy_lon": "99.12833",
+        "address": {
+            "amenity": "โรงพยาบาลดอยสะเก็ด",
+            "road": "ถนนเชียงใหม่-ดอยสะเก็ด",
+            "hamlet": "บ้านเมืองลวงใต้",
+            "village": "บ้านลวงเหนือ",
+            "municipality": "ลวงเหนือ",
+            "county": "อำเภอดอยสะเก็ด",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6781",
+        "dustboy_id": "GQ-081",
+        "dustboy_uri": "GQ-081",
+        "dustboy_name": "โรงพยาบาลสันทราย ต.หนองหาร อ.สันทราย จ.เชียงใหม่",
+        "dustboy_name_en": "San Sai Hospital, Nong Harn Subdistrict, San Sai District, Chiang Mai Province",
+        "dustboy_lat": "18.92136",
+        "dustboy_lon": "98.99441",
+        "address": {
+            "amenity": "โรงพยาบาลสันทราย",
+            "road": "ถนนเชียงใหม่-พร้าว",
+            "hamlet": "บ้านไร่สหกรณ์",
+            "town": "แม่โจ้",
+            "municipality": "เทศบาลเมืองแม่โจ้",
+            "county": "อำเภอสันทราย",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50290",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6789",
+        "dustboy_id": "GQ-089",
+        "dustboy_uri": "GQ-089",
+        "dustboy_name": "สำนักงานเทศบาลตำบลก้อ อ.ลี้ จ.ลำพูน",
+        "dustboy_name_en": "Ko Subdistrict Municipality Office, Li District, Lamphun Province",
+        "dustboy_lat": "17.63939",
+        "dustboy_lon": "98.78532",
+        "address": {
+            "office": "สำนักงานเทศบาลตำบลก้อ",
+            "house_number": "99",
+            "locality": "หมู่ 3",
+            "city": "ตำบลก้อ",
+            "municipality": "ก้อ",
+            "county": "อำเภอลี้",
+            "province": "จังหวัดลำพูน",
+            "ISO3166-2-lvl4": "TH-51",
+            "postcode": "51110",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "6800",
+        "dustboy_id": "GQ-100",
+        "dustboy_uri": "GQ-100",
+        "dustboy_name": "CR009 (Outdoor) ต.สันกำแพง อ.สันกำแพง จ.เชียงใหม่ ",
+        "dustboy_name_en": "CR009 (Outdoor) San Kamphaeng Subdistrict, San Kamphaeng District, Chiang Mai Province ",
+        "dustboy_lat": "18.7467550239948",
+        "dustboy_lon": "99.1126392023383",
+        "address": {
+            "road": "รวมพร ซอย 3",
+            "town": "สันกำแพง",
+            "municipality": "แม่ปูคา",
+            "county": "อำเภอสันกำแพง",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50220",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "7043",
+        "dustboy_id": "Wplus043",
+        "dustboy_uri": "wplus043",
+        "dustboy_name": "นิคมชุมชนเกษตร ต.บ้านดง อ.แม่เมาะ จ.ลำปาง",
+        "dustboy_name_en": "Mae Mo, Mae Mo District, Lampang 52220",
+        "dustboy_lat": "18.422951683606062",
+        "dustboy_lon": "99.73858451914398",
+        "address": {
+            "county": "อำเภอแม่เมาะ",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "7075",
+        "dustboy_id": "Wplus075",
+        "dustboy_uri": "Wplus075",
+        "dustboy_name": "บ้านห้วยบงใต้ ต.เขื่อนผาก อ.พร้าว จ.เชียงใหม่",
+        "dustboy_name_en": "Srilanna25",
+        "dustboy_lat": "19.306307",
+        "dustboy_lon": "99.174595",
+        "address": {
+            "hamlet": "บ้านห้วยบง",
+            "village": "บ้านหนองเศรษฐี",
+            "municipality": "เขื่อนผาก",
+            "county": "อำเภอพร้าว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "7082",
+        "dustboy_id": "Wplus082",
+        "dustboy_uri": "Wplus082",
+        "dustboy_name": "สถานีวิจัยสัตว์ป่าดอยเชียงดาว ต.เชียงดาว อ.เชียงดาว จ.เชียงใหม่",
+        "dustboy_name_en": "Srilanna30",
+        "dustboy_lat": "19.361211",
+        "dustboy_lon": "98.920519",
+        "address": {
+            "amenity": "Doi Chiang Dao Wildlife Research Station",
+            "road": "ชม.3024",
+            "hamlet": "บ้านถ้ำ",
+            "town": "เชียงดาว",
+            "municipality": "แม่นะ",
+            "county": "อำเภอเชียงดาว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "7116",
+        "dustboy_id": "Wplus116",
+        "dustboy_uri": "Wplus116",
+        "dustboy_name": "บ้านแม่ปั๋ง ต.แม่ปั๋ง อ.พร้าว จ.เชียงใหม่",
+        "dustboy_name_en": "Srilanna63",
+        "dustboy_lat": "19.216876",
+        "dustboy_lon": "99.183017",
+        "address": {
+            "village": "บ้านแม่ปั๋ง",
+            "municipality": "แม่ปั๋ง",
+            "county": "อำเภอพร้าว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "postcode": "50190",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "7126",
+        "dustboy_id": "Wplus126",
+        "dustboy_uri": "Wplus126",
+        "dustboy_name": "หน่วยพิทักษ์ป่าสบห้วยผาตั้ง-นาเลา ต.เชียงดาว อ.เชียงดาว จ.เชียงใหม่",
+        "dustboy_name_en": "Srilanna73",
+        "dustboy_lat": "19.413831",
+        "dustboy_lon": "98.914826",
+        "address": {
+            "road": "ถนนเมื่องคอง",
+            "municipality": "เมืองงาย",
+            "county": "อำเภอเชียงดาว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "7156",
+        "dustboy_id": "Wplus156",
+        "dustboy_uri": "Wplus156",
+        "dustboy_name": "บ้านผาแดง ต.แม่ปั๋ง อ.พร้าว จ.เชียงใหม่",
+        "dustboy_name_en": "Srilanna101",
+        "dustboy_lat": "19.22102",
+        "dustboy_lon": "99.157458",
+        "address": {
+            "road": "ชม. 3082",
+            "village": "บ้านสบปั๋ง",
+            "municipality": "แม่ปั๋ง",
+            "county": "อำเภอพร้าว",
+            "province": "จังหวัดเชียงใหม่",
+            "ISO3166-2-lvl4": "TH-50",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    },
+    {
+        "id": "7166",
+        "dustboy_id": "Wplus166",
+        "dustboy_uri": "Wplus166",
+        "dustboy_name": "วัดวังตม หมู่บ้านวังตม ต.จางเหนือ อ.แม่เมาะ จ.ลำปาง",
+        "dustboy_name_en": "Wat Wang Tom, Wang Tom Village, Chang Nuea Subdistrict, Mae Mo District, Lampang Province",
+        "dustboy_lat": "18.491297",
+        "dustboy_lon": "99.969985",
+        "address": {
+            "county": "อำเภอแม่เมาะ",
+            "province": "จังหวัดลำปาง",
+            "ISO3166-2-lvl4": "TH-52",
+            "country": "ประเทศไทย",
+            "country_code": "th"
+        }
+    }
+]
