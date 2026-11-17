@@ -3486,6 +3486,8 @@
         let connectionLines = [];
         let top3HighlightLayers = [];
         let currentPinnedLatLng = null;
+        let pendingSiteFitBounds = null;
+        let lastAppliedSiteFitBounds = null;
 
         function getAqiHexColors(pm25) {
             if (pm25 <= 15) return { stroke: '#0284c7', fill: '#38bdf8', rgb: [56, 189, 248], textBg: '#0284c7', textColor: '#ffffff' };
@@ -3604,6 +3606,28 @@
             leafletMap.on('click', function (e) {
                 if (!isPinModeActive) return;
                 pinStudentHome(e.latlng.lat, e.latlng.lng, false);
+            });
+
+            // Re-sync Leaflet viewport and fit bounds once CSS/Tailwind layout finishes sizing #map-container
+            const mapEl = document.getElementById('map-container');
+            const syncMapLayout = () => {
+                if (!leafletMap || !mapEl) return;
+                if (mapEl.clientWidth > 50 && mapEl.clientHeight > 50) {
+                    leafletMap.invalidateSize({ animate: false });
+                    if (pendingSiteFitBounds) {
+                        const targetBounds = pendingSiteFitBounds;
+                        pendingSiteFitBounds = null;
+                        leafletMap.fitBounds(targetBounds, { padding: [50, 50], maxZoom: 14, animate: false });
+                    }
+                }
+            };
+            if (typeof ResizeObserver !== 'undefined' && mapEl) {
+                const mapResizeObserver = new ResizeObserver(() => syncMapLayout());
+                mapResizeObserver.observe(mapEl);
+            }
+            window.addEventListener('load', () => {
+                syncMapLayout();
+                setTimeout(syncMapLayout, 150);
             });
         }
 
@@ -4124,13 +4148,19 @@
             }
 
             const fitBounds = L.latLngBounds(bounds);
+            lastAppliedSiteFitBounds = fitBounds;
+            leafletMap.invalidateSize({ animate: false });
+            const mapSize = leafletMap.getSize();
+            const hasValidSize = !!(mapSize && mapSize.x > 50 && mapSize.y > 50);
+            pendingSiteFitBounds = hasValidSize ? null : fitBounds;
+
             if (currentPinnedLatLng) {
                 pinStudentHome(currentPinnedLatLng.lat, currentPinnedLatLng.lng, false);
             } else {
-                if (flyAnimate) {
+                if (flyAnimate && hasValidSize) {
                     leafletMap.flyToBounds(fitBounds, { padding: [50, 50], duration: 1.2, maxZoom: 14 });
                 } else {
-                    leafletMap.fitBounds(fitBounds, { padding: [50, 50], maxZoom: 14 });
+                    leafletMap.fitBounds(fitBounds, { padding: [50, 50], maxZoom: 14, animate: false });
                 }
                 setTimeout(() => userMarker.openPopup(), flyAnimate ? 1300 : 200);
             }
