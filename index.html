@@ -276,6 +276,7 @@
     <link rel="stylesheet" href="assets/workspace/care-ops.css?v=village-spread-12">
     <link rel="stylesheet" href="assets/workspace/forecast-decision.css?v=village-spread-12">
     <script src="assets/workspace/policy.js?v=village-spread-12"></script>
+    <script src="data/climate-snapshot.js"></script>
     <script src="assets/workspace/forecast-model.js?v=village-spread-12"></script>
     <script src="assets/workspace/building-samples.js?v=village-spread-12"></script>
     <script src="assets/workspace/care-model.js?v=village-spread-12"></script>
@@ -3173,6 +3174,26 @@
             { name: "วัดวังตม หมู่บ้านวังตม ต.จางเหนือ อ.แม่เมาะ จ.ลำปาง", type: "DustBoy (Wplus166)", pm25: 28.4, temp: 31.8, lat: 18.491297, lng: 99.969985 }
         ];
 
+        // Hydrate station lists and site baselines from real API snapshot in data/climate-snapshot.js
+        (function hydrateStationsFromSnapshot() {
+            const snap = globalThis.LHS_CLIMATE_DATA;
+            if (!snap) return;
+            if (Array.isArray(snap.stations) && snap.stations.length > 0) {
+                regionalStations.splice(0, regionalStations.length, ...snap.stations);
+            }
+            if (snap.siteFeeds) {
+                userSites.forEach(site => {
+                    const feed = snap.siteFeeds[site.id];
+                    if (!feed) return;
+                    if (Number.isFinite(feed.basePM)) site.basePM = feed.basePM;
+                    if (Number.isFinite(feed.baseTemp)) site.baseTemp = feed.baseTemp;
+                    if (Array.isArray(feed.stations) && feed.stations.length > 0) {
+                        site.stations = feed.stations.map(st => ({ ...st }));
+                    }
+                });
+            }
+        })();
+
         // ================= 2. COMPARISON LOCATIONS DATABASE & HIERARCHY =================
         const locationHierarchy = {
             "เชียงใหม่": {
@@ -3236,9 +3257,9 @@
             "tam_nakaeo": { name: "ต.นาแก้ว", color: "#4f46e5", pmOffset: 0, tempOffset: 3.0 }
         };
 
-        // Demo observations and seven-day forecasts use dates relative to the current Bangkok day.
-        // Forecast values and bounds are explicit demo data. See assets/workspace/forecast-model.js.
-        const forecastConfig = LhsForecast.createDemoSource();
+        // Observed history and 7-day PM2.5 forecasts use live API snapshot from data/climate-snapshot.js
+        // (while temperature forecasts and confidence intervals remain mock-up). See assets/workspace/forecast-model.js.
+        let forecastConfig = LhsForecast.forSite('usr_saraphi');
 
         // ================= 3. THAI STANDARD AQI COLORS & STYLES =================
         function getAqiStyles(pm25) {
@@ -3474,6 +3495,8 @@
         let markersLayer = null;
         let stationPinsLayer = null;
         let pm25AreaLayer = null;
+        let pm25AreaLabelsLayer = null;
+        let pm25AreaStations = [];
         let pm25MapDisplayMode = 'pin'; // 'pin' (หมุดสถานี) | 'area' (พื้นที่ฝุ่น)
         const PM25_AREA_CONTROL_LABEL = 'พื้นที่ฝุ่น (แสดงค่าฝุ่นรายพื้นที่)';
         let stationMarkersMap = {};
@@ -3563,6 +3586,7 @@
             markersLayer = L.layerGroup().addTo(leafletMap);
             stationPinsLayer = L.layerGroup().addTo(leafletMap);
             pm25AreaLayer = L.layerGroup();
+            pm25AreaLabelsLayer = L.layerGroup();
 
             const baseMaps = {
                 "ภาพถ่ายดาวเทียม + ถนน (Satellite) (แนะนำ)": esriSatelliteHybrid,
@@ -3589,6 +3613,7 @@
                     if (stationPinsLayer && leafletMap.hasLayer(stationPinsLayer)) {
                         leafletMap.removeLayer(stationPinsLayer);
                     }
+                    updatePm25AreaLabelsVisibility();
                     syncPm25MapDisplayToolbarUI();
                 }
             });
@@ -3599,9 +3624,12 @@
                     if (stationPinsLayer && !leafletMap.hasLayer(stationPinsLayer)) {
                         leafletMap.addLayer(stationPinsLayer);
                     }
+                    updatePm25AreaLabelsVisibility();
                     syncPm25MapDisplayToolbarUI();
                 }
             });
+
+            leafletMap.on('zoomend moveend', updatePm25AreaLabelsVisibility);
 
             leafletMap.on('click', function (e) {
                 if (!isPinModeActive) return;
@@ -3631,6 +3659,49 @@
             });
         }
 
+        const PM25_AREA_LABEL_MIN_ZOOM = 11;
+        const PM25_AREA_LABEL_MAX_VISIBLE = 18;
+
+        function updatePm25AreaLabelsVisibility() {
+            if (!leafletMap || !pm25AreaLabelsLayer) return;
+            const isAreaActive = pm25MapDisplayMode === 'area' && pm25AreaLayer && leafletMap.hasLayer(pm25AreaLayer);
+            if (!isAreaActive) {
+                if (leafletMap.hasLayer(pm25AreaLabelsLayer)) {
+                    leafletMap.removeLayer(pm25AreaLabelsLayer);
+                }
+                return;
+            }
+
+            const zoom = leafletMap.getZoom();
+            if (zoom < PM25_AREA_LABEL_MIN_ZOOM) {
+                if (leafletMap.hasLayer(pm25AreaLabelsLayer)) {
+                    leafletMap.removeLayer(pm25AreaLabelsLayer);
+                }
+                return;
+            }
+
+            const bounds = leafletMap.getBounds();
+            let visibleCount = 0;
+            for (let i = 0; i < pm25AreaStations.length; i++) {
+                const st = pm25AreaStations[i];
+                if (bounds && bounds.contains([st.lat, st.lng])) {
+                    visibleCount++;
+                    if (visibleCount > PM25_AREA_LABEL_MAX_VISIBLE) {
+                        break;
+                    }
+                }
+            }
+
+            const shouldShow = visibleCount > 0 && visibleCount <= PM25_AREA_LABEL_MAX_VISIBLE;
+            if (shouldShow) {
+                if (!leafletMap.hasLayer(pm25AreaLabelsLayer)) {
+                    leafletMap.addLayer(pm25AreaLabelsLayer);
+                }
+            } else if (leafletMap.hasLayer(pm25AreaLabelsLayer)) {
+                leafletMap.removeLayer(pm25AreaLabelsLayer);
+            }
+        }
+
         function setPm25MapDisplayMode(mode) {
             if (!leafletMap) return;
             pm25MapDisplayMode = (mode === 'area') ? 'area' : 'pin';
@@ -3650,6 +3721,7 @@
                     leafletMap.addLayer(stationPinsLayer);
                 }
             }
+            updatePm25AreaLabelsVisibility();
             syncPm25MapDisplayToolbarUI();
         }
 
@@ -3793,6 +3865,8 @@
         function renderPm25AreaLayerForSite(user) {
             if (!leafletMap || !pm25AreaLayer || !user) return;
             pm25AreaLayer.clearLayers();
+            if (pm25AreaLabelsLayer) pm25AreaLabelsLayer.clearLayers();
+            pm25AreaStations = [];
 
             const localStations = user.stations || [];
             const stations = [...localStations];
@@ -3801,7 +3875,11 @@
                     stations.push(st);
                 }
             });
-            if (stations.length === 0) return;
+            if (stations.length === 0) {
+                updatePm25AreaLabelsVisibility();
+                return;
+            }
+            pm25AreaStations = stations;
 
             // 1. Render blended 5 km circles overlay across all stations
             const blendedOverlay = buildBlended5KmCirclesOverlay(stations);
@@ -3892,8 +3970,9 @@
                     iconAnchor: [55, 21]
                 });
 
-                L.marker([st.lat, st.lng], { icon: areaValueIcon, interactive: false }).addTo(pm25AreaLayer);
+                L.marker([st.lat, st.lng], { icon: areaValueIcon, interactive: false }).addTo(pm25AreaLabelsLayer || pm25AreaLayer);
             });
+            updatePm25AreaLabelsVisibility();
         }
 
         // ================= 6. ROLE SWITCHER & SYNCHRONIZATION LOGIC =================
@@ -3957,6 +4036,7 @@
             const user = userSites.find(s => s.id === siteId);
             if (!user) return;
             currentActiveSiteId = siteId;
+            forecastConfig = LhsForecast.forSite(siteId);
 
             // Sync top dropdown
             const userSelect = document.getElementById('user-select');
@@ -7261,22 +7341,6 @@
                     ? ''
                     : `
                         <td class="px-5 py-3.5 whitespace-nowrap">
-                            <div class="flex items-center gap-2">
-                                <span class="w-6 h-6 rounded-md bg-indigo-50 border border-indigo-200 text-indigo-700 flex items-center justify-center text-xs shrink-0 font-bold">📡</span>
-                                <div>
-                                    <div class="text-xs font-bold text-gray-900">${stName}</div>
-                                    <div class="text-[11px] text-gray-500 font-mono flex items-center gap-1.5 mt-0.5">
-                                        <span>ฝุ่น: <strong class="text-sky-700 font-bold">${stPm}</strong></span>
-                                        <span>•</span>
-                                        <span>ความร้อน: <strong class="text-amber-700 font-bold">${stTemp}°C</strong></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    `;
-
-                tbody.innerHTML += `
-                    <tr class="hover:bg-blue-50/30 transition border-b border-gray-100 text-sm">
                         <td class="px-5 py-3.5 font-mono text-xs font-semibold text-gray-900 tracking-wider whitespace-nowrap">
                             ${p.cid}
                         </td>
@@ -9531,6 +9595,26 @@
         // UNIFIED DOM READY INITIALIZATION COORDINATOR
         // =========================================================================
         window.addEventListener('DOMContentLoaded', () => {
+            // Sync HOSPITAL_ROLES & allPatientsDb ambient PM2.5/temp from hydrated live stations
+            if (globalThis.LHS_CLIMATE_DATA?.siteFeeds && typeof HOSPITAL_ROLES !== 'undefined') {
+                const roleByCode = new Map();
+                HOSPITAL_ROLES.forEach(role => {
+                    const site = userSites.find(s => s.id === role.id);
+                    if (site && Number.isFinite(site.basePM)) role.pm25 = site.basePM;
+                    if (site && Number.isFinite(site.baseTemp)) role.temp = site.baseTemp;
+                    roleByCode.set(role.hospcode, role);
+                    roleByCode.set(role.id, role);
+                });
+                if (typeof allPatientsDb !== 'undefined') {
+                    allPatientsDb.forEach(p => {
+                        const r = roleByCode.get(p.hosp);
+                        if (r) {
+                            p.pm25 = r.pm25;
+                            p.temp = r.temp;
+                        }
+                    });
+                }
+            }
             // 1. Initialize Environmental Health Dashboard (Tab 1)
             try {
                 if (typeof setDefaultDateRange === 'function') setDefaultDateRange();

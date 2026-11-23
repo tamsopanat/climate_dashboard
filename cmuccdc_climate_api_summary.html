@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMUCCDC Open API — Climate &amp; Air Quality API Summary</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --teal: #0f766e;
+      --teal-soft: #f0fdfa;
+      --blue: #1d4ed8;
+      --blue-soft: #eff6ff;
+      --green: #15803d;
+      --green-soft: #f0fdf4;
+      --red: #b91c1c;
+      --red-soft: #fef2f2;
+      --amber: #b45309;
+      --amber-soft: #fffbeb;
+      --code-bg: #0f172a;
+      --code-fg: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Thai", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+    }
+    header {
+      background: linear-gradient(135deg, #0f766e 0%, #0369a1 100%);
+      color: #fff;
+      padding: 28px 32px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(15, 118, 110, 0.16);
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 1.65rem;
+      line-height: 1.25;
+    }
+    header p {
+      margin: 0;
+      opacity: 0.92;
+      font-size: 0.95rem;
+    }
+    .meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .meta-pill {
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+    h2 {
+      margin: 0 0 14px;
+      font-size: 1.2rem;
+      color: var(--teal);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    h3 {
+      margin: 18px 0 10px;
+      font-size: 1rem;
+      color: #1e293b;
+    }
+    ul {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+    li { margin-bottom: 6px; }
+    code, pre {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    code {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 0.86em;
+    }
+    pre {
+      background: var(--code-bg);
+      color: var(--code-fg);
+      padding: 12px 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-size: 0.88rem;
+      margin: 10px 0;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f8fafc;
+      font-weight: 700;
+      color: #334155;
+      white-space: nowrap;
+    }
+    .method {
+      display: inline-block;
+      background: var(--blue-soft);
+      color: var(--blue);
+      border: 1px solid #bfdbfe;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: ui-monospace, monospace;
+    }
+    .badge-yes {
+      display: inline-block;
+      background: var(--green-soft);
+      color: var(--green);
+      border: 1px solid #bbf7d0;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+    .badge-no {
+      display: inline-block;
+      background: var(--red-soft);
+      color: var(--red);
+      border: 1px solid #fecaca;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+    .callout {
+      background: var(--teal-soft);
+      border: 1px solid #99f6e4;
+      border-left: 4px solid var(--teal);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-top: 14px;
+      font-size: 0.92rem;
+    }
+    .callout-warn {
+      background: var(--amber-soft);
+      border: 1px solid #fde68a;
+      border-left: 4px solid var(--amber);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-top: 14px;
+      font-size: 0.92rem;
+    }
+    .aqi-chip {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: #fff;
+    }
+    .aqi-very-good { background: #38bdf8; }
+    .aqi-good { background: #22c55e; }
+    .aqi-moderate { background: #eab308; color: #1e293b; }
+    .aqi-unhealthy-sg { background: #f97316; }
+    .aqi-unhealthy { background: #dc2626; }
+    a { color: #0369a1; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>CMUCCDC Open API — Climate &amp; Air Quality API Summary</h1>
+      <p>Extracted endpoints for dashboard integration from <a href="https://open-api.cmuccdc.org" target="_blank" rel="noopener" style="color:#fff; text-decoration:underline;">https://open-api.cmuccdc.org</a> (CMUCCDC Open API v1.0)</p>
+      <div class="meta-pills">
+        <span class="meta-pill">Base URL: https://open-api.cmuccdc.org</span>
+        <span class="meta-pill">Forecast API: https://pm25_migration.cmuccdc.org</span>
+        <span class="meta-pill">Auth: Bearer API Key</span>
+        <span class="meta-pill">Sensors: DustBoy (PM2.5, PM10, Temp, RH, Rain)</span>
+        <span class="meta-pill">Extracted: 2026-11-23</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>1. Overview &amp; Authentication</h2>
+      <ul>
+        <li><strong>Base URL:</strong> <code>https://open-api.cmuccdc.org</code></li>
+        <li><strong>Registration:</strong> <a href="https://open-api.cmuccdc.org/main/register" target="_blank" rel="noopener">https://open-api.cmuccdc.org/main/register</a> (General Public activates immediately with a 10-station limit; Student/Researcher, Civil Society, Private, Government, and MOU accounts require admin approval).</li>
+        <li><strong>Default Scope:</strong> Outdoor stations only (Indoor or combined Indoor+Outdoor requires special permission from CCDC).</li>
+        <li><strong>Attribution Requirement:</strong> Must credit CCDC CMU / DustBoy on the dashboard, e.g. <em>"ข้อมูลนี้ได้รับการสนับสนุนจากศูนย์ข้อมูลการเปลี่ยนแปลงสภาพภูมิอากาศ มหาวิทยาลัยเชียงใหม่ (CCDC CMU)"</em> or <em>"ข้อมูลจากเครื่องตรวจวัดคุณภาพอากาศ DustBoy"</em> (or display the DustBoy / CCDC CMU logo).</li>
+        <li><strong>CCDC Contact:</strong> Email <code>dustboy.3e@gmail.com</code> | Tel: <code>064-069-1698</code></li>
+      </ul>
+      <pre>Authorization: Bearer {your_api_key}</pre>
+    </section>
+
+    <section>
+      <h2>2. Climate / Air Quality APIs for This Dashboard (DustBoy API)</h2>
+      <p style="color:var(--muted); margin-top:0;">Note: <code>FloodBoy API</code> (<code>/api/floodboy/*</code>) on the same portal is for water-level/flood monitoring only and is not needed for PM2.5/Temperature climate panels.</p>
+
+      <h3>[A] Real-Time Hourly Endpoints (Map Pins, 5 km PM2.5 Overlay &amp; Live Readings)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Endpoint</th>
+              <th>Parameters</th>
+              <th>Allowed Roles</th>
+              <th>Dashboard Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="method">GET</span></td>
+              <td><code>/api/dustboy/stations</code></td>
+              <td>None</td>
+              <td>Private, Gov, MOU</td>
+              <td>All online stations with coordinates &amp; live hourly readings (replaces static <code>station_data.json</code> + mock <code>pm25</code>/<code>temp</code> in <code>regionalStations</code> &amp; 5 km overlay).</td>
+            </tr>
+            <tr>
+              <td><span class="method">GET</span></td>
+              <td><code>/api/dustboy/station</code></td>
+              <td>Configured station ID</td>
+              <td>All accounts (Public &le; 10 stations)</td>
+              <td>Single-station real-time hourly reading &amp; sensor metadata.</td>
+            </tr>
+            <tr>
+              <td><span class="method">GET</span></td>
+              <td><code>/api/dustboy/nearme/{latitude}/{longitude}/{distance}</code></td>
+              <td><code>latitude</code>, <code>longitude</code>, <code>distance</code> (max <code>20</code> km)</td>
+              <td>Private, Gov, MOU</td>
+              <td>Find online stations within 20 km of a site or pinned home (<code>pinStudentHome()</code> Top 3 lookup).</td>
+            </tr>
+            <tr>
+              <td><span class="method">GET</span></td>
+              <td><code>/api/dustboy/province</code></td>
+              <td>Province selection</td>
+              <td>CSO, Private, Gov, MOU</td>
+              <td>Real-time hourly readings grouped by province (e.g., Chiang Mai, Lamphun, Chiang Rai).</td>
+            </tr>
+            <tr>
+              <td><span class="method">GET</span></td>
+              <td><code>/api/dustboy/areahealth</code></td>
+              <td>Health region</td>
+              <td>CSO, Private, Gov, MOU</td>
+              <td>Real-time hourly readings grouped by Ministry of Public Health region (เขตสุขภาพ).</td>
+            </tr>
+            <tr>
+              <td><span class="method">GET</span></td>
+              <td><code>/api/dustboy/geography</code></td>
+              <td>Geographic region</td>
+              <td>Private, Gov, MOU</td>
+              <td>Real-time hourly readings by geographical region (e.g., Northern Thailand).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>[B] Historical Hourly Time-Series &amp; Bulk Endpoints (Trend Charts &amp; History)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Endpoint</th>
+              <th>Parameters</th>
+              <th>Allowed Roles</th>
+              <th>Dashboard Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="method">GET</span></td>
+              <td><code>/api/dustboy/data30day/{id}</code></td>
+              <td><code>id</code> (station ID)</td>
+              <td>Private, Gov, MOU</td>
+              <td>Past 30 days hourly readings for short-term trend chart (<code>envChart</code>) &amp; location comparison.</td>
+            </tr>
+            <tr>
+              <td><span class="method">GET</span></td>
+              <td><code>/api/dustboy/data1year/{id}</code></td>
+              <td><code>id</code> (station ID)</td>
+              <td>Student/Researcher, Private, Gov, MOU</td>
+              <td>Past 1 year hourly readings (supports 180-day observed history in <code>forecast-model.js</code>).</td>
+            </tr>
+            <tr>
+              <td><span class="method">GET</span></td>
+              <td><code>/api/dustboy/data5year/{id}</code></td>
+              <td><code>id</code> (station ID)</td>
+              <td>Student/Researcher, Private, Gov, MOU</td>
+              <td>Past 5 years hourly readings for multi-year seasonal baselines.</td>
+            </tr>
+            <tr>
+              <td><span class="method">GET</span></td>
+              <td><code>/api/dustboy/database/{yyyy}{mm}</code></td>
+              <td><code>yyyy</code>, <code>mm</code> (e.g. <code>202412</code>; available <code>202309</code>–<code>202611</code>)</td>
+              <td>Student/Researcher, MOU</td>
+              <td>Monthly bulk hourly archive across all stations.</td>
+            </tr>
+            <tr>
+              <td><span class="method">GET</span></td>
+              <td><code>/api/download/data30day/{id}</code></td>
+              <td><code>id</code> (station ID)</td>
+              <td>Web UI Download</td>
+              <td>Direct 30-day station dataset download (Excel/export).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>[C] 7-Day PM2.5 Forecast Endpoint (Migration API)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Full URL</th>
+              <th>Auth Header</th>
+              <th>Response Coverage</th>
+              <th>Dashboard Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="method">GET</span></td>
+              <td><code>https://pm25_migration.cmuccdc.org/v1/stations/forecast</code></td>
+              <td><code>Authorization: Bearer {your_api_key}</code></td>
+              <td>542 stations &times; 7 days (<code>h: 1..7</code>), JSON</td>
+              <td>Supplies real 7-day point <code>pm25</code> forecasts (<code>forecasts[].pm25</code>) for <code>forecast-model.js</code> &amp; <code>care-ops-model.js</code>. <strong>No temperature or confidence intervals (<code>lower</code>/<code>upper</code>) yet — keep mock-up values for those fields.</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <pre>{
+  "count": 542,
+  "issue_date": "2026-11-23",
+  "note": "station-level global model (province climatology + station offset), ug/m3",
+  "stations": [
+    {
+      "station_id": 3195,
+      "name": "รพ.สต.เนินแจง อ.เมือง จ.อุทัยธานี",
+      "province": "อุทัยธานี",
+      "lat": 15.46759,
+      "lon": 100.01654,
+      "forecasts": [
+        { "date": "2026-11-24", "h": 1, "pm25": 124.5, "level": 2, "level_th": "มีผลกระทบสุขภาพ" }
+      ],
+      "max_pm25_7d": 124.5,
+      "max_level": 2
+    }
+  ]
+}</pre>
+      <div class="callout-warn">
+        <strong>Integration &amp; TLS Note:</strong>
+        <ul>
+          <li><code>pm25_migration.cmuccdc.org</code> contains an underscore (<code>_</code>), which fails strict wildcard SSL hostname checks against <code>*.cmuccdc.org</code> in some HTTP clients. Proxy requests through a backend service (which also keeps your <code>API_KEY</code> out of client-side browser code).</li>
+        </ul>
+      </div>
+
+      <h3>[D] Documentation Test Endpoint</h3>
+      <p><span class="method">GET</span> <code>https://open-api.cmuccdc.org/api/Docs</code> — General API verification example in documentation.</p>
+    </section>
+
+    <section>
+      <h2>3. Access Permission Matrix by Account Type</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Function</th>
+              <th>ประชาชนทั่วไป (Public)</th>
+              <th>นักศึกษา/นักวิจัย (Student)</th>
+              <th>ภาคประชาสังคม (CSO)</th>
+              <th>เอกชน (Private)</th>
+              <th>ภาครัฐ (Gov)</th>
+              <th>MOU</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Real-time hourly by station (<code>/station</code>)</td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+            </tr>
+            <tr>
+              <td>Real-time hourly by province (<code>/province</code>)</td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+            </tr>
+            <tr>
+              <td>Real-time hourly by health region (<code>/areahealth</code>)</td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+            </tr>
+            <tr>
+              <td>Real-time hourly by region (<code>/geography</code>)</td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+            </tr>
+            <tr>
+              <td>Real-time hourly all stations (<code>/stations</code>)</td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+            </tr>
+            <tr>
+              <td>Real-time hourly by coordinate (<code>/nearme/...</code>)</td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+            </tr>
+            <tr>
+              <td>Historical hourly 30 days (<code>/data30day/{id}</code>)</td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+            </tr>
+            <tr>
+              <td>Historical hourly 1 year (<code>/data1year/{id}</code>)</td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+            </tr>
+            <tr>
+              <td>Historical hourly 5 years (<code>/data5year/{id}</code>)</td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+            </tr>
+            <tr>
+              <td>Historical all stations monthly (<code>/database/{yyyy}{mm}</code>)</td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-no">DENY</span></td>
+              <td><span class="badge-yes">ALLOW</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <strong>Recommendation:</strong> Register using a <strong>Government (หน่วยงานภาครัฐ)</strong> or <strong>MOU (หน่วยงาน เอ็มโอยู)</strong> account so the dashboard has access to <code>/stations</code>, <code>/nearme</code>, <code>/province</code>, <code>/areahealth</code>, <code>/data30day/{id}</code>, and <code>/data1year/{id}</code>.
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Dashboard Integration Mapping</h2>
+      <ul>
+        <li><strong>Map Markers &amp; 5 km PM2.5 Area Overlay (<code>index.html</code>):</strong> <code>GET /api/dustboy/stations</code> (or <code>/api/dustboy/province</code>) to replace mocked <code>pm25</code>/<code>temp</code> in <code>regionalStations</code> and <code>userSites[].stations</code>.</li>
+        <li><strong>Nearest Station Lookup on Pin Drop (<code>pinStudentHome()</code>):</strong> <code>GET /api/dustboy/nearme/{lat}/{lng}/{distance}</code> (<code>distance &le; 20</code> km).</li>
+        <li><strong>Time-Series Charts &amp; Historical Exposure (<code>envChart</code>, <code>forecast-model.js</code>):</strong> <code>GET /api/dustboy/data30day/{id}</code> (30-day trend) and <code>GET /api/dustboy/data1year/{id}</code> (180-day / annual history).</li>
+        <li><strong>7-Day PM2.5 Forecast (<code>forecast-model.js</code>, <code>care-ops-model.js</code>):</strong> <code>GET https://pm25_migration.cmuccdc.org/v1/stations/forecast</code> provides 7-day point <code>pm25</code> values (<code>forecasts[].pm25</code>) for 542 stations matched by <code>station_id</code> / <code>lat</code> / <code>lon</code>.</li>
+      </ul>
+      <div class="callout-warn">
+        <strong>Fields Still Requiring Mock-up or External Weather APIs:</strong>
+        <ul>
+          <li><strong>Forecast Temperature:</strong> Not returned by <code>/v1/stations/forecast</code> yet — continue using mock-up temperature (or pair with TMD / Open-Meteo).</li>
+          <li><strong>Forecast Confidence Intervals (<code>lower</code>, <code>upper</code>):</strong> <code>/v1/stations/forecast</code> returns point <code>pm25</code> means only — continue using mock-up bounds for <code>LhsForecast.triple(mean, lower, upper)</code> until prediction intervals are added.</li>
+          <li><strong>Heat Index:</strong> Derive from observed station Temperature + Relative Humidity or pair with a weather API for <code>calculateCompositeRisk</code>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>5. Thai AQI Reference Thresholds (Matches Dashboard <code>getAqiStyles</code>)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>TH AQI</th>
+              <th>PM2.5 24-hr Avg (&micro;g/m&sup3;)</th>
+              <th>PM10 24-hr Avg (&micro;g/m&sup3;)</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="aqi-chip aqi-very-good">0 - 25</span></td>
+              <td>0 - 15.0</td>
+              <td>0 - 50</td>
+              <td>คุณภาพอากาศดีมาก</td>
+            </tr>
+            <tr>
+              <td><span class="aqi-chip aqi-good">26 - 50</span></td>
+              <td>15.1 - 25.0</td>
+              <td>51 - 80</td>
+              <td>คุณภาพอากาศดี</td>
+            </tr>
+            <tr>
+              <td><span class="aqi-chip aqi-moderate">51 - 100</span></td>
+              <td>25.1 - 37.5</td>
+              <td>81 - 120</td>
+              <td>คุณภาพอากาศปานกลาง</td>
+            </tr>
+            <tr>
+              <td><span class="aqi-chip aqi-unhealthy-sg">101 - 200</span></td>
+              <td>37.6 - 75.0</td>
+              <td>121 - 180</td>
+              <td>คุณภาพอากาศมีผลกระทบต่อสุขภาพ</td>
+            </tr>
+            <tr>
+              <td><span class="aqi-chip aqi-unhealthy">&gt; 200</span></td>
+              <td>&gt; 75.1</td>
+              <td>&gt; 180</td>
+              <td>คุณภาพอากาศมีผลกระทบต่อสุขภาพมาก</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

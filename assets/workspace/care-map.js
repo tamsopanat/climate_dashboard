@@ -81,7 +81,7 @@
     if(context?.siteId!==next.siteId||lastSourceMode!==LhsCommunityData.mode(next.siteId)){village='all';factor='all';population='all';search='';selectedHouse=null;selectedDate='all';actionOnly=true;}
     clearTimeout(searchTimer);
     context={...next};
-    planDays=OM.forecast(forecastConfig,userSites.find(s=>s.id===next.siteId));
+    planDays=OM.forecast(LhsForecast.forSite(next.siteId),userSites.find(s=>s.id===next.siteId));
     if(map){map.remove();map=null;}
     let panel=$('panel-care-map');if(!panel){panel=document.createElement('div');panel.id='panel-care-map';panel.className='w-full hidden';document.querySelector('main').appendChild(panel);}
     panel.innerHTML=`<div class="care-heading"><div><div class="entry-eyebrow">วางแผนล่วงหน้า · อบต.กองแขก</div><h2>แผนที่การดูแลกลุ่มเปราะบาง</h2><p>พยากรณ์ 7 วัน → เตรียมรายการกลุ่มเปราะบาง → ประสานอาสาสมัคร</p></div><button type="button" id="care-add" class="entry-btn entry-btn-primary"><span aria-hidden="true">＋</span>เพิ่มทะเบียนประชาชน</button></div>

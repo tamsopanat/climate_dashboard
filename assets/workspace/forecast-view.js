@@ -90,28 +90,40 @@
     const peak=s.peak?`${s.peak.mean.toFixed(1)} ${m.unit} (${dateText(s.peak.date)})`:'ยังไม่มีข้อมูล';
     return `<article class="fc-alert-card fc-${s.level}" data-summary="${key}"><div class="fc-card-top"><h4>${m.label} <small>≥ ${threshold} ${m.unit}</small></h4><span class="fc-status">${symbol[s.level]} ${label}</span></div><div class="fc-count"><strong>${s.exceeded.length}</strong><span>วัน ที่ค่าคาดการณ์ถึง/เกินเกณฑ์</span></div><p class="fc-first">${s.firstExceed?'เริ่ม '+dateText(s.firstExceed.date):s.complete?'ค่าคาดการณ์ยังไม่ถึงเกณฑ์':'มีข้อมูล '+s.readyDays+' จาก 7 วัน'}<br>ค่าคาดการณ์สูงสุด <b>${peak}</b></p><div class="fc-upper-note">△ เฉพาะขอบเขตบนถึงเกณฑ์ <strong>${s.upperOnly.length} วัน</strong>${s.upperOnly.length?' · '+s.upperOnly.map(r=>dateText(r.date)).join(', '):''}</div></article>`;
   }
-  function alertValue(row,key){const m=metrics[key],level=LhsForecast.alertLevel(row,LhsForecast.thresholds[key]);return `<div class="fc-day-value fc-${level}" title="${levelText[level]}${row.mean!=null?'; ขอบเขต '+row.lower+'–'+row.upper+' '+m.unit:''}"><span class="fc-day-metric">${key==='pm25'?'PM2.5':'°C'}</span><strong>${row.mean==null?'—':row.mean.toFixed(1)}</strong><span aria-label="${levelText[level]}">${symbol[level]}</span></div>`;}
-  function renderDecision(site,pm,temp){
+  function alertValue(row,key){
+    const m=metrics[key],threshold=LhsForecast.thresholds[key];
+    const isObs=row?.kind==='observed';
+    const level=isObs?(row.mean==null?'missing':row.mean>=threshold?'exceed':'below'):LhsForecast.alertLevel(row,threshold);
+    const title=isObs?(row.mean==null?'ไม่มีข้อมูลวันนี้':row.mean>=threshold?'ค่าวันนี้ถึง/เกินเกณฑ์':'ค่าวันนี้ยังไม่ถึงเกณฑ์'):`${levelText[level]}${row.mean!=null?'; ขอบเขต '+row.lower+'–'+row.upper+' '+m.unit:''}`;
+    const tip=isObs?`${title} (${row.mean==null?'—':row.mean.toFixed(1)} ${m.unit})`:title;
+    return `<div class="fc-day-value fc-${level}" title="${tip}"><span class="fc-day-metric">${key==='pm25'?'PM2.5':'°C'}</span><strong>${row.mean==null?'—':row.mean.toFixed(1)}</strong><span aria-label="${title}">${symbol[level]}</span></div>`;
+  }
+  function renderDecision(site,pm,temp,src,todayPM,todayTemp){
     const ps=LhsForecast.summarize(pm,LhsForecast.thresholds.pm25),ts=LhsForecast.summarize(temp,LhsForecast.thresholds.temp),allDates=new Set([...ps.exceeded,...ts.exceeded].map(r=>r.date));
     const headline=allDates.size?`อย่างน้อย 1 ตัวแปรถึงเกณฑ์ใน ${allDates.size} วัน`:ps.level==='watch'||ts.level==='watch'?'ค่าคาดการณ์ยังไม่ถึงเกณฑ์ แต่ควรเฝ้าระวังขอบเขตบน':ps.complete&&ts.complete?'ยังไม่พบค่าถึงเกณฑ์ที่กำหนดใน 7 วัน':'ข้อมูลพยากรณ์ 7 วันยังไม่ครบ';
-    $('forecast-alert-board').innerHTML=`<div class="fc-board-head"><div><span class="fc-eyebrow">ดูเร็ว · 7 วันข้างหน้า</span><h3 id="forecast-alert-title">${headline}</h3><p>${esc(site.name)} · ${dateText(LhsForecast.day(forecastConfig.issueDate,1))} – ${dateText(LhsForecast.day(forecastConfig.issueDate,7))}</p></div><span class="workspace-demo">ข้อมูลพยากรณ์จำลอง</span></div><div class="fc-alert-cards">${summaryCard('pm25',pm)}${summaryCard('temp',temp)}</div><div class="fc-week-wrap" tabindex="0" aria-label="ตารางรายวันพยากรณ์ 7 วัน เลื่อนดูวันเพิ่มเติมได้"><div class="fc-week" role="list">${pm.map((p,i)=>`<div class="fc-day" role="listitem"><div class="fc-day-date">${weekday(p.date)} <strong>${dateText(p.date)}</strong></div>${alertValue(p,'pm25')}${alertValue(temp[i],'temp')}</div>`).join('')}</div></div><div class="fc-board-bottom"><div><span><b class="fc-legend-exceed">!</b> ค่าคาดการณ์ถึงเกณฑ์</span><span><b class="fc-legend-watch">△</b> เฉพาะขอบเขตบนถึงเกณฑ์</span><small>สรุปนี้อ้างอิง 7 วันหลังรอบข้อมูลล่าสุด ไม่เปลี่ยนตามช่วงย้อนหลังของกราฟ</small></div><button id="forecast-focus-week" type="button" class="entry-btn entry-btn-small">ขยายกราฟ 7 วันข้างหน้า</button></div>`;
+    const weekPM=[todayPM,...pm],weekTemp=[todayTemp,...temp];
+    $('forecast-alert-board').innerHTML=`<div class="fc-board-head"><div><span class="fc-eyebrow">ดูเร็ว · วันนี้ + 7 วันข้างหน้า</span><h3 id="forecast-alert-title">${headline}</h3><p>${esc(site.name)} · ${dateText(src.issueDate)} – ${dateText(LhsForecast.day(src.issueDate,7))}</p></div><span class="workspace-demo">ข้อมูลพยากรณ์จำลอง</span></div><div class="fc-alert-cards">${summaryCard('pm25',pm)}${summaryCard('temp',temp)}</div><div class="fc-week-wrap" tabindex="0" aria-label="ตารางรายวัน วันนี้และพยากรณ์ 7 วัน เลื่อนดูวันเพิ่มเติมได้"><div class="fc-week" role="list">${weekPM.map((p,i)=>`<div class="fc-day${i===0?' fc-today':''}" role="listitem"><div class="fc-day-date">${i===0?'วันนี้ · ':''}${weekday(p.date)} <strong>${dateText(p.date)}</strong></div>${alertValue(p,'pm25')}${alertValue(weekTemp[i],'temp')}</div>`).join('')}</div></div><div class="fc-board-bottom"><div><span><b class="fc-legend-exceed">!</b> ค่าคาดการณ์ถึงเกณฑ์</span><span><b class="fc-legend-watch">△</b> เฉพาะขอบเขตบนถึงเกณฑ์</span><small>สรุปนี้อ้างอิงวันนี้และ 7 วันหลังรอบข้อมูลล่าสุด ไม่เปลี่ยนตามช่วงย้อนหลังของกราฟ</small></div><button id="forecast-focus-week" type="button" class="entry-btn entry-btn-small">ขยายกราฟ 7 วันข้างหน้า</button></div>`;
     $('forecast-focus-week').onclick=()=>{applyPeriod('forecast');$('forecast-toolbar').scrollIntoView({behavior:'smooth',block:'center'});};
   }
   function render(){
     if(!envChart)return;
-    const site=getCurrentSite(),start=$('start-date').value,end=$('end-date').value,pm=LhsForecast.series(forecastConfig,'pm25',start,end,offsetFor(site,'pm25')),temp=LhsForecast.series(forecastConfig,'temp',start,end,offsetFor(site,'temp'));
-    const first=LhsForecast.day(forecastConfig.issueDate,1),last=LhsForecast.day(forecastConfig.issueDate,7);
-    const futurePM=LhsForecast.series(forecastConfig,'pm25',first,last,offsetFor(site,'pm25')),futureTemp=LhsForecast.series(forecastConfig,'temp',first,last,offsetFor(site,'temp'));
+    const site=getCurrentSite(),src=LhsForecast.forSite(site.id),isLive=src.source==='cmuccdc-live';
+    const pmOffset=isLive?0:offsetFor(site,'pm25'),tempOffset=offsetFor(site,'temp');
+    const start=$('start-date').value,end=$('end-date').value,pm=LhsForecast.series(src,'pm25',start,end,pmOffset),temp=LhsForecast.series(src,'temp',start,end,tempOffset);
+    const first=LhsForecast.day(src.issueDate,1),last=LhsForecast.day(src.issueDate,7);
+    const todayPM=LhsForecast.series(src,'pm25',src.issueDate,src.issueDate,pmOffset)[0];
+    const todayTemp=LhsForecast.series(src,'temp',src.issueDate,src.issueDate,tempOffset)[0];
+    const futurePM=LhsForecast.series(src,'pm25',first,last,pmOffset),futureTemp=LhsForecast.series(src,'temp',first,last,tempOffset);
     const data=[...datasets(pm,'pm25','',metrics.pm25.color,'primary-pm25'),...datasets(temp,'temp','',metrics.temp.color,'primary-temp')];
     const comp=comparisonLocationsDb[$('location-select')?.value];
-    if(comp)for(const key of ['pm25','temp']){const delta=key==='pm25'?comp.pmOffset*.4:comp.tempOffset*.6;data.push(...datasets(LhsForecast.series(forecastConfig,key,start,end,offsetFor(site,key)+delta),key,comp.name,key==='pm25'?'#9865bc':'#298e87',`comparison-${key}`));}
+    if(comp)for(const key of ['pm25','temp']){const delta=key==='pm25'?comp.pmOffset*.4:comp.tempOffset*.6;data.push(...datasets(LhsForecast.series(src,key,start,end,(key==='pm25'?pmOffset:tempOffset)+delta),key,comp.name,key==='pm25'?'#9865bc':'#298e87',`comparison-${key}`));}
     envChart.forecastStartIndex=pm.findIndex(r=>r.kind==='forecast');envChart.data.labels=pm.map(r=>dateText(r.date));envChart.data.datasets=data;envChart.update();
     rangePreset=['30','forecast'].find(p=>{const r=period(p);return r.start===start&&r.end===end;}) || 'custom';
     const observed=pm.filter(r=>r.kind==='observed').length,forecast=pm.filter(r=>r.kind==='forecast').length,missing=pm.filter(r=>r.kind==='missing').length;
     $('forecast-plot-caption').innerHTML=`<span>กราฟนี้: ย้อนหลัง <b>${observed} วัน</b> + พยากรณ์ <b>${forecast} วัน</b>${missing?' · ไม่มีข้อมูล '+missing+' วัน':''}</span><span><i style="background:${metrics.pm25.color}"></i>PM2.5 แกนซ้าย <i style="background:${metrics.temp.color}"></i>อุณหภูมิแกนขวา</span>`;
     const error=$('forecast-range-error');error.hidden=pm.length>0&&pm.some(r=>r.kind!=='missing');
     error.textContent=start>end?'วันที่เริ่มต้นอยู่หลังวันที่สิ้นสุด กรุณาปรับช่วงวันที่':(Date.parse(end)-Date.parse(start))/86400000>=400?'ช่วงวันที่ยาวเกิน 400 วัน กรุณาเลือกช่วงที่สั้นลง':'ช่วงวันที่นี้ไม่มีข้อมูลจำลอง กรุณาเลือกช่วงภายใน 180 วันย้อนหลังถึง 7 วันข้างหน้าของรอบข้อมูล';
-    renderDecision(site,futurePM,futureTemp);
+    renderDecision(site,futurePM,futureTemp,src,todayPM,todayTemp);
 
   }
   globalThis.LhsForecastView=Object.freeze({init,render,defaults,resetComparison});

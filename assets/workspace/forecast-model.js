@@ -33,6 +33,50 @@
       forecasts:prediction.map(([pm,temp],i)=>({date:day(issueDate,i+1),kind:'forecast',horizon:i+1,pm25:triple(...pm),temp:triple(...temp)})),
     };
   }
+  const siteCache=new Map();
+  function round1(v){return Math.round(v*10)/10;}
+  function createLiveSource(snapshot,siteId){
+    const issueDate=snapshot?.issueDate||today();
+    const base=createDemoSource(issueDate);
+    const feed=snapshot?.siteFeeds?.[siteId];
+    if(!feed)return base;
+    const obsByDate=new Map((feed.observed||[]).map(r=>[r.date,r]));
+    const observed=base.observed.map(row=>{
+      const real=obsByDate.get(row.date);
+      if(!real)return row;
+      return {
+        date:row.date,kind:'observed',
+        pm25:Number.isFinite(real.pm25)?round1(real.pm25):row.pm25,
+        temp:Number.isFinite(real.temp)&&real.temp>0?round1(real.temp):row.temp,
+      };
+    });
+    const fcByDate=new Map((feed.forecastPm25||[]).map(f=>[f.date,f]));
+    const forecasts=base.forecasts.map((row,i)=>{
+      const real=fcByDate.get(row.date)||feed.forecastPm25?.[i];
+      if(!real||!Number.isFinite(real.pm25))return row;
+      const mean=round1(Math.max(0,real.pm25));
+      // Confidence intervals & temperature forecast are not yet provided by the API; keep mock spread/temp.
+      const half=Math.max(4,round1(mean*0.18));
+      const lower=Math.max(0,round1(mean-half));
+      const upper=round1(mean+half);
+      return {...row,pm25:triple(mean,lower,upper)};
+    });
+    const hasRealObserved=(feed.observed||[]).length>0;
+    const hasRealTemp=(feed.observed||[]).some(r=>Number.isFinite(r.temp)&&r.temp>0);
+    return {
+      source:'cmuccdc-live',isDemo:false,siteId,issueDate,timezone:'Asia/Bangkok',coverage:null,historyDays:base.historyDays,
+      hasRealObserved,hasRealTemp,hasRealForecastPm25:(feed.forecastPm25||[]).length>0,
+      primaryStationName:feed.primaryStationName||'',forecastStationName:feed.forecastStationName||'',
+      observed,forecasts,
+    };
+  }
+  function forSite(siteId){
+    const snapshot=globalThis.LHS_CLIMATE_DATA;
+    if(!snapshot?.siteFeeds?.[siteId])return createDemoSource(snapshot?.issueDate||today());
+    const key=`${snapshot.issueDate}:${siteId}`;
+    if(!siteCache.has(key))siteCache.set(key,createLiveSource(snapshot,siteId));
+    return siteCache.get(key);
+  }
   function series(source,metric,start,end,offset=0){
     if(!['pm25','temp'].includes(metric))throw Error('Unknown metric');
     if(!/^\d{4}-\d{2}-\d{2}$/.test(start)||!/^\d{4}-\d{2}-\d{2}$/.test(end)||start>end)return [];
@@ -63,5 +107,5 @@
       firstExceed:exceeded[0] || null,firstWatch:upperOnly[0] || null,
       level:exceeded.length?'exceed':upperOnly.length?'watch':rows.length===7&&valid.length===7?'below':'missing'};
   }
-  globalThis.LhsForecast=Object.freeze({day,today,triple,createDemoSource,series,thresholds,alertLevel,summarize});
+  globalThis.LhsForecast=Object.freeze({day,today,triple,createDemoSource,createLiveSource,forSite,series,thresholds,alertLevel,summarize});
 })();

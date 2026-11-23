@@ -5,7 +5,7 @@
   const coordinateStatus=r=>r.isDemo?'example-building':r.coordinateVerification==='roof-confirmed'&&r.coordinateSource&&LhsCareModel.validCoordinates(r)?'confirmed':'unverified';
   function forecast(source,site){
     const first=LhsForecast.day(source.issueDate,1),last=LhsForecast.day(source.issueDate,7);
-    const pm=LhsForecast.series(source,'pm25',first,last,((site.basePM??20)-20)*.4);
+    const pm=LhsForecast.series(source,'pm25',first,last,source.source==='cmuccdc-live'?0:((site.basePM??20)-20)*.4);
     const temp=LhsForecast.series(source,'temp',first,last,((site.baseTemp??30.8)-30.8)*.4);
     return pm.map((row,i)=>({date:row.date,pm25:row,temp:temp[i],airLevel:LhsForecast.alertLevel(row,150),heatLevel:LhsForecast.alertLevel(temp[i],38)}));
   }
