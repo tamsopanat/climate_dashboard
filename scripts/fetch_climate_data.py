@@ -97,10 +97,10 @@ def build_daily_observed(rows: list[dict]) -> list[dict]:
         dt = (row.get("log_datetime") or row.get("datetime") or row.get("date") or "")[:10]
         if len(dt) != 10:
             continue
-        pv = to_float(row.get("pm25"))
+        pv = to_float(row.get("pm25") if row.get("pm25") is not None else row.get("log_pm25"))
         if pv is not None:
             daily_pm[dt].append(pv)
-        tv = to_float(row.get("temp"))
+        tv = to_float(row.get("temp") if row.get("temp") is not None else row.get("avg_temp"))
         if tv is not None and tv > 0:
             daily_temp[dt].append(tv)
     observed = []
@@ -148,7 +148,11 @@ def load_monthly_database_rows(api_key: str, bkk_now: datetime) -> dict[str, lis
                 or ""
             ).strip()
             if sid:
-                rows_by_station[sid].append(row)
+                nested = row.get("value")
+                if isinstance(nested, list):
+                    rows_by_station[sid].extend(nested)
+                else:
+                    rows_by_station[sid].append(row)
     return rows_by_station
 
 
