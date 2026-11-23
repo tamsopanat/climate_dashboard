@@ -3,3 +3,4 @@
 .env
 *.key
 ccdc_apikey.txt
+data/database_*.json

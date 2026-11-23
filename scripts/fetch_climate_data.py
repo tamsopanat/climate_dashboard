@@ -42,7 +42,7 @@ def load_api_key() -> str:
     raise RuntimeError("Set CMUCCDC_API_KEY in environment or .env before running.")
 
 
-def fetch_json(url: str, api_key: str, *, insecure_ssl: bool = False, use_query_key: bool = False):
+def fetch_json(url: str, api_key: str, *, insecure_ssl: bool = False, use_query_key: bool = False, timeout: int = 30):
     ctx = ssl._create_unverified_context() if insecure_ssl else None
     headers = {"User-Agent": "LHS-Climate-Dashboard/1.0"}
     if use_query_key:
@@ -51,7 +51,7 @@ def fetch_json(url: str, api_key: str, *, insecure_ssl: bool = False, use_query_
     else:
         headers["Authorization"] = f"Bearer {api_key}"
     req = urllib.request.Request(url, headers=headers)
-    with urllib.request.urlopen(req, timeout=30, context=ctx) as resp:
+    with urllib.request.urlopen(req, timeout=timeout, context=ctx) as resp:
         return json.loads(resp.read().decode("utf-8", errors="replace"))
 
 
@@ -129,14 +129,16 @@ def load_monthly_database_rows(api_key: str, bkk_now: datetime) -> dict[str, lis
                 f"https://open-api.cmuccdc.org/api/dustboy/database/{ym}",
                 api_key,
                 use_query_key=True,
+                timeout=180,
             )
             db_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
-        except urllib.error.HTTPError as exc:
+        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, OSError) as exc:
+            err_label = f"HTTP {exc.code}" if isinstance(exc, urllib.error.HTTPError) else str(exc)
             if db_path.exists():
-                print(f"  Using cached {db_path.name} (API error: HTTP {exc.code})")
+                print(f"  Using cached {db_path.name} (API error: {err_label})")
                 payload = json.loads(db_path.read_text(encoding="utf-8"))
             else:
-                print(f"  Skipping database/{ym} (HTTP {exc.code})")
+                print(f"  Skipping database/{ym} ({err_label})")
         for row in parse_history_rows(payload):
             sid = str(
                 row.get("dustboy_id")
