@@ -3,11 +3,16 @@
   'use strict';
   const baseline=Object.freeze({siteId:'usr_maechaem',people:6626,households:2353,villages:12,source:'ข้อมูลเบื้องต้นที่ผู้ใช้ระบุ',asOf:null});
   const coordinateStatus=r=>r.isDemo?'example-building':r.coordinateVerification==='roof-confirmed'&&r.coordinateSource&&LhsCareModel.validCoordinates(r)?'confirmed':'unverified';
+  function dayLevel(row,threshold){
+    if(!row||!Number.isFinite(row.mean))return 'missing';
+    if(row.kind==='observed')return row.mean>=threshold?'exceed':'below';
+    return LhsForecast.alertLevel(row,threshold);
+  }
   function forecast(source,site){
-    const first=LhsForecast.day(source.issueDate,1),last=LhsForecast.day(source.issueDate,7);
+    const first=source.issueDate,last=LhsForecast.day(source.issueDate,7);
     const pm=LhsForecast.series(source,'pm25',first,last,source.source==='cmuccdc-live'?0:((site.basePM??20)-20)*.4);
     const temp=LhsForecast.series(source,'temp',first,last,((site.baseTemp??30.8)-30.8)*.4);
-    return pm.map((row,i)=>({date:row.date,pm25:row,temp:temp[i],airLevel:LhsForecast.alertLevel(row,150),heatLevel:LhsForecast.alertLevel(temp[i],38)}));
+    return pm.map((row,i)=>({date:row.date,isToday:row.date===source.issueDate,pm25:row,temp:temp[i],airLevel:dayLevel(row,150),heatLevel:dayLevel(temp[i],38)}));
   }
   function exposure(record,days,airFactors,heatFactors){
     if(!LhsCareModel.vulnerable(record))return {level:'general',dates:[],hazards:[]};
