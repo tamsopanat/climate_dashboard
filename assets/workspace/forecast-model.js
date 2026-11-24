@@ -50,8 +50,8 @@
         temp:Number.isFinite(real.temp)&&real.temp>0?round1(real.temp):row.temp,
       };
     });
-    const ciTriple=(mean,horizon)=>{
-      const half=round1(mean*(0.20+Math.sqrt(horizon)/100));
+    const ciTriple=(mean,horizon,scale=1)=>{
+      const half=round1(mean*scale*(0.20+Math.sqrt(horizon)/100));
       return triple(mean,Math.max(0,round1(mean-half)),round1(mean+half));
     };
     const fcByDate=new Map((feed.forecastPm25||[]).map(f=>[f.date,f]));
@@ -60,8 +60,8 @@
       const n=row.horizon||(i+1);
       const realPm=fcByDate.get(row.date)||feed.forecastPm25?.[i];
       const realTemp=fcTempByDate.get(row.date)||feed.forecastTemp?.[i];
-      const pm25=(realPm&&Number.isFinite(realPm.pm25))?ciTriple(round1(Math.max(0,realPm.pm25)),n):row.pm25;
-      const temp=(realTemp&&Number.isFinite(realTemp.temp))?ciTriple(round1(realTemp.temp),n):row.temp;
+      const pm25=(realPm&&Number.isFinite(realPm.pm25))?ciTriple(round1(Math.max(0,realPm.pm25)),n,1):row.pm25;
+      const temp=(realTemp&&Number.isFinite(realTemp.temp))?ciTriple(round1(realTemp.temp),n,0.2):row.temp;
       return {...row,pm25,temp};
     });
     const hasRealObserved=(feed.observed||[]).length>0;
