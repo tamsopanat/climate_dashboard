@@ -50,24 +50,28 @@
         temp:Number.isFinite(real.temp)&&real.temp>0?round1(real.temp):row.temp,
       };
     });
+    const ciTriple=(mean,horizon)=>{
+      const half=round1(mean*(0.20+Math.sqrt(horizon)/100));
+      return triple(mean,Math.max(0,round1(mean-half)),round1(mean+half));
+    };
     const fcByDate=new Map((feed.forecastPm25||[]).map(f=>[f.date,f]));
+    const fcTempByDate=new Map((feed.forecastTemp||[]).map(f=>[f.date,f]));
     const forecasts=base.forecasts.map((row,i)=>{
-      const real=fcByDate.get(row.date)||feed.forecastPm25?.[i];
-      if(!real||!Number.isFinite(real.pm25))return row;
-      const mean=round1(Math.max(0,real.pm25));
-      // Confidence intervals & temperature forecast are not yet provided by the API; use horizon-scaled spread: Forecast ± Forecast × (0.20 + √n%).
       const n=row.horizon||(i+1);
-      const half=round1(mean*(0.20+Math.sqrt(n)/100));
-      const lower=Math.max(0,round1(mean-half));
-      const upper=round1(mean+half);
-      return {...row,pm25:triple(mean,lower,upper)};
+      const realPm=fcByDate.get(row.date)||feed.forecastPm25?.[i];
+      const realTemp=fcTempByDate.get(row.date)||feed.forecastTemp?.[i];
+      const pm25=(realPm&&Number.isFinite(realPm.pm25))?ciTriple(round1(Math.max(0,realPm.pm25)),n):row.pm25;
+      const temp=(realTemp&&Number.isFinite(realTemp.temp))?ciTriple(round1(realTemp.temp),n):row.temp;
+      return {...row,pm25,temp};
     });
     const hasRealObserved=(feed.observed||[]).length>0;
     const hasRealTemp=(feed.observed||[]).some(r=>Number.isFinite(r.temp)&&r.temp>0);
     return {
       source:'cmuccdc-live',isDemo:false,siteId,issueDate,timezone:'Asia/Bangkok',coverage:null,historyDays:base.historyDays,
       hasRealObserved,hasRealTemp,hasRealForecastPm25:(feed.forecastPm25||[]).length>0,
+      hasRealForecastTemp:(feed.forecastTemp||[]).length>0,
       primaryStationName:feed.primaryStationName||'',forecastStationName:feed.forecastStationName||'',
+      forecastTempStationName:feed.forecastTempStationName||'',
       observed,forecasts,
     };
   }

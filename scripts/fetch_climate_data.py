@@ -7,12 +7,18 @@ import json
 import math
 import os
 import ssl
+import sys
 import time
 import urllib.error
 import urllib.request
 from collections import defaultdict
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+
+import pandas as pd
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from forecast_avg_temp import forecast_avg_temp
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
@@ -113,6 +119,73 @@ def build_daily_observed(rows: list[dict]) -> list[dict]:
         )
         observed.append({"date": dt, "pm25": pm_avg, "temp": t_avg})
     return observed
+
+
+def build_daily_temp_df(rows: list[dict]) -> pd.DataFrame:
+    """Aggregate hourly station rows into daily avg_temp, max_temp, min_temp, samples."""
+    daily_temp: dict[str, list[float]] = defaultdict(list)
+    for row in rows:
+        dt = (row.get("log_datetime") or row.get("datetime") or row.get("date") or "")[:10]
+        if len(dt) != 10:
+            continue
+        tv = to_float(row.get("temp") if row.get("temp") is not None else row.get("avg_temp"))
+        if tv is not None and tv > 0:
+            daily_temp[dt].append(tv)
+    records = []
+    for dt in sorted(daily_temp.keys()):
+        vals = daily_temp[dt]
+        records.append({
+            "date": dt,
+            "avg_temp": round(sum(vals) / len(vals), 2),
+            "max_temp": round(max(vals), 2),
+            "min_temp": round(min(vals), 2),
+            "samples": len(vals),
+        })
+    return pd.DataFrame(records, columns=["date", "avg_temp", "max_temp", "min_temp", "samples"])
+
+
+def forecast_site_temp(
+    ranked: list[dict],
+    hist_station: dict,
+    primary_rows: list[dict],
+    db_rows_by_id: dict[str, list[dict]],
+    history_raw_by_id: dict[str, dict],
+) -> tuple[str | None, str | None, list[dict]]:
+    """Run forecast_avg_temp on the site's history station or nearest station with temp data."""
+    candidates: list[tuple[dict, list[dict]]] = [(hist_station, primary_rows)]
+    for st in ranked:
+        if st["id"] == hist_station["id"]:
+            continue
+        rows = (
+            db_rows_by_id.get(st["id"])
+            or db_rows_by_id.get(st.get("dustboy_id", ""))
+            or (history_raw_by_id.get(st["id"]) or {}).get("value")
+            or []
+        )
+        if rows:
+            candidates.append((st, rows))
+
+    for st, rows in candidates:
+        df = build_daily_temp_df(rows)
+        if len(df) < 10:
+            continue
+        try:
+            fc_df = forecast_avg_temp(df, horizon=7)
+        except ValueError:
+            continue
+        return (
+            st["id"],
+            st["name"],
+            [
+                {
+                    "date": r.date.strftime("%Y-%m-%d"),
+                    "h": int(r.day_ahead),
+                    "temp": round(float(r.avg_temp_forecast), 1),
+                }
+                for r in fc_df.itertuples(index=False)
+            ],
+        )
+    return None, None, []
 
 
 def load_monthly_database_rows(api_key: str, bkk_now: datetime) -> dict[str, list[dict]]:
@@ -283,6 +356,7 @@ def main() -> None:
                     break
 
         if bulk_rows:
+            source_rows = bulk_rows
             observed = build_daily_observed(bulk_rows)
         else:
             # Check existing cached station_history.json first; fetch at most 1 uncached primary station
@@ -303,7 +377,12 @@ def main() -> None:
                 except Exception as exc:
                     print(f"  Warning: history fetch failed for station {sid}: {exc}")
                     history_raw_by_id.setdefault(sid, {"value": []})
-            observed = build_daily_observed(history_raw_by_id[sid].get("value") or [])
+            source_rows = history_raw_by_id[sid].get("value") or []
+            observed = build_daily_observed(source_rows)
+
+        temp_fc_sid, temp_fc_name, forecast_temp = forecast_site_temp(
+            ranked, hist_station, source_rows, db_rows_by_id, history_raw_by_id
+        )
 
         nearest_fc = min(
             forecast_stations,
@@ -333,6 +412,9 @@ def main() -> None:
                 }
                 for f in nearest_fc.get("forecasts", [])[:7]
             ],
+            "forecastTempStationId": temp_fc_sid,
+            "forecastTempStationName": temp_fc_name,
+            "forecastTemp": forecast_temp,
         }
 
     (DATA_DIR / "station_history.json").write_text(
