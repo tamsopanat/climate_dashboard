@@ -3,7 +3,7 @@
   const $=id=>document.getElementById(id),esc=entryEscape,M=LhsCareModel,OM=LhsCareOpsModel;
   let context=null,map=null,layer=null,village='all',factor='all',population='all',lastSourceMode=null;
   let records=[],markers=new Map(),activeHouses=[],search='',searchTimer=null,selectedHouse=null,listLimit=50,alertCache=new Map();
-  let baseMapName='ภาพถ่ายดาวเทียม + ถนน (Satellite)',footprintLayer=null,boundaryLayer=null,selectedDate='all',actionOnly=true,planDays=[];
+  let baseMapName='ภาพถ่ายดาวเทียม + ถนน (Satellite)',footprintLayer=null,boundaryLayer=null,selectedDate='all',actionOnly=false,planDays=[];
   const center=()=>{const r=LhsBuildingSamples.referencePlace;return [r.lat,r.lng];};
   const selectedDays=()=>selectedDate==='all'?planDays:planDays.filter(d=>d.date===selectedDate);
   const alert=r=>{if(!alertCache.has(r))alertCache.set(r,OM.exposure(r,selectedDays(),AIR_RISK_FACTORS,TEMP_RISK_FACTORS));return alertCache.get(r);};
@@ -78,10 +78,10 @@
   }
   function open(next){
     if(next.role!=='gov')return;
-    if(context?.siteId!==next.siteId||lastSourceMode!==LhsCommunityData.mode(next.siteId)){village='all';factor='all';population='all';search='';selectedHouse=null;selectedDate='all';actionOnly=true;}
+    planDays=OM.forecast(LhsForecast.forSite(next.siteId),userSites.find(s=>s.id===next.siteId));
+    if(context?.siteId!==next.siteId||lastSourceMode!==LhsCommunityData.mode(next.siteId)){village='all';factor='all';population='all';search='';selectedHouse=null;selectedDate='all';actionOnly=planDays.some(d=>d.airLevel==='exceed'||d.heatLevel==='exceed');}
     clearTimeout(searchTimer);
     context={...next};
-    planDays=OM.forecast(LhsForecast.forSite(next.siteId),userSites.find(s=>s.id===next.siteId));
     if(map){map.remove();map=null;}
     let panel=$('panel-care-map');if(!panel){panel=document.createElement('div');panel.id='panel-care-map';panel.className='w-full hidden';document.querySelector('main').appendChild(panel);}
     panel.innerHTML=`<div class="care-heading"><div><div class="entry-eyebrow">วางแผนล่วงหน้า · อบต.กองแขก</div><h2>แผนที่การดูแลกลุ่มเปราะบาง</h2><p>พยากรณ์ 7 วัน → เตรียมรายการกลุ่มเปราะบาง → ประสานอาสาสมัคร</p></div><button type="button" id="care-add" class="entry-btn entry-btn-primary"><span aria-hidden="true">＋</span>เพิ่มทะเบียนประชาชน</button></div>
