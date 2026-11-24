@@ -150,7 +150,7 @@ def forecast_site_temp(
     primary_rows: list[dict],
     db_rows_by_id: dict[str, list[dict]],
     history_raw_by_id: dict[str, dict],
-) -> tuple[str | None, str | None, list[dict]]:
+) -> tuple[str | None, str | None, list[dict], dict[str, float]]:
     """Run forecast_avg_temp on the site's history station or nearest station with temp data."""
     candidates: list[tuple[dict, list[dict]]] = [(hist_station, primary_rows)]
     for st in ranked:
@@ -173,6 +173,10 @@ def forecast_site_temp(
             fc_df = forecast_avg_temp(df, horizon=7)
         except ValueError:
             continue
+        obs_temp_by_date = {
+            r.date: round(float(r.avg_temp), 1)
+            for r in df.itertuples(index=False)
+        }
         return (
             st["id"],
             st["name"],
@@ -184,8 +188,9 @@ def forecast_site_temp(
                 }
                 for r in fc_df.itertuples(index=False)
             ],
+            obs_temp_by_date,
         )
-    return None, None, []
+    return None, None, [], {}
 
 
 def load_monthly_database_rows(api_key: str, bkk_now: datetime) -> dict[str, list[dict]]:
@@ -380,9 +385,13 @@ def main() -> None:
             source_rows = history_raw_by_id[sid].get("value") or []
             observed = build_daily_observed(source_rows)
 
-        temp_fc_sid, temp_fc_name, forecast_temp = forecast_site_temp(
+        temp_fc_sid, temp_fc_name, forecast_temp, obs_temp_by_date = forecast_site_temp(
             ranked, hist_station, source_rows, db_rows_by_id, history_raw_by_id
         )
+        if obs_temp_by_date:
+            for row in observed:
+                if row.get("temp") is None and row["date"] in obs_temp_by_date:
+                    row["temp"] = obs_temp_by_date[row["date"]]
 
         nearest_fc = min(
             forecast_stations,
