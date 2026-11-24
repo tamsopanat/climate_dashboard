@@ -55,8 +55,9 @@
       const real=fcByDate.get(row.date)||feed.forecastPm25?.[i];
       if(!real||!Number.isFinite(real.pm25))return row;
       const mean=round1(Math.max(0,real.pm25));
-      // Confidence intervals & temperature forecast are not yet provided by the API; keep mock spread/temp.
-      const half=Math.max(4,round1(mean*0.18));
+      // Confidence intervals & temperature forecast are not yet provided by the API; use horizon-scaled spread: Forecast ± Forecast × (0.20 + √n%).
+      const n=row.horizon||(i+1);
+      const half=round1(mean*(0.20+Math.sqrt(n)/100));
       const lower=Math.max(0,round1(mean-half));
       const upper=round1(mean+half);
       return {...row,pm25:triple(mean,lower,upper)};
